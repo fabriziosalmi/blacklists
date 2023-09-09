@@ -1,94 +1,86 @@
 #!/bin/bash
 
-echo "Setup script"
+# Constants
+readonly BLACKLIST_URL_FILE="blacklists.fqdn.urls"
+readonly AGGREGATED_LIST="aggregated.fqdn.list"
+readonly BLACKLIST_OUTPUT="all.fqdn.blacklist"
+readonly COMPRESSED_BLACKLIST="all.fqdn.blacklist.tar.gz"
+readonly REQUIRED_PACKAGES=(pv ncftp python3)
 
-# Detect package manager
-if command -v apt-get &>/dev/null; then
-    PACKAGE_MANAGER="apt-get"
-    UPDATE_CMD="sudo apt-get update"
-    INSTALL_CMD="sudo apt-get install -y"
-elif command -v apk &>/dev/null; then
-    PACKAGE_MANAGER="apk"
-    UPDATE_CMD="sudo apk update"
-    INSTALL_CMD="sudo apk add --no-cache"
-else
-    echo "Unsupported package manager. Exiting."
-    exit 1
-fi
+# Error Handling
+trap 'echo "An error occurred. Exiting."; exit 1' ERR
 
-# Update and install prerequisites
-$UPDATE_CMD
-$INSTALL_CMD python3
+setup_environment() {
+    echo "Setting up the environment..."
 
-# Link python3 to python (for Ubuntu, since Alpine doesn't have python2 by default)
-if [ "$PACKAGE_MANAGER" == "apt-get" ]; then
-    sudo ln -s /usr/bin/python3 /usr/bin/python
-fi
-
-python3 -m ensurepip --upgrade
-pip3 install --no-cache-dir --upgrade pip setuptools tldextract tqdm
-
-# Install pv and ncftp based on the detected package manager
-for package in pv ncftp; do
-    if ! $INSTALL_CMD $package; then
-        echo "Failed to install '$package' using $PACKAGE_MANAGER."
+    # Detect package manager
+    if command -v apt-get &>/dev/null; then
+        PACKAGE_MANAGER="apt-get"
+        UPDATE_CMD="sudo apt-get update"
+        INSTALL_CMD="sudo apt-get install -y"
+    else
+        echo "Unsupported package manager. Exiting."
         exit 1
     fi
-done
 
+    # Update and install prerequisites
+    $UPDATE_CMD
+    $INSTALL_CMD "${REQUIRED_PACKAGES[@]}"
 
-LISTS="blacklists.fqdn.urls"
+    # Link python3 to python (for Ubuntu)
+    if ! command -v python &>/dev/null; then
+        sudo ln -s /usr/bin/python3 /usr/bin/python
+    fi
 
-# Function to download a URL
-download_url() {
-  local url="$1"
-  echo "Blacklist: $url"
-
-  random_filename=$(uuidgen | tr -dc '[:alnum:]')
-
-  if ! wget -q --progress=bar:force -O "$random_filename.fqdn.list" "$url"; then
-    echo "Failed to download: $url"
-  fi
+    python3 -m ensurepip --upgrade
+    pip3 install --no-cache-dir --upgrade pip setuptools tldextract tqdm
 }
 
-echo "Download blacklists"
+download_blacklists() {
+    echo "Downloading blacklists..."
 
-# Download URLs from the list
-while IFS= read -r url; do
-  download_url "$url"
-done < "$LISTS"
+    while IFS= read -r url; do
+        local random_filename=$(uuidgen | tr -dc '[:alnum:]')
+        if ! wget -q --progress=bar:force -O "$random_filename.fqdn.list" "$url"; then
+            echo "Failed to download: $url"
+        fi
+    done < "$BLACKLIST_URL_FILE"
+}
 
-FILES=$(ls *.fqdn.list)
+aggregate_blacklists() {
+    echo "Aggregating blacklists..."
 
-echo "Aggregate blacklists"
-echo "">aggregated.fqdn.list
+    cat *.fqdn.list | sort -u > "$BLACKLIST_OUTPUT"
+    rm -f *.fqdn.list
+}
 
-while IFS= read -r file; do
-  sudo cat "$file" >> aggregated.fqdn.list
-done <<< "$FILES"
+sanitize_blacklists() {
+    echo "Sanitizing blacklists..."
+    local temp_file
+    temp_file=$(mktemp)
+    python sanitize.py < "$BLACKLIST_OUTPUT" > "$temp_file"
 
-sudo cat aggregated.fqdn.list | sort -u > all.fqdn.blacklist
-echo "Remove source files"
-sudo rm ./*.fqdn.list
+    echo "Removing whitelisted domains..."
+    python whitelist.py < "$temp_file" > "$BLACKLIST_OUTPUT"
 
+    rm "$temp_file"
+}
 
-echo "Sanitize blacklists"
-mv all.fqdn.blacklist input.txt
-python sanitize.py
-mv output.txt all.fqdn.blacklist
+create_compressed_file() {
+    echo "Compressing blacklist file..."
 
-echo "Remove whitelisted domains"
-mv all.fqdn.blacklist blacklist.txt
-python whitelist.py
-mv filtered_blacklist.txt all.fqdn.blacklist
-rm blacklist.txt input.txt
+    tar -czf "$COMPRESSED_BLACKLIST" "$BLACKLIST_OUTPUT" || {
+        echo "Error: Failed to create the tar.gz file."
+        exit 1
+    }
 
-echo "Create compressed file"
+    total_lines_new=$(wc -l < "$BLACKLIST_OUTPUT")
+    echo "Total domains: $total_lines_new."
+}
 
-if ! tar -czf all.fqdn.blacklist.tar.gz "all.fqdn.blacklist"; then                                                            
-    echo "Error: Failed to create the tar.gz file."                                                                    
-   exit 1                                                                                                              
-fi
-
-total_lines_new=$(cat all.fqdn.blacklist | wc -l)
-echo "Total domains: $total_lines_new."
+# Execute functions
+setup_environment
+download_blacklists
+aggregate_blacklists
+sanitize_blacklists
+create_compressed_file
