@@ -1,50 +1,53 @@
-"""whitelist"""
 import os
+from pathlib import Path
+import argparse
 from tqdm import tqdm
 
-def read_file(file_path):
+def read_fqdn_from_file(file_path: Path) -> set:
     """Read the file and return a set of FQDNs."""
-    fqdns = set()
-    with open(file_path, 'r') as file:
-        for line in tqdm(file, desc=f"Reading {file_path}", unit="lines", leave=False):
-            fqdn = line.strip()
-            if fqdn:
-                fqdns.add(fqdn)
-    return fqdns
+    with file_path.open('r') as file:
+        return {line.strip() for line in tqdm(file, desc=f"Reading {file_path}", unit="lines", leave=False) if line.strip()}
 
-def write_file(file_path, content):
+def write_fqdn_to_file(file_path: Path, content: set) -> None:
     """Write a set of FQDNs to the specified file."""
-    with open(file_path, 'w') as file:
+    with file_path.open('w') as file:
         file.write('\n'.join(content))
 
-def file_exists_or_exit(file_path):
+def ensure_file_exists(file_path: Path) -> None:
     """Check if a file exists or exit the program."""
-    if not os.path.isfile(file_path):
-        print(f"File '{file_path}' not found.")
+    if not file_path.is_file():
+        print(f"ERROR: File '{file_path}' not found.")
         exit(1)
 
-def main():
+def main(blacklist_path: Path, whitelist_path: Path, output_path: Path) -> None:
     """Main function to process blacklist and whitelist files."""
-    blacklist_file = 'blacklist.txt'
-    whitelist_file = 'whitelist.txt'
-    output_file = 'filtered_blacklist.txt'
-
+    
     # Check if files exist
-    file_exists_or_exit(blacklist_file)
-    file_exists_or_exit(whitelist_file)
+    ensure_file_exists(blacklist_path)
+    ensure_file_exists(whitelist_path)
 
-    blacklist_fqdns = read_file(blacklist_file)
-    whitelist_fqdns = read_file(whitelist_file)
+    blacklist_fqdns = read_fqdn_from_file(blacklist_path)
+    whitelist_fqdns = read_fqdn_from_file(whitelist_path)
 
     # Filter out whitelisted FQDNs from the blacklist
     filtered_fqdns = blacklist_fqdns - whitelist_fqdns
 
-    write_file(output_file, filtered_fqdns)
+    write_fqdn_to_file(output_path, filtered_fqdns)
 
-    print(f"{len(blacklist_fqdns)} FQDNs in the blacklist.")
-    print(f"{len(whitelist_fqdns)} FQDNs in the whitelist.")
-    print(f"{len(filtered_fqdns)} FQDNs after filtering.")
-
+    print(f"Blacklist: {len(blacklist_fqdns)} FQDNs.")
+    print(f"Whitelist: {len(whitelist_fqdns)} FQDNs.")
+    print(f"After Filtering: {len(filtered_fqdns)} FQDNs.")
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description="Process blacklist and whitelist files.")
+    parser.add_argument('--blacklist', default='blacklist.txt', type=Path, help='Path to blacklist file')
+    parser.add_argument('--whitelist', default='whitelist.txt', type=Path, help='Path to whitelist file')
+    parser.add_argument('--output', default='filtered_blacklist.txt', type=Path, help='Path to output file')
+    
+    args = parser.parse_args()
+
+    try:
+        main(args.blacklist, args.whitelist, args.output)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        exit(1)
