@@ -1,0 +1,73 @@
+name: Generate the blacklist
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Adjusted for release creation
+  id-token: write
+
+jobs:
+  Generate-Blacklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: main
+      
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install tldextract tqdm
+          
+      - name: Generate blacklist
+        run: /bin/bash generate.sh  # removed sudo
+        
+      - name: Extract current blacklist.txt
+        run: |
+          mkdir current
+          mv all.fqdn.blacklist current/all.fqdn.blacklist
+          mv current/all.fqdn.blacklist current/blacklist.txt
+
+      - name: Count domains in blacklist
+        id: count_domains
+        run: |
+          count=$(wc -l < current/blacklist.txt)
+          echo "Number of domains: $count"
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Delete Release if Exists
+        run: |
+          release_id=$(curl -H "Authorization: token ${{ secrets.PAT }}" -s "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/latest" | jq .id)
+          if [ "$release_id" != "null" ]; then
+            curl -X DELETE -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/$release_id"
+          fi
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        with:
+          tag_name: latest
+          release_name: "Domains Blacklist"
+          body: "Domains: ${{ steps.count_domains.outputs.count }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Upload Release Asset (Blacklist)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./current/blacklist.txt
+          asset_name: blacklist.txt
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Clean up
+        run: rm -r current

@@ -1,0 +1,37 @@
+name: Create Unbound Blacklist
+
+on:
+  workflow_run:
+    workflows: ["Test new gen"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Download blacklist
+      run: |
+        wget https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
+
+    - name: Process for Unbound
+      run: |
+        echo "# Unbound blacklist format" > unbound_blacklist.txt
+        while IFS= read -r domain
+        do
+          echo "local-zone: \"$domain\" static" >> unbound_blacklist.txt
+        done < blacklist.txt
+
+    - name: Create a Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          unbound_blacklist.txt
+        tag_name: latest #
+        token: ${{ secrets.PAT }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}

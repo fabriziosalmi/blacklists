@@ -1,0 +1,33 @@
+name: Sort, Remove Duplicates, and Lowercase Strings
+
+on:
+  push:
+    paths:
+      - 'custom/streaming.txt'
+
+jobs:
+  clean-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Process file
+      run: |
+        # Sort, remove duplicates, and lowercase strings
+        sort -u -f custom/streaming.txt | tr 'A-Z' 'a-z' > custom/streaming_processed.txt
+
+        # Replace the original file with the processed one if there are any changes
+        if ! cmp --silent custom/streaming.txt custom/streaming_processed.txt; then
+            mv custom/streaming_processed.txt custom/streaming.txt
+        else
+            rm custom/streaming_processed.txt
+        fi
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Action"
+        git config user.email "action@github.com"
+        git add custom/streaming.txt
+        git diff --quiet && git diff --staged --quiet || git commit -m "Processed custom/streaming.txt"
+        git push

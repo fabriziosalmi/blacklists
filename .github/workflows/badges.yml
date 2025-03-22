@@ -1,0 +1,37 @@
+name: Badges
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 * * * *'  # This will run the action every hour. Adjust as needed.
+
+jobs:
+  fetch-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+
+    - name: Fetch and calculate stats
+      run: |
+        BLACKLISTED_COUNT=$(curl -sL "https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt" | wc -l)
+        WHITELISTED_COUNT=$(curl -sL "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/whitelist.txt" | wc -l)
+        BLACKLISTS_SOURCE_COUNT=$(curl -sL "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/blacklists.fqdn.urls" | wc -l)
+        STREAMING_BLACKLIST_COUNT=$(curl -sL "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/custom/streaming.txt" | wc -l)
+        UPDATED_BLACKLISTS_COUNT=$(curl -sL "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/updated.blacklists.urls" | wc -l)
+        echo "![Static Badge](https://img.shields.io/badge/blacklists-$BLACKLISTS_SOURCE_COUNT-000000) ![Static Badge](https://img.shields.io/badge/blacklisted-$BLACKLISTED_COUNT-cc0000) ![Static Badge](https://img.shields.io/badge/whitelisted-$WHITELISTED_COUNT-00CC00) ![Static Badge](https://img.shields.io/badge/streaming_blacklist-$STREAMING_BLACKLIST_COUNT-000000) ![GitHub issues](https://img.shields.io/github/issues/fabriziosalmi/blacklists)" > conf/github/badges.md
+
+    - name: Commit and push badges.md if there are changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add conf/github/badges.md
+        # Check if there are changes to commit
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Badges updated."
+          git pull --rebase origin main
+          git push origin main
+        fi

@@ -1,0 +1,30 @@
+name: Create RPZ Blacklist
+
+on:
+  workflow_run:
+    workflows: ["Test new gen"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Download blacklist
+      run: |
+        wget https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
+        cat blacklist.txt | while read line; do echo "$line CNAME ."; done > rpz_blacklist.txt
+
+    - name: Create a Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          rpz_blacklist.txt
+        tag_name: latest 
+        token: ${{ secrets.PAT }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    environment:
+      - ServerIP=127.0.0.1
+      - WEBPASSWORD=YOUR_PASSWORD
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - "./pihole/:/etc/pihole/"
+    restart: unless-stopped
+
+  squid:
+    build: ./squid/
+    ports:
+      - "3128:3128"
+    depends_on:
+      - pihole
+    volumes:
+      - "./squid/conf:/etc/squid/"
+    restart: unless-stopped

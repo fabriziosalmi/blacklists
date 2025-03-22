@@ -1,0 +1,48 @@
+name: Analyze Blacklists
+
+on:
+  push:
+    paths:
+      - 'blacklists.fqdn.urls'
+  workflow_dispatch:
+
+jobs:
+  analyze-blacklists:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Analyze and sort blacklists
+      run: |
+        mkdir downloaded_lists
+        
+        # Download all the lists
+        while IFS= read -r url; do
+            filename=$(basename "$url")
+            curl -sL "$url" > "downloaded_lists/$filename"
+        done < blacklists.fqdn.urls
+
+        # Function to count unique FQDNs in a file against all others
+        unique_fqdn_count() {
+            local file=$1
+            cat "downloaded_lists/$file" | while read fqdn; do
+                grep -qxF "$fqdn" $(ls downloaded_lists/ | grep -v "$file") || echo "$fqdn"
+            done | wc -l
+        }
+
+        echo "| Filename | Unique FQDN Count |" > blacklists_uniqueness.md
+        echo "|----------|-------------------|" >> blacklists_uniqueness.md
+        
+        for file in $(ls downloaded_lists/); do
+            count=$(unique_fqdn_count "$file")
+            echo "| $file | $count |" >> blacklists_uniqueness.md
+        done | sort -t'|' -k3 -nr >> blacklists_uniqueness.md
+
+    - name: Commit the uniqueness analysis
+      run: |
+        git config user.name "GitHub Action"
+        git config user.email "action@github.com"
+        git add blacklists_uniqueness.md
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update uniqueness analysis in blacklists_uniqueness.md"
+        git push

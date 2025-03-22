@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Blacklist Checker</title>
+    <style>
+	.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn {
+  width: 100%;
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Blacklist Checker</h1>
+    <form id="blacklist-form">
+        <div class="form-group">
+            <label for="domain">Enter Domain/Subdomain:</label>
+            <input type="text" class="form-control" id="domain" name="domain">
+        </div>
+        <button type="submit" class="btn btn-primary">Check</button>
+    </form>
+
+    <table class="table" id="results-table">
+	      <caption>Blacklists</caption>
+        <thead>
+            <tr>
+                <th>Blacklist URL</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="results-body">
+            <!-- Results will be appended here -->
+        </tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

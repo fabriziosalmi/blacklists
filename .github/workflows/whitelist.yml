@@ -1,0 +1,38 @@
+name: Validate and Sort whitelist.txt
+
+on:
+  push:
+    paths:
+      - 'whitelist.txt'
+  workflow_dispatch:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Process and validate whitelist.txt
+      run: |
+        # Lowercase, sort and uniq
+        sort -uf whitelist.txt | tr 'A-Z' 'a-z' > sorted.txt
+
+        # Validate FQDNs and save only valid ones
+        while IFS= read -r fqdn; do
+            if echo "$fqdn" | grep -Pq "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$"; then
+                echo "$fqdn" >> valid.txt
+            else
+                echo "Ignoring invalid FQDN: $fqdn"
+            fi
+        done < sorted.txt
+
+        mv valid.txt whitelist.txt
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add whitelist.txt
+        git commit -m "Process and validate whitelist.txt" || echo "No changes to commit"
+        git push

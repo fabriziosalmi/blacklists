@@ -1,0 +1,27 @@
+name: Delete Old Releases
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  delete-releases:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Delete all releases except the latest two
+      run: |
+        releases=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -s "https://api.github.com/repos/$GITHUB_REPOSITORY/releases")
+        latest_id1=$(echo "$releases" | jq '.[0].id')
+        latest_id2=$(echo "$releases" | jq '.[1].id')
+        
+        ids_to_delete=$(echo "$releases" | jq ".[] | select(.id != $latest_id1 and .id != $latest_id2) | .id")
+        
+        for id in $ids_to_delete; do
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/$id"
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
