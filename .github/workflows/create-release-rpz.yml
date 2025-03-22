@@ -2,7 +2,7 @@ name: Create RPZ Blacklist
 
 on:
   workflow_run:
-    workflows: ["Test new gen"]
+    workflows: ["Generate the blacklist"]
     types:
       - completed
 
