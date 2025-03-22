@@ -8,26 +8,36 @@ on:
 jobs:
   clean-file:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to detect file changes
 
-    - name: Process file
-      run: |
-        # Sort, remove duplicates, and lowercase strings
-        sort -u -f custom/streaming.txt | tr 'A-Z' 'a-z' > custom/streaming_processed.txt
+      - name: Process file
+        id: process_file
+        run: |
+          FILE_PATH="custom/streaming.txt"
+          TEMP_FILE="${FILE_PATH}_processed.txt"
 
-        # Replace the original file with the processed one if there are any changes
-        if ! cmp --silent custom/streaming.txt custom/streaming_processed.txt; then
-            mv custom/streaming_processed.txt custom/streaming.txt
-        else
-            rm custom/streaming_processed.txt
-        fi
+          # Sort, remove duplicates (case-insensitive), and lowercase strings
+          sort -u -f "$FILE_PATH" | tr '[:upper:]' '[:lower:]' > "$TEMP_FILE"
 
-    - name: Commit and push changes
-      run: |
-        git config user.name "GitHub Action"
-        git config user.email "action@github.com"
-        git add custom/streaming.txt
-        git diff --quiet && git diff --staged --quiet || git commit -m "Processed custom/streaming.txt"
-        git push
+          # Compare files and replace if changed
+          if ! cmp --silent "$FILE_PATH" "$TEMP_FILE"; then
+            echo "::set-output name=changed::true"  # Set output if changes detected
+            mv "$TEMP_FILE" "$FILE_PATH"
+          else
+            echo "::set-output name=changed::false" # Set output if no changes
+            rm "$TEMP_FILE"
+          fi
+
+      - name: Commit and push changes
+        if: steps.process_file.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add custom/streaming.txt
+          git commit -m "Processed custom/streaming.txt"
+          git push

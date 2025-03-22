@@ -9,30 +9,49 @@ on:
 jobs:
   process:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Process and validate whitelist.txt
-      run: |
-        # Lowercase, sort and uniq
-        sort -uf whitelist.txt | tr 'A-Z' 'a-z' > sorted.txt
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure full history for change detection
 
-        # Validate FQDNs and save only valid ones
-        while IFS= read -r fqdn; do
-            if echo "$fqdn" | grep -Pq "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$"; then
-                echo "$fqdn" >> valid.txt
+      - name: Process and validate whitelist.txt
+        id: process_file
+        run: |
+          FILE_PATH="whitelist.txt"
+          TEMP_SORTED="sorted.txt"
+          TEMP_VALID="valid.txt"
+
+          # Sort, remove duplicates (case-insensitive), and lowercase
+          sort -uf "$FILE_PATH" | tr '[:upper:]' '[:lower:]' > "$TEMP_SORTED"
+
+          # Validate FQDNs and save only valid ones
+          while IFS= read -r fqdn; do
+            if echo "$fqdn" | grep -Pq "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}\$"; then
+              echo "$fqdn" >> "$TEMP_VALID"
             else
-                echo "Ignoring invalid FQDN: $fqdn"
+              echo "Ignoring invalid FQDN: $fqdn"
             fi
-        done < sorted.txt
+          done < "$TEMP_SORTED"
 
-        mv valid.txt whitelist.txt
+          # Check for changes *before* replacing the file
+          if ! cmp --silent "$FILE_PATH" "$TEMP_VALID"; then
+            echo "::set-output name=changed::true"
+            mv "$TEMP_VALID" "$FILE_PATH"
+          else
+            echo "::set-output name=changed::false"
+            rm "$TEMP_VALID"
+          fi
 
-    - name: Commit changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add whitelist.txt
-        git commit -m "Process and validate whitelist.txt" || echo "No changes to commit"
-        git push
+          # Clean up temporary sorted file
+          rm "$TEMP_SORTED"
+
+      - name: Commit changes
+        if: steps.process_file.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add whitelist.txt
+          git commit -m "Process and validate whitelist.txt"
+          git push
