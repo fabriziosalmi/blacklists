@@ -5,6 +5,7 @@ on:
     workflows: ["Generate the blacklist"]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   build:
