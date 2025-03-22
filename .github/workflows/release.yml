@@ -1,0 +1,111 @@
+name: Generate and Publish Blacklists
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:  # Allows manual triggering
+
+permissions:
+  contents: write  # Required for release creation
+  id-token: write
+
+jobs:
+  generate_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: main
+
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install tldextract tqdm
+
+      - name: Generate blacklist
+        run: /bin/bash generate.sh  # Removed sudo
+
+      - name: Prepare Blacklist Directory
+        run: |
+          mkdir -p blacklist_output
+
+      - name: Extract and Prepare Original Blacklist
+        run: |
+          mv all.fqdn.blacklist blacklist_output/all.fqdn.blacklist
+          mv blacklist_output/all.fqdn.blacklist blacklist_output/blacklist.txt
+          # Optionally sort and deduplicate the list
+          sort -u blacklist_output/blacklist.txt -o blacklist_output/blacklist.txt
+
+      - name: Count domains in blacklist
+        id: count_domains
+        run: |
+          count=$(wc -l < blacklist_output/blacklist.txt)
+          echo "Number of domains: $count"
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Delete Release if Exists
+        id: delete_release
+        run: |
+          release_id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/tags/latest" | jq -r .id)
+          if [[ ! -z "$release_id" ]]; then
+            curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id"
+          fi
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.1.4  # Consider upgrading if newer version available
+        with:
+          tag_name: latest
+          release_name: "Domains Blacklist"
+          body: "Domains: ${{ steps.count_domains.outputs.count }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Asset (Original Blacklist)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: blacklist_output/blacklist.txt
+          asset_name: blacklist.txt
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create RPZ Blacklist
+        run: |
+          awk '{print $0 " CNAME ."}' blacklist_output/blacklist.txt > rpz_blacklist.txt
+
+      - name: Upload Release Asset (RPZ Blacklist)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: rpz_blacklist.txt
+          asset_name: rpz_blacklist.txt
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Unbound Blacklist
+        run: |
+          printf "# Unbound blacklist format\n" > unbound_blacklist.txt
+          while IFS= read -r domain; do
+            printf "local-zone: \"%s\" static\n" "$domain" >> unbound_blacklist.txt
+          done < blacklist_output/blacklist.txt
+
+      - name: Upload Release Asset (Unbound Blacklist)
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: unbound_blacklist.txt
+          asset_name: unbound_blacklist.txt
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up
+        run: rm -rf blacklist_output rpz_blacklist.txt unbound_blacklist.txt
