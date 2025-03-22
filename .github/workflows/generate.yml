@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Adjusted for release creation
+  contents: write  # Required for release creation
   id-token: write
 
 jobs:
@@ -42,9 +42,9 @@ jobs:
 
       - name: Delete Release if Exists
         run: |
-          release_id=$(curl -H "Authorization: token ${{ secrets.PAT }}" -s "https://api.github.com/repos/fabriziosalmi/blacklists/releases/tags/latest" | jq .id)
+          release_id=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -s "https://api.github.com/repos/fabriziosalmi/blacklists/releases/tags/latest" | jq .id)
           if [ "$release_id" != "null" ]; then
-            curl -X DELETE -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/fabriziosalmi/blacklists/releases/$release_id"
+            curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/fabriziosalmi/blacklists/releases/$release_id"
           fi
 
       - name: Create Release
@@ -57,7 +57,7 @@ jobs:
           draft: false
           prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release Asset (Blacklist)
         uses: actions/upload-release-asset@v1
@@ -67,7 +67,7 @@ jobs:
           asset_name: blacklist.txt
           asset_content_type: text/plain
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clean up
         run: rm -r current
