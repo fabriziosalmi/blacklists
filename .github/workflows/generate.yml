@@ -42,9 +42,9 @@ jobs:
 
       - name: Delete Release if Exists
         run: |
-          release_id=$(curl -H "Authorization: token ${{ secrets.PAT }}" -s "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/latest" | jq .id)
+          release_id=$(curl -H "Authorization: token ${{ secrets.PAT }}" -s "https://api.github.com/repos/fabriziosalmi/blacklists/releases/tags/latest" | jq .id)
           if [ "$release_id" != "null" ]; then
-            curl -X DELETE -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/$release_id"
+            curl -X DELETE -H "Authorization: token ${{ secrets.PAT }}" "https://api.github.com/repos/fabriziosalmi/blacklists/releases/$release_id"
           fi
 
       - name: Create Release
