@@ -17,7 +17,7 @@ jobs:
         git config --global user.name "github-actions[bot]"
 
     - name: Check out repository code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 1
         ref: main
