@@ -1,3 +1,4 @@
 *.list
 status.log
 all.fqdn.blacklist
+setup_script.log
