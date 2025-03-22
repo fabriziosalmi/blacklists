@@ -25,7 +25,8 @@ jobs:
       with:
         files: |
           rpz_blacklist.txt
-        tag_name: latest 
-        token: ${{ secrets.PAT }}
+        tag_name: latest
+        token: ${{ secrets.GITHUB_TOKEN }}
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
