@@ -47,7 +47,7 @@ and many more.
 
 For a full list, check the [complete blacklists URLs](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls).
 
-Code improvements by [xRuffKez](https://github.com/xRuffKez).
+Code improvements by [xRuffKez](https://github.com/xRuffKez), [hulores](https://github.com/hulores) and more..
 ## 👨‍💻 Machine Learning
 
 - Machine learning model to [predict bad domains](https://github.com/fabriziosalmi/fqdn-model)
