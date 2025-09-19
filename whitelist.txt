@@ -16,6 +16,8 @@ a.manager-magazin.de
 a0.client-channel.google.com
 a1014.g.akamai.net
 a1843.g.akamai.net
+aax-eu.amazon.es
+aax-eu.amazon.it
 ab13.mktossl.com
 abajournal.com
 abc.com
@@ -175,6 +177,7 @@ asos.com
 aspnetcdn.com
 assets.activity.windows.com
 assets.adobedtm.com
+assets.alicdn.com
 assets.dwell.com
 assets.minutemediacdn.com
 assets.mmsrg.com
@@ -755,6 +758,7 @@ fr-lb.ultimedia.com
 fr.osdn.net
 freebsd.org
 freenet.de
+freeroms.com
 freesubnet.com
 fritz.com
 frys.com
@@ -999,6 +1003,7 @@ images.salsify.com
 images1.minutemediacdn.com
 images2.imgbox.com
 images2.minutemediacdn.com
+imagizer.imageshack.com
 imasdk.googleapis.com
 imeipro.info
 img.connatix.com
@@ -1045,6 +1050,7 @@ is.gd
 issuu.com
 istat.it
 istockphoto.com
+it.aliexpress.com
 it.euspert.com
 it.gravatar.com
 itad.linetv.tw
@@ -1601,6 +1607,7 @@ s.hbrcdn.com
 s.pinimg.com
 s.sdacdn.com
 s.shopify.com
+s.sony.net
 s.ss2.us
 s.team
 s.yimg.com
