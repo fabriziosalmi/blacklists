@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domains Blacklist - Real-time Cyber Defense</title>
+    <meta name="description" content="Hourly updated domains blacklist with 2.9M+ blocked threats. Open-source cybersecurity for everyone.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix"></canvas>
+    
+    <!-- Cyber Grid Background -->
+    <div class="cyber-grid"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 5L45 15V35L25 45L5 35V15L25 5Z" stroke="url(#logo-gradient)" stroke-width="2"/>
+                        <circle cx="25" cy="25" r="8" fill="url(#logo-gradient)"/>
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="5" y1="5" x2="45" y2="45">
+                                <stop offset="0%" stop-color="#00ff88"/>
+                                <stop offset="100%" stop-color="#00d4ff"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span>BLACKLISTS<span class="accent">.SHIELD</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <a href="#download" class="nav-link">Download</a>
+                <a href="https://github.com/fabriziosalmi/blacklists" class="nav-link" target="_blank">GitHub</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="status-badge">
+                <span class="pulse"></span>
+                <span>LIVE • UPDATING HOURLY</span>
+            </div>
+            <h1 class="glitch" data-text="CYBER DEFENSE">
+                CYBER DEFENSE
+                <span class="subtitle">FOR EVERYONE</span>
+            </h1>
+            <p class="hero-description">
+                Real-time protection against <span class="highlight">2.9M+</span> malicious domains.
+                <br>Open-source. Community-driven. Updated every hour.
+            </p>
+            
+            <!-- Live Stats Bar -->
+            <div class="live-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2943292">0</div>
+                    <div class="stat-label">BLOCKED DOMAINS</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="61">0</div>
+                    <div class="stat-label">BLACKLIST SOURCES</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="2253">0</div>
+                    <div class="stat-label">WHITELISTED</div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="cta-buttons">
+                <a href="#download" class="btn btn-primary">
+                    <span>DEPLOY NOW</span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/fabriziosalmi/blacklists" class="btn btn-secondary" target="_blank">
+                    <span>VIEW SOURCE</span>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Threat Indicators -->
+        <div class="threats-container">
+            <div class="threat-orb" style="--delay: 0s; --x: 10%; --y: 20%;"></div>
+            <div class="threat-orb" style="--delay: 0.5s; --x: 80%; --y: 30%;"></div>
+            <div class="threat-orb" style="--delay: 1s; --x: 20%; --y: 70%;"></div>
+            <div class="threat-orb" style="--delay: 1.5s; --x: 90%; --y: 60%;"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">DEFENSE SYSTEMS</h2>
+                <p class="section-description">Enterprise-grade protection for everyone</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7V11C2 16.55 5.84 21.74 12 23C18.16 21.74 22 16.55 22 11V7L12 2Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Hourly Updates</h3>
+                    <p>Automated defense against emerging threats with 60-minute refresh cycles</p>
+                    <div class="feature-badge">REAL-TIME</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Universal Compatibility</h3>
+                    <p>Pi-Hole, AdGuard, Unbound, BIND, Squid, uBlock Origin, and more</p>
+                    <div class="feature-badge">MULTI-PLATFORM</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M3 9H21M9 21V9" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Comprehensive Coverage</h3>
+                    <p>61 curated sources blocking phishing, malware, ads, trackers, and scams</p>
+                    <div class="feature-badge">AGGREGATED</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Community Driven</h3>
+                    <p>Open-source project powered by cybersecurity experts worldwide</p>
+                    <div class="feature-badge">OPEN SOURCE</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>ML-Powered Detection</h3>
+                    <p>Machine learning classifier to predict and identify malicious domains</p>
+                    <div class="feature-badge">AI-ENHANCED</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Zero Configuration</h3>
+                    <p>Copy URL, paste into your tool of choice, and you're protected instantly</p>
+                    <div class="feature-badge">PLUG & PLAY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">THREAT INTELLIGENCE</h2>
+                <p class="section-description">Real-time protection metrics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h3>Threat Categories</h3>
+                        <div class="stat-icon">🎯</div>
+                    </div>
+                    <div class="threat-bars">
+                        <div class="threat-bar">
+                            <div class="threat-label">
+                                <span>Malware</span>
+                                <span class="threat-percent">35%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%; --bar-color: #ff0055;"></div>
+                            </div>
+                        </div>
+                        <div class="threat-bar">
+                            <div class="threat-label">
+                                <span>Phishing</span>
+                                <span class="threat-percent">28%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 28%; --bar-color: #ff6600;"></div>
+                            </div>
+                        </div>
+                        <div class="threat-bar">
+                            <div class="threat-label">
+                                <span>Ads/Trackers</span>
+                                <span class="threat-percent">22%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 22%; --bar-color: #ffbb00;"></div>
+                            </div>
+                        </div>
+                        <div class="threat-bar">
+                            <div class="threat-label">
+                                <span>Scams</span>
+                                <span class="threat-percent">10%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 10%; --bar-color: #00ff88;"></div>
+                            </div>
+                        </div>
+                        <div class="threat-bar">
+                            <div class="threat-label">
+                                <span>Other</span>
+                                <span class="threat-percent">5%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 5%; --bar-color: #00d4ff;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h3>Update Frequency</h3>
+                        <div class="stat-icon">⚡</div>
+                    </div>
+                    <div class="update-visual">
+                        <div class="pulse-ring"></div>
+                        <div class="pulse-ring" style="animation-delay: 0.3s;"></div>
+                        <div class="pulse-ring" style="animation-delay: 0.6s;"></div>
+                        <div class="update-text">
+                            <div class="update-time">60</div>
+                            <div class="update-label">MINUTES</div>
+                        </div>
+                    </div>
+                    <div class="update-info">
+                        <p>Last Update: <span id="last-update">2 minutes ago</span></p>
+                        <p>Next Update: <span id="next-update">in 58 minutes</span></p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h3>Platform Support</h3>
+                        <div class="stat-icon">🔧</div>
+                    </div>
+                    <div class="platforms">
+                        <div class="platform-item">
+                            <div class="platform-logo">🥧</div>
+                            <div class="platform-name">Pi-Hole</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">🛡️</div>
+                            <div class="platform-name">AdGuard</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">🔒</div>
+                            <div class="platform-name">Unbound</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">📡</div>
+                            <div class="platform-name">BIND</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">🦑</div>
+                            <div class="platform-name">Squid</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">🚫</div>
+                            <div class="platform-name">uBlock</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <h3>Community Impact</h3>
+                        <div class="stat-icon">🌍</div>
+                    </div>
+                    <div class="impact-stats">
+                        <div class="impact-item">
+                            <div class="impact-number">1M+</div>
+                            <div class="impact-label">Downloads</div>
+                        </div>
+                        <div class="impact-item">
+                            <div class="impact-number">500K+</div>
+                            <div class="impact-label">Active Users</div>
+                        </div>
+                        <div class="impact-item">
+                            <div class="impact-number">24/7</div>
+                            <div class="impact-label">Protection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">DEPLOY PROTECTION</h2>
+                <p class="section-description">Choose your integration method</p>
+            </div>
+
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="download-header">
+                        <h3>🥧 Pi-Hole / AdGuard / uBlock</h3>
+                        <span class="popular-badge">MOST POPULAR</span>
+                    </div>
+                    <div class="download-url">
+                        <input type="text" readonly value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt" id="url-pihole">
+                        <button class="copy-btn" data-target="url-pihole">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            COPY
+                        </button>
+                    </div>
+                    <div class="download-info">
+                        <p>✓ Perfect for DNS-level blocking</p>
+                        <p>✓ Works with browser extensions</p>
+                        <p>✓ Network-wide protection</p>
+                    </div>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <h3>🔒 Unbound</h3>
+                    </div>
+                    <div class="download-url">
+                        <input type="text" readonly value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/unbound_blacklist.txt" id="url-unbound">
+                        <button class="copy-btn" data-target="url-unbound">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            COPY
+                        </button>
+                    </div>
+                    <div class="download-info">
+                        <p>✓ Optimized Unbound format</p>
+                        <p>✓ High-performance DNS</p>
+                        <p>✓ Privacy-focused</p>
+                    </div>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <h3>📡 BIND / PowerDNS (RPZ)</h3>
+                    </div>
+                    <div class="download-url">
+                        <input type="text" readonly value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt" id="url-rpz">
+                        <button class="copy-btn" data-target="url-rpz">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            COPY
+                        </button>
+                    </div>
+                    <div class="download-info">
+                        <p>✓ Response Policy Zone format</p>
+                        <p>✓ Enterprise DNS servers</p>
+                        <p>✓ Advanced DNS filtering</p>
+                    </div>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-header">
+                        <h3>🦑 Squid Proxy</h3>
+                    </div>
+                    <div class="download-url">
+                        <input type="text" readonly value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt" id="url-squid">
+                        <button class="copy-btn" data-target="url-squid">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            COPY
+                        </button>
+                    </div>
+                    <div class="download-info">
+                        <p>✓ Proxy-level filtering</p>
+                        <p>✓ Web cache integration</p>
+                        <p>✓ Corporate networks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Start -->
+            <div class="quick-start">
+                <h3>⚡ Quick Start Guide</h3>
+                <div class="quick-start-grid">
+                    <div class="quick-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Copy URL</h4>
+                            <p>Click the copy button for your platform</p>
+                        </div>
+                    </div>
+                    <div class="quick-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Add to Tool</h4>
+                            <p>Paste URL in your blocklist settings</p>
+                        </div>
+                    </div>
+                    <div class="quick-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>You're Protected</h4>
+                            <p>Automatic hourly updates enabled</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">JOIN THE COMMUNITY</h2>
+                <p class="section-description">Open-source cybersecurity powered by people like you</p>
+            </div>
+
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-icon">💡</div>
+                    <h3>Contribute</h3>
+                    <p>Submit domains for blacklist or whitelist inclusion</p>
+                    <a href="https://github.com/fabriziosalmi/blacklists/issues/new/choose" class="community-link" target="_blank">
+                        Submit Issue →
+                    </a>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-icon">🔧</div>
+                    <h3>Improve</h3>
+                    <p>Enhance processing, analytics, or documentation</p>
+                    <a href="https://github.com/fabriziosalmi/blacklists/pulls" class="community-link" target="_blank">
+                        Create PR →
+                    </a>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-icon">⭐</div>
+                    <h3>Support</h3>
+                    <p>Star the repo and spread the word</p>
+                    <a href="https://github.com/fabriziosalmi/blacklists" class="community-link" target="_blank">
+                        Star on GitHub →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Credits -->
+            <div class="credits">
+                <h3>🏅 Powered By</h3>
+                <p>This project aggregates 61 blacklists from dedicated security researchers worldwide including:</p>
+                <div class="credits-list">
+                    <span>StevenBlack</span>
+                    <span>hagezi</span>
+                    <span>1hosts</span>
+                    <span>PolishFiltersTeam</span>
+                    <span>DandelionSprout</span>
+                    <span>phishing.army</span>
+                    <span>cert.pl</span>
+                    <span>malware-filter</span>
+                    <span>And many more...</span>
+                </div>
+                <a href="https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls" class="view-all" target="_blank">
+                    View All Sources →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M25 5L45 15V35L25 45L5 35V15L25 5Z" stroke="url(#footer-gradient)" stroke-width="2"/>
+                                <circle cx="25" cy="25" r="8" fill="url(#footer-gradient)"/>
+                                <defs>
+                                    <linearGradient id="footer-gradient" x1="5" y1="5" x2="45" y2="45">
+                                        <stop offset="0%" stop-color="#00ff88"/>
+                                        <stop offset="100%" stop-color="#00d4ff"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span>BLACKLISTS.SHIELD</span>
+                    </div>
+                    <p>Open-source domain blacklist<br>for a safer digital experience</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/docs/Introduction.md" target="_blank">Documentation</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/README.md" target="_blank">README</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/releases" target="_blank">Releases</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <a href="https://github.com/fabriziosalmi/blacklists/issues" target="_blank">Issues</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/CODE_OF_CONDUCT.md" target="_blank">Code of Conduct</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE" target="_blank">License</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/blob/main/SECURITY.md" target="_blank">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Domains Blacklist. Open-source project by <a href="https://github.com/fabriziosalmi" target="_blank">@fabriziosalmi</a></p>
+                <p>Licensed under MIT. Updated hourly with ❤️ for the cybersecurity community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 19V5M5 12L12 5L19 12" stroke="currentColor" stroke-width="2"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
