@@ -433,7 +433,7 @@ document.querySelectorAll('section[id]').forEach(section => {
 // ============================================
 
 console.log(
-    '%c🛡️ BLACKLISTS.SHIELD %c- Cyber Defense for Everyone',
+    '%c🛡️ blacklists %c- Cyber Defense for Everyone',
     'color: #00ff88; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00ff88;',
     'color: #00d4ff; font-size: 16px;'
 );
