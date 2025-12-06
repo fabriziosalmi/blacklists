@@ -399,6 +399,112 @@
         }
     }
 
+    // Dark Mode Manager
+    class DarkModeManager {
+        constructor() {
+            this.themeToggle = document.getElementById('themeToggle');
+            this.currentTheme = localStorage.getItem('theme') || 'light';
+
+            this.init();
+        }
+
+        init() {
+            // Apply saved theme
+            document.documentElement.setAttribute('data-theme', this.currentTheme);
+
+            // Add event listener
+            if (this.themeToggle) {
+                this.themeToggle.addEventListener('click', () => this.toggle());
+            }
+        }
+
+        toggle() {
+            this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', this.currentTheme);
+            localStorage.setItem('theme', this.currentTheme);
+        }
+    }
+
+    // Domain Search Manager
+    class DomainSearchManager {
+        constructor() {
+            this.searchBtn = document.getElementById('searchBtn');
+            this.domainInput = document.getElementById('domainInput');
+            this.searchResult = document.getElementById('searchResult');
+            this.blacklistUrl = 'https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/all.fqdn.blacklist';
+            this.blacklistCache = null;
+
+            this.init();
+        }
+
+        init() {
+            if (this.searchBtn && this.domainInput) {
+                this.searchBtn.addEventListener('click', () => this.search());
+                this.domainInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.search();
+                });
+            }
+        }
+
+        async search() {
+            const domain = this.domainInput.value.trim().toLowerCase();
+
+            if (!domain) {
+                this.showResult('Please enter a domain name', 'error');
+                return;
+            }
+
+            // Validate domain format
+            const domainRegex = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
+            if (!domainRegex.test(domain)) {
+                this.showResult('Invalid domain format. Example: example.com', 'error');
+                return;
+            }
+
+            this.showResult('Searching...', 'loading');
+            this.searchBtn.disabled = true;
+
+            try {
+                // Try to use cached blacklist first
+                if (!this.blacklistCache) {
+                    const response = await fetch(this.blacklistUrl);
+                    if (!response.ok) throw new Error('Failed to fetch blacklist');
+
+                    const text = await response.text();
+                    this.blacklistCache = new Set(text.split('\n').map(d => d.trim().toLowerCase()));
+                }
+
+                // Check if domain is in blacklist
+                const isBlacklisted = this.blacklistCache.has(domain);
+
+                if (isBlacklisted) {
+                    this.showResult(
+                        `⚠️ Domain "${domain}" is BLACKLISTED - This domain is blocked for security reasons`,
+                        'found'
+                    );
+                } else {
+                    this.showResult(
+                        `✓ Domain "${domain}" is NOT in the blacklist - This domain appears safe`,
+                        'not-found'
+                    );
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                this.showResult(
+                    'Unable to search at this time. Please try again later.',
+                    'error'
+                );
+            } finally {
+                this.searchBtn.disabled = false;
+            }
+        }
+
+        showResult(message, type) {
+            this.searchResult.textContent = message;
+            this.searchResult.className = `search-result ${type}`;
+        }
+    }
+
     // Initialize everything when DOM is ready
     function init() {
         const statsManager = new StatsManager();
@@ -407,6 +513,8 @@
         new ClipboardManager();
         new ScrollManager();
         new MobileMenu();
+        new DarkModeManager();
+        new DomainSearchManager();
 
         // Add loading animation
         document.body.classList.add('loaded');
