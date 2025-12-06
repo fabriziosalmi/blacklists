@@ -1,6 +1,6 @@
 # Domains Blacklist
 
-**Hourly updated domains blacklist** 🚫
+**Daily updated domains blacklist** 🚫
 
 > _"Building a service on top of a regularly updated blacklist can provide immense value, not only for individual internet users but also for businesses and cybersecurity professionals. Whatever service you choose to build, ensure it's user-friendly, reliable, and secure."_
 
@@ -25,7 +25,7 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 - **DNS servers** like [BIND9](https://github.com/fabriziosalmi/blacklists/tree/main/docs#how-to-implement-the-rpz-blacklist-with-bind9) or [PowerDNS](https://github.com/PowerDNS/pdns)
   
 ### Features
-- **Hourly Updates**: Stay protected against emerging threats
+- **Daily Updates**: Stay protected against emerging threats
 - **Comprehensive Coverage**: Aggregated from the most frequently updated blacklists ([more info](https://github.com/fabriziosalmi/blacklists/blob/main/docs/blacklists_reviews.md))
 - **Broad Compatibility**: Works across browsers, firewalls, proxies, and more
 - **Robust Security**: Protect against phishing, spam, scams, ads, trackers, bad websites and more

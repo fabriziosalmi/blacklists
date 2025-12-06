@@ -1,10 +1,61 @@
-# Deployment Guide
+# DevOps Guide
 
-How to deploy and host the Blacklists.Shield website on various platforms.
+This guide covers deployment, automation, and operational aspects of the Blacklists project.
 
 ---
 
-## 📋 Deployment Options
+## 🤖 Blacklist Automation
+
+### Daily Generation Workflow
+
+The blacklist is automatically generated **daily at midnight UTC** using GitHub Actions. This schedule balances freshness with cost-effectiveness.
+
+**Workflow Schedule:**
+- **00:00 UTC**: Generate and publish blacklist (`release.yml`)
+- **01:00 UTC**: Update statistics and README (`daily-stats.yml`)
+
+**Why Daily Instead of Hourly?**
+
+1. **Cost Efficiency**: Reduces GitHub Actions usage by 96% (24 runs/day → 1 run/day)
+2. **Sustainability**: Keeps the service free and accessible to everyone
+3. **Sufficient Protection**: Most threats remain active for days/weeks
+4. **Resource Optimization**: Reduces bandwidth and processing overhead
+
+**Workflow Files:**
+- `.github/workflows/release.yml` - Main blacklist generation
+- `.github/workflows/daily-stats.yml` - Statistics and README updates
+
+### Manual Triggering
+
+To trigger workflows manually:
+
+```bash
+# Using GitHub CLI
+gh workflow run release.yml
+gh workflow run daily-stats.yml
+
+# Or via GitHub web interface:
+# Actions → Select workflow → Run workflow
+```
+
+### Monitoring Workflows
+
+Check workflow status:
+
+```bash
+# List recent runs
+gh run list --workflow=release.yml --limit 10
+
+# View specific run
+gh run view <run-id>
+
+# Watch live
+gh run watch
+```
+
+---
+
+## 📋 Website Deployment Options
 
 - [GitHub Pages](#github-pages) - Free, simple, recommended
 - [Netlify](#netlify) - Free tier, automatic deployments

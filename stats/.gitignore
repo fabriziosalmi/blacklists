@@ -1,0 +1,8 @@
+# Ignore temporary files
+*.tmp
+*.log
+
+# Keep the important files
+!daily_stats.json
+!history.csv
+!trend.png

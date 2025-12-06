@@ -1,0 +1,20 @@
+{
+    "generated_at": "2025-12-07T00:00:00.000000",
+    "total_domains": 2943292,
+    "whitelisted_domains": 2267,
+    "blacklist_sources": 61,
+    "changes": {
+        "daily": {
+            "count": 1523,
+            "percentage": 0.05
+        },
+        "weekly": {
+            "count": 12450,
+            "percentage": 0.42
+        },
+        "monthly": {
+            "count": 45678,
+            "percentage": 1.58
+        }
+    }
+}

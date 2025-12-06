@@ -1,0 +1,64 @@
+name: Update Daily Statistics
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Runs daily at 01:00 UTC (after blacklist generation)
+  workflow_dispatch:  # Allows manual triggering
+
+permissions:
+  contents: write  # Required for committing changes
+
+jobs:
+  update_statistics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Full history for trend analysis
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install matplotlib pandas
+
+      - name: Generate Statistics
+        run: |
+          python3 scripts/generate_stats.py
+
+      - name: Update README
+        run: |
+          python3 scripts/update_readme_stats.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add changes
+          git add README.md stats/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📊 Update daily statistics [skip ci]"
+            git push
+            echo "✓ Statistics updated and pushed"
+          fi
+
+      - name: Upload Chart Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: statistics-chart
+          path: stats/trend.png
+          if-no-files-found: ignore
+          retention-days: 30

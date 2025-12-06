@@ -9,7 +9,7 @@ Navigate quickly:
 
 ## Generating the blacklist 
 
-I utilize the capabilities of ChangeDetection ([selfhosted](https://changedetection.io/)) to monitor and merge updates from curated [blacklists](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls). GitHub Actions automate the download of these blacklists every hour, consolidating them into a single file.
+I utilize the capabilities of ChangeDetection ([selfhosted](https://changedetection.io/)) to monitor and merge updates from curated [blacklists](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls). GitHub Actions automate the download of these blacklists daily, consolidating them into a single file.
 
 Furthermore, I conduct regular [reviews](https://github.com/fabriziosalmi/blacklists/blob/main/docs/blacklists_reviews.md) to scrutinize the source blacklists, ensuring the accuracy and relevance of the information through whitelist updates.
 
