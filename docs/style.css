@@ -868,22 +868,13 @@ body {
     background: var(--bg-primary);
 }
 
-[data-theme="dark"] .stats-section {
-    background: var(--bg-primary);
-}
-
-[data-theme="dark"] .features-section {
-    background: var(--bg-secondary);
-}
-
+[data-theme="dark"] .stats-section,
 [data-theme="dark"] .download-section {
     background: var(--bg-primary);
 }
 
-[data-theme="dark"] .docs-section {
-    background: var(--bg-secondary);
-}
-
+[data-theme="dark"] .features-section,
+[data-theme="dark"] .docs-section,
 [data-theme="dark"] .domain-search-section {
     background: var(--bg-secondary);
 }
