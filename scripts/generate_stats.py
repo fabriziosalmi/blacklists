@@ -33,6 +33,10 @@ except ImportError:
 class StatsGenerator:
     """Generate statistics for the blacklists repository."""
     
+    # GitHub repository information
+    DEFAULT_GITHUB_OWNER = "fabriziosalmi"
+    DEFAULT_GITHUB_REPO = "blacklists"
+    
     def __init__(self, repo_path: str = "."):
         self.repo_path = Path(repo_path)
         self.stats_dir = self.repo_path / "stats"
@@ -43,6 +47,32 @@ class StatsGenerator:
         # Ensure stats directory exists
         self.stats_dir.mkdir(exist_ok=True)
         
+        # Detect GitHub repository
+        self.github_owner, self.github_repo = self._detect_github_repo()
+        
+    def _detect_github_repo(self) -> tuple:
+        """Detect GitHub owner and repo from git remote."""
+        try:
+            result = subprocess.run(
+                ['git', 'config', '--get', 'remote.origin.url'],
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                check=False
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                remote_url = result.stdout.strip()
+                # Parse owner/repo from GitHub URL
+                match = re.search(r'github\.com[:/]([^/]+)/([^/\.]+)', remote_url)
+                if match:
+                    return match.groups()
+        except Exception:
+            pass
+        
+        # Return defaults
+        return self.DEFAULT_GITHUB_OWNER, self.DEFAULT_GITHUB_REPO
+    
     def count_lines(self, filepath: Path) -> int:
         """Count lines in a file."""
         try:
@@ -64,8 +94,8 @@ class StatsGenerator:
     def get_domain_count_from_release_asset(self) -> Optional[int]:
         """Download and count lines from the release asset."""
         try:
-            # Direct URL to the release asset
-            asset_url = "https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt"
+            # Use detected repository info
+            asset_url = f"https://github.com/{self.github_owner}/{self.github_repo}/releases/download/latest/blacklist.txt"
             
             print(f"Downloading blacklist from release to count domains...")
             
@@ -91,30 +121,8 @@ class StatsGenerator:
     def get_domain_count_from_release(self) -> Optional[int]:
         """Get domain count from the latest GitHub release."""
         try:
-            # Get GitHub repo information
-            repo_url = None
-            
-            # Try to get repo from git remote
-            result = subprocess.run(
-                ['git', 'config', '--get', 'remote.origin.url'],
-                cwd=self.repo_path,
-                capture_output=True,
-                text=True,
-                check=False
-            )
-            
-            if result.returncode == 0 and result.stdout.strip():
-                remote_url = result.stdout.strip()
-                # Parse owner/repo from GitHub URL
-                # Handles both https://github.com/owner/repo and git@github.com:owner/repo
-                match = re.search(r'github\.com[:/]([^/]+)/([^/\.]+)', remote_url)
-                if match:
-                    owner, repo = match.groups()
-                    repo_url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
-            
-            # Fallback to hardcoded repo if git remote not available
-            if not repo_url:
-                repo_url = "https://api.github.com/repos/fabriziosalmi/blacklists/releases/latest"
+            # Use detected repository info
+            repo_url = f"https://api.github.com/repos/{self.github_owner}/{self.github_repo}/releases/latest"
             
             # Fetch release info
             req = urllib.request.Request(repo_url)
@@ -124,7 +132,7 @@ class StatsGenerator:
             # Add GitHub token if available (from environment)
             github_token = os.environ.get('GITHUB_TOKEN')
             if github_token:
-                req.add_header('Authorization', f'token {github_token}')
+                req.add_header('Authorization', f'Bearer {github_token}')
             
             with urllib.request.urlopen(req, timeout=10) as response:
                 release_data = json.loads(response.read().decode('utf-8'))
