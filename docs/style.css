@@ -709,12 +709,20 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
     .nav-links {
         display: none;
     }
 
     .mobile-menu-btn {
         display: flex;
+    }
+
+    .hero {
+        padding: var(--spacing-xl) 0;
     }
 
     .hero h1 {
@@ -727,6 +735,7 @@ body {
 
     .stats-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
 
     .features-grid {
@@ -748,24 +757,71 @@ body {
     .steps-grid {
         grid-template-columns: 1fr;
     }
+
+    .stat-card,
+    .feature-card,
+    .download-card {
+        padding: var(--spacing-md);
+    }
+
+    .chart-container {
+        padding: var(--spacing-md);
+    }
+
+    .download-url-container {
+        flex-direction: column;
+    }
+
+    .download-url-container input {
+        font-size: 0.75rem;
+    }
+
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 480px) {
     .hero h1 {
         font-size: var(--font-size-3xl);
+        line-height: 1.1;
     }
 
     .section-title {
         font-size: var(--font-size-3xl);
+        line-height: 1.2;
     }
 
     .hero-buttons {
         flex-direction: column;
+        width: 100%;
     }
 
     .btn {
         width: 100%;
         text-align: center;
+    }
+
+    .logo span {
+        font-size: var(--font-size-base);
+    }
+
+    .stat-value {
+        font-size: var(--font-size-2xl);
+    }
+
+    .feature-card h3,
+    .download-header h3,
+    .doc-card h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .back-to-top {
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -805,6 +861,22 @@ body {
 [data-theme="dark"] .download-url-container input {
     background: var(--bg-tertiary);
     color: var(--text-primary);
+}
+
+/* Dark mode section backgrounds */
+[data-theme="dark"] body {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .stats-section,
+[data-theme="dark"] .download-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .features-section,
+[data-theme="dark"] .docs-section,
+[data-theme="dark"] .domain-search-section {
+    background: var(--bg-secondary);
 }
 
 /* Theme Toggle Button */
