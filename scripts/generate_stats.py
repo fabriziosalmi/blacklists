@@ -7,8 +7,10 @@ and generates statistics for the README.
 
 import json
 import os
+import re
 import subprocess
 import sys
+import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -55,9 +57,106 @@ class StatsGenerator:
             # Count non-empty, non-comment lines
             return sum(1 for line in f if line.strip() and not line.strip().startswith('#'))
     
+    def get_domain_count_from_release_asset(self) -> Optional[int]:
+        """Download and count lines from the release asset."""
+        try:
+            # Direct URL to the release asset
+            asset_url = "https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt"
+            
+            print(f"Downloading blacklist from release to count domains...")
+            
+            req = urllib.request.Request(asset_url)
+            req.add_header('User-Agent', 'blacklists-stats-generator')
+            
+            count = 0
+            with urllib.request.urlopen(req, timeout=30) as response:
+                # Read line by line to avoid loading entire file
+                for line in response:
+                    count += 1
+                    # Show progress every 100k lines
+                    if count % 100000 == 0:
+                        print(f"  Counted {count:,} lines...")
+            
+            print(f"✓ Counted {count:,} domains from release asset")
+            return count
+                    
+        except Exception as e:
+            print(f"Warning: Could not count domains from release asset: {e}")
+            return None
+    
+    def get_domain_count_from_release(self) -> Optional[int]:
+        """Get domain count from the latest GitHub release."""
+        try:
+            # Get GitHub repo information
+            repo_url = None
+            
+            # Try to get repo from git remote
+            result = subprocess.run(
+                ['git', 'config', '--get', 'remote.origin.url'],
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                check=False
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                remote_url = result.stdout.strip()
+                # Parse owner/repo from GitHub URL
+                # Handles both https://github.com/owner/repo and git@github.com:owner/repo
+                match = re.search(r'github\.com[:/]([^/]+)/([^/\.]+)', remote_url)
+                if match:
+                    owner, repo = match.groups()
+                    repo_url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+            
+            # Fallback to hardcoded repo if git remote not available
+            if not repo_url:
+                repo_url = "https://api.github.com/repos/fabriziosalmi/blacklists/releases/latest"
+            
+            # Fetch release info
+            req = urllib.request.Request(repo_url)
+            req.add_header('Accept', 'application/vnd.github.v3+json')
+            req.add_header('User-Agent', 'blacklists-stats-generator')
+            
+            # Add GitHub token if available (from environment)
+            github_token = os.environ.get('GITHUB_TOKEN')
+            if github_token:
+                req.add_header('Authorization', f'token {github_token}')
+            
+            with urllib.request.urlopen(req, timeout=10) as response:
+                release_data = json.loads(response.read().decode('utf-8'))
+                
+                # Extract domain count from release body
+                # Expected format: "Domains: 1234567"
+                body = release_data.get('body', '')
+                match = re.search(r'Domains:\s*(\d+)', body)
+                if match:
+                    count = int(match.group(1))
+                    print(f"✓ Fetched domain count from GitHub release: {count:,}")
+                    return count
+                else:
+                    print(f"Warning: Could not parse domain count from release body: {body}")
+                    # Try downloading the asset as fallback
+                    return self.get_domain_count_from_release_asset()
+                    
+        except Exception as e:
+            print(f"Warning: Could not fetch domain count from release API: {e}")
+            # Try downloading the asset as fallback
+            return self.get_domain_count_from_release_asset()
+    
     def get_git_history_count(self, days_ago: int) -> Optional[int]:
         """Get domain count from git history N days ago."""
         try:
+            # First try to get from history file
+            history = self.load_history()
+            target_date = (datetime.now() - timedelta(days=days_ago)).strftime('%Y-%m-%d')
+            
+            # Find the closest date in history
+            for entry in reversed(history):
+                if entry['date'] <= target_date and entry['total_domains'] > 0:
+                    print(f"✓ Found historical count for {days_ago} days ago from history: {entry['total_domains']:,}")
+                    return entry['total_domains']
+            
+            # Fallback to git history
             # Get commit from N days ago
             date_str = (datetime.now() - timedelta(days=days_ago)).strftime('%Y-%m-%d')
             
@@ -74,6 +173,23 @@ class StatsGenerator:
                 return None
             
             commit_hash = result.stdout.strip()
+            
+            # Try to get stats file from that commit
+            result = subprocess.run(
+                ['git', 'show', f'{commit_hash}:stats/daily_stats.json'],
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                check=False
+            )
+            
+            if result.returncode == 0:
+                try:
+                    stats = json.loads(result.stdout)
+                    if stats.get('total_domains', 0) > 0:
+                        return stats['total_domains']
+                except:
+                    pass
             
             # Try to get blacklist.txt from that commit
             # First check in root, then in blacklist_output
@@ -184,17 +300,24 @@ class StatsGenerator:
         """Generate current statistics."""
         print("Generating statistics...")
         
-        # Count current domains
-        blacklist_file = self.repo_path / "all.fqdn.blacklist"
-        if not blacklist_file.exists():
-            # Try alternative locations
-            for alt_path in ["blacklist.txt", "blacklist_output/blacklist.txt"]:
-                alt_file = self.repo_path / alt_path
-                if alt_file.exists():
-                    blacklist_file = alt_file
-                    break
+        # Try to get domain count from GitHub release first
+        total_domains = self.get_domain_count_from_release()
         
-        total_domains = self.count_lines(blacklist_file)
+        # Fallback to counting from file if release method fails
+        if total_domains is None:
+            blacklist_file = self.repo_path / "all.fqdn.blacklist"
+            if not blacklist_file.exists():
+                # Try alternative locations
+                for alt_path in ["blacklist.txt", "blacklist_output/blacklist.txt"]:
+                    alt_file = self.repo_path / alt_path
+                    if alt_file.exists():
+                        blacklist_file = alt_file
+                        break
+            
+            total_domains = self.count_lines(blacklist_file)
+            if total_domains == 0:
+                print("Warning: Could not determine domain count from any source")
+        
         whitelisted = self.count_lines(self.repo_path / "whitelist.txt")
         sources = self.count_blacklist_sources()
         
