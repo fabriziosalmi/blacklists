@@ -14,6 +14,7 @@ import os
 import re
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -152,6 +153,14 @@ class StatsGenerator:
                     # Try downloading the asset as fallback
                     return self.get_domain_count_from_release_asset()
                     
+        except urllib.error.HTTPError as e:
+            print(f"Warning: HTTP error fetching release from API: {e.code} {e.reason}")
+            # Try downloading the asset as fallback
+            return self.get_domain_count_from_release_asset()
+        except urllib.error.URLError as e:
+            print(f"Warning: Network error fetching release from API: {e.reason}")
+            # Try downloading the asset as fallback
+            return self.get_domain_count_from_release_asset()
         except Exception as e:
             print(f"Warning: Could not fetch domain count from release API: {e}")
             # Try downloading the asset as fallback
