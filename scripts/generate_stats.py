@@ -64,7 +64,9 @@ class StatsGenerator:
             if result.returncode == 0 and result.stdout.strip():
                 remote_url = result.stdout.strip()
                 # Parse owner/repo from GitHub URL
-                match = re.search(r'github\.com[:/]([^/]+)/([^/\.]+)', remote_url)
+                # Handles both https://github.com/owner/repo and git@github.com:owner/repo
+                # Stops at .git suffix or end of string, handles repos with dots in name
+                match = re.search(r'github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?$', remote_url)
                 if match:
                     return match.groups()
         except Exception:
@@ -138,15 +140,15 @@ class StatsGenerator:
                 release_data = json.loads(response.read().decode('utf-8'))
                 
                 # Extract domain count from release body
-                # Expected format: "Domains: 1234567"
+                # Expected format: "Domains: 1234567" (case-insensitive, flexible)
                 body = release_data.get('body', '')
-                match = re.search(r'Domains:\s*(\d+)', body)
+                match = re.search(r'Domains?\s*:?\s*(\d+)', body, re.IGNORECASE)
                 if match:
                     count = int(match.group(1))
                     print(f"✓ Fetched domain count from GitHub release: {count:,}")
                     return count
                 else:
-                    print(f"Warning: Could not parse domain count from release body: {body}")
+                    print(f"Warning: Could not parse domain count from release body (body length: {len(body)} chars)")
                     # Try downloading the asset as fallback
                     return self.get_domain_count_from_release_asset()
                     
