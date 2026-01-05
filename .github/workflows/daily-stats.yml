@@ -30,6 +30,8 @@ jobs:
           python3 -m pip install matplotlib pandas
 
       - name: Generate Statistics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/generate_stats.py
 

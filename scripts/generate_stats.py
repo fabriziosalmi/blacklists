@@ -3,6 +3,10 @@
 Generate daily statistics for the blacklists repository.
 This script analyzes the current blacklist, compares with historical data,
 and generates statistics for the README.
+
+The script fetches the domain count from the latest GitHub release since
+the all.fqdn.blacklist file is not committed to the repository (excluded in .gitignore).
+It uses the GitHub API or downloads the release asset as a fallback.
 """
 
 import json
