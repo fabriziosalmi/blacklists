@@ -15,19 +15,19 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 - Bind, PowerDNS (RPZ): **[rpz_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt)** 
 
 
-![Static Badge](https://img.shields.io/badge/blacklists-61-000000) ![Static Badge](https://img.shields.io/badge/blacklisted-2766869-cc0000) ![Static Badge](https://img.shields.io/badge/whitelisted-2268-00CC00) ![Static Badge](https://img.shields.io/badge/streaming_blacklist-28107-000000) ![GitHub issues](https://img.shields.io/github/issues/fabriziosalmi/blacklists)
+![Static Badge](https://img.shields.io/badge/blacklists-61-000000) ![Static Badge](https://img.shields.io/badge/blacklisted-2777495-cc0000) ![Static Badge](https://img.shields.io/badge/whitelisted-2268-00CC00) ![Static Badge](https://img.shields.io/badge/streaming_blacklist-28107-000000) ![GitHub issues](https://img.shields.io/github/issues/fabriziosalmi/blacklists)
 <!-- STATS_START -->
 ## 📊 Daily Statistics
 
-**Last Updated**: 2026-01-16 01:38 UTC
+**Last Updated**: 2026-01-17 01:37 UTC
 
 | Metric | Value |
 |--------|-------|
-| 🎯 **Total Domains** | **2,766,869** |
+| 🎯 **Total Domains** | **2,777,495** |
 | ✅ **Whitelisted** | 2,268 |
 | 📚 **Sources** | 61 |
-| 📅 **Daily Change** | 📉 -15,345 (-0.55%) |
-| 📅 **Weekly Change** | 📈 +20,554 (+0.75%) |
+| 📅 **Daily Change** | 📈 +10,626 (+0.38%) |
+| 📅 **Weekly Change** | 📈 +11,747 (+0.42%) |
 | 📅 **Monthly Change** | ➡️ +0 (+0.00%) |
 
 ![Trend Chart](stats/trend.png)
