@@ -796,6 +796,7 @@ gfwsl.geforce.com
 gfycat.com
 ghcr.io
 ghost.spam.howto
+giardiniblog.it
 gigaom.com
 giphy.com
 gist.github.com
@@ -1922,6 +1923,7 @@ tofukko.r.ribbon.to
 token.safebrowsing.apple
 tomshardware.com
 tools.pingdom.com
+toonitalia.xyz
 torrentfreak.com
 toysrus.com
 tra.scds.pmdstatic.net
