@@ -678,13 +678,13 @@ If you can't resolve your issue:
 
 ## Preventive Measures
 
-- ✅ Keep software updated
-- ✅ Monitor logs regularly
-- ✅ Test after updates
-- ✅ Maintain local whitelist
-- ✅ Document custom configurations
-- ✅ Have rollback plan
-- ✅ Monitor performance metrics
+- Keep software updated
+- Monitor logs regularly
+- Test after updates
+- Maintain a local whitelist
+- Document custom configurations
+- Have a rollback plan
+- Monitor performance metrics
 
 For more information, see:
 - [TESTING.md](TESTING.md) - Testing procedures

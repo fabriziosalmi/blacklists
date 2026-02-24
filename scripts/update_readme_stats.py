@@ -38,8 +38,7 @@ class ReadmeUpdater:
     def format_change(self, count: int, percentage: float) -> str:
         """Format change with sign and percentage."""
         sign = "+" if count >= 0 else ""
-        emoji = "📈" if count > 0 else "📉" if count < 0 else "➡️"
-        return f"{emoji} {sign}{self.format_number(count)} ({sign}{percentage:.2f}%)"
+        return f"{sign}{self.format_number(count)} ({sign}{percentage:.2f}%)"
     
     def generate_stats_section(self, stats: Dict) -> str:
         """Generate the statistics section for README."""
@@ -51,20 +50,20 @@ class ReadmeUpdater:
             chart_line = f"\n![Trend Chart](stats/trend.png)\n"
         
         section = f"""<!-- STATS_START -->
-## 📊 Daily Statistics
+## Daily Statistics
 
 **Last Updated**: {updated_at}
 
 | Metric | Value |
 |--------|-------|
-| 🎯 **Total Domains** | **{self.format_number(stats['total_domains'])}** |
-| ✅ **Whitelisted** | {self.format_number(stats['whitelisted_domains'])} |
-| 📚 **Sources** | {stats['blacklist_sources']} |
-| 📅 **Daily Change** | {self.format_change(stats['changes']['daily']['count'], stats['changes']['daily']['percentage'])} |
-| 📅 **Weekly Change** | {self.format_change(stats['changes']['weekly']['count'], stats['changes']['weekly']['percentage'])} |
-| 📅 **Monthly Change** | {self.format_change(stats['changes']['monthly']['count'], stats['changes']['monthly']['percentage'])} |
+| **Total Domains** | **{self.format_number(stats['total_domains'])}** |
+| **Whitelisted** | {self.format_number(stats['whitelisted_domains'])} |
+| **Sources** | {stats['blacklist_sources']} |
+| **Daily Change** | {self.format_change(stats['changes']['daily']['count'], stats['changes']['daily']['percentage'])} |
+| **Weekly Change** | {self.format_change(stats['changes']['weekly']['count'], stats['changes']['weekly']['percentage'])} |
+| **Monthly Change** | {self.format_change(stats['changes']['monthly']['count'], stats['changes']['monthly']['percentage'])} |
 {chart_line}
-> 🤖 *Statistics are automatically updated daily at midnight UTC*
+*Statistics are automatically updated daily at midnight UTC*
 
 <!-- STATS_END -->"""
         
