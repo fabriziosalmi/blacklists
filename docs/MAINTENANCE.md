@@ -4,14 +4,7 @@ This guide provides information on maintaining the blacklists project.
 
 ## Daily Automated Updates
 
-The blacklist is automatically updated **daily at midnight UTC** via GitHub Actions. This schedule balances freshness with cost-effectiveness, keeping the service free for everyone.
-
-### Why Daily Instead of Hourly?
-
-- **Cost Efficiency**: Daily updates significantly reduce GitHub Actions usage costs
-- **Sufficient Freshness**: Most threats don't require hourly updates
-- **Sustainability**: Keeps the service free and accessible to all users
-- **Resource Optimization**: Reduces unnecessary processing and bandwidth
+The blacklist is automatically updated **daily at midnight UTC** via GitHub Actions.
 
 ## Updating Blacklist Sources
 

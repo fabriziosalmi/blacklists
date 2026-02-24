@@ -495,12 +495,12 @@ If you find issues during testing:
 
 ## Best Practices
 
-- ✅ Test after every update
-- ✅ Maintain a list of test domains
-- ✅ Test both blocking and allowing
-- ✅ Monitor performance regularly
-- ✅ Keep test scripts updated
-- ✅ Document test results
-- ✅ Automate where possible
+- Test after every update
+- Maintain a list of test domains
+- Test both blocking and allowing
+- Monitor performance regularly
+- Keep test scripts updated
+- Document test results
+- Automate where possible
 
 For more information, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).

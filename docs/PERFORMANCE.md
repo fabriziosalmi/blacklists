@@ -4,21 +4,7 @@ This guide provides performance metrics, benchmarks, and best practices for usin
 
 ## Update Frequency
 
-### Daily Updates Are Sufficient
-
-The blacklist is updated **daily at midnight UTC**. This frequency is optimal for most use cases because:
-
-- **Threat Landscape**: Most malicious domains remain active for days or weeks
-- **Detection Lag**: New threats are typically detected and added to sources within hours
-- **Resource Efficiency**: Daily updates balance protection with resource usage
-- **Cost Effectiveness**: Keeps the service free and sustainable
-
-### When Hourly Updates Might Be Needed
-
-Consider supplementing with additional sources if you need:
-- Real-time phishing protection (use specialized phishing feeds)
-- Zero-day threat protection (use threat intelligence feeds)
-- Custom domain monitoring (use your own monitoring tools)
+The blacklist is updated **daily at midnight UTC**. For use cases requiring more frequent updates (real-time phishing feeds, zero-day threat intelligence), supplement with additional specialized sources.
 
 ## File Sizes and Formats
 
@@ -300,9 +286,5 @@ wait
 # Monitor during load
 watch -n 1 'free -h && ps aux | grep -E "pihole|unbound|named"'
 ```
-
-## Conclusion
-
-Daily updates provide excellent protection while maintaining optimal performance. The blacklist is designed to work efficiently across all major platforms, from home Pi-Hole installations to enterprise BIND9 deployments.
 
 For questions or performance issues, please [open an issue](https://github.com/fabriziosalmi/blacklists/issues).

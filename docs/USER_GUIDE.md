@@ -14,7 +14,7 @@ The Domains Blacklist is a curated, **daily-updated** collection of malicious, a
 
 1. Install [Pi-Hole](https://pi-hole.net/) or [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
 2. Add blacklist URL: `https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt`
-3. Update and enjoy ad-free browsing
+3. Update Gravity (Pi-Hole) or update filters (AdGuard Home) to apply the blacklist
 
 ### For Browser Users
 
@@ -63,7 +63,6 @@ Choose based on your infrastructure:
 4. **Verify**:
    - Go to **Dashboard**
    - Check "Domains on Blocklist" count
-   - Should show ~3 million domains
 
 **Command Line**:
 ```bash
@@ -101,7 +100,6 @@ pihole -g
 
 4. **Verify**:
    - Check filter count in dashboard
-   - Should show ~3 million rules
 
 ### Squid Proxy
 
@@ -296,7 +294,7 @@ dig @localhost doubleclick.net
 
 2. **Open Dashboard**:
    - Click uBlock Origin icon
-   - Click settings icon (⚙️)
+   - Click settings icon
 
 3. **Add Custom Filter**:
    - Go to **Filter lists** tab
@@ -321,11 +319,6 @@ dig @localhost doubleclick.net
 ### Daily Updates
 
 The blacklist is **automatically updated daily at midnight UTC**. No manual intervention required.
-
-**Why daily?**
-- Balances freshness with resource efficiency
-- Keeps the service free for everyone
-- Sufficient for most threat landscapes
 
 ### Checking for Updates
 
@@ -460,13 +453,13 @@ For common issues and solutions, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 ## Best Practices
 
-- ✅ Keep platform software updated
-- ✅ Monitor blocked queries regularly
-- ✅ Maintain local whitelist
-- ✅ Test after updates
-- ✅ Use appropriate format for your platform
-- ✅ Enable caching for better performance
-- ✅ Have backup DNS configured
+- Keep platform software updated
+- Monitor blocked queries regularly
+- Maintain a local whitelist
+- Test after updates
+- Use the appropriate format for your platform
+- Enable caching for better performance
+- Have backup DNS configured
 
 ## Getting Help
 
