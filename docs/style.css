@@ -474,6 +474,7 @@ body {
 
 .download-url-container input {
   flex: 1;
+  min-width: 0;
   padding: var(--spacing-sm);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -495,6 +496,7 @@ body {
   cursor: pointer;
   transition: var(--transition);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .copy-btn:hover {
