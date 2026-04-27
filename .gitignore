@@ -2,3 +2,20 @@
 status.log
 all.fqdn.blacklist
 setup_script.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Additional logs/temp
+*.log
+*.tmp
