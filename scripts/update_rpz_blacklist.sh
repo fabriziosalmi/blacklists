@@ -29,7 +29,16 @@ mkdir -p "$RPZ_DIRECTORY"
 wget -O "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" "$RPZ_URL"
 
 # Extract the blacklist
-tar -xzf "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" -C "$RPZ_DIRECTORY"
+if ! tar -xzf "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" -C "$RPZ_DIRECTORY"; then
+    echo "Error: Failed to extract rpz_blacklist.tar.gz. Exiting."
+    exit 1
+fi
+
+# Verify that the expected output file exists
+if [ ! -f "$RPZ_DIRECTORY/rpz_blacklist.txt" ]; then
+    echo "Error: Extraction failed; expected file rpz_blacklist.txt not found. Exiting."
+    exit 1
+fi
 
 # Check if the configuration is already added to avoid duplicate entries
 if ! grep -q "rpz.blacklist" "$BIND_CONFIG"; then
