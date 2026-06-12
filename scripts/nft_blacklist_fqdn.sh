@@ -34,6 +34,8 @@ fi
   echo "    chain $CHAIN_NAME {"
 
   while IFS= read -r domain || [[ -n "$domain" ]]; do
+    # Skip empty lines and comments
+    [[ -z "$domain" || "$domain" =~ ^[[:space:]]*# ]] && continue
     validate_domain "$domain"
     echo "        drop ip daddr $domain"
     echo "        drop ip saddr $domain"
