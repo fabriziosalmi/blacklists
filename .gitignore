@@ -19,3 +19,6 @@ Thumbs.db
 # Additional logs/temp
 *.log
 *.tmp
+
+# Custom
+whitelist_report.csv
