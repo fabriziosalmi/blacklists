@@ -59,7 +59,11 @@ def main():
 
     try:
         with open(INPUT_FILE, "r") as f:
-            domains = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+            domains = []
+            for line in f:
+                stripped = line.strip()
+                if stripped and not stripped.startswith("#"):
+                    domains.append(stripped)
     except FileNotFoundError:
         console.print(f"[red]Errore: {INPUT_FILE} non trovato.[/red]")
         return
