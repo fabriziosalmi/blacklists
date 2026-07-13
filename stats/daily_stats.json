@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-12T01:39:27.367493",
-  "total_domains": 4528567,
+  "generated_at": "2026-07-13T01:41:31.350898",
+  "total_domains": 4569481,
   "whitelisted_domains": 2053,
   "blacklist_sources": 61,
   "changes": {
     "daily": {
-      "count": 45461,
-      "percentage": 1.01
+      "count": 40914,
+      "percentage": 0.9
     },
     "weekly": {
-      "count": -115940,
-      "percentage": -2.5
+      "count": 214322,
+      "percentage": 4.92
     },
     "monthly": {
-      "count": 8019,
-      "percentage": 0.18
+      "count": 51504,
+      "percentage": 1.14
     }
   }
 }
