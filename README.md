@@ -57,12 +57,58 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 
 ## Credits
 
-This project aggregates blacklists from numerous dedicated creators including:
+This project would not exist without the maintainers of the upstream lists it
+aggregates. Every source is redistributed under its own license. The full
+per-source license and attribution map lives in **[SOURCES.md](SOURCES.md)**.
 
-[T145/BlackMirror](https://github.com/T145/black-mirror) - [Fabrice Prigent (UT1 mirror)](https://github.com/olbat/ut1-blacklists) - [1hosts](https://badmojr.gitlab.io/1hosts/Lite/domains.txt) - [PolishFiltersTeam](https://gitlab.com/PolishFiltersTeam/) - [ShadowWhisperer](https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/) - [StevenBlack](https://raw.githubusercontent.com/StevenBlack/hosts/) - [bigdargon](https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts) - [developerdan](https://www.github.developerdan.com/) - [firebog](https://v.firebog.net/hosts/AdguardDNS.txt) - [hagezi](https://gitlab.com/hagezi/) - [malware-filter](https://malware-filter.gitlab.io/) - [phishfort](https://raw.githubusercontent.com/phishfort/phishfort-lists/master/blacklists/domains.json) - [phishing.army](https://phishing.army/) - [quidsup](https://gitlab.com/quidsup/) - [DandelionSprout](https://raw.githubusercontent.com/DandelionSprout/adfilt/) - [RPiList](https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/) - [What-Zit-Tooya](https://github.com/What-Zit-Tooya/Ad-Block) - [azet12](https://raw.githubusercontent.com/azet12/KADhosts) - [cert.pl](https://hole.cert.pl) - [mitchellkrogza](https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist) - [o0.pages.dev](https://o0.pages.dev) - [pgl.yoyo.org](https://pgl.yoyo.org/) - [lightswitch05](https://raw.githubusercontent.com/lightswitch05/hosts/) - [frogeye.fr](https://hostfiles.frogeye.fr/) - [fruxlabs](https://rescure.fruxlabs.com/) - [durablenapkin](https://raw.githubusercontent.com/durablenapkin/scamblocklist/) - [digitalside.it](https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt) - [malwareworld.com](https://malwareworld.com/)
+Upstream sources currently aggregated:
 
-and many more.
+[LanikSJ/ubo-filters](https://github.com/LanikSJ/ubo-filters) ·
+[dmachard/blocklist-domains](https://github.com/dmachard/blocklist-domains) ·
+[uBlockOrigin/uAssets](https://github.com/uBlockOrigin/uAssets) ·
+[Matomo referrer-spam-blacklist](https://github.com/matomo-org/referrer-spam-blacklist) ·
+[What-Zit-Tooya/Ad-Block](https://github.com/What-Zit-Tooya/Ad-Block) ·
+[quidsup/notrack](https://gitlab.com/quidsup/notrack-blocklists) ·
+[CERT Polska (cert.pl)](https://hole.cert.pl) ·
+[Geoffrey Frogeye](https://hostfiles.frogeye.fr) ·
+[malware-filter](https://gitlab.com/malware-filter) ·
+[Peter Lowe (pgl.yoyo.org)](https://pgl.yoyo.org/adservers/) ·
+[DandelionSprout/adfilt](https://github.com/DandelionSprout/adfilt) ·
+[PolishFiltersTeam/KADhosts](https://gitlab.com/PolishFiltersTeam/KADhosts) ·
+[azet12/KADhosts](https://github.com/azet12/KADhosts) ·
+[ShadowWhisperer](https://github.com/ShadowWhisperer/BlockLists) ·
+[StevenBlack/hosts](https://github.com/StevenBlack/hosts) ·
+[badmojr/1Hosts](https://github.com/badmojr/1Hosts) ·
+[bigdargon/hostsVN](https://github.com/bigdargon/hostsVN) ·
+[durablenapkin/scamblocklist](https://github.com/durablenapkin/scamblocklist) ·
+[hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) ·
+[mitchellkrogza](https://github.com/mitchellkrogza) ·
+[phishfort](https://github.com/phishfort/phishfort-lists) ·
+[stamparm/blackbook](https://github.com/stamparm/blackbook) ·
+[oisd](https://oisd.nl) ·
+[lightswitch05 (developerdan)](https://github.com/lightswitch05/hosts) ·
+[malwareworld.com](https://malwareworld.com) ·
+[ThioJoe/YT-Spam-Lists](https://github.com/ThioJoe/YT-Spam-Lists) ·
+[phishunt.io](https://phishunt.io) ·
+[jarelllama/Scam-Blocklist](https://github.com/jarelllama/Scam-Blocklist) ·
+[AdGuard](https://github.com/AdguardTeam/AdGuardSDNSFilter), [EasyList](https://easylist.to) and [UT1 Toulouse](https://dsi.ut-capitole.fr/blacklists/) (via [firebog](https://firebog.net))
 
-For a full list, check the [complete blacklists URLs](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls).
+For the complete list of feed URLs, see [blacklists.fqdn.urls](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls). For licenses and attribution, see [SOURCES.md](SOURCES.md).
 
-Code improvements by [xRuffKez](https://github.com/xRuffKez), [hulores](https://github.com/hulores) and more.
+Code improvements by [xRuffKez](https://github.com/xRuffKez), [hulores](https://github.com/hulores) and other contributors.
+
+## License
+
+The **aggregation tooling** in this repository (`generate.py`, `generate.sh`,
+`sanitize.py`, `whitelist.py`, `check_whitelist.py`, and the helper scripts) is
+licensed under the **GNU General Public License v3.0** (see [`LICENSE`](LICENSE)).
+
+The generated **`blacklist.txt`** (and the derived `rpz_blacklist.txt` and
+`unbound_blacklist.txt`) is **not** covered by that license. It is an **aggregate**
+that redistributes third-party domain lists, each under its own license and terms.
+The published file carries an attribution header and points to
+**[SOURCES.md](SOURCES.md)**, which maps every source to its license and the
+attribution it requires.
+
+If you are a rights holder and want a list changed or removed, please
+[open an issue](https://github.com/fabriziosalmi/blacklists/issues/new/choose).

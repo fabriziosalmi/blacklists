@@ -356,6 +356,47 @@ def sanitize_and_whitelist():
     except OSError as e:
         rich_log(f"[yellow]Error deleting file during cleanup: {e}[/yellow]", level="warning")
 
+def prepend_attribution_header():
+    """Prepend an attribution header to the aggregated blacklist.
+
+    The published blacklist redistributes many third-party lists under their
+    own licenses, so the artifact itself documents its provenance (SOURCES.md).
+    The file is streamed (never fully loaded into memory).
+    """
+    if not os.path.isfile(FINAL_BLACKLIST_FILE):
+        rich_log(f"[yellow]Cannot prepend header: {FINAL_BLACKLIST_FILE} not found. Skipping.[/yellow]", level="warning")
+        return
+
+    try:
+        # Count domain lines only (ignore any pre-existing comment/blank lines).
+        domain_count = 0
+        with open(FINAL_BLACKLIST_FILE, "r", encoding="utf-8") as infile:
+            for line in infile:
+                stripped = line.strip()
+                if stripped and not stripped.startswith("#"):
+                    domain_count += 1
+
+        gen_date = time.strftime("%Y-%m-%d", time.gmtime())
+        tmp_file = FINAL_BLACKLIST_FILE + ".tmp"
+        with open(tmp_file, "w", encoding="utf-8") as outfile:
+            outfile.write(
+                "# Aggregated by fabriziosalmi/blacklists from multiple third-party "
+                "sources under their respective licenses - see SOURCES.md\n"
+            )
+            outfile.write(f"# Generated: {gen_date} UTC\n")
+            outfile.write(f"# Domains: {domain_count}\n")
+            outfile.write(
+                "# Source lists: "
+                "https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls\n"
+            )
+            with open(FINAL_BLACKLIST_FILE, "r", encoding="utf-8") as infile:
+                shutil.copyfileobj(infile, outfile)
+        os.replace(tmp_file, FINAL_BLACKLIST_FILE)
+        rich_log(f"[bold green]Prepended attribution header[/bold green] ({domain_count} domains).")
+    except Exception as e:
+        rich_log(f"[yellow]Failed to prepend attribution header: {e}[/yellow]", level="warning")
+
+
 def main():
     """Main routine."""
     console.rule("[bold blue]Starting Setup Script[/bold blue]")  # Rich rule for visual separation
@@ -364,9 +405,10 @@ def main():
     install_additional_packages()
     manage_downloads()
     sanitize_and_whitelist()
+    prepend_attribution_header()
     try:
         with open(FINAL_BLACKLIST_FILE, 'r') as f:
-            total_lines_new = sum(1 for _ in f)
+            total_lines_new = sum(1 for line in f if line.strip() and not line.strip().startswith('#'))
     except FileNotFoundError:
         total_lines_new = 0
 

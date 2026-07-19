@@ -34,15 +34,20 @@ jobs:
 
       - name: Extract and Prepare Original Blacklist
         run: |
-          mv all.fqdn.blacklist blacklist_output/all.fqdn.blacklist
-          mv blacklist_output/all.fqdn.blacklist blacklist_output/blacklist.txt
-          # Optionally sort and deduplicate the list
-          sort -u blacklist_output/blacklist.txt -o blacklist_output/blacklist.txt
+          mv all.fqdn.blacklist blacklist_output/blacklist.txt
+          # Keep the attribution header (leading '#' comment lines) on top and
+          # sort/deduplicate only the domain body. This preserves the header
+          # block and keeps the derived RPZ/Unbound assets valid (see SOURCES.md).
+          grep -E '^[[:space:]]*#' blacklist_output/blacklist.txt > blacklist_output/header.txt || true
+          grep -Ev '^[[:space:]]*#' blacklist_output/blacklist.txt | grep -Ev '^[[:space:]]*$' | sort -u > blacklist_output/body.txt
+          cat blacklist_output/header.txt blacklist_output/body.txt > blacklist_output/blacklist.txt
+          rm -f blacklist_output/header.txt blacklist_output/body.txt
 
       - name: Count domains in blacklist
         id: count_domains
         run: |
-          count=$(wc -l < blacklist_output/blacklist.txt)
+          # Count domains only, excluding the attribution header comment lines
+          count=$(grep -Evc '^[[:space:]]*#' blacklist_output/blacklist.txt)
           echo "Number of domains: $count"
           echo "count=$count" >> $GITHUB_OUTPUT
 
@@ -78,7 +83,9 @@ jobs:
 
       - name: Create RPZ Blacklist
         run: |
-          awk '{print $0 " CNAME ."}' blacklist_output/blacklist.txt > rpz_blacklist.txt
+          # Skip the attribution header comments and blank lines (BIND uses ';',
+          # not '#', for comments) so the RPZ zone stays syntactically valid.
+          awk '!/^[[:space:]]*#/ && NF {print $0 " CNAME ."}' blacklist_output/blacklist.txt > rpz_blacklist.txt
 
       - name: Upload Release Asset (RPZ Blacklist)
         uses: actions/upload-release-asset@v1
@@ -94,6 +101,8 @@ jobs:
         run: |
           printf "# Unbound blacklist format\n" > unbound_blacklist.txt
           while IFS= read -r domain; do
+            # Skip blank lines and the attribution header comments
+            case "$domain" in ''|\#*) continue;; esac
             printf "local-zone: \"%s\" static\n" "$domain" >> unbound_blacklist.txt
           done < blacklist_output/blacklist.txt
 

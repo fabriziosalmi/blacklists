@@ -183,6 +183,33 @@ sanitize_and_whitelist() {
     rm -f blacklist.txt input.txt
 }
 
+# Prepend an attribution header to the aggregated blacklist. The published
+# blacklist.txt redistributes many third-party lists under their own licenses,
+# so the artifact itself documents its provenance (see SOURCES.md).
+prepend_attribution_header() {
+    local target="all.fqdn.blacklist"
+    if [ ! -f "$target" ]; then
+        echo "Cannot prepend header: $target not found. Skipping." | tee -a "$LOGFILE"
+        return 0
+    fi
+
+    local domain_count
+    domain_count=$(grep -Evc '^[[:space:]]*#' "$target" 2>/dev/null || wc -l < "$target")
+    local gen_date
+    gen_date=$(date -u '+%Y-%m-%d')
+
+    local tmp="${target}.tmp"
+    {
+        echo "# Aggregated by fabriziosalmi/blacklists from multiple third-party sources under their respective licenses - see SOURCES.md"
+        echo "# Generated: ${gen_date} UTC"
+        echo "# Domains: ${domain_count}"
+        echo "# Source lists: https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls"
+        cat "$target"
+    } > "$tmp" && mv "$tmp" "$target"
+
+    echo "Prepended attribution header (${domain_count} domains)." | tee -a "$LOGFILE"
+}
+
 # Main routine
 main() {
     detect_package_manager
@@ -190,7 +217,8 @@ main() {
     install_additional_packages
     manage_downloads
     sanitize_and_whitelist
-    local total_lines_new=$(wc -l < all.fqdn.blacklist 2>/dev/null || echo 0)
+    prepend_attribution_header
+    local total_lines_new=$(grep -Evc '^[[:space:]]*#' all.fqdn.blacklist 2>/dev/null || echo 0)
     echo "Total domains: $total_lines_new 🌍." | tee -a "$LOGFILE"
 }
 

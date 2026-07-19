@@ -109,6 +109,10 @@ class StatsGenerator:
             with urllib.request.urlopen(req, timeout=30) as response:
                 # Read line by line to avoid loading entire file
                 for line in response:
+                    # Skip blank lines and the attribution header comments
+                    stripped = line.strip()
+                    if not stripped or stripped.startswith(b'#'):
+                        continue
                     count += 1
                     # Show progress every 100k lines
                     if count % 100000 == 0:
