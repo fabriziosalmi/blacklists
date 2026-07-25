@@ -16,7 +16,7 @@ for cmd in "${REQUIRED_COMMANDS[@]}"; do
 done
 
 # Directory to store the RPZ blacklist
-RPZ_DIRECTORY="/path/to/store/rpz_blacklist"
+RPZ_DIRECTORY="/var/lib/bind/rpz_blacklist"
 # URL of the RPZ blacklist
 RPZ_URL="https://github.com/fabriziosalmi/blacklists/raw/main/rpz_blacklist.tar.gz"
 # BIND configuration file
