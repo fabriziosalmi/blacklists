@@ -26,7 +26,10 @@ BIND_CONFIG="/etc/bind/named.conf.local"
 mkdir -p "$RPZ_DIRECTORY"
 
 # Download the latest RPZ blacklist from the repository
-wget -O "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" "$RPZ_URL"
+if ! wget -O "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" "$RPZ_URL"; then
+    echo "Error: Failed to download rpz_blacklist.tar.gz. Exiting."
+    exit 1
+fi
 
 # Extract the blacklist
 if ! tar -xzf "$RPZ_DIRECTORY/rpz_blacklist.tar.gz" -C "$RPZ_DIRECTORY"; then
