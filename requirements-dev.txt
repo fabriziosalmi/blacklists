@@ -4,3 +4,7 @@
 pytest>=8.0
 tldextract>=5.0
 tqdm>=4.66
+
+# Used only by scripts/check_whitelist.py, which probes whitelisted domains.
+requests>=2.31
+rich>=13.0

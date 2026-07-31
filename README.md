@@ -117,8 +117,8 @@ Code improvements by [xRuffKez](https://github.com/xRuffKez), [hulores](https://
 
 ## License
 
-The **aggregation tooling** in this repository (`generate.py`, `generate.sh`,
-`sanitize.py`, `whitelist.py`, `check_whitelist.py`, and the helper scripts) is
+The **aggregation tooling** in this repository (`generate.sh`, `sanitize.py`,
+`whitelist.py`, and the scripts under `scripts/`) is
 licensed under the **GNU General Public License v3.0** (see [`LICENSE`](LICENSE)).
 
 The generated **`blacklist.txt`** (and the derived `rpz_blacklist.txt` and

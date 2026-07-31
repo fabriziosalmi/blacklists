@@ -36,8 +36,8 @@ domain lists produced by third parties. Each upstream list remains the property
 of its authors and is redistributed here **under its own license and terms**,
 listed below.
 
-The aggregation tooling in this repository (`generate.py`, `generate.sh`,
-`sanitize.py`, `whitelist.py`, `check_whitelist.py`, and the helper scripts) is
+The aggregation tooling in this repository (`generate.sh`, `sanitize.py`,
+`whitelist.py`, and the scripts under `scripts/`) is
 licensed under **GPL-3.0** (see [`LICENSE`](LICENSE) and the License section of
 the [README](README.md)). That license covers the code, **not** the aggregated
 data, which stays under the licenses on this page.

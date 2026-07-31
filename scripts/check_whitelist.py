@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+"""
+Check whether whitelisted domains still resolve and respond.
+
+Answers a different question from scripts/whitelist_report.py: that one reports
+which entries are holding a source back today, this one reports which entries
+point at hosts that no longer exist. Both are manual tools; neither removes
+anything.
+
+Requires the extras in requirements-dev.txt (requests, rich).
+
+Run: python3 scripts/check_whitelist.py
+"""
 
 import csv
 import socket
