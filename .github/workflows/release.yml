@@ -141,12 +141,13 @@ jobs:
 
       - name: Create Unbound Blacklist
         run: |
+          # A shell read loop appending per line reopened the output file 4.7
+          # million times and took 89s of a 176s release - half the run, for the
+          # same transformation the RPZ step does in awk in 2s. It also got
+          # slower every day the list grew.
           printf "# Unbound blacklist format\n" > unbound_blacklist.txt
-          while IFS= read -r domain; do
-            # Skip blank lines and the attribution header comments
-            case "$domain" in ''|\#*) continue;; esac
-            printf "local-zone: \"%s\" static\n" "$domain" >> unbound_blacklist.txt
-          done < blacklist_output/blacklist.txt
+          awk '!/^[[:space:]]*#/ && NF {printf "local-zone: \"%s\" static\n", $0}' \
+            blacklist_output/blacklist.txt >> unbound_blacklist.txt
 
       - name: Upload Release Asset (Unbound Blacklist)
         uses: actions/upload-release-asset@v1
