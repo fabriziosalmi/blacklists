@@ -42,27 +42,38 @@ def drop_metadata(line: str) -> Optional[str]:
     return line
 
 def strip_adblock_syntax(line: str) -> Optional[str]:
-    """Reduce an Adblock domain anchor to a bare domain.
+    """Reduce an unconditional Adblock domain anchor to a bare domain.
 
-    ``||example.com^`` and ``||example.com^$third-party`` both denote the
-    domain ``example.com``. Anything carrying a path, wildcard or element-hiding
-    separator is not a plain domain rule and cannot be expressed in a domain
-    list, so it is dropped instead of being mangled into a bogus entry.
+    Only ``||example.com^`` is translatable to a domain list. Every other form
+    means something a DNS blocklist cannot express, and converting it anyway
+    produces a block the upstream author never asked for:
+
+    * ``$`` modifiers make a rule conditional or cancel it outright.
+      ``$badfilter`` DISABLES a matching rule, ``$doc`` shows a warning page in
+      the browser rather than blocking, and ``$to=~cloudflare.net`` applies only
+      to some destinations. Blocking on any of these inverts or over-applies the
+      author's intent, so a rule carrying a modifier is dropped whatever the
+      modifier is - there is no safe subset worth special-casing.
+    * A path-scoped rule blocks one URL, not the host.
+    * Wildcards and element-hiding rules have no domain-list equivalent.
+
+    The modifier check runs before anything else is stripped: the separator
+    preceding ``$`` is not always ``^`` (``||example.com.$all,to=~x`` ends the
+    hostname with a dot), so splitting on ``^`` first would let those through.
     """
     if not line.startswith("||"):
         return line
 
     line = line[2:]
-    # Cut the rule terminator and any modifiers that follow it.
-    line = line.split("^")[0].split("$")[0]
 
-    # A path-scoped rule blocks one URL, not the host. Widening it to the whole
-    # domain would block traffic the upstream author never intended to block, so
-    # such rules are dropped: a DNS-level list cannot express them.
+    if "$" in line:
+        return None
+
+    line = line.split("^")[0]
+
     if "/" in line:
         return None
 
-    # Wildcards and element-hiding rules have no domain-list equivalent.
     if not line or "*" in line or "#" in line or "=" in line:
         return None
     return line
