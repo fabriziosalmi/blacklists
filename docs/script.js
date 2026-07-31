@@ -140,6 +140,14 @@
                 }
             }
 
+            // Most whitelist entries match nothing on a given day and are
+            // standing by, so the raw count alone overstates how much is
+            // actively being held back.
+            if (s.whitelist && typeof s.whitelist.active === 'number') {
+                utils.setText('whitelist-active',
+                    `${utils.formatNumber(s.whitelist.active)} holding back a source today`);
+            }
+
             const published = s.release && s.release.published_at;
             utils.setText('last-update', utils.formatRelative(published));
             utils.setText('update-time', utils.formatUTC(published));

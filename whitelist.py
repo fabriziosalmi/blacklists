@@ -7,11 +7,26 @@ import time
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def parse_fqdn_line(line: str) -> str:
+    """Extract the domain from one line, discarding any comment.
+
+    Both a whole-line ``# note`` and a trailing ``domain  # why`` are supported.
+    Without this an annotated entry reads as the literal string
+    ``"domain  # why"``, matches no domain, and stops protecting anything -
+    silently, because a whitelist that quietly does nothing looks exactly like a
+    whitelist with nothing to do.
+    """
+    return line.split('#', 1)[0].strip()
+
+
 def read_fqdn_from_file(file_path: Path) -> set:
     """Read the file and return a set of FQDNs."""
     try:
         with file_path.open('r', encoding='utf-8') as file:
-            fqdns = {line.strip() for line in file if line.strip()}
+            fqdns = {
+                domain for domain in (parse_fqdn_line(line) for line in file)
+                if domain
+            }
             logging.debug(f"Read {len(fqdns)} FQDNs from {file_path}")
             if fqdns:
                 logging.debug(f"Sample FQDNs from {file_path}: {list(fqdns)[:5]}")

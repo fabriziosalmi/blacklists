@@ -353,6 +353,22 @@ def main() -> int:
         'categories': sources_data.get('categories', []),
     }
 
+    # How much of the whitelist is doing work right now. Published so the
+    # "whitelisted domains" figure is not mistaken for a count of active
+    # protections when most entries are dormant by design. Merged before
+    # stats.json is written, not after.
+    whitelist_file = stats_dir / 'whitelist.json'
+    if whitelist_file.exists():
+        try:
+            payload = json.loads(whitelist_file.read_text(encoding='utf-8'))
+            stats['whitelist'] = {
+                'entries': payload.get('unique'),
+                'active': payload.get('active'),
+                'dormant': payload.get('dormant'),
+            }
+        except json.JSONDecodeError as exc:
+            log(f'Warning: could not parse {whitelist_file}: {exc}')
+
     (data_dir / 'stats.json').write_text(json.dumps(stats, indent=2), encoding='utf-8')
     (data_dir / 'history.json').write_text(json.dumps(history, indent=2), encoding='utf-8')
     (data_dir / 'sources.json').write_text(

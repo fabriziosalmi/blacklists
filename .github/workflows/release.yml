@@ -46,12 +46,19 @@ jobs:
       - name: Quality gate
         run: python3 scripts/check_quality.py --blacklist all.fqdn.blacklist
 
+      # Reports which whitelist entries are holding a source back today. Never
+      # fails the build and never edits the file: a dormant entry is doing
+      # exactly what it was added to do.
+      - name: Whitelist report
+        continue-on-error: true
+        run: python3 scripts/whitelist_report.py
+
       - name: Commit statistics
         continue-on-error: true
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add stats/sources.json stats/quality.json 2>/dev/null || true
+          git add stats/sources.json stats/quality.json stats/whitelist.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
