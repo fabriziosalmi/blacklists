@@ -1,0 +1,44 @@
+name: Validate
+
+# Guards the invariants that keep the published data honest:
+#  - every fetched source has attribution and a licence on record
+#  - SOURCES.md still matches the registry it is generated from
+#  - the site build script is syntactically sound before it can break a deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sources/**'
+      - 'blacklists.fqdn.urls'
+      - 'SOURCES.md'
+      - 'scripts/**'
+      - '.github/workflows/validate.yml'
+  pull_request:
+    paths:
+      - 'sources/**'
+      - 'blacklists.fqdn.urls'
+      - 'SOURCES.md'
+      - 'scripts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Registry matches the fetched source list
+        run: python3 scripts/validate_registry.py
+
+      - name: SOURCES.md is up to date with the registry
+        run: python3 scripts/generate_sources_md.py --check
+
+      - name: Scripts compile
+        run: python3 -m compileall -q scripts/

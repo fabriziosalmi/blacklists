@@ -1022,3 +1022,297 @@ body {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   Data honesty, provenance and source attribution
+   ========================================================================== */
+
+/* Chart colours are read from CSS by script.js so the plot follows the theme. */
+:root {
+  --chart-grid: #e5e7eb;
+  --chart-line: #2563eb;
+}
+
+[data-theme="dark"] {
+  --chart-grid: #374151;
+  --chart-line: #60a5fa;
+}
+
+/* Any figure that could not be loaded is rendered in this style. It must never
+   be mistaken for a real value. */
+.value-unavailable {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--font-size-base);
+}
+
+.data-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+/* Chart -------------------------------------------------------------------- */
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-sm);
+}
+
+.chart-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.chart-controls button {
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.chart-controls button:hover {
+  color: var(--text-primary);
+  border-color: var(--primary);
+}
+
+.chart-controls button.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.chart-status {
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.chart-caption {
+  margin-top: var(--spacing-xs);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Provenance --------------------------------------------------------------- */
+
+.provenance {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.provenance h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.provenance-intro {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.provenance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.provenance-grid dt {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: 0.15rem;
+}
+
+.provenance-grid dd {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.provenance-wide {
+  grid-column: 1 / -1;
+}
+
+.provenance-wide code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+/* Sources table ------------------------------------------------------------ */
+
+.sources-section {
+  padding: var(--spacing-2xl) 0;
+  background: var(--bg-secondary);
+}
+
+.sources-summary {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Wide tables scroll inside their own box so the page never scrolls sideways. */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-primary);
+}
+
+.sources-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  min-width: 720px;
+}
+
+.sources-table th,
+.sources-table td {
+  padding: 0.7rem var(--spacing-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.sources-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sources-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sources-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.sources-table .numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sources-table a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sources-table a:hover {
+  text-decoration: underline;
+}
+
+.source-project,
+.source-mirror {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  margin-top: 0.15rem;
+}
+
+.source-mirror {
+  font-style: italic;
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  margin: 0 0.25rem 0.25rem 0;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.license-unknown {
+  color: var(--text-secondary);
+}
+
+.license-flag {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--warning);
+  color: var(--warning);
+  border-radius: var(--radius-sm);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.status-ok {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--success);
+}
+
+.status-fail {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--error);
+}
+
+.sources-table tr.has-note td:first-child::after {
+  content: " *";
+  color: var(--warning);
+  font-weight: 700;
+}
+
+.sources-footnote {
+  margin-top: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.sources-footnote a {
+  color: var(--primary);
+}
+
+/* Search result states ----------------------------------------------------- */
+
+.search-result.found-parent {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--warning);
+}
+
+[data-theme="dark"] .sources-section {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] .table-scroll {
+  background: var(--bg-secondary);
+}

@@ -1,530 +1,688 @@
-// Modern Professional JavaScript for Domains Blacklist
-// Fetches real-time statistics from GitHub API
+// Domains Blacklist - site behaviour.
+//
+// Every number rendered here comes from data/*.json, which is generated at
+// build time from the blacklist artifact that users actually download. There is
+// no hardcoded fallback data: when a fetch fails the page says so instead of
+// showing a plausible number that happens to be wrong.
 
 (function () {
     'use strict';
 
-    // Configuration
     const CONFIG = {
-        GITHUB_API: 'https://api.github.com/repos/fabriziosalmi/blacklists',
-        STATS_FILE: 'https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/stats/daily_stats.json',
-        CACHE_DURATION: 5 * 60 * 1000, // 5 minutes
-        FALLBACK_DATA: {
-            total_domains: 2943292,
-            whitelisted_domains: 2267,
-            blacklist_sources: 61
-        }
+        STATS: 'data/stats.json',
+        HISTORY: 'data/history.json',
+        SOURCES: 'data/sources.json',
+        INDEX: 'data/index.json',
+        SHARDS: 'data/shards',
+        DEFAULT_TREND_DAYS: 90
     };
 
-    // Utility Functions
     const utils = {
         formatNumber(num) {
             return new Intl.NumberFormat('en-US').format(num);
         },
 
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            const now = new Date();
-            const diff = now - date;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-            if (days === 0) return 'Today';
-            if (days === 1) return 'Yesterday';
-            if (days < 7) return `${days} days ago`;
-
-            return date.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
+        formatCompact(num) {
+            if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+            if (num >= 1e3) return (num / 1e3).toFixed(1) + 'k';
+            return String(num);
         },
 
-        formatTime(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
-            }) + ' UTC';
+        formatBytes(bytes) {
+            if (!bytes) return '—';
+            const mb = bytes / (1024 * 1024);
+            return mb >= 1 ? `${mb.toFixed(1)} MB` : `${(bytes / 1024).toFixed(0)} KB`;
         },
 
-        async fetchWithCache(url, cacheKey) {
-            const cached = localStorage.getItem(cacheKey);
-            if (cached) {
-                const { data, timestamp } = JSON.parse(cached);
-                if (Date.now() - timestamp < CONFIG.CACHE_DURATION) {
-                    return data;
-                }
+        formatSigned(count, percentage) {
+            const sign = count >= 0 ? '+' : '';
+            const pct = (percentage === null || percentage === undefined)
+                ? '' : ` (${sign}${percentage}%)`;
+            return `${sign}${utils.formatNumber(count)}${pct}`;
+        },
+
+        // Dates are rendered relative to the viewer's clock but always show the
+        // absolute UTC timestamp too, so "2 days ago" can never be the only
+        // claim about freshness.
+        formatRelative(dateString) {
+            if (!dateString) return 'unknown';
+            const date = new Date(dateString);
+            if (isNaN(date)) return 'unknown';
+
+            const days = Math.floor((Date.now() - date) / 86400000);
+            if (days <= 0) return 'today';
+            if (days === 1) return 'yesterday';
+            if (days < 30) return `${days} days ago`;
+            return date.toISOString().slice(0, 10);
+        },
+
+        formatUTC(dateString) {
+            if (!dateString) return 'unknown';
+            const date = new Date(dateString);
+            if (isNaN(date)) return 'unknown';
+            return date.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+        },
+
+        async fetchJSON(url) {
+            const response = await fetch(url, { cache: 'no-cache' });
+            if (!response.ok) {
+                throw new Error(`${url} responded ${response.status}`);
             }
+            return response.json();
+        },
 
-            const response = await fetch(url);
-            const data = await response.json();
+        setText(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        },
 
-            localStorage.setItem(cacheKey, JSON.stringify({
-                data,
-                timestamp: Date.now()
-            }));
-
-            return data;
+        // A single place that marks a value as unavailable, so a failed fetch
+        // always looks like a failure and never like data.
+        setUnavailable(id, label) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = label || 'unavailable';
+            el.classList.add('value-unavailable');
         }
     };
 
-    // Statistics Manager
     class StatsManager {
         constructor() {
             this.stats = null;
-            this.release = null;
+            this.history = null;
             this.chart = null;
+            this.trendDays = CONFIG.DEFAULT_TREND_DAYS;
         }
 
         async init() {
-            try {
-                await Promise.all([
-                    this.fetchStats(),
-                    this.fetchRelease()
-                ]);
-                this.updateUI();
-                this.initChart();
-            } catch (error) {
-                console.error('Failed to load statistics:', error);
-                this.useFallbackData();
+            const [stats, history] = await Promise.allSettled([
+                utils.fetchJSON(CONFIG.STATS),
+                utils.fetchJSON(CONFIG.HISTORY)
+            ]);
+
+            if (stats.status === 'fulfilled') {
+                this.stats = stats.value;
+                this.renderStats();
+            } else {
+                console.error('Failed to load statistics:', stats.reason);
+                this.renderUnavailable();
+            }
+
+            if (history.status === 'fulfilled') {
+                this.history = history.value;
+                this.initTrendControls();
+                this.renderChart();
+            } else {
+                console.error('Failed to load history:', history.reason);
+                this.renderChartUnavailable('Historical data could not be loaded.');
             }
         }
 
-        async fetchStats() {
-            try {
-                this.stats = await utils.fetchWithCache(
-                    CONFIG.STATS_FILE,
-                    'blacklist_stats'
-                );
-            } catch (error) {
-                console.warn('Stats file not available, using fallback');
-                this.stats = null;
+        renderStats() {
+            const s = this.stats;
+
+            utils.setText('hero-count', utils.formatNumber(s.total_domains));
+            utils.setText('hero-sources', s.blacklist_sources);
+            utils.setText('total-domains', utils.formatNumber(s.total_domains));
+            utils.setText('sources-count', s.blacklist_sources);
+            utils.setText('whitelisted-count', utils.formatNumber(s.whitelisted_domains));
+
+            const daily = s.changes && s.changes.daily;
+            const changeEl = document.getElementById('daily-change');
+            if (changeEl) {
+                if (daily && typeof daily.count === 'number') {
+                    changeEl.textContent = `${utils.formatSigned(daily.count, daily.percentage)} vs yesterday`;
+                    changeEl.className = 'stat-change ' + (daily.count >= 0 ? 'positive' : 'negative');
+                } else {
+                    changeEl.textContent = 'no comparison available';
+                    changeEl.className = 'stat-change';
+                }
+            }
+
+            const published = s.release && s.release.published_at;
+            utils.setText('last-update', utils.formatRelative(published));
+            utils.setText('update-time', utils.formatUTC(published));
+
+            const weekly = s.changes && s.changes.weekly;
+            const monthly = s.changes && s.changes.monthly;
+
+            if (weekly) {
+                utils.setText('weekly-growth', utils.formatSigned(weekly.count, weekly.percentage));
+            } else {
+                utils.setUnavailable('weekly-growth', 'not enough history');
+            }
+
+            if (monthly) {
+                utils.setText('monthly-growth', utils.formatSigned(monthly.count, monthly.percentage));
+                utils.setText('avg-daily', `${utils.formatSigned(Math.round(monthly.count / 30))} domains/day`);
+            } else {
+                utils.setUnavailable('monthly-growth', 'not enough history');
+                utils.setUnavailable('avg-daily', 'not enough history');
+            }
+
+            utils.setText('footer-domains', `${utils.formatNumber(s.total_domains)} domains`);
+            utils.setText('footer-sources', `${s.blacklist_sources} sources`);
+
+            this.renderProvenance();
+        }
+
+        renderProvenance() {
+            const s = this.stats;
+            const release = s.release || {};
+
+            utils.setText('prov-built', utils.formatUTC(s.generated_at));
+            utils.setText('prov-release', utils.formatUTC(release.published_at));
+            utils.setText('prov-size', utils.formatBytes(release.blacklist_bytes));
+            utils.setText('prov-domains', utils.formatNumber(s.total_domains));
+
+            const digest = document.getElementById('prov-sha256');
+            if (digest) digest.textContent = release.blacklist_sha256 || 'unavailable';
+
+            const runLink = document.getElementById('prov-run');
+            if (runLink && s.build && s.build.run_url) {
+                runLink.href = s.build.run_url;
+                runLink.textContent = 'view build log';
+            } else if (runLink) {
+                runLink.replaceWith(document.createTextNode('unavailable'));
             }
         }
 
-        async fetchRelease() {
-            try {
-                this.release = await utils.fetchWithCache(
-                    `${CONFIG.GITHUB_API}/releases/latest`,
-                    'github_release'
-                );
-            } catch (error) {
-                console.error('Failed to fetch release:', error);
+        renderUnavailable() {
+            ['total-domains', 'sources-count', 'whitelisted-count', 'last-update',
+             'weekly-growth', 'monthly-growth', 'avg-daily'].forEach(id => {
+                utils.setUnavailable(id);
+            });
+            utils.setText('hero-count', '—');
+            utils.setText('update-time', '');
+
+            const banner = document.getElementById('data-error');
+            if (banner) {
+                banner.hidden = false;
+                banner.textContent =
+                    'Statistics could not be loaded. Nothing is shown rather than showing stale numbers.';
             }
         }
 
-        updateUI() {
-            // Get stats data
-            const totalDomains = this.stats?.total_domains || CONFIG.FALLBACK_DATA.total_domains;
-            const whitelisted = this.stats?.whitelisted_domains || CONFIG.FALLBACK_DATA.whitelisted_domains;
-            const sources = this.stats?.blacklist_sources || CONFIG.FALLBACK_DATA.blacklist_sources;
-
-            // Update hero count
-            const heroCount = document.getElementById('hero-count');
-            if (heroCount) {
-                heroCount.textContent = utils.formatNumber(totalDomains);
-            }
-
-            // Update stat cards
-            this.updateElement('total-domains', utils.formatNumber(totalDomains));
-            this.updateElement('sources-count', sources);
-            this.updateElement('whitelisted-count', utils.formatNumber(whitelisted));
-
-            // Update daily change
-            if (this.stats?.changes?.daily) {
-                const change = this.stats.changes.daily;
-                const changeEl = document.getElementById('daily-change');
-                if (changeEl) {
-                    const sign = change.count >= 0 ? '+' : '';
-                    changeEl.textContent = `${sign}${utils.formatNumber(change.count)} (${sign}${change.percentage}%) today`;
-                    changeEl.className = 'stat-change ' + (change.count >= 0 ? 'positive' : 'negative');
-                }
-            }
-
-            // Update last update time
-            if (this.release) {
-                const lastUpdate = document.getElementById('last-update');
-                const updateTime = document.getElementById('update-time');
-
-                if (lastUpdate) {
-                    lastUpdate.textContent = utils.formatDate(this.release.published_at);
-                }
-                if (updateTime) {
-                    updateTime.textContent = utils.formatTime(this.release.published_at);
-                }
-            }
-
-            // Update growth stats
-            if (this.stats?.changes) {
-                const weekly = this.stats.changes.weekly;
-                const monthly = this.stats.changes.monthly;
-
-                if (weekly) {
-                    const sign = weekly.count >= 0 ? '+' : '';
-                    this.updateElement('weekly-growth',
-                        `${sign}${utils.formatNumber(weekly.count)} (${sign}${weekly.percentage}%)`
-                    );
-                }
-
-                if (monthly) {
-                    const sign = monthly.count >= 0 ? '+' : '';
-                    this.updateElement('monthly-growth',
-                        `${sign}${utils.formatNumber(monthly.count)} (${sign}${monthly.percentage}%)`
-                    );
-                }
-
-                // Calculate average daily
-                if (monthly) {
-                    const avgDaily = Math.round(monthly.count / 30);
-                    this.updateElement('avg-daily', `~${utils.formatNumber(avgDaily)} domains/day`);
-                }
-            }
-
-            // Update footer stats
-            this.updateElement('footer-domains', `${utils.formatNumber(totalDomains)} domains`);
-            this.updateElement('footer-sources', `${sources} sources`);
+        initTrendControls() {
+            document.querySelectorAll('[data-trend-days]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.trendDays = Number(btn.dataset.trendDays);
+                    document.querySelectorAll('[data-trend-days]').forEach(other => {
+                        other.classList.toggle('active', other === btn);
+                    });
+                    this.renderChart();
+                });
+            });
         }
 
-        updateElement(id, value) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value;
+        renderChartUnavailable(message) {
+            const container = document.getElementById('chart-status');
+            if (container) {
+                container.hidden = false;
+                container.textContent = message;
+            }
+            const canvas = document.getElementById('trendChart');
+            if (canvas) canvas.hidden = true;
         }
 
-        useFallbackData() {
-            this.updateElement('total-domains', utils.formatNumber(CONFIG.FALLBACK_DATA.total_domains));
-            this.updateElement('sources-count', CONFIG.FALLBACK_DATA.blacklist_sources);
-            this.updateElement('whitelisted-count', utils.formatNumber(CONFIG.FALLBACK_DATA.whitelisted_domains));
-            this.updateElement('last-update', 'Recently');
-        }
-
-        initChart() {
+        renderChart() {
             const canvas = document.getElementById('trendChart');
             if (!canvas || !window.Chart) return;
 
-            // Generate sample trend data (last 30 days)
-            const days = 30;
-            const labels = [];
-            const data = [];
-            const baseValue = this.stats?.total_domains || CONFIG.FALLBACK_DATA.total_domains;
-            const dailyGrowth = this.stats?.changes?.monthly?.count
-                ? Math.round(this.stats.changes.monthly.count / 30)
-                : 1500;
+            const series = (this.history || []).slice(-this.trendDays);
 
-            for (let i = days; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-
-                // Simulate growth with some variance
-                const variance = Math.random() * dailyGrowth * 0.3;
-                const value = baseValue - (i * dailyGrowth) + variance;
-                data.push(Math.round(value));
+            // Two points is the minimum that can honestly be called a trend.
+            if (series.length < 2) {
+                this.renderChartUnavailable(
+                    `Only ${series.length} day(s) of history recorded so far - not enough to plot a trend.`
+                );
+                return;
             }
+
+            const status = document.getElementById('chart-status');
+            if (status) status.hidden = true;
+            canvas.hidden = false;
+
+            const labels = series.map(p => p.date);
+            const values = series.map(p => p.total_domains);
+
+            const styles = getComputedStyle(document.documentElement);
+            const grid = styles.getPropertyValue('--chart-grid').trim() || '#e5e7eb';
+            const line = styles.getPropertyValue('--chart-line').trim() || '#2563eb';
+
+            if (this.chart) this.chart.destroy();
 
             this.chart = new Chart(canvas, {
                 type: 'line',
                 data: {
                     labels,
                     datasets: [{
-                        label: 'Total Domains',
-                        data,
-                        borderColor: '#2563eb',
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        label: 'Total domains',
+                        data: values,
+                        borderColor: line,
+                        backgroundColor: 'rgba(37, 99, 235, 0.10)',
                         borderWidth: 2,
                         fill: true,
-                        tension: 0.4,
-                        pointRadius: 0,
-                        pointHoverRadius: 6,
-                        pointHoverBackgroundColor: '#2563eb',
-                        pointHoverBorderColor: '#fff',
-                        pointHoverBorderWidth: 2
+                        tension: 0.25,
+                        pointRadius: series.length > 45 ? 0 : 2,
+                        pointHoverRadius: 5
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
+                    interaction: { intersect: false, mode: 'index' },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#1f2937',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            padding: 12,
-                            displayColors: false,
                             callbacks: {
-                                label: function (context) {
-                                    return utils.formatNumber(context.parsed.y) + ' domains';
-                                }
+                                label: ctx => `${utils.formatNumber(ctx.parsed.y)} domains`
                             }
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: false,
-                            ticks: {
-                                callback: function (value) {
-                                    return utils.formatNumber(value);
-                                }
-                            },
-                            grid: {
-                                color: '#e5e7eb'
-                            }
+                            ticks: { callback: v => utils.formatCompact(v) },
+                            grid: { color: grid }
                         },
                         x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                maxRotation: 0,
-                                autoSkip: true,
-                                maxTicksLimit: 8
-                            }
+                            grid: { display: false },
+                            ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 }
                         }
                     }
                 }
             });
+
+            const caption = document.getElementById('chart-caption');
+            if (caption) {
+                caption.textContent =
+                    `${series.length} daily measurements, ${labels[0]} to ${labels[labels.length - 1]}.`;
+            }
         }
     }
 
-    // Copy to Clipboard
-    class ClipboardManager {
+    // Renders the upstream lists this project aggregates, with the licence each
+    // one is redistributed under. Unverified licences are labelled as such.
+    class SourcesManager {
         constructor() {
-            this.initCopyButtons();
+            this.tbody = document.getElementById('sources-body');
+            this.data = null;
         }
 
-        initCopyButtons() {
-            document.querySelectorAll('.copy-btn').forEach(btn => {
-                btn.addEventListener('click', () => this.copyToClipboard(btn));
-            });
-        }
-
-        async copyToClipboard(btn) {
-            const targetId = btn.dataset.target;
-            const input = document.getElementById(targetId);
-
-            if (!input) return;
+        async init() {
+            if (!this.tbody) return;
 
             try {
-                await navigator.clipboard.writeText(input.value);
-                this.showCopied(btn);
+                this.data = await utils.fetchJSON(CONFIG.SOURCES);
             } catch (error) {
-                // Fallback for older browsers
-                input.select();
-                document.execCommand('copy');
-                this.showCopied(btn);
+                console.error('Failed to load sources:', error);
+                this.tbody.innerHTML =
+                    '<tr><td colspan="5" class="value-unavailable">Source list could not be loaded.</td></tr>';
+                return;
             }
+
+            this.render();
         }
 
-        showCopied(btn) {
-            const originalText = btn.innerHTML;
-            btn.classList.add('copied');
-            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+        licenseCell(license) {
+            const cell = document.createElement('td');
+            if (!license) {
+                cell.textContent = 'unknown';
+                cell.className = 'license-unknown';
+                return cell;
+            }
 
-            setTimeout(() => {
-                btn.classList.remove('copied');
-                btn.innerHTML = originalText;
-            }, 2000);
-        }
-    }
+            const label = license.spdx || license.name || 'unknown';
 
-    // Smooth Scrolling
-    class ScrollManager {
-        constructor() {
-            this.initSmoothScroll();
-            this.initBackToTop();
-        }
+            if (license.url) {
+                const link = document.createElement('a');
+                link.href = license.url;
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.textContent = label;
+                cell.appendChild(link);
+            } else {
+                cell.appendChild(document.createTextNode(label));
+            }
 
-        initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', (e) => {
-                    const href = anchor.getAttribute('href');
-                    if (href === '#') return;
+            if (!license.verified) {
+                cell.classList.add('license-unknown');
+                const flag = document.createElement('span');
+                flag.className = 'license-flag';
+                flag.textContent = 'unverified';
+                flag.title = license.note || 'No licence statement found at the source.';
+                cell.appendChild(document.createTextNode(' '));
+                cell.appendChild(flag);
+            }
 
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+            return cell;
         }
 
-        initBackToTop() {
-            const btn = document.getElementById('backToTop');
-            if (!btn) return;
+        render() {
+            const sources = this.data.sources || [];
+            this.tbody.innerHTML = '';
 
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    btn.classList.add('visible');
-                } else {
-                    btn.classList.remove('visible');
+            sources.forEach(source => {
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                const link = document.createElement('a');
+                link.href = source.homepage;
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.textContent = source.name;
+                nameCell.appendChild(link);
+
+                const project = document.createElement('div');
+                project.className = 'source-project';
+                project.textContent = source.maintainer;
+                nameCell.appendChild(project);
+
+                if (source.mirror_of) {
+                    const mirror = document.createElement('div');
+                    mirror.className = 'source-mirror';
+                    mirror.textContent = `re-published via ${source.mirror_of.name}`;
+                    nameCell.appendChild(mirror);
                 }
-            });
+                row.appendChild(nameCell);
 
-            btn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                const catCell = document.createElement('td');
+                (source.categories || []).forEach(category => {
+                    const tag = document.createElement('span');
+                    tag.className = 'category-tag';
+                    tag.textContent = category;
+                    catCell.appendChild(tag);
                 });
+                row.appendChild(catCell);
+
+                row.appendChild(this.licenseCell(source.license));
+
+                const metrics = source.metrics;
+
+                const domainsCell = document.createElement('td');
+                domainsCell.className = 'numeric';
+                if (metrics && typeof metrics.domains === 'number') {
+                    domainsCell.textContent = utils.formatNumber(metrics.domains);
+                } else {
+                    domainsCell.textContent = '—';
+                    domainsCell.classList.add('value-unavailable');
+                }
+                row.appendChild(domainsCell);
+
+                const statusCell = document.createElement('td');
+                if (metrics) {
+                    const ok = metrics.ok;
+                    const badge = document.createElement('span');
+                    badge.className = 'status-badge ' + (ok ? 'status-ok' : 'status-fail');
+                    badge.textContent = ok ? `HTTP ${metrics.http_status}` : (metrics.error || `HTTP ${metrics.http_status}`);
+                    statusCell.appendChild(badge);
+                } else {
+                    statusCell.textContent = 'not measured yet';
+                    statusCell.classList.add('value-unavailable');
+                }
+                row.appendChild(statusCell);
+
+                if (source.notes) {
+                    row.title = source.notes;
+                    row.classList.add('has-note');
+                }
+
+                this.tbody.appendChild(row);
             });
-        }
-    }
 
-    // Mobile Menu
-    class MobileMenu {
-        constructor() {
-            this.btn = document.querySelector('.mobile-menu-btn');
-            this.menu = document.querySelector('.nav-links');
-            this.isOpen = false;
-
-            if (this.btn) {
-                this.btn.addEventListener('click', () => this.toggle());
+            const summary = document.getElementById('sources-summary');
+            if (summary) {
+                const verified = sources.filter(s => s.license && s.license.verified).length;
+                const parts = [`${sources.length} upstream lists`, `${verified} with a verified licence`];
+                if (this.data.measured) {
+                    const failing = sources.filter(s => s.metrics && !s.metrics.ok).length;
+                    parts.push(failing ? `${failing} failing` : 'all fetching cleanly');
+                } else {
+                    parts.push('per-source metrics pending first pipeline run');
+                }
+                summary.textContent = parts.join(' · ');
             }
         }
-
-        toggle() {
-            this.isOpen = !this.isOpen;
-            this.menu.style.display = this.isOpen ? 'flex' : 'none';
-            this.btn.classList.toggle('active');
-        }
     }
 
-    // Dark Mode Manager
-    class DarkModeManager {
-        constructor() {
-            this.themeToggle = document.getElementById('themeToggle');
-            this.currentTheme = localStorage.getItem('theme') || 'light';
-
-            this.init();
-        }
-
-        init() {
-            // Apply saved theme
-            document.documentElement.setAttribute('data-theme', this.currentTheme);
-
-            // Add event listener
-            if (this.themeToggle) {
-                this.themeToggle.addEventListener('click', () => this.toggle());
-            }
-        }
-
-        toggle() {
-            this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', this.currentTheme);
-            localStorage.setItem('theme', this.currentTheme);
-        }
-    }
-
-    // Domain Search Manager
+    // Domain lookup against the static sharded index.
+    //
+    // The index is a set of files named after the first N hex characters of the
+    // SHA-256 of each domain. Checking a domain means hashing it locally and
+    // fetching exactly one shard (~25 KB) instead of the 100 MB blacklist. The
+    // answer is exact - there are no false positives.
     class DomainSearchManager {
         constructor() {
             this.searchBtn = document.getElementById('searchBtn');
             this.domainInput = document.getElementById('domainInput');
             this.searchResult = document.getElementById('searchResult');
-            this.blacklistUrl = 'https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/all.fqdn.blacklist';
-            this.blacklistCache = null;
+            this.manifest = null;
+            this.shardCache = new Map();
 
             this.init();
         }
 
         init() {
-            if (this.searchBtn && this.domainInput) {
-                this.searchBtn.addEventListener('click', () => this.search());
-                this.domainInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.search();
-                });
+            if (!this.searchBtn || !this.domainInput) return;
+
+            this.searchBtn.addEventListener('click', () => this.search());
+            this.domainInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') this.search();
+            });
+        }
+
+        async loadManifest() {
+            if (!this.manifest) {
+                this.manifest = await utils.fetchJSON(CONFIG.INDEX);
             }
+            return this.manifest;
+        }
+
+        async sha256(text) {
+            const digest = await crypto.subtle.digest(
+                'SHA-256', new TextEncoder().encode(text)
+            );
+            return Array.from(new Uint8Array(digest))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        async loadShard(name) {
+            if (this.shardCache.has(name)) return this.shardCache.get(name);
+
+            const response = await fetch(`${CONFIG.SHARDS}/${name}.txt`);
+            if (!response.ok) throw new Error(`shard ${name} responded ${response.status}`);
+
+            const text = await response.text();
+            const set = new Set(text.split('\n').filter(Boolean));
+            this.shardCache.set(name, set);
+            return set;
+        }
+
+        async isListed(domain) {
+            const manifest = await this.loadManifest();
+            const digest = await this.sha256(domain);
+            const shard = await this.loadShard(digest.slice(0, manifest.prefix_length));
+            return shard.has(domain);
+        }
+
+        // A domain can be blocked because a parent domain is listed, so report
+        // that explicitly instead of answering "not listed" and being useless.
+        parentDomains(domain) {
+            const labels = domain.split('.');
+            const parents = [];
+            for (let i = 1; i <= labels.length - 2; i++) {
+                parents.push(labels.slice(i).join('.'));
+            }
+            return parents;
         }
 
         async search() {
-            const domain = this.domainInput.value.trim().toLowerCase();
+            const domain = this.domainInput.value.trim().toLowerCase().replace(/\.$/, '');
 
             if (!domain) {
-                this.showResult('Please enter a domain name', 'error');
+                this.showResult('Enter a domain name to check.', 'error');
+                return;
+            }
+            if (!/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/.test(domain)) {
+                this.showResult('That does not look like a domain. Example: example.com', 'error');
+                return;
+            }
+            if (!crypto.subtle) {
+                this.showResult('This browser cannot compute SHA-256, so lookups are unavailable.', 'error');
                 return;
             }
 
-            // Validate domain format
-            const domainRegex = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
-            if (!domainRegex.test(domain)) {
-                this.showResult('Invalid domain format. Example: example.com', 'error');
-                return;
-            }
-
-            this.showResult('Searching...', 'loading');
+            this.showResult('Checking...', 'loading');
             this.searchBtn.disabled = true;
 
             try {
-                // Try to use cached blacklist first
-                if (!this.blacklistCache) {
-                    const response = await fetch(this.blacklistUrl);
-                    if (!response.ok) throw new Error('Failed to fetch blacklist');
-
-                    const text = await response.text();
-                    this.blacklistCache = new Set(text.split('\n').map(d => d.trim().toLowerCase()));
+                if (await this.isListed(domain)) {
+                    this.showResult(`${domain} is in the blacklist.`, 'found');
+                    return;
                 }
 
-                // Check if domain is in blacklist
-                const isBlacklisted = this.blacklistCache.has(domain);
-
-                if (isBlacklisted) {
-                    this.showResult(
-                        `⚠️ Domain "${domain}" is BLACKLISTED - This domain is blocked for security reasons`,
-                        'found'
-                    );
-                } else {
-                    this.showResult(
-                        `✓ Domain "${domain}" is NOT in the blacklist - This domain appears safe`,
-                        'not-found'
-                    );
+                for (const parent of this.parentDomains(domain)) {
+                    if (await this.isListed(parent)) {
+                        this.showResult(
+                            `${domain} is not listed itself, but its parent domain ${parent} is. ` +
+                            `DNS-level blockers that match subdomains will block it.`,
+                            'found-parent'
+                        );
+                        return;
+                    }
                 }
-            } catch (error) {
-                console.error('Search error:', error);
+
                 this.showResult(
-                    'Unable to search at this time. Please try again later.',
-                    'error'
+                    `${domain} is not in this blacklist. That is not a safety verdict - ` +
+                    `it only means no configured source reported it.`,
+                    'not-found'
                 );
+            } catch (error) {
+                console.error('Lookup failed:', error);
+                this.showResult('The lookup index could not be reached. Try again later.', 'error');
             } finally {
                 this.searchBtn.disabled = false;
             }
         }
 
         showResult(message, type) {
+            if (!this.searchResult) return;
             this.searchResult.textContent = message;
             this.searchResult.className = `search-result ${type}`;
         }
     }
 
-    // Initialize everything when DOM is ready
-    function init() {
-        const statsManager = new StatsManager();
-        statsManager.init();
+    class ClipboardManager {
+        constructor() {
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', () => this.copy(btn));
+            });
+        }
 
+        async copy(btn) {
+            const input = document.getElementById(btn.dataset.target);
+            if (!input) return;
+
+            try {
+                await navigator.clipboard.writeText(input.value);
+            } catch (error) {
+                input.select();
+                document.execCommand('copy');
+            }
+            this.showCopied(btn);
+        }
+
+        showCopied(btn) {
+            const original = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.innerHTML = 'Copied';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = original;
+            }, 2000);
+        }
+    }
+
+    class ScrollManager {
+        constructor() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', e => {
+                    const href = anchor.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (!target) return;
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            this.backToTop = document.getElementById('backToTop');
+            if (this.backToTop) {
+                window.addEventListener('scroll', () => {
+                    this.backToTop.classList.toggle('visible', window.pageYOffset > 300);
+                }, { passive: true });
+                this.backToTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        }
+    }
+
+    class MobileMenu {
+        constructor() {
+            this.btn = document.querySelector('.mobile-menu-btn');
+            this.menu = document.querySelector('.nav-links');
+            this.isOpen = false;
+
+            if (this.btn) this.btn.addEventListener('click', () => this.toggle());
+        }
+
+        toggle() {
+            this.isOpen = !this.isOpen;
+            this.menu.style.display = this.isOpen ? 'flex' : '';
+            this.btn.classList.toggle('active', this.isOpen);
+            this.btn.setAttribute('aria-expanded', String(this.isOpen));
+        }
+    }
+
+    class DarkModeManager {
+        constructor() {
+            this.toggle = document.getElementById('themeToggle');
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            this.theme = stored || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', this.theme);
+
+            if (this.toggle) {
+                this.toggle.addEventListener('click', () => this.switch());
+            }
+        }
+
+        switch() {
+            this.theme = this.theme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', this.theme);
+            localStorage.setItem('theme', this.theme);
+        }
+    }
+
+    function init() {
+        new StatsManager().init();
+        new SourcesManager().init();
+        new DomainSearchManager();
         new ClipboardManager();
         new ScrollManager();
         new MobileMenu();
         new DarkModeManager();
-        new DomainSearchManager();
-
-        // Add loading animation
         document.body.classList.add('loaded');
     }
 
-    // Wait for DOM and Chart.js to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
-
 })();

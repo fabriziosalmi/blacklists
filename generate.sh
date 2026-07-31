@@ -80,27 +80,49 @@ install_additional_packages() {
     done
 }
 
-# Function to download a URL and save to a randomly named file
+# Directory holding one downloaded file per source, named by its position in
+# blacklists.fqdn.urls. Deterministic names are what make per-source
+# attribution possible later: with random names the aggregate cannot be traced
+# back to the list that supplied each domain.
+SOURCES_DIR="sources_raw"
+
+# Download a single source and record the outcome.
+#
+# The HTTP status is captured rather than discarded, and only a 2xx response is
+# handed to the aggregator. A source returning a 404 HTML error page must
+# contribute nothing instead of contributing markup that later has to be
+# filtered out by luck.
 download_url() {
-    local url="$1"
-    local random_filename=$(uuidgen | tr -dc '[:alnum:]')
-    echo "Downloading blacklist: $url -> $random_filename.fqdn.list" | tee -a "$LOGFILE"
+    local index="$1"
+    local url="$2"
+    local target="${SOURCES_DIR}/$(printf '%03d' "$index").fqdn.list"
+    local meta="${SOURCES_DIR}/$(printf '%03d' "$index").meta"
 
-    # Use wget or curl based on availability
-    if command -v wget &>/dev/null; then
-      DOWNLOAD_CMD="wget -q --progress=bar:force -O"
-    elif command -v curl &>/dev/null; then
-      DOWNLOAD_CMD="curl -s -o" # -s for silent operation, -o for output
-    else
-      echo "wget or curl not found. Exiting ❌." | tee -a "$LOGFILE"
-      exit 1
-    fi
+    local start_ts=$(date +%s)
+    local status
+    status=$(curl -sSL \
+        --max-time 120 \
+        --retry 2 --retry-delay 3 \
+        -A "fabriziosalmi-blacklists/1.0 (+https://github.com/fabriziosalmi/blacklists)" \
+        -o "$target" \
+        -w '%{http_code}' \
+        "$url" 2>>"$LOGFILE") || status="000"
+    local elapsed=$(( $(date +%s) - start_ts ))
 
+    local bytes=0
+    [ -f "$target" ] && bytes=$(wc -c < "$target" | tr -d ' ')
 
-    if ! $DOWNLOAD_CMD "$random_filename.fqdn.list" "$url"; then
-        echo "Failed to download: $url ❌" | tee -a "$LOGFILE"
+    # Record the outcome before deciding what to do with it, so a failure is
+    # still reported to the statistics step.
+    printf '%s\t%s\t%s\t%s\t%s\n' "$index" "$url" "$status" "$bytes" "$elapsed" > "$meta"
+
+    if [[ ! "$status" =~ ^2 ]]; then
+        echo "Source $index returned HTTP $status, excluding from aggregate: $url ❌" | tee -a "$LOGFILE"
+        rm -f "$target"
         return 1
     fi
+
+    echo "Downloaded source $index (HTTP $status, ${bytes} bytes): $url" | tee -a "$LOGFILE"
 }
 
 # Download all URLs from the list and handle files
@@ -111,46 +133,42 @@ manage_downloads() {
         exit 1
     fi
 
+    rm -rf "$SOURCES_DIR"
+    mkdir -p "$SOURCES_DIR"
+
     echo "Starting downloads..." | tee -a "$LOGFILE"
+    local index=0
     while IFS= read -r url; do
-        download_url "$url" &
+        # Skip blank lines and comments so indices line up with the URLs that
+        # are actually fetched.
+        case "$url" in ''|\#*) continue;; esac
+        download_url "$index" "$url" &
+        index=$((index + 1))
     done < "$LISTS"
     wait
 
-    echo "Aggregating blacklists..." | tee -a "$LOGFILE"
-    local aggregated_file="aggregated.fqdn.list" # Store file in variable
-    echo "" > "$aggregated_file" # Use variable
+    local downloaded
+    downloaded=$(find "$SOURCES_DIR" -name '*.fqdn.list' | wc -l | tr -d ' ')
+    echo "Downloaded ${downloaded}/${index} sources successfully." | tee -a "$LOGFILE"
 
-    # Debugging: List files before globbing
-    echo "Files in current directory:" | tee -a "$LOGFILE"
-    ls -l | tee -a "$LOGFILE"
-
-    # Improved globbing and file existence check
-    # Exclude aggregated_file
-    local files=$(find . -maxdepth 1 -name "*.fqdn.list" ! -name "$aggregated_file" -print0 | xargs -0 ls -l) # List files matching pattern to LOG
-    echo "Files matching *.fqdn.list (excluding $aggregated_file):" | tee -a "$LOGFILE"
-    echo "$files" | tee -a "$LOGFILE"
-
-    #Check if any matches were found
-    if [[ -z "$files" ]]; then
-        echo "No *.fqdn.list files found (excluding $aggregated_file). Check your download URLs and file permissions.  Exiting ❌." | tee -a "$LOGFILE"
+    if [ "$downloaded" -eq 0 ]; then
+        echo "No sources downloaded. Check network access and URLs. Exiting ❌." | tee -a "$LOGFILE"
         exit 1
     fi
 
-    for file in *.fqdn.list; do
-      if [ -f "$file" ] && [ "$file" != "$aggregated_file" ]; then
-        echo "Processing file: $file" | tee -a "$LOGFILE"
-        cat "$file" >> "$aggregated_file"
-      else
-        if [ "$file" == "$aggregated_file" ]; then
-          echo "Skipping $aggregated_file" | tee -a "$LOGFILE"
-        else
-          echo "File not found: $file. Skipping." | tee -a "$LOGFILE"
-        fi
-      fi
-    done
+    # Refuse to build a release from a partial fetch: silently shipping a list
+    # missing half its sources looks like a real update to every downstream user.
+    local min_required=$(( index / 2 ))
+    if [ "$downloaded" -lt "$min_required" ]; then
+        echo "Only ${downloaded}/${index} sources downloaded (need at least ${min_required}). Exiting ❌." | tee -a "$LOGFILE"
+        exit 1
+    fi
 
-    sort -u "$aggregated_file" > all.fqdn.blacklist # Use variable
+    echo "Aggregating blacklists..." | tee -a "$LOGFILE"
+    local aggregated_file="aggregated.fqdn.list"
+    cat "$SOURCES_DIR"/*.fqdn.list > "$aggregated_file"
+
+    sort -u "$aggregated_file" > all.fqdn.blacklist
 
     # Check for an empty blacklist file after sort
     if [ ! -s "all.fqdn.blacklist" ]; then
@@ -158,8 +176,9 @@ manage_downloads() {
       exit 1
     fi
 
-    echo "Cleanup: removing source files..." | tee -a "$LOGFILE"
-    rm -f ./*.fqdn.list "$aggregated_file"
+    # The per-source files are deliberately kept: scripts/source_stats.py reads
+    # them to attribute the aggregate. The caller removes them when done.
+    rm -f "$aggregated_file"
 }
 
 # Sanitize and whitelist downloaded blacklists

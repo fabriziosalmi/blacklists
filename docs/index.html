@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
-    <title>Domains Blacklist - Daily Updated Cybersecurity Protection</title>
+    <title>Domains Blacklist - Daily Aggregated DNS Blocklist</title>
     <meta name="description"
-        content="Daily updated domains blacklist with 2.9M+ blocked threats. Open-source cybersecurity for everyone.">
+        content="An open-source domain blacklist rebuilt daily from 50 curated upstream lists, published with per-source attribution, licences and verifiable provenance.">
 
     <!-- Fonts -->
     <link href="fonts/fonts.css"
@@ -33,6 +33,7 @@
                 </div>
                 <div class="nav-links">
                     <a href="#stats">Statistics</a>
+                    <a href="#sources">Sources</a>
                     <a href="#download">Download</a>
                     <a href="#docs">Docs</a>
                     <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" class="github-link">
@@ -78,11 +79,11 @@
                     <span class="status-dot"></span>
                     Daily Updated
                 </div>
-                <h1>Enterprise-Grade Domain Blacklist</h1>
+                <h1>An aggregated domain blacklist you can audit</h1>
                 <p class="hero-description">
-                    Protect your network with a curated, daily-updated blacklist of <strong
-                        id="hero-count">2.9M+</strong> malicious domains.
-                    Free, open-source, and trusted by thousands.
+                    <strong id="hero-count">—</strong> domains, rebuilt every day from
+                    <span id="hero-sources">50</span> upstream lists. Every source is published with its
+                    maintainer, licence and the number of domains it actually contributed.
                 </p>
                 <div class="hero-buttons">
                     <a href="#download" class="btn btn-primary">Get Started</a>
@@ -96,16 +97,19 @@
     <section class="domain-search-section">
         <div class="container">
             <div class="search-container">
-                <h2>Check Domain Status</h2>
-                <p class="search-subtitle">Verify if a domain is in our blacklist database</p>
+                <h2>Check a domain</h2>
+                <p class="search-subtitle">Query the current list, including parent-domain matches</p>
                 <div class="search-box">
-                    <input type="text" id="domainInput" placeholder="Enter domain (e.g., example.com)"
-                        aria-label="Domain name">
-                    <button id="searchBtn" class="btn btn-primary">Check Domain</button>
+                    <input type="text" id="domainInput" placeholder="example.com" aria-label="Domain name">
+                    <button id="searchBtn" class="btn btn-primary">Check domain</button>
                 </div>
                 <div id="searchResult" class="search-result"></div>
                 <div class="search-info">
-                    <small>Searches the latest blacklist release containing 2.9M+ domains</small>
+                    <small>
+                        Your browser hashes the domain locally and downloads a single ~25 KB slice of the
+                        index, not the 100 MB list. The answer is exact - no false positives - and the
+                        domain you type is never sent anywhere.
+                    </small>
                 </div>
             </div>
         </div>
@@ -114,8 +118,10 @@
     <!-- Live Statistics Section -->
     <section id="stats" class="stats-section">
         <div class="container">
-            <h2 class="section-title">Live Statistics</h2>
-            <p class="section-subtitle">Real-time data from GitHub releases</p>
+            <h2 class="section-title">Statistics</h2>
+            <p class="section-subtitle">Measured from the published artifact, rebuilt once a day</p>
+
+            <div id="data-error" class="data-error" role="alert" hidden></div>
 
             <!-- Stats Grid -->
             <div class="stats-grid">
@@ -128,27 +134,35 @@
                 <div class="stat-card">
 
                     <div class="stat-value" id="sources-count">Loading...</div>
-                    <div class="stat-label">Blacklist Sources</div>
-                    <div class="stat-sublabel">Curated & Verified</div>
+                    <div class="stat-label">Upstream sources</div>
+                    <div class="stat-sublabel"><a href="#sources">see the full list</a></div>
                 </div>
                 <div class="stat-card">
 
                     <div class="stat-value" id="whitelisted-count">Loading...</div>
-                    <div class="stat-label">Whitelisted Domains</div>
-                    <div class="stat-sublabel">False Positive Prevention</div>
+                    <div class="stat-label">Whitelisted domains</div>
+                    <div class="stat-sublabel">Removed to limit false positives</div>
                 </div>
                 <div class="stat-card">
 
                     <div class="stat-value" id="last-update">Loading...</div>
-                    <div class="stat-label">Last Updated</div>
+                    <div class="stat-label">Last release</div>
                     <div class="stat-sublabel" id="update-time">...</div>
                 </div>
             </div>
 
             <!-- Trend Chart -->
             <div class="chart-container">
-                <h3>Growth Trend (Last 30 Days)</h3>
+                <div class="chart-header">
+                    <h3>Recorded daily totals</h3>
+                    <div class="chart-controls" role="group" aria-label="Trend range">
+                        <button type="button" data-trend-days="30">30d</button>
+                        <button type="button" data-trend-days="90" class="active">90d</button>
+                    </div>
+                </div>
+                <p id="chart-status" class="chart-status" hidden></p>
                 <canvas id="trendChart"></canvas>
+                <p id="chart-caption" class="chart-caption"></p>
             </div>
 
             <!-- Additional Stats -->
@@ -162,10 +176,84 @@
                     <span class="stat-row-value" id="monthly-growth">Loading...</span>
                 </div>
                 <div class="stat-row">
-                    <span class="stat-row-label">Average Daily Additions:</span>
+                    <span class="stat-row-label">Average daily change:</span>
                     <span class="stat-row-value" id="avg-daily">Loading...</span>
                 </div>
             </div>
+
+            <!-- Provenance -->
+            <div class="provenance">
+                <h3>Provenance</h3>
+                <p class="provenance-intro">
+                    Everything above is derived from the artifact published below. These are the
+                    identifying details of the exact file this page describes.
+                </p>
+                <dl class="provenance-grid">
+                    <div>
+                        <dt>Release published</dt>
+                        <dd id="prov-release">—</dd>
+                    </div>
+                    <div>
+                        <dt>Site built</dt>
+                        <dd id="prov-built">—</dd>
+                    </div>
+                    <div>
+                        <dt>Domains indexed</dt>
+                        <dd id="prov-domains">—</dd>
+                    </div>
+                    <div>
+                        <dt>Artifact size</dt>
+                        <dd id="prov-size">—</dd>
+                    </div>
+                    <div class="provenance-wide">
+                        <dt>blacklist.txt SHA-256</dt>
+                        <dd><code id="prov-sha256">—</code></dd>
+                    </div>
+                    <div>
+                        <dt>Build</dt>
+                        <dd><a id="prov-run" href="#" target="_blank" rel="noopener">—</a></dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources Section -->
+    <section id="sources" class="sources-section">
+        <div class="container">
+            <h2 class="section-title">Upstream sources</h2>
+            <p class="section-subtitle">
+                This project does not discover domains itself - it aggregates and de-duplicates the
+                lists below. Each is redistributed under its own licence.
+            </p>
+            <p id="sources-summary" class="sources-summary">Loading...</p>
+
+            <div class="table-scroll">
+                <table class="sources-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">List</th>
+                            <th scope="col">Categories</th>
+                            <th scope="col">Licence</th>
+                            <th scope="col" class="numeric">Domains</th>
+                            <th scope="col">Last fetch</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sources-body">
+                        <tr>
+                            <td colspan="5">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="sources-footnote">
+                Licences are recorded only when confirmed against the upstream repository, licence page
+                or list header; anything else is marked <em>unverified</em> rather than guessed. If you
+                maintain one of these lists and the attribution is wrong,
+                <a href="https://github.com/fabriziosalmi/blacklists/issues/new/choose" target="_blank"
+                    rel="noopener">open an issue</a> and it will be corrected.
+            </p>
         </div>
     </section>
 
@@ -188,8 +276,9 @@
                 </div>
                 <div class="feature-card">
 
-                    <h3>Comprehensive Coverage</h3>
-                    <p>Aggregates 61+ curated sources blocking phishing, malware, ads, trackers, and scams.</p>
+                    <h3>Attributed Coverage</h3>
+                    <p>Aggregates curated lists covering phishing, malware, ads, trackers, scams and
+                        gambling - each one credited, licensed and measured.</p>
                 </div>
                 <div class="feature-card">
 
@@ -300,8 +389,8 @@
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h4>You're Protected</h4>
-                            <p>Automatic daily updates enabled</p>
+                            <h4>Stay current</h4>
+                            <p>Point your tool at the URL; it is rebuilt daily</p>
                         </div>
                     </div>
                 </div>

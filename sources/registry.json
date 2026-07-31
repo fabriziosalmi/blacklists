@@ -1,0 +1,1109 @@
+{
+  "schema_version": 1,
+  "description": "Curated metadata for every upstream list aggregated by this project. Licences are recorded only when confirmed against an authoritative source (repository licence file, project licence page or the list's own header); otherwise license.verified is false and license.spdx is null. Categories reflect how each list is labelled upstream.",
+  "licenses_verified_at": "2026-07-31",
+  "source_count": 48,
+  "removed_sources": [
+    {
+      "name": "StopForumSpam toxic_domains_whole",
+      "homepage": "https://www.stopforumspam.com/",
+      "reason": "licence",
+      "license": "CC BY-NC-ND",
+      "detail": "No distribution of derivative works, incompatible with this aggregate."
+    },
+    {
+      "name": "red.flag.domains",
+      "homepage": "https://red.flag.domains/",
+      "reason": "licence",
+      "license": "CC BY-NC-SA",
+      "detail": "Non-commercial clause."
+    },
+    {
+      "name": "phishing.army extended",
+      "homepage": "https://phishing.army/",
+      "reason": "licence",
+      "license": "CC BY-NC",
+      "detail": "Non-commercial clause."
+    },
+    {
+      "name": "RPiList/specials (Phishing-Angriffe, easylist, malware, incl. firebog RPiList-* mirrors)",
+      "homepage": "https://github.com/RPiList/specials",
+      "reason": "licence",
+      "license": "CC BY-NC",
+      "detail": "Non-commercial clause."
+    },
+    {
+      "name": "xRuffKez/NRD nrd-phishing-30day",
+      "homepage": "https://github.com/xRuffKez/NRD",
+      "reason": "unavailable",
+      "license": null,
+      "detail": "Repository removed; raw URL returns HTTP 404."
+    },
+    {
+      "name": "urlhaus.abuse.ch hostfile (direct)",
+      "homepage": "https://urlhaus.abuse.ch/",
+      "reason": "replaced",
+      "license": null,
+      "detail": "Replaced by the MIT-licensed urlhaus-filter repackage from malware-filter (same data, permissive terms)."
+    },
+    {
+      "name": "KADhosts (azet12 fork) (FiltersHeroes / PolishFiltersTeam)",
+      "homepage": "https://github.com/FiltersHeroes/KADhosts",
+      "reason": "duplicate",
+      "license": "CC-BY-SA-4.0",
+      "detail": "Byte-identical to the PolishFiltersTeam/KADhosts feed; fetching it twice inflated the source count without adding a single domain."
+    },
+    {
+      "name": "Suspicious domains (MalwareWorld)",
+      "homepage": "https://malwareworld.com/",
+      "reason": "unavailable",
+      "license": null,
+      "detail": "Endpoint returned HTTP 404 and no licence statement could be located."
+    }
+  ],
+  "sources": [
+    {
+      "id": "ubo-getadmiral",
+      "url": "https://raw.githubusercontent.com/LanikSJ/ubo-filters/main/filters/getadmiral-domains.txt",
+      "name": "GetAdmiral domains",
+      "project": "LanikSJ/ubo-filters",
+      "maintainer": "LanikSJ",
+      "homepage": "https://github.com/LanikSJ/ubo-filters",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/LanikSJ/ubo-filters/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "dmachard-blocklist",
+      "url": "https://raw.githubusercontent.com/dmachard/blocklist-domains/data/blocklist.txt",
+      "name": "blocklist-domains",
+      "project": "dmachard/blocklist-domains",
+      "maintainer": "Denis Machard",
+      "homepage": "https://github.com/dmachard/blocklist-domains",
+      "categories": [
+        "mixed"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/dmachard/blocklist-domains/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "ubo-badware",
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt",
+      "name": "uBO badware risks",
+      "project": "uBlockOrigin/uAssets",
+      "maintainer": "uBlock Origin",
+      "homepage": "https://github.com/uBlockOrigin/uAssets",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "matomo-referrer-spam",
+      "url": "https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt",
+      "name": "Referrer spam list",
+      "project": "matomo-org/referrer-spam-blacklist",
+      "maintainer": "Matomo",
+      "homepage": "https://github.com/matomo-org/referrer-spam-blacklist",
+      "categories": [
+        "spam"
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "Creative Commons Zero v1.0 Universal",
+        "url": "https://github.com/matomo-org/referrer-spam-blacklist/blob/master/composer.json",
+        "verified": true,
+        "evidence": "composer.json",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "whatzittooya-adblock",
+      "url": "https://raw.githubusercontent.com/What-Zit-Tooya/Ad-Block/main/Main-Blocklist/Ad-Block-HOSTS.txt",
+      "name": "Ad-Block HOSTS",
+      "project": "What-Zit-Tooya/Ad-Block",
+      "maintainer": "What-Zit-Tooya",
+      "homepage": "https://github.com/What-Zit-Tooya/Ad-Block",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/What-Zit-Tooya/Ad-Block/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": "Previously pointed at the GitHub HTML blob page, which served markup instead of a host list; corrected to the raw URL."
+    },
+    {
+      "id": "notrack",
+      "url": "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt",
+      "name": "NoTrack blocklist",
+      "project": "quidsup/notrack-blocklists",
+      "maintainer": "quidsup",
+      "homepage": "https://gitlab.com/quidsup/notrack-blocklists",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://gitlab.com/quidsup/notrack-blocklists/-/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "gitlab-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "certpl",
+      "url": "https://hole.cert.pl/domains/domains.txt",
+      "name": "CERT Polska warning list",
+      "project": "CERT Polska warning list",
+      "maintainer": "CERT Polska (NASK)",
+      "homepage": "https://cert.pl/en/warning-list/",
+      "categories": [
+        "phishing"
+      ],
+      "license": {
+        "spdx": null,
+        "name": "Not stated",
+        "url": null,
+        "verified": false,
+        "evidence": null,
+        "checked_at": "2026-07-31",
+        "note": "No licence statement published on the project page; redistribution terms unconfirmed."
+      },
+      "mirror_of": null,
+      "notes": "Endpoint redirects (HTTP 301); requires a client that follows redirects."
+    },
+    {
+      "id": "frogeye-firstparty-only",
+      "url": "https://hostfiles.frogeye.fr/firstparty-only-trackers-hosts.txt",
+      "name": "First-party only trackers",
+      "project": "eulaurarien (frogeye)",
+      "maintainer": "Geoffrey 'Frogeye' Preud'homme",
+      "homepage": "https://hostfiles.frogeye.fr/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "frogeye-firstparty",
+      "url": "https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt",
+      "name": "First-party trackers",
+      "project": "eulaurarien (frogeye)",
+      "maintainer": "Geoffrey 'Frogeye' Preud'homme",
+      "homepage": "https://hostfiles.frogeye.fr/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "frogeye-multiparty-only",
+      "url": "https://hostfiles.frogeye.fr/multiparty-only-trackers-hosts.txt",
+      "name": "Multi-party only trackers",
+      "project": "eulaurarien (frogeye)",
+      "maintainer": "Geoffrey 'Frogeye' Preud'homme",
+      "homepage": "https://hostfiles.frogeye.fr/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "frogeye-multiparty",
+      "url": "https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt",
+      "name": "Multi-party trackers",
+      "project": "eulaurarien (frogeye)",
+      "maintainer": "Geoffrey 'Frogeye' Preud'homme",
+      "homepage": "https://hostfiles.frogeye.fr/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "phishing-filter",
+      "url": "https://malware-filter.gitlab.io/malware-filter/phishing-filter-hosts.txt",
+      "name": "Phishing filter",
+      "project": "malware-filter",
+      "maintainer": "curbengh / malware-filter",
+      "homepage": "https://gitlab.com/malware-filter/malware-filter",
+      "categories": [
+        "phishing"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "gitlab-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "yoyo-adservers",
+      "url": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&showintro=0&mimetype=plaintext",
+      "name": "Peter Lowe's ad/tracking server list",
+      "project": "pgl.yoyo.org adservers",
+      "maintainer": "Peter Lowe",
+      "homepage": "https://pgl.yoyo.org/adservers/",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": null,
+        "name": "Not stated",
+        "url": null,
+        "verified": false,
+        "evidence": null,
+        "checked_at": "2026-07-31",
+        "note": "No licence statement found on the project page; redistribution terms unconfirmed. SOURCES.md previously stated 'redistribution permitted (by written permission)'. No such statement could be located on the project page; if a written permission exists it should be recorded here as evidence."
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "adfilt-antimalware-hosts",
+      "url": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt",
+      "name": "Anti-Malware List (hosts)",
+      "project": "DandelionSprout/adfilt",
+      "maintainer": "DandelionSprout",
+      "homepage": "https://github.com/DandelionSprout/adfilt",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": null,
+        "name": "Dandelicence (custom licence)",
+        "url": "https://github.com/DandelionSprout/adfilt/blob/master/LICENSE.md",
+        "verified": true,
+        "evidence": "license-file",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "kadhosts-pft",
+      "url": "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt",
+      "name": "KADhosts",
+      "project": "FiltersHeroes/KADhosts",
+      "maintainer": "FiltersHeroes / PolishFiltersTeam",
+      "homepage": "https://github.com/FiltersHeroes/KADhosts",
+      "categories": [
+        "ads",
+        "scam"
+      ],
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0",
+        "url": "https://github.com/FiltersHeroes/KADhosts/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "sw-ads",
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Ads",
+      "name": "ShadowWhisperer Ads",
+      "project": "ShadowWhisperer/BlockLists",
+      "maintainer": "ShadowWhisperer",
+      "homepage": "https://github.com/ShadowWhisperer/BlockLists",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "Unlicense",
+        "name": "The Unlicense",
+        "url": "https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "sw-malware",
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware",
+      "name": "ShadowWhisperer Malware",
+      "project": "ShadowWhisperer/BlockLists",
+      "maintainer": "ShadowWhisperer",
+      "homepage": "https://github.com/ShadowWhisperer/BlockLists",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "Unlicense",
+        "name": "The Unlicense",
+        "url": "https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "sw-scam",
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Scam",
+      "name": "ShadowWhisperer Scam",
+      "project": "ShadowWhisperer/BlockLists",
+      "maintainer": "ShadowWhisperer",
+      "homepage": "https://github.com/ShadowWhisperer/BlockLists",
+      "categories": [
+        "scam"
+      ],
+      "license": {
+        "spdx": "Unlicense",
+        "name": "The Unlicense",
+        "url": "https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "sw-tracking",
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
+      "name": "ShadowWhisperer Tracking",
+      "project": "ShadowWhisperer/BlockLists",
+      "maintainer": "ShadowWhisperer",
+      "homepage": "https://github.com/ShadowWhisperer/BlockLists",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "Unlicense",
+        "name": "The Unlicense",
+        "url": "https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "stevenblack",
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/StevenBlack/hosts",
+      "name": "StevenBlack hosts (base)",
+      "project": "StevenBlack/hosts",
+      "maintainer": "Steven Black",
+      "homepage": "https://github.com/StevenBlack/hosts",
+      "categories": [
+        "ads",
+        "malware"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/StevenBlack/hosts/blob/master/license.txt",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "1hosts-pro",
+      "url": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/domains.txt",
+      "name": "1Hosts (Lite)",
+      "project": "badmojr/1Hosts",
+      "maintainer": "badmojr",
+      "homepage": "https://github.com/badmojr/1Hosts",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": "MPL-2.0",
+        "name": "Mozilla Public License 2.0",
+        "url": "https://github.com/badmojr/1Hosts/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": "The Pro tier was removed upstream (HTTP 404). Switched to the Lite tier, which is the conservative variant; Xtra is available but is documented as breakage-prone."
+    },
+    {
+      "id": "hostsvn-adservers",
+      "url": "https://raw.githubusercontent.com/bigdargon/hostsVN/master/filters/adservers-all.txt",
+      "name": "hostsVN adservers",
+      "project": "bigdargon/hostsVN",
+      "maintainer": "bigdargon",
+      "homepage": "https://github.com/bigdargon/hostsVN",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/bigdargon/hostsVN/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hostsvn-domains",
+      "url": "https://raw.githubusercontent.com/bigdargon/hostsVN/master/option/domain.txt",
+      "name": "hostsVN domains",
+      "project": "bigdargon/hostsVN",
+      "maintainer": "bigdargon",
+      "homepage": "https://github.com/bigdargon/hostsVN",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/bigdargon/hostsVN/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "durablenapkin-scam",
+      "url": "https://raw.githubusercontent.com/durablenapkin/scamblocklist/master/hosts.txt",
+      "name": "Scam Blocklist",
+      "project": "durablenapkin/scamblocklist",
+      "maintainer": "durablenapkin",
+      "homepage": "https://github.com/durablenapkin/scamblocklist",
+      "categories": [
+        "scam"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/durablenapkin/scamblocklist/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hagezi-piracy",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/anti.piracy.txt",
+      "name": "Anti-Piracy",
+      "project": "hagezi/dns-blocklists",
+      "maintainer": "hagezi",
+      "homepage": "https://github.com/hagezi/dns-blocklists",
+      "categories": [
+        "piracy"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/hagezi/dns-blocklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hagezi-fake",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/fake.txt",
+      "name": "Fake sites",
+      "project": "hagezi/dns-blocklists",
+      "maintainer": "hagezi",
+      "homepage": "https://github.com/hagezi/dns-blocklists",
+      "categories": [
+        "scam"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/hagezi/dns-blocklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hagezi-gambling",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/gambling.txt",
+      "name": "Gambling",
+      "project": "hagezi/dns-blocklists",
+      "maintainer": "hagezi",
+      "homepage": "https://github.com/hagezi/dns-blocklists",
+      "categories": [
+        "gambling"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/hagezi/dns-blocklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hagezi-ultimate",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
+      "name": "Ultimate",
+      "project": "hagezi/dns-blocklists",
+      "maintainer": "hagezi",
+      "homepage": "https://github.com/hagezi/dns-blocklists",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/hagezi/dns-blocklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "hagezi-tif",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt",
+      "name": "Threat Intelligence Feeds",
+      "project": "hagezi/dns-blocklists",
+      "maintainer": "hagezi",
+      "homepage": "https://github.com/hagezi/dns-blocklists",
+      "categories": [
+        "malware",
+        "phishing"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/hagezi/dns-blocklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "ultimatehosts-domains2",
+      "url": "https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/domains/domains2.list",
+      "name": "Ultimate Hosts Blacklist (domains2)",
+      "project": "Ultimate.Hosts.Blacklist",
+      "maintainer": "Mitchell Krog / Ultimate-Hosts-Blacklist",
+      "homepage": "https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist",
+      "categories": [
+        "mixed"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/blob/master/LICENSE.md",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "phishfort",
+      "url": "https://raw.githubusercontent.com/phishfort/phishfort-lists/master/blacklists/domains.json",
+      "name": "PhishFort blacklist",
+      "project": "phishfort/phishfort-lists",
+      "maintainer": "PhishFort",
+      "homepage": "https://github.com/phishfort/phishfort-lists",
+      "categories": [
+        "phishing"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/phishfort/phishfort-lists/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": "Returns a 93-byte JSON document; contributes effectively no domains."
+    },
+    {
+      "id": "blackbook",
+      "url": "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt",
+      "name": "blackbook",
+      "project": "stamparm/blackbook",
+      "maintainer": "Miroslav Stampar",
+      "homepage": "https://github.com/stamparm/blackbook",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": null,
+        "name": "Public domain (declared by author)",
+        "url": "https://github.com/stamparm/blackbook#readme",
+        "verified": true,
+        "evidence": "readme",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "oisd-small",
+      "url": "https://small.oisd.nl/",
+      "name": "oisd small",
+      "project": "oisd",
+      "maintainer": "Stephan van Ruth",
+      "homepage": "https://oisd.nl/",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/sjhgvr/oisd/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "urlhaus-filter",
+      "url": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-agh.txt",
+      "name": "URLhaus filter",
+      "project": "malware-filter",
+      "maintainer": "curbengh / malware-filter",
+      "homepage": "https://gitlab.com/malware-filter/malware-filter",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "gitlab-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "firebog-adguarddns",
+      "url": "https://v.firebog.net/hosts/AdguardDNS.txt",
+      "name": "AdGuard DNS filter",
+      "project": "AdGuard DNS filter",
+      "maintainer": "AdGuard",
+      "homepage": "https://github.com/AdguardTeam/AdGuardSDNSFilter",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "firebog-easylist",
+      "url": "https://v.firebog.net/hosts/Easylist.txt",
+      "name": "EasyList",
+      "project": "EasyList",
+      "maintainer": "The EasyList authors",
+      "homepage": "https://easylist.to/",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+        "name": "Dual: GPLv3-or-later or CC BY-SA 3.0",
+        "url": "https://easylist.to/pages/licence.html",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "firebog-easyprivacy",
+      "url": "https://v.firebog.net/hosts/Easyprivacy.txt",
+      "name": "EasyPrivacy",
+      "project": "EasyList",
+      "maintainer": "The EasyList authors",
+      "homepage": "https://easylist.to/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-or-later OR CC-BY-SA-3.0",
+        "name": "Dual: GPLv3-or-later or CC BY-SA 3.0",
+        "url": "https://easylist.to/pages/licence.html",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "firebog-prigent-ads",
+      "url": "https://v.firebog.net/hosts/Prigent-Ads.txt",
+      "name": "UT1 publicite",
+      "project": "UT1 blacklists",
+      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
+      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+      "categories": [
+        "ads"
+      ],
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0",
+        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "firebog-prigent-crypto",
+      "url": "https://v.firebog.net/hosts/Prigent-Crypto.txt",
+      "name": "UT1 cryptojacking",
+      "project": "UT1 blacklists",
+      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
+      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0",
+        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "firebog-prigent-malware",
+      "url": "https://v.firebog.net/hosts/Prigent-Malware.txt",
+      "name": "UT1 malware",
+      "project": "UT1 blacklists",
+      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
+      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "CC-BY-SA-4.0",
+        "name": "Creative Commons Attribution-ShareAlike 4.0",
+        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": {
+        "name": "firebog.net",
+        "url": "https://firebog.net/",
+        "role": "re-publisher"
+      },
+      "notes": null
+    },
+    {
+      "id": "developerdan-ads",
+      "url": "https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt",
+      "name": "Ads and tracking extended",
+      "project": "lightswitch05/hosts",
+      "maintainer": "Daniel White",
+      "homepage": "https://www.github.developerdan.com/hosts/",
+      "categories": [
+        "ads",
+        "tracking"
+      ],
+      "license": {
+        "spdx": "Apache-2.0",
+        "name": "Apache License 2.0",
+        "url": "https://github.com/lightswitch05/hosts/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "developerdan-tracking",
+      "url": "https://www.github.developerdan.com/hosts/lists/tracking-aggressive-extended.txt",
+      "name": "Tracking aggressive extended",
+      "project": "lightswitch05/hosts",
+      "maintainer": "Daniel White",
+      "homepage": "https://www.github.developerdan.com/hosts/",
+      "categories": [
+        "tracking"
+      ],
+      "license": {
+        "spdx": "Apache-2.0",
+        "name": "Apache License 2.0",
+        "url": "https://github.com/lightswitch05/hosts/blob/master/LICENSE",
+        "verified": true,
+        "evidence": "list-header",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "salmi-streaming",
+      "url": "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/custom/streaming.txt",
+      "name": "Streaming (custom)",
+      "project": "fabriziosalmi/blacklists",
+      "maintainer": "Fabrizio Salmi",
+      "homepage": "https://github.com/fabriziosalmi/blacklists",
+      "categories": [
+        "streaming"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": "Maintained in this repository."
+    },
+    {
+      "id": "thiojoe-spam",
+      "url": "https://raw.githubusercontent.com/ThioJoe/YT-Spam-Lists/main/SpamDomainsList.txt",
+      "name": "YouTube spam domains",
+      "project": "ThioJoe/YT-Spam-Lists",
+      "maintainer": "ThioJoe",
+      "homepage": "https://github.com/ThioJoe/YT-Spam-Lists",
+      "categories": [
+        "spam"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/ThioJoe/YT-Spam-Lists/blob/main/LICENSE",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "phishunt",
+      "url": "https://phishunt.io/feed.txt",
+      "name": "phishunt feed",
+      "project": "phishunt.io",
+      "maintainer": "phishunt.io",
+      "homepage": "https://phishunt.io/",
+      "categories": [
+        "phishing"
+      ],
+      "license": {
+        "spdx": "CC0-1.0",
+        "name": "Creative Commons Zero v1.0 Universal",
+        "url": "https://phishunt.io/",
+        "verified": true,
+        "evidence": "project-page",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": "Publishes full URLs, not bare domains."
+    },
+    {
+      "id": "jarelllama-scams",
+      "url": "https://raw.githubusercontent.com/jarelllama/Scam-Blocklist/main/lists/wildcard_domains/scams.txt",
+      "name": "Scam Blocklist (wildcards)",
+      "project": "jarelllama/Scam-Blocklist",
+      "maintainer": "jarelllama",
+      "homepage": "https://github.com/jarelllama/Scam-Blocklist",
+      "categories": [
+        "scam"
+      ],
+      "license": {
+        "spdx": "GPL-3.0-only",
+        "name": "GNU General Public License v3.0 only",
+        "url": "https://github.com/jarelllama/Scam-Blocklist/blob/main/LICENSE.md",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "biglist-hacked",
+      "url": "https://raw.githubusercontent.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/master/hosts",
+      "name": "Big List of Hacked Malware Web Sites",
+      "project": "The-Big-List-of-Hacked-Malware-Web-Sites",
+      "maintainer": "Mitchell Krog",
+      "homepage": "https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": "MIT",
+        "name": "MIT License",
+        "url": "https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/blob/master/LICENSE.md",
+        "verified": true,
+        "evidence": "github-api",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    },
+    {
+      "id": "adfilt-antimalware-agh",
+      "url": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt",
+      "name": "Anti-Malware List (AdGuard Home)",
+      "project": "DandelionSprout/adfilt",
+      "maintainer": "DandelionSprout",
+      "homepage": "https://github.com/DandelionSprout/adfilt",
+      "categories": [
+        "malware"
+      ],
+      "license": {
+        "spdx": null,
+        "name": "Dandelicence (custom licence)",
+        "url": "https://github.com/DandelionSprout/adfilt/blob/master/LICENSE.md",
+        "verified": true,
+        "evidence": "license-file",
+        "checked_at": "2026-07-31"
+      },
+      "mirror_of": null,
+      "notes": null
+    }
+  ]
+}

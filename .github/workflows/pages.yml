@@ -1,0 +1,105 @@
+name: Build and Deploy Site
+
+on:
+  # Rebuild after a new blacklist release, so the lookup index always matches
+  # the artifact users download.
+  workflow_run:
+    workflows: ["Generate and Publish Blacklists", "Update Daily Statistics"]
+    types: [completed]
+  # Rebuild when the site source or the build itself changes.
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'stats/**'
+      - 'scripts/build_site.py'
+      - 'blacklists.fqdn.urls'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two deployments at once, but never cancel one in flight either:
+# a cancelled deploy would leave the site pointing at a half-built index.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # workflow_run fires even when the upstream run failed; a failed release
+    # means there is no fresh artifact worth rebuilding against.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Fetch latest release metadata
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view latest \
+            --repo "${{ github.repository }}" \
+            --json tagName,publishedAt \
+            > release.json
+          echo "tag=$(jq -r .tagName release.json)" >> "$GITHUB_OUTPUT"
+          echo "published_at=$(jq -r .publishedAt release.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Download blacklist release asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download latest \
+            --repo "${{ github.repository }}" \
+            --pattern blacklist.txt \
+            --output blacklist.txt
+          ls -lh blacklist.txt
+
+      - name: Build site
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_PUBLISHED_AT: ${{ steps.release.outputs.published_at }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 scripts/build_site.py --blacklist blacklist.txt --out _site
+
+      - name: Verify build output
+        run: |
+          test -f _site/index.html
+          test -f _site/data/stats.json
+          test -f _site/data/index.json
+          test -f _site/data/history.json
+          shards=$(find _site/data/shards -name '*.txt' | wc -l)
+          echo "shards: $shards"
+          test "$shards" -eq 4096
+          echo "site size: $(du -sh _site | cut -f1)"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

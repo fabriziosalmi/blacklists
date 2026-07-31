@@ -13,7 +13,13 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 - Bind, PowerDNS (RPZ): **[rpz_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt)** 
 
 
-![Static Badge](https://img.shields.io/badge/blacklists-50-000000) ![Static Badge](https://img.shields.io/badge/blacklisted-4755218-cc0000) ![Static Badge](https://img.shields.io/badge/whitelisted-2059-00CC00) ![Static Badge](https://img.shields.io/badge/streaming_blacklist-28107-000000) ![GitHub issues](https://img.shields.io/github/issues/fabriziosalmi/blacklists)
+<!-- These badges read the values published by the daily build, so they cannot
+     go stale the way hardcoded numbers do. -->
+[![Blocked domains](https://img.shields.io/endpoint?url=https%3A%2F%2Ffabriziosalmi.github.io%2Fblacklists%2Fdata%2Fbadges%2Fdomains.json)](https://fabriziosalmi.github.io/blacklists/#stats)
+[![Sources](https://img.shields.io/endpoint?url=https%3A%2F%2Ffabriziosalmi.github.io%2Fblacklists%2Fdata%2Fbadges%2Fsources.json)](https://fabriziosalmi.github.io/blacklists/#sources)
+[![Whitelisted](https://img.shields.io/endpoint?url=https%3A%2F%2Ffabriziosalmi.github.io%2Fblacklists%2Fdata%2Fbadges%2Fwhitelisted.json)](whitelist.txt)
+[![Updated](https://img.shields.io/endpoint?url=https%3A%2F%2Ffabriziosalmi.github.io%2Fblacklists%2Fdata%2Fbadges%2Fupdated.json)](https://github.com/fabriziosalmi/blacklists/releases/tag/latest)
+[![Issues](https://img.shields.io/github/issues/fabriziosalmi/blacklists)](https://github.com/fabriziosalmi/blacklists/issues)
 <!-- STATS_START -->
 ## Daily Statistics
 

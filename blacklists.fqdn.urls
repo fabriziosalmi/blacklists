@@ -2,7 +2,7 @@ https://raw.githubusercontent.com/LanikSJ/ubo-filters/main/filters/getadmiral-do
 https://raw.githubusercontent.com/dmachard/blocklist-domains/data/blocklist.txt
 https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt
 https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt
-https://github.com/What-Zit-Tooya/Ad-Block/blob/main/Main-Blocklist/Ad-Block-HOSTS.txt
+https://raw.githubusercontent.com/What-Zit-Tooya/Ad-Block/main/Main-Blocklist/Ad-Block-HOSTS.txt
 https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 https://hole.cert.pl/domains/domains.txt
 https://hostfiles.frogeye.fr/firstparty-only-trackers-hosts.txt
@@ -18,8 +18,7 @@ https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malwar
 https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Scam
 https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/StevenBlack/hosts
-https://raw.githubusercontent.com/azet12/KADhosts/master/KADhosts.txt
-https://raw.githubusercontent.com/badmojr/1Hosts/master/Pro/domains.txt
+https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/domains.txt
 https://raw.githubusercontent.com/bigdargon/hostsVN/master/filters/adservers-all.txt
 https://raw.githubusercontent.com/bigdargon/hostsVN/master/option/domain.txt
 https://raw.githubusercontent.com/durablenapkin/scamblocklist/master/hosts.txt
@@ -42,7 +41,6 @@ https://v.firebog.net/hosts/Prigent-Malware.txt
 https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
 https://www.github.developerdan.com/hosts/lists/tracking-aggressive-extended.txt
 https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/custom/streaming.txt
-https://malwareworld.com/textlists/suspiciousDomains.txt
 https://raw.githubusercontent.com/ThioJoe/YT-Spam-Lists/main/SpamDomainsList.txt
 https://phishunt.io/feed.txt
 https://raw.githubusercontent.com/jarelllama/Scam-Blocklist/main/lists/wildcard_domains/scams.txt

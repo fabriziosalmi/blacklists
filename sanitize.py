@@ -28,11 +28,64 @@ def remove_prefixes(line: str, prefixes: List[str] = ["127.0.0.1", "0.0.0.0", "|
             return line[len(prefix):].strip()
     return line
 
+def drop_metadata(line: str) -> Optional[str]:
+    """Drop lines that carry no blocking rule, and lines that un-block.
+
+    Adblock-syntax lists open with a ``[Adblock Plus]`` marker and ``!`` header
+    comments, and use ``@@`` for EXCEPTION rules - entries the upstream author
+    has explicitly decided must NOT be blocked. Treating an exception as a block
+    would invert the author's intent, so those lines are discarded rather than
+    parsed.
+    """
+    if not line or line.startswith(("#", "!", "[", "@@")):
+        return None
+    return line
+
+def strip_adblock_syntax(line: str) -> Optional[str]:
+    """Reduce an Adblock domain anchor to a bare domain.
+
+    ``||example.com^`` and ``||example.com^$third-party`` both denote the
+    domain ``example.com``. Anything carrying a path, wildcard or element-hiding
+    separator is not a plain domain rule and cannot be expressed in a domain
+    list, so it is dropped instead of being mangled into a bogus entry.
+    """
+    if not line.startswith("||"):
+        return line
+
+    line = line[2:]
+    # Cut the rule terminator and any modifiers that follow it.
+    line = line.split("^")[0].split("$")[0]
+
+    # A path-scoped rule blocks one URL, not the host. Widening it to the whole
+    # domain would block traffic the upstream author never intended to block, so
+    # such rules are dropped: a DNS-level list cannot express them.
+    if "/" in line:
+        return None
+
+    # Wildcards and element-hiding rules have no domain-list equivalent.
+    if not line or "*" in line or "#" in line or "=" in line:
+        return None
+    return line
+
+def take_first_token(line: str) -> Optional[str]:
+    """Keep the hostname from lines that carry trailing text.
+
+    Covers hosts-file entries whose address prefix has already been removed and
+    lists that append an inline comment, e.g. ``example.com #tracker``.
+    """
+    if not line:
+        return None
+    line = line.split("#")[0].split("!")[0]
+    parts = line.split()
+    return parts[0] if parts else None
+
 def get_sanitization_rules() -> List[Callable]:
     """Returns a list of sanitization rules."""
     return [
-        lambda line: None if line.startswith("#") else line,       # Remove comment lines
-        lambda line: remove_prefixes(line, ["127.0.0.1", "0.0.0.0", "||", "http://", "https://"]),  # Remove prefixes
+        drop_metadata,                                             # Drop comments, headers and exception rules
+        lambda line: remove_prefixes(line, ["127.0.0.1", "0.0.0.0", "http://", "https://"]),  # Remove prefixes
+        strip_adblock_syntax,                                      # Reduce ||domain^ to domain
+        take_first_token,                                          # Drop trailing comments / hosts remainder
         lambda line: line.rstrip('.'),                             # Remove trailing dot
         lambda line: line.lower()                                  # Convert to lowercase
     ]

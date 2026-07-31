@@ -25,8 +25,41 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install tldextract tqdm
 
+      # Fail before doing any work if the published attribution no longer
+      # matches the sources actually being fetched.
+      - name: Validate source registry
+        run: python3 scripts/validate_registry.py
+
       - name: Generate blacklist
         run: /bin/bash generate.sh  # Removed sudo
+
+      # Attribute the aggregate back to its sources while the per-source
+      # downloads are still on disk. Never allowed to block a release: a
+      # statistics failure must not stop the blacklist from shipping.
+      - name: Compute per-source statistics
+        continue-on-error: true
+        run: python3 scripts/source_stats.py
+
+      - name: Commit per-source statistics
+        continue-on-error: true
+        run: |
+          if [ ! -f stats/sources.json ]; then
+            echo "No stats/sources.json produced, nothing to commit"
+            exit 0
+          fi
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add stats/sources.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📎 Update per-source statistics [skip ci]"
+            git push
+          fi
+
+      - name: Remove downloaded source files
+        if: always()
+        run: rm -rf sources_raw
 
       - name: Prepare Blacklist Directory
         run: |
