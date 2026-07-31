@@ -1,6 +1,16 @@
 # Performance Guide
 
-This guide provides performance metrics, benchmarks, and best practices for using the blacklists.
+Sizing guidance and configuration advice for running the blacklists.
+
+> **On the numbers below.** File sizes and domain counts are measured: they come
+> from the published release and are refreshed when this page is updated. The
+> per-platform load times, memory figures and query overheads are **estimates**
+> based on typical deployments - nobody has benchmarked them on your hardware, or
+> on any hardware, and they are not published as measurements. Treat them as
+> orders of magnitude for capacity planning, and measure your own deployment
+> before relying on a number. If you do benchmark one of these setups, please
+> [open an issue](https://github.com/fabriziosalmi/blacklists/issues/new/choose)
+> and the estimate will be replaced with your measurement.
 
 ## Update Frequency
 
@@ -10,11 +20,19 @@ The blacklist is updated **daily at midnight UTC**. For use cases requiring more
 
 ### Blacklist Formats
 
-| Format | File Size (approx) | Use Case | Load Time |
-|--------|-------------------|----------|-----------|
-| **blacklist.txt** | ~50-100 MB | Pi-Hole, AdGuard, uBlock | Fast |
-| **unbound_blacklist.txt** | ~150-200 MB | Unbound DNS | Medium |
-| **rpz_blacklist.txt** | ~150-200 MB | BIND, PowerDNS | Medium |
+Measured from the published release on 2026-07-31 (4,755,218 domains). The
+live figures are on the [statistics page](https://fabriziosalmi.github.io/blacklists/#stats),
+which also publishes the SHA-256 of the artifact each number describes.
+
+| Format | File size | Use case |
+|--------|-----------|----------|
+| **blacklist.txt** | 96 MB | Pi-Hole, AdGuard, uBlock Origin, Squid |
+| **rpz_blacklist.txt** | 132 MB | BIND, PowerDNS |
+| **unbound_blacklist.txt** | 191 MB | Unbound |
+
+The Unbound and RPZ formats are larger because each domain is wrapped in a
+directive: one line of `blacklist.txt` becomes `local-zone: "domain" static` or
+`domain CNAME .` respectively.
 
 ### Download Performance
 
@@ -27,9 +45,9 @@ The blacklist is updated **daily at midnight UTC**. For use cases requiring more
 ### Pi-Hole
 
 **Performance Metrics**:
-- Initial load: 10-30 seconds
-- Memory usage: +100-200 MB
-- Query response: <10ms overhead
+- Initial load (estimate): 10-30 seconds
+- Memory usage (estimate): +100-200 MB
+- Query response (estimate): <10ms overhead
 - Update time: 2-5 minutes
 
 **Optimization Tips**:
@@ -47,9 +65,9 @@ pihole -g -r rebuild
 ### AdGuard Home
 
 **Performance Metrics**:
-- Initial load: 5-15 seconds
-- Memory usage: +50-100 MB
-- Query response: <5ms overhead
+- Initial load (estimate): 5-15 seconds
+- Memory usage (estimate): +50-100 MB
+- Query response (estimate): <5ms overhead
 - Update time: 1-3 minutes
 
 **Optimization Tips**:
@@ -64,10 +82,10 @@ dns:
 ### Squid Proxy
 
 **Performance Metrics**:
-- Initial load: 30-60 seconds
-- Memory usage: +200-500 MB
-- Request overhead: <20ms
-- Reload time: 10-30 seconds
+- Initial load (estimate): 30-60 seconds
+- Memory usage (estimate): +200-500 MB
+- Request overhead (estimate): <20ms
+- Reload time (estimate): 10-30 seconds
 
 **Optimization Tips**:
 ```bash
@@ -84,10 +102,10 @@ memory_pools off
 ### Unbound DNS
 
 **Performance Metrics**:
-- Initial load: 20-40 seconds
-- Memory usage: +300-600 MB
-- Query response: <5ms overhead
-- Reload time: 15-30 seconds
+- Initial load (estimate): 20-40 seconds
+- Memory usage (estimate): +300-600 MB
+- Query response (estimate): <5ms overhead
+- Reload time (estimate): 15-30 seconds
 
 **Optimization Tips**:
 ```conf
@@ -108,10 +126,10 @@ server:
 ### BIND9 RPZ
 
 **Performance Metrics**:
-- Initial load: 30-60 seconds
-- Memory usage: +400-800 MB
-- Query response: <10ms overhead
-- Reload time: 20-40 seconds
+- Initial load (estimate): 30-60 seconds
+- Memory usage (estimate): +400-800 MB
+- Query response (estimate): <10ms overhead
+- Reload time (estimate): 20-40 seconds
 
 **Optimization Tips**:
 ```conf
@@ -132,8 +150,8 @@ options {
 ### uBlock Origin
 
 **Performance Metrics**:
-- Initial load: 1-3 seconds
-- Memory usage: +20-50 MB
+- Initial load (estimate): 1-3 seconds
+- Memory usage (estimate): +20-50 MB
 - Page load impact: Minimal (<100ms)
 - Update time: 10-30 seconds
 

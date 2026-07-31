@@ -1,6 +1,40 @@
 # Testing Guide
 
-This guide provides instructions for testing the blacklists in various environments.
+How to verify the blacklist works **in your own deployment**. For the project's
+own tests, see below first.
+
+## Testing the project itself
+
+The repository has a test suite covering the code that decides what gets
+blocked - the sanitiser, the lookup index, per-source attribution and the source
+registry. Every case in it corresponds to a bug that reached, or nearly reached,
+a published release, so it is the fastest way to understand what the pipeline
+guarantees.
+
+```bash
+python3 -m pip install -r requirements-dev.txt
+python3 -m pytest tests/ -v
+```
+
+It runs on every push and pull request via the `Validate` workflow, alongside
+these checks:
+
+| Check | What it protects |
+|---|---|
+| `scripts/validate_registry.py` | Every fetched source has attribution and a licence on record |
+| `scripts/generate_sources_md.py --check` | SOURCES.md and the README credits still match the registry |
+| `scripts/format_whitelist.py --check` | whitelist.txt is normalised and no entry was dropped |
+
+The release pipeline additionally runs `scripts/check_quality.py`, which fails
+the build rather than publishing a list that blocks a protected domain - a DNS
+resolver, an OS update endpoint, a certificate responder or a CDN apex.
+
+Fastest way to convince yourself the suite is load-bearing: break a rule in
+`sanitize.py` on purpose and watch it go red.
+
+## Testing your deployment
+
+The rest of this guide covers verifying the blacklist in your own environment.
 
 ## Quick Test
 
