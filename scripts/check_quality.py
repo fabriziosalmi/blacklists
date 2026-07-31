@@ -192,10 +192,25 @@ def main() -> int:
     acknowledged = read_domain_list(ACKNOWLEDGED)
     log(f'✓ Protected: {len(protected)}   acknowledged: {len(acknowledged)}')
 
-    ranks = load_tranco(Path(args.cache) if args.cache else None)
-
     # --- 1. protected domains ------------------------------------------------
+    # Deliberately first, and deliberately independent of the network: this is
+    # the safety-critical check and it must run even when the ranking cannot be
+    # fetched.
     violations = sorted(domain for domain in protected if domain in blacklist)
+
+    # The popularity checks need a ranking. If it cannot be fetched, they are
+    # skipped loudly rather than failing the release: an unreachable third-party
+    # download says nothing about the quality of the list, and refusing to ship a
+    # correct blacklist because tranco-list.eu is having a bad afternoon helps
+    # nobody. The protected check above still stands.
+    ranking_available = True
+    try:
+        ranks = load_tranco(Path(args.cache) if args.cache else None)
+    except Exception as exc:  # network, DNS, zip corruption, HTTP error
+        log(f'Warning: could not fetch the ranking ({exc}).')
+        log('Popularity checks skipped; the protected-domain check still applies.')
+        ranks = {}
+        ranking_available = False
 
     # --- 2. popularity report ------------------------------------------------
     blocked_ranked = sorted(
@@ -238,6 +253,7 @@ def main() -> int:
     report = {
         'generated_at': datetime.now(timezone.utc).isoformat(),
         'ranking_source': 'Tranco top 1M (tranco-list.eu), fetched at build time',
+        'ranking_available': ranking_available,
         'published_domains': len(blacklist),
         'protected': {
             'checked': len(protected),
@@ -276,6 +292,11 @@ def main() -> int:
             for source in attribution.get(domain, []):
                 log(f'      supplied by: {source}')
         return 1
+
+    if not ranking_available:
+        log('')
+        log('✓ No protected domain blocked. Popularity checks did not run.')
+        return 0
 
     if unacknowledged:
         log('')

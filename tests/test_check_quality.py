@@ -57,8 +57,13 @@ def test_blacklist_header_is_not_read_as_a_domain(tmp_path):
 # The gate itself
 # --------------------------------------------------------------------------
 
-def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks):
-    """Drive main() against a synthetic list, with no network access."""
+def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
+             load_tranco=None):
+    """Drive main() against a synthetic list, with no network access.
+
+    ``load_tranco`` replaces the ranking fetch outright, so a test can simulate
+    the download failing rather than returning data.
+    """
     import check_quality
 
     (tmp_path / 'sources').mkdir(exist_ok=True)
@@ -76,7 +81,8 @@ def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks):
     monkeypatch.setattr(check_quality, 'ACKNOWLEDGED', check_quality.Path('sources/acknowledged.txt'))
     monkeypatch.setattr(check_quality, 'REGISTRY', check_quality.Path('sources/registry.json'))
     monkeypatch.setattr(check_quality, 'OUTPUT', check_quality.Path('stats/quality.json'))
-    monkeypatch.setattr(check_quality, 'load_tranco', lambda cache: ranks)
+    monkeypatch.setattr(check_quality, 'load_tranco',
+                        load_tranco or (lambda cache: ranks))
     monkeypatch.setattr('sys.argv', ['check_quality.py', '--blacklist', str(bl)])
 
     code = check_quality.main()
@@ -176,3 +182,41 @@ def test_attribution_names_the_source_that_supplied_a_domain(tmp_path):
 def test_attribution_degrades_quietly_without_the_downloads(tmp_path):
     """The report is still worth publishing when run outside the pipeline."""
     assert attribute({'a.example'}, tmp_path / 'absent', tmp_path / 'none.json') == {}
+
+
+def test_an_unreachable_ranking_does_not_fail_the_release(tmp_path, monkeypatch):
+    """A third-party download being down says nothing about the list. Refusing
+    to ship a correct blacklist because tranco-list.eu is having a bad afternoon
+    would help nobody, so the popularity checks are skipped and the
+    network-independent protected check still stands."""
+    def explode(cache):
+        raise OSError('name resolution failed')
+
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['ads.example'],
+        protected=['github.com  # source hosting'],
+        acknowledged=[],
+        ranks={},
+        load_tranco=explode,
+    )
+    assert code == 0
+    assert report['ranking_available'] is False
+
+
+def test_a_protected_domain_still_fails_when_the_ranking_is_unreachable(tmp_path, monkeypatch):
+    """The safety-critical half of the gate needs no network and must not be
+    disabled by the loss of the optional half."""
+    def explode(cache):
+        raise OSError('name resolution failed')
+
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['cloudflare-dns.com'],
+        protected=['cloudflare-dns.com  # DoH endpoint'],
+        acknowledged=[],
+        ranks={},
+        load_tranco=explode,
+    )
+    assert code == 1
+    assert report['protected']['violations'][0]['domain'] == 'cloudflare-dns.com'
