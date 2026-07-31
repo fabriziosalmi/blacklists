@@ -220,3 +220,66 @@ def test_a_protected_domain_still_fails_when_the_ranking_is_unreachable(tmp_path
     )
     assert code == 1
     assert report['protected']['violations'][0]['domain'] == 'cloudflare-dns.com'
+
+
+# --------------------------------------------------------------------------
+# Size regression
+# --------------------------------------------------------------------------
+
+def test_a_large_overnight_loss_is_refused():
+    """The 2026-07-31 failure: two sources 404'd and took 46% of the list.
+    Forty-four of forty-six sources still downloaded, so counting sources saw
+    nothing wrong."""
+    from check_quality import check_shrinkage
+
+    ok, message = check_shrinkage(2_754_896, 4_755_218)
+    assert not ok
+    assert '42.1%' in message
+
+
+def test_normal_daily_churn_is_accepted():
+    from check_quality import check_shrinkage
+
+    ok, _ = check_shrinkage(4_700_000, 4_755_218)   # -1.2%
+    assert ok
+
+
+def test_growth_is_never_blocked():
+    """Adding coverage is the normal outcome of fixing a parser."""
+    from check_quality import check_shrinkage
+
+    ok, _ = check_shrinkage(5_114_007, 4_755_218)   # +7.5%
+    assert ok
+
+
+def test_a_first_run_with_no_history_is_accepted():
+    from check_quality import check_shrinkage
+
+    ok, message = check_shrinkage(1000, None)
+    assert ok
+    assert 'no previous total' in message
+
+
+def test_the_boundary_is_not_off_by_one():
+    from check_quality import check_shrinkage
+
+    assert check_shrinkage(900, 1000)[0]        # exactly -10%, accepted
+    assert not check_shrinkage(899, 1000)[0]    # -10.1%, refused
+
+
+def test_previous_total_reads_the_last_history_row(tmp_path):
+    from check_quality import previous_total
+
+    history = tmp_path / 'history.csv'
+    history.write_text(
+        'date,total_domains,whitelisted,sources\n'
+        '2026-07-30,4742184,2059,50\n'
+        '2026-07-31,4755218,2059,50\n',
+        encoding='utf-8',
+    )
+    assert previous_total(history) == 4755218
+
+
+def test_previous_total_is_none_without_history(tmp_path):
+    from check_quality import previous_total
+    assert previous_total(tmp_path / 'absent.csv') is None

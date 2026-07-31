@@ -606,7 +606,7 @@
     },
     {
       "id": "hagezi-ultimate",
-      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/ultimate-onlydomains.txt",
       "name": "Ultimate",
       "project": "hagezi/dns-blocklists",
       "maintainer": "hagezi",
@@ -624,11 +624,11 @@
         "checked_at": "2026-07-31"
       },
       "mirror_of": null,
-      "notes": null
+      "notes": "hagezi removed the domains/ directory on 2026-07-31; switched to the wildcard '-onlydomains' variant, which lists registrable domains as bare names. The '.txt' sibling prefixes each with '*.', which the pipeline rejects."
     },
     {
       "id": "hagezi-tif",
-      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt",
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/tif-onlydomains.txt",
       "name": "Threat Intelligence Feeds",
       "project": "hagezi/dns-blocklists",
       "maintainer": "hagezi",
@@ -646,7 +646,7 @@
         "checked_at": "2026-07-31"
       },
       "mirror_of": null,
-      "notes": null
+      "notes": "hagezi removed the domains/ directory on 2026-07-31; switched to the wildcard '-onlydomains' variant, which lists registrable domains as bare names. The '.txt' sibling prefixes each with '*.', which the pipeline rejects."
     },
     {
       "id": "ultimatehosts-domains2",

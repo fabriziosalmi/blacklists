@@ -7,7 +7,12 @@ script supplies the missing half: it ranks every blocked domain by real-world
 popularity, names the source that introduced it, and refuses to let a release
 ship if it blocks something that must never be blocked.
 
-Three separate mechanisms, because one gate cannot serve all three purposes:
+Four separate mechanisms, because one gate cannot serve four purposes:
+
+  0. Size. A release that lost a large share of the list overnight is refused.
+     Counting successful downloads is not enough: two of forty-six sources 404'd
+     on 2026-07-31 and took 46% of the domains with them, because one was almost
+     half the list on its own, and a source-count threshold waved it through.
 
   1. sources/protected.txt - a small curated set of domains whose blocking
      breaks the machine rather than the page: DNS resolvers, OS update and
@@ -40,7 +45,7 @@ import urllib.request
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -51,7 +56,13 @@ TRANCO_URL = 'https://tranco-list.eu/top-1m.csv.zip'
 PROTECTED = Path('sources/protected.txt')
 ACKNOWLEDGED = Path('sources/acknowledged.txt')
 REGISTRY = Path('sources/registry.json')
+HISTORY = Path('stats/history.csv')
 OUTPUT = Path('stats/quality.json')
+
+# Largest single-day shrinkage accepted without review. Normal churn is under
+# 2%; anything approaching this means a source stopped answering rather than the
+# internet getting safer.
+MAX_SHRINK_PERCENT = 10.0
 
 # A domain entering this band without review fails the release.
 REVIEW_RANK = 1000
@@ -85,6 +96,50 @@ def read_domain_list(path: Path) -> Dict[str, Optional[str]]:
             if domain:
                 entries[domain] = reason.strip() or None
     return entries
+
+
+def previous_total(history: Path) -> Optional[int]:
+    """The most recent recorded domain count, or None if there is no history."""
+    if not history.exists():
+        return None
+
+    latest = None
+    with history.open(encoding='utf-8') as handle:
+        next(handle, None)  # header
+        for line in handle:
+            parts = line.strip().split(',')
+            if len(parts) >= 2:
+                try:
+                    latest = int(parts[1])
+                except ValueError:
+                    continue
+    return latest
+
+
+def check_shrinkage(current: int, previous: Optional[int]) -> Tuple[bool, str]:
+    """Refuse a release that lost a large share of the list overnight.
+
+    Counting how many sources downloaded is not enough protection: two of
+    forty-six sources 404'd on 2026-07-31 and took 46% of the domains with them,
+    because one of them was almost half the list on its own. A source-count
+    threshold waved that through. Size is what users receive, so size is what
+    gets checked.
+
+    Growth is never blocked - adding coverage is the normal outcome of a fix.
+    """
+    if previous is None or previous <= 0:
+        return True, 'no previous total recorded, nothing to compare against'
+
+    delta = current - previous
+    percent = delta / previous * 100
+
+    if percent < -MAX_SHRINK_PERCENT:
+        return False, (
+            f'the list lost {abs(delta):,} domains against the previous '
+            f'{previous:,} ({percent:.1f}%), beyond the {MAX_SHRINK_PERCENT}% '
+            f'limit. A source has almost certainly stopped answering.'
+        )
+    return True, f'{delta:+,} against the previous {previous:,} ({percent:+.1f}%)'
 
 
 def load_blacklist(path: Path) -> Set[str]:
@@ -198,6 +253,9 @@ def main() -> int:
     # fetched.
     violations = sorted(domain for domain in protected if domain in blacklist)
 
+    size_ok, size_message = check_shrinkage(len(blacklist), previous_total(HISTORY))
+    log(f'{"✓" if size_ok else "✗"} Size: {size_message}')
+
     # The popularity checks need a ranking. If it cannot be fetched, they are
     # skipped loudly rather than failing the release: an unreachable third-party
     # download says nothing about the quality of the list, and refusing to ship a
@@ -255,6 +313,12 @@ def main() -> int:
         'ranking_source': 'Tranco top 1M (tranco-list.eu), fetched at build time',
         'ranking_available': ranking_available,
         'published_domains': len(blacklist),
+        'size': {
+            'published_domains': len(blacklist),
+            'previous_domains': previous_total(HISTORY),
+            'accepted': size_ok,
+            'detail': size_message,
+        },
         'protected': {
             'checked': len(protected),
             'violations': [
@@ -282,6 +346,12 @@ def main() -> int:
     log('')
     for band, count in bands.items():
         log(f'  blocked in {band.replace("_", " "):>16}: {count:>7,}')
+
+    if not size_ok:
+        log('')
+        log(f'FAIL: {size_message}')
+        log('Check the per-source statistics for a source returning a non-2xx status.')
+        return 1
 
     if violations:
         log('')
