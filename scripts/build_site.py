@@ -172,11 +172,13 @@ def load_sources(repo: Path, stats_dir: Path) -> Dict:
 
     measured: Dict[str, Dict] = {}
     measured_at: Optional[str] = None
+    categories: List[Dict] = []
     metrics_file = stats_dir / 'sources.json'
     if metrics_file.exists():
         try:
             payload = json.loads(metrics_file.read_text(encoding='utf-8'))
             measured_at = payload.get('generated_at')
+            categories = payload.get('categories', [])
             measured = {
                 item['url']: item
                 for item in payload.get('sources', [])
@@ -198,6 +200,7 @@ def load_sources(repo: Path, stats_dir: Path) -> Dict:
         'measured': bool(measured),
         'measured_at': measured_at,
         'licenses_verified_at': registry.get('licenses_verified_at'),
+        'categories': categories,
         'sources': merged,
     }
 
@@ -344,6 +347,10 @@ def main() -> int:
             'prefix_length': PREFIX_LEN,
             'shard_count': SHARD_COUNT,
         },
+        # What a reader is actually installing. Carried in stats.json as well as
+        # sources.json so the headline figure and its breakdown always come from
+        # the same document.
+        'categories': sources_data.get('categories', []),
     }
 
     (data_dir / 'stats.json').write_text(json.dumps(stats, indent=2), encoding='utf-8')

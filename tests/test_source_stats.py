@@ -120,3 +120,83 @@ def test_html_is_detected_even_behind_a_200():
     """
     body = ['<!doctype html>', '<html><head><title>404</title></head>']
     assert detect_format(body) == 'html'
+
+
+# --------------------------------------------------------------------------
+# Category breakdown
+# --------------------------------------------------------------------------
+
+def _registry(*pairs):
+    return {url: {'url': url, 'categories': list(cats)} for url, cats in pairs}
+
+
+def _source(url, indices):
+    """One entry shaped like the per_source tuples main() builds."""
+    return ({'url': url}, None, list(indices))
+
+
+def test_a_category_counts_every_domain_a_member_source_supplied():
+    from source_stats import summarise_categories
+
+    registry = _registry(('a', ['ads']), ('b', ['ads']))
+    summary = summarise_categories(
+        [_source('a', [0, 1]), _source('b', [1, 2])], registry, published=3)
+
+    assert summary == [{'category': 'ads', 'domains': 3, 'exclusive': 3}]
+
+
+def test_exclusive_counts_only_what_no_other_category_supplies():
+    """The number that says whether dropping a category would lose anything."""
+    from source_stats import summarise_categories
+
+    registry = _registry(('ads', ['ads']), ('gam', ['gambling']))
+    # Domain 1 arrives from both categories; 0 only from ads; 2 only from gambling.
+    summary = summarise_categories(
+        [_source('ads', [0, 1]), _source('gam', [1, 2])], registry, published=3)
+
+    by_name = {item['category']: item for item in summary}
+    assert by_name['ads'] == {'category': 'ads', 'domains': 2, 'exclusive': 1}
+    assert by_name['gambling'] == {'category': 'gambling', 'domains': 2, 'exclusive': 1}
+
+
+def test_a_source_in_two_categories_credits_both():
+    from source_stats import summarise_categories
+
+    registry = _registry(('both', ['ads', 'tracking']))
+    summary = summarise_categories([_source('both', [0])], registry, published=1)
+
+    # The domain carries both bits, so neither category owns it exclusively.
+    assert {item['category']: item['exclusive'] for item in summary} == {
+        'ads': 0, 'tracking': 0,
+    }
+    assert {item['category']: item['domains'] for item in summary} == {
+        'ads': 1, 'tracking': 1,
+    }
+
+
+def test_categories_are_ordered_by_size():
+    from source_stats import summarise_categories
+
+    registry = _registry(('small', ['spam']), ('big', ['malware']))
+    summary = summarise_categories(
+        [_source('small', [0]), _source('big', [1, 2, 3])], registry, published=4)
+
+    assert [item['category'] for item in summary] == ['malware', 'spam']
+
+
+def test_an_empty_registry_yields_no_breakdown():
+    from source_stats import summarise_categories
+    assert summarise_categories([], {}, published=0) == []
+
+
+def test_the_mask_array_is_sized_by_itemsize_not_by_assumption():
+    """array('I') is only guaranteed to be at least two bytes wide; sizing the
+    buffer by hand silently allocated half the slots on some platforms."""
+    from source_stats import summarise_categories
+
+    registry = _registry(('a', ['ads']))
+    published = 1000
+    summary = summarise_categories(
+        [_source('a', list(range(published)))], registry, published=published)
+
+    assert summary[0]['domains'] == published

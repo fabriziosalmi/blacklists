@@ -28,6 +28,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from array import array
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -178,6 +179,70 @@ def load_final_domains(path: Path) -> Dict[str, int]:
     return final
 
 
+def summarise_categories(per_source, registry_entries: Dict[str, Dict],
+                         published: int) -> List[Dict]:
+    """Count published domains by the category of the sources that supplied them.
+
+    Someone installing what reads as an ads-and-malware list also receives
+    gambling, piracy and streaming blocks. That is a defensible editorial choice
+    but not a silent one, so the split is measured and published.
+
+    Two numbers per category, because they answer different questions:
+
+    * ``domains``   - how many published domains at least one source in this
+      category supplied. Categories overlap heavily, so these do not sum to the
+      list total and are not meant to.
+    * ``exclusive`` - how many arrive from this category and nowhere else, i.e.
+      what would actually be lost by dropping it. This is the number that tells
+      a reader whether a category is load-bearing or merely along for the ride.
+    """
+    names = sorted({
+        category
+        for entry in registry_entries.values()
+        for category in entry.get('categories', [])
+    })
+    if not names:
+        return []
+
+    if len(names) > 32:  # one bit per category, held in a 32-bit word
+        print(f'Warning: {len(names)} categories, only the first 32 are counted')
+        names = names[:32]
+
+    bit = {name: 1 << index for index, name in enumerate(names)}
+
+    # One mask per published domain recording which categories reached it. The
+    # length is derived from itemsize rather than assumed: 'I' is only
+    # guaranteed to be at least two bytes, and sizing it by hand silently
+    # allocates the wrong number of slots.
+    masks = array('I', bytes(published * array('I').itemsize))
+
+    for record, _, indices in per_source:
+        entry = registry_entries.get(record['url'])
+        if not entry:
+            continue
+        mask = 0
+        for category in entry.get('categories', []):
+            mask |= bit.get(category, 0)
+        if not mask:
+            continue
+        for idx in indices:
+            masks[idx] |= mask
+
+    summary = []
+    for name in names:
+        flag = bit[name]
+        total = exclusive = 0
+        for mask in masks:
+            if mask & flag:
+                total += 1
+                if mask == flag:
+                    exclusive += 1
+        summary.append({'category': name, 'domains': total, 'exclusive': exclusive})
+
+    summary.sort(key=lambda item: -item['domains'])
+    return summary
+
+
 def main() -> int:
     if not BLACKLIST.exists():
         print(f'FAIL: {BLACKLIST} not found - run generate.sh first', file=sys.stderr)
@@ -287,9 +352,12 @@ def main() -> int:
         if entry:
             record['id'] = entry['id']
             record['name'] = entry['name']
+            record['categories'] = entry.get('categories', [])
         results.append(record)
 
     results.sort(key=lambda r: r['index'])
+
+    categories = summarise_categories(per_source, registry_entries, len(final))
 
     payload = {
         'generated_at': datetime.now(timezone.utc).isoformat(),
@@ -298,6 +366,7 @@ def main() -> int:
         'sources_ok': sum(1 for r in results if r['ok']),
         'sources_failed': sum(1 for r in results if not r['ok']),
         'sources_unreadable': sum(1 for r in results if r.get('unreadable_by_pipeline')),
+        'categories': categories,
         'sources': results,
     }
 

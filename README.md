@@ -1,6 +1,16 @@
 # Domains Blacklist
 
-Daily updated domains blacklist.
+Daily updated domains blacklist, aggregated from curated upstream lists and
+published with per-source attribution, verified licences and a public
+false-positive cross-check.
+
+> **What you are installing.** This is a single list, not a menu. Alongside
+> advertising, tracking, malware and phishing it also blocks **gambling, piracy
+> and streaming** domains, because some upstream lists cover them - roughly 6% of
+> the list comes from those categories alone. The live per-category breakdown is
+> published on the [site](https://fabriziosalmi.github.io/blacklists/#sources).
+> If you want only the security categories, this list is not the right choice
+> today.
 
 ## Downloads
 - Pi-Hole, AdGuard, uBlock Origin: 

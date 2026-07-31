@@ -247,6 +247,38 @@
                 </table>
             </div>
 
+            <!-- Categories -->
+            <div class="quality">
+                <h3>What you are installing</h3>
+                <p class="quality-intro">
+                    This is one list, not a menu. Alongside advertising, tracking, malware and
+                    phishing it also blocks gambling, piracy and streaming domains, because some
+                    upstream lists cover them. <strong>Domains</strong> counts what a category
+                    supplied; <strong>only from here</strong> counts what would be lost if it were
+                    dropped. Categories overlap heavily, so the first column does not sum to the
+                    list total.
+                </p>
+
+                <div id="categories-status" class="chart-status" hidden></div>
+
+                <div class="table-scroll">
+                    <table class="sources-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Category</th>
+                                <th scope="col" class="numeric">Domains</th>
+                                <th scope="col" class="numeric">Only from here</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categories-body">
+                            <tr>
+                                <td colspan="3">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Quality -->
             <div class="quality">
                 <h3>What this list blocks among popular domains</h3>

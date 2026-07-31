@@ -320,6 +320,13 @@
                 console.error('Failed to load sources:', error);
                 this.tbody.innerHTML =
                     '<tr><td colspan="5" class="value-unavailable">Source list could not be loaded.</td></tr>';
+                // The category breakdown comes from the same document, so it is
+                // unavailable too and must not be left saying "Loading...".
+                const body = document.getElementById('categories-body');
+                if (body) {
+                    body.innerHTML =
+                        '<tr><td colspan="3" class="value-unavailable">Category breakdown could not be loaded.</td></tr>';
+                }
                 return;
             }
 
@@ -360,7 +367,50 @@
             return cell;
         }
 
+        // What a reader is actually installing, split by what each category
+        // supplied and by what would be lost without it.
+        renderCategories() {
+            const body = document.getElementById('categories-body');
+            const status = document.getElementById('categories-status');
+            if (!body) return;
+
+            const categories = this.data.categories || [];
+            body.innerHTML = '';
+
+            if (!categories.length) {
+                if (status) {
+                    status.hidden = false;
+                    status.textContent =
+                        'The category breakdown is produced by the release pipeline and has not run yet.';
+                }
+                return;
+            }
+
+            categories.forEach(entry => {
+                const row = document.createElement('tr');
+
+                const name = document.createElement('td');
+                const tag = document.createElement('span');
+                tag.className = 'category-tag';
+                tag.textContent = entry.category;
+                name.appendChild(tag);
+
+                const domains = document.createElement('td');
+                domains.className = 'numeric';
+                domains.textContent = utils.formatNumber(entry.domains);
+
+                const exclusive = document.createElement('td');
+                exclusive.className = 'numeric';
+                exclusive.textContent = utils.formatNumber(entry.exclusive);
+
+                row.append(name, domains, exclusive);
+                body.appendChild(row);
+            });
+        }
+
         render() {
+            this.renderCategories();
+
             const sources = this.data.sources || [];
             this.tbody.innerHTML = '';
 
