@@ -69,35 +69,37 @@ per-source license and attribution map lives in **[SOURCES.md](SOURCES.md)**.
 
 Upstream sources currently aggregated:
 
-[LanikSJ/ubo-filters](https://github.com/LanikSJ/ubo-filters) ·
-[dmachard/blocklist-domains](https://github.com/dmachard/blocklist-domains) ·
-[uBlockOrigin/uAssets](https://github.com/uBlockOrigin/uAssets) ·
-[Matomo referrer-spam-blacklist](https://github.com/matomo-org/referrer-spam-blacklist) ·
-[What-Zit-Tooya/Ad-Block](https://github.com/What-Zit-Tooya/Ad-Block) ·
-[quidsup/notrack](https://gitlab.com/quidsup/notrack-blocklists) ·
-[CERT Polska (cert.pl)](https://hole.cert.pl) ·
-[Geoffrey Frogeye](https://hostfiles.frogeye.fr) ·
-[malware-filter](https://gitlab.com/malware-filter) ·
-[Peter Lowe (pgl.yoyo.org)](https://pgl.yoyo.org/adservers/) ·
+<!-- CREDITS_START -->
+[AdGuard DNS filter](https://github.com/AdguardTeam/AdGuardSDNSFilter) ·
 [DandelionSprout/adfilt](https://github.com/DandelionSprout/adfilt) ·
-[PolishFiltersTeam/KADhosts](https://gitlab.com/PolishFiltersTeam/KADhosts) ·
-[azet12/KADhosts](https://github.com/azet12/KADhosts) ·
-[ShadowWhisperer](https://github.com/ShadowWhisperer/BlockLists) ·
+[EasyList](https://easylist.to/) ·
+[FiltersHeroes/KADhosts](https://github.com/FiltersHeroes/KADhosts) ·
+[LanikSJ/ubo-filters](https://github.com/LanikSJ/ubo-filters) ·
+[ShadowWhisperer/BlockLists](https://github.com/ShadowWhisperer/BlockLists) ·
 [StevenBlack/hosts](https://github.com/StevenBlack/hosts) ·
+[The-Big-List-of-Hacked-Malware-Web-Sites](https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites) ·
+[ThioJoe/YT-Spam-Lists](https://github.com/ThioJoe/YT-Spam-Lists) ·
+[UT1 blacklists](https://dsi.ut-capitole.fr/blacklists/index_en.php) ·
+[Ultimate.Hosts.Blacklist](https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist) ·
+[What-Zit-Tooya/Ad-Block](https://github.com/What-Zit-Tooya/Ad-Block) ·
 [badmojr/1Hosts](https://github.com/badmojr/1Hosts) ·
 [bigdargon/hostsVN](https://github.com/bigdargon/hostsVN) ·
+[dmachard/blocklist-domains](https://github.com/dmachard/blocklist-domains) ·
 [durablenapkin/scamblocklist](https://github.com/durablenapkin/scamblocklist) ·
+[eulaurarien (frogeye)](https://hostfiles.frogeye.fr/) ·
+[fabriziosalmi/blacklists](https://github.com/fabriziosalmi/blacklists) ·
 [hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) ·
-[mitchellkrogza](https://github.com/mitchellkrogza) ·
-[phishfort](https://github.com/phishfort/phishfort-lists) ·
-[stamparm/blackbook](https://github.com/stamparm/blackbook) ·
-[oisd](https://oisd.nl) ·
-[lightswitch05 (developerdan)](https://github.com/lightswitch05/hosts) ·
-[malwareworld.com](https://malwareworld.com) ·
-[ThioJoe/YT-Spam-Lists](https://github.com/ThioJoe/YT-Spam-Lists) ·
-[phishunt.io](https://phishunt.io) ·
 [jarelllama/Scam-Blocklist](https://github.com/jarelllama/Scam-Blocklist) ·
-[AdGuard](https://github.com/AdguardTeam/AdGuardSDNSFilter), [EasyList](https://easylist.to) and [UT1 Toulouse](https://dsi.ut-capitole.fr/blacklists/) (via [firebog](https://firebog.net))
+[lightswitch05/hosts](https://www.github.developerdan.com/hosts/) ·
+[malware-filter](https://gitlab.com/malware-filter/malware-filter) ·
+[matomo-org/referrer-spam-blacklist](https://github.com/matomo-org/referrer-spam-blacklist) ·
+[oisd](https://oisd.nl/) ·
+[phishfort/phishfort-lists](https://github.com/phishfort/phishfort-lists) ·
+[phishunt.io](https://phishunt.io/) ·
+[quidsup/notrack-blocklists](https://gitlab.com/quidsup/notrack-blocklists) ·
+[stamparm/blackbook](https://github.com/stamparm/blackbook) ·
+[uBlockOrigin/uAssets](https://github.com/uBlockOrigin/uAssets)
+<!-- CREDITS_END -->
 
 For the complete list of feed URLs, see [blacklists.fqdn.urls](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls). For licenses and attribution, see [SOURCES.md](SOURCES.md).
 

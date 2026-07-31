@@ -23,6 +23,7 @@ from typing import Dict, List
 
 REGISTRY = Path('sources/registry.json')
 OUTPUT = Path('SOURCES.md')
+README = Path('README.md')
 
 PREAMBLE = """# Sources and Licenses
 
@@ -203,29 +204,65 @@ def build(registry: Dict) -> str:
     return ''.join(parts)
 
 
+def build_credits(registry: Dict) -> str:
+    """Render the README credits line, one entry per distinct upstream project.
+
+    The credits list is generated for the same reason the tables are: a source
+    removed from the pipeline but left in the credits keeps claiming an
+    attribution that is no longer owed, and one added without a credit owes an
+    attribution it never gets.
+    """
+    seen: Dict[str, str] = {}
+    for entry in registry['sources']:
+        # Credit the original author, not the mirror that re-published the list.
+        seen.setdefault(entry['project'], entry['homepage'])
+
+    return ' ·\n'.join(
+        f'[{project}]({homepage})' for project, homepage in sorted(seen.items())
+    )
+
+
+def splice_credits(readme: str, credits: str) -> str:
+    start, end = '<!-- CREDITS_START -->', '<!-- CREDITS_END -->'
+    if start not in readme or end not in readme:
+        raise SystemExit(f'{README} is missing the {start} / {end} markers')
+
+    head = readme.split(start)[0]
+    tail = readme.split(end)[1]
+    return f'{head}{start}\n{credits}\n{end}{tail}'
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description='Generate SOURCES.md')
     parser.add_argument('--check', action='store_true',
-                        help='Fail if SOURCES.md is out of date instead of rewriting it')
+                        help='Fail if generated files are out of date instead of rewriting them')
     args = parser.parse_args()
 
     if not REGISTRY.exists():
         print(f'FAIL: {REGISTRY} not found', file=sys.stderr)
         return 1
 
-    content = build(json.loads(REGISTRY.read_text(encoding='utf-8')))
+    registry = json.loads(REGISTRY.read_text(encoding='utf-8'))
+    content = build(registry)
+    readme = splice_credits(README.read_text(encoding='utf-8'), build_credits(registry))
 
     if args.check:
-        current = OUTPUT.read_text(encoding='utf-8') if OUTPUT.exists() else ''
-        if current != content:
-            print(f'FAIL: {OUTPUT} is out of date. Run: '
+        stale = []
+        if (OUTPUT.read_text(encoding='utf-8') if OUTPUT.exists() else '') != content:
+            stale.append(str(OUTPUT))
+        if README.read_text(encoding='utf-8') != readme:
+            stale.append(f'{README} (credits block)')
+
+        if stale:
+            print(f'FAIL: out of date: {", ".join(stale)}. Run: '
                   f'python3 scripts/generate_sources_md.py', file=sys.stderr)
             return 1
-        print(f'OK: {OUTPUT} is up to date')
+        print(f'OK: {OUTPUT} and {README} credits are up to date')
         return 0
 
     OUTPUT.write_text(content, encoding='utf-8')
-    print(f'✓ Wrote {OUTPUT}')
+    README.write_text(readme, encoding='utf-8')
+    print(f'✓ Wrote {OUTPUT} and refreshed the {README} credits block')
     return 0
 
 
