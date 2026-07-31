@@ -2,8 +2,8 @@
   "state": "measured",
   "entries": 2060,
   "unique": 2060,
-  "active": 362,
-  "dormant": 1698,
+  "active": 380,
+  "dormant": 1680,
   "duplicates": [],
   "active_entries": [
     {
@@ -22,6 +22,7 @@
       "domain": "a.klaviyo.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -35,6 +36,7 @@
       "domain": "aax-eu.amazon.es",
       "held_back_from": [
         "ShadowWhisperer Ads",
+        "Ultimate",
         "UT1 publicite"
       ]
     },
@@ -42,6 +44,7 @@
       "domain": "aax-eu.amazon.it",
       "held_back_from": [
         "ShadowWhisperer Ads",
+        "Ultimate",
         "UT1 publicite"
       ]
     },
@@ -67,9 +70,16 @@
       ]
     },
     {
+      "domain": "acr0.samsungcloudsolution.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "activity.windows.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -82,13 +92,15 @@
     {
       "domain": "adwords.google.com",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
       "domain": "afs.googleusercontent.com",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -116,6 +128,7 @@
         "blocklist-domains",
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "UT1 publicite",
         "Ads and tracking extended"
       ]
@@ -159,7 +172,8 @@
     {
       "domain": "arc.msn.com",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
@@ -219,20 +233,23 @@
       "domain": "blackkite.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "blackkitetech.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "blogroll.livedoor.net",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -283,6 +300,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -360,8 +378,15 @@
       ]
     },
     {
+      "domain": "cdn.opecloud.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "cdn.optimizely.com",
       "held_back_from": [
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -381,6 +406,7 @@
       "domain": "cdn3.optimizely.com",
       "held_back_from": [
         "1Hosts (Lite)",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -399,6 +425,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "AdGuard DNS filter"
       ]
     },
@@ -485,8 +512,21 @@
         "ShadowWhisperer Tracking",
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
+        "Ultimate",
         "AdGuard DNS filter",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "connect.facebook.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
+      "domain": "connect.facebook.net",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
@@ -527,6 +567,7 @@
       "domain": "cstat.apple.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -538,6 +579,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "EasyPrivacy",
         "Ads and tracking extended"
       ]
@@ -599,6 +641,7 @@
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -624,6 +667,7 @@
       "domain": "device-api.urbanairship.com",
       "held_back_from": [
         "StevenBlack hosts (base)",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -636,6 +680,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "oisd small",
         "Ads and tracking extended"
       ]
@@ -649,6 +694,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "oisd small",
         "Ads and tracking extended"
       ]
@@ -671,6 +717,7 @@
       "domain": "disneyholidays.fr",
       "held_back_from": [
         "blocklist-domains",
+        "Ultimate",
         "UT1 malware"
       ]
     },
@@ -711,6 +758,7 @@
       "domain": "driftt.com",
       "held_back_from": [
         "NoTrack blocklist",
+        "Ultimate",
         "AdGuard DNS filter",
         "Tracking aggressive extended"
       ]
@@ -724,19 +772,22 @@
     {
       "domain": "dtioykqj1u8de.cloudfront.net",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "Ultimate"
       ]
     },
     {
       "domain": "e.reddit.com",
       "held_back_from": [
-        "NoTrack blocklist"
+        "NoTrack blocklist",
+        "Ultimate"
       ]
     },
     {
       "domain": "ec-ns.sascdn.com",
       "held_back_from": [
         "1Hosts (Lite)",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -744,7 +795,8 @@
       "domain": "ecommerce.iap.unity3d.com",
       "held_back_from": [
         "ShadowWhisperer Ads",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -782,6 +834,7 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -790,12 +843,14 @@
       "domain": "feedburner.google.com",
       "held_back_from": [
         "ShadowWhisperer Ads",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
     {
       "domain": "festyy.com",
       "held_back_from": [
+        "Ultimate",
         "oisd small"
       ]
     },
@@ -821,14 +876,16 @@
     {
       "domain": "fls-eu.amazon.ae",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.co.uk",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -836,6 +893,7 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
@@ -843,70 +901,87 @@
       "domain": "fls-eu.amazon.de",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.es",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.fr",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.in",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.it",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.nl",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.sa",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-eu.amazon.se",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-fe.amazon.co.jp",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-fe.amazon.com",
       "held_back_from": [
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
     {
       "domain": "fls-fe.amazon.com.au",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-fe.amazon.sg",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -915,13 +990,15 @@
         "Multi-party only trackers",
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "fls-na.amazon.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "EasyPrivacy"
       ]
@@ -931,7 +1008,8 @@
       "held_back_from": [
         "Multi-party only trackers",
         "Multi-party trackers",
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -939,7 +1017,8 @@
       "held_back_from": [
         "Multi-party only trackers",
         "Multi-party trackers",
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -953,6 +1032,7 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
@@ -992,9 +1072,16 @@
       ]
     },
     {
+      "domain": "geller-pa.googleapis.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "geo-prod.do.dsp.mp.microsoft.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -1051,6 +1138,12 @@
       ]
     },
     {
+      "domain": "graph.facebook.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "gravatar.com",
       "held_back_from": [
         "Tracking aggressive extended"
@@ -1088,7 +1181,8 @@
     {
       "domain": "hgc-cf-cache-1.svonm.com",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -1118,6 +1212,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "oisd small",
         "AdGuard DNS filter",
@@ -1127,6 +1222,7 @@
     {
       "domain": "iadsdk.apple.com.akadns.net",
       "held_back_from": [
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -1135,12 +1231,14 @@
       "domain": "icanhazip.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Tracking aggressive extended"
       ]
     },
     {
       "domain": "ichnaea.dradis.netflix.com",
       "held_back_from": [
+        "Ultimate",
         "AdGuard DNS filter"
       ]
     },
@@ -1149,6 +1247,7 @@
       "held_back_from": [
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "AdGuard DNS filter",
         "Tracking aggressive extended"
       ]
@@ -1156,7 +1255,8 @@
     {
       "domain": "ifconfig.io",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -1179,6 +1279,7 @@
         "First-party trackers",
         "Multi-party only trackers",
         "Multi-party trackers",
+        "Ultimate",
         "AdGuard DNS filter",
         "EasyPrivacy"
       ]
@@ -1222,6 +1323,7 @@
         "Ad-Block HOSTS",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
@@ -1261,6 +1363,7 @@
     {
       "domain": "ip-api.com",
       "held_back_from": [
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -1292,6 +1395,7 @@
       "domain": "ipinfo.io",
       "held_back_from": [
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Tracking aggressive extended"
       ]
     },
@@ -1348,6 +1452,7 @@
     {
       "domain": "kanlayanee.ac.th",
       "held_back_from": [
+        "Threat Intelligence Feeds",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
@@ -1484,7 +1589,8 @@
       "domain": "mobilecrashreporting.googleapis.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -1511,6 +1617,7 @@
         "ShadowWhisperer Tracking",
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
+        "Ultimate",
         "AdGuard DNS filter",
         "Ads and tracking extended"
       ]
@@ -1518,6 +1625,7 @@
     {
       "domain": "mssl.fwmrm.net",
       "held_back_from": [
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -1538,7 +1646,8 @@
     {
       "domain": "myip.wtf",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -1604,6 +1713,7 @@
       "held_back_from": [
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "AdGuard DNS filter"
       ]
     },
@@ -1628,6 +1738,12 @@
         "ShadowWhisperer Tracking",
         "UT1 publicite",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "placehold.it",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
@@ -1665,6 +1781,12 @@
       ]
     },
     {
+      "domain": "playmoviesdfe-pa.googleapis.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "playstation.com.ssl.d1.sc.omtrdc.net",
       "held_back_from": [
         "Ads and tracking extended"
@@ -1682,6 +1804,8 @@
       "domain": "polyfill.io",
       "held_back_from": [
         "uBO badware risks",
+        "Ultimate",
+        "Threat Intelligence Feeds",
         "oisd small",
         "UT1 malware"
       ]
@@ -1743,7 +1867,8 @@
     {
       "domain": "radarsubmissions.apple.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -1780,15 +1905,33 @@
       ]
     },
     {
+      "domain": "realestate.nj.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "report-uri.com",
       "held_back_from": [
         "ShadowWhisperer Tracking"
       ]
     },
     {
+      "domain": "rgom10-asus-en.url.trendmicro.com",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "s.pinimg.com",
       "held_back_from": [
         "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "s.shopify.com",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
@@ -1822,6 +1965,7 @@
     {
       "domain": "s3-iad-ww.cf.videorolls.row.aiv-cdn.net",
       "held_back_from": [
+        "Ultimate",
         "AdGuard DNS filter"
       ]
     },
@@ -1885,6 +2029,7 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
+        "Ultimate",
         "AdGuard DNS filter",
         "Ads and tracking extended"
       ]
@@ -1892,6 +2037,7 @@
     {
       "domain": "self-events-data.trafficmanager.net",
       "held_back_from": [
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -1912,6 +2058,18 @@
       "domain": "sendspace.com",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "servix.idnes.cz",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
+      "domain": "settings-win.data.microsoft.com",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
@@ -1996,7 +2154,8 @@
       "domain": "stats.glb.paypal.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -2019,6 +2178,7 @@
         "ShadowWhisperer Tracking",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "oisd small",
         "AdGuard DNS filter",
         "EasyPrivacy",
@@ -2034,6 +2194,7 @@
     {
       "domain": "syndication.twitter.com",
       "held_back_from": [
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -2063,6 +2224,7 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "EasyPrivacy",
         "Ads and tracking extended"
       ]
@@ -2206,46 +2368,71 @@
       ]
     },
     {
+      "domain": "unagi.amazon.co.jp",
+      "held_back_from": [
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "unagi.amazon.co.uk",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.com",
       "held_back_from": [
         "1Hosts (Lite)",
+        "Ultimate",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.com.au",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.com.br",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.de",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.es",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.fr",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.in",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
       "domain": "unagi.amazon.it",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -2281,7 +2468,8 @@
     {
       "domain": "userlocation.googleapis.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "Ultimate"
       ]
     },
     {
@@ -2295,6 +2483,7 @@
       "held_back_from": [
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "AdGuard DNS filter",
         "EasyPrivacy"
       ]
@@ -2354,6 +2543,12 @@
       "domain": "wcpstatic.microsoft.com",
       "held_back_from": [
         "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "web.facebook.com",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
@@ -2420,6 +2615,7 @@
         "ShadowWhisperer Tracking",
         "hostsVN adservers",
         "hostsVN domains",
+        "Ultimate",
         "Ads and tracking extended"
       ]
     },
@@ -2482,7 +2678,8 @@
     {
       "domain": "zippyshare.com",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "Ultimate"
       ]
     }
   ]
