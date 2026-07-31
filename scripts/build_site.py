@@ -316,14 +316,12 @@ def main() -> int:
         whitelisted = sum(1 for _ in (repo / 'whitelist.txt').open(encoding='utf-8')) \
             if (repo / 'whitelist.txt').exists() else 0
 
-    sources_count = daily_stats.get('blacklist_sources') or 0
-    if not sources_count:
-        urls_file = repo / 'blacklists.fqdn.urls'
-        if urls_file.exists():
-            sources_count = sum(
-                1 for line in urls_file.open(encoding='utf-8')
-                if line.strip() and not line.strip().startswith('#')
-            )
+    # Counted from the registry rather than from daily_stats.json: the registry
+    # is validated against the URL list the pipeline actually fetches, so it
+    # cannot disagree with the source table rendered on the same page. The stats
+    # file is written by a separate schedule and lags whenever sources change.
+    sources_data = load_sources(repo, stats_dir)
+    sources_count = len(sources_data['sources'])
 
     stats = {
         'generated_at': datetime.now(timezone.utc).isoformat(),
@@ -351,7 +349,7 @@ def main() -> int:
     (data_dir / 'stats.json').write_text(json.dumps(stats, indent=2), encoding='utf-8')
     (data_dir / 'history.json').write_text(json.dumps(history, indent=2), encoding='utf-8')
     (data_dir / 'sources.json').write_text(
-        json.dumps(load_sources(repo, stats_dir), indent=2, ensure_ascii=False),
+        json.dumps(sources_data, indent=2, ensure_ascii=False),
         encoding='utf-8',
     )
 
