@@ -366,6 +366,11 @@ def main() -> int:
                 'active': payload.get('active'),
                 'dormant': payload.get('dormant'),
             }
+            # This count comes from the same run that produced the artifact,
+            # where daily_stats.json is written on its own schedule and lags by a
+            # day. The headline figure and its breakdown must not disagree.
+            if payload.get('unique'):
+                stats['whitelisted_domains'] = payload['unique']
         except json.JSONDecodeError as exc:
             log(f'Warning: could not parse {whitelist_file}: {exc}')
 
