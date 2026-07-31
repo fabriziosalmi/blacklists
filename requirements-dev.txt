@@ -1,0 +1,6 @@
+# Development and test dependencies.
+# Runtime dependencies are installed by the workflows themselves (tldextract,
+# tqdm for the pipeline; matplotlib and pandas for the statistics job).
+pytest>=8.0
+tldextract>=5.0
+tqdm>=4.66

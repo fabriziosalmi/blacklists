@@ -32,13 +32,21 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+# sanitize.py lives at the repository root, which is not on sys.path when this
+# script runs as `python3 scripts/source_stats.py`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from sanitize import (  # noqa: E402  (import needs the path set above)
+    get_sanitization_rules as _get_sanitization_rules,
+    sanitize_line as _sanitize_line,
+)
+
+_SANITIZE_RULES = _get_sanitization_rules()
+
 SOURCES_DIR = Path('sources_raw')
 BLACKLIST = Path('all.fqdn.blacklist')
 REGISTRY = Path('sources/registry.json')
 OUTPUT = Path('stats/sources.json')
-
-# Prefixes stripped by sanitize.py.
-PREFIXES = ('127.0.0.1', '0.0.0.0', '||', 'http://', 'https://')
 
 HTML_MARKERS = ('<!doctype', '<html', '<head', '<body')
 
@@ -90,31 +98,27 @@ def supplier_normalize(line: str) -> Optional[str]:
 
 
 def pipeline_normalize(line: str) -> Optional[str]:
-    """Reproduce exactly what sanitize.py does to one line.
+    """Report what sanitize.py makes of one line.
 
-    This is the strict counterpart of supplier_normalize. Comparing the two
-    reveals sources whose syntax the pipeline cannot currently parse: entries
-    that a human would read as domains but that sanitize.py discards.
+    The strict counterpart of supplier_normalize. Comparing the two reveals
+    sources whose syntax the pipeline cannot parse: entries a human would read
+    as domains but that sanitize.py discards.
 
-    The only check omitted is tldextract's public-suffix lookup, which would
-    reject strictly more lines, so this count is an upper bound on what the
-    pipeline actually keeps.
+    It calls sanitize.py rather than reimplementing it. An earlier version kept
+    a parallel copy of the rules and silently fell out of step the moment the
+    Adblock parsing changed, which would have reported sources as readable when
+    the pipeline had stopped reading them - the exact blindness this function
+    exists to remove.
+
+    The only check omitted is tldextract's public-suffix lookup, which rejects
+    strictly more lines, so this is an upper bound on what the pipeline keeps.
     """
-    line = line.strip()
-    if line.startswith('#'):
+    result = _sanitize_line(line, _SANITIZE_RULES)
+    if not result or '*' in result or '.' not in result:
         return None
-
-    for prefix in PREFIXES:
-        if line.startswith(prefix):
-            line = line[len(prefix):].strip()
-            break
-
-    line = line.rstrip('.').lower()
-    if not line or '*' in line or '.' not in line:
+    if not all(LABEL_PATTERN.match(label) for label in result.split('.')):
         return None
-    if not all(LABEL_PATTERN.match(label) for label in line.split('.')):
-        return None
-    return line
+    return result
 
 
 def detect_format(sample: List[str]) -> str:

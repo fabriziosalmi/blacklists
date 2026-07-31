@@ -11,20 +11,48 @@ on:
       - 'sources/**'
       - 'blacklists.fqdn.urls'
       - 'SOURCES.md'
+      - 'README.md'
       - 'scripts/**'
+      - 'tests/**'
+      - 'sanitize.py'
+      - 'whitelist.py'
+      - 'requirements-dev.txt'
       - '.github/workflows/validate.yml'
   pull_request:
     paths:
       - 'sources/**'
       - 'blacklists.fqdn.urls'
       - 'SOURCES.md'
+      - 'README.md'
       - 'scripts/**'
+      - 'tests/**'
+      - 'sanitize.py'
+      - 'whitelist.py'
+      - 'requirements-dev.txt'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install test dependencies
+        run: python3 -m pip install -r requirements-dev.txt
+
+      # Guards what the pipeline decides to block. Every case in the suite is a
+      # bug that reached, or nearly reached, a published release.
+      - name: Run tests
+        run: python3 -m pytest tests/ -v
+
   validate:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +65,7 @@ jobs:
       - name: Registry matches the fetched source list
         run: python3 scripts/validate_registry.py
 
-      - name: SOURCES.md is up to date with the registry
+      - name: SOURCES.md and README credits are up to date
         run: python3 scripts/generate_sources_md.py --check
 
       - name: Scripts compile
