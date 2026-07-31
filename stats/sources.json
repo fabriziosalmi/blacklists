@@ -1,0 +1,1032 @@
+{
+  "generated_at": "2026-07-31T17:02:07.604193+00:00",
+  "published_domains": 2754896,
+  "sources_configured": 46,
+  "sources_ok": 44,
+  "sources_failed": 2,
+  "sources_unreadable": 1,
+  "categories": [
+    {
+      "category": "tracking",
+      "domains": 1005099,
+      "exclusive": 269918
+    },
+    {
+      "category": "ads",
+      "domains": 820445,
+      "exclusive": 21637
+    },
+    {
+      "category": "mixed",
+      "domains": 631547,
+      "exclusive": 414022
+    },
+    {
+      "category": "scam",
+      "domains": 556237,
+      "exclusive": 468520
+    },
+    {
+      "category": "gambling",
+      "domains": 373914,
+      "exclusive": 371839
+    },
+    {
+      "category": "malware",
+      "domains": 335433,
+      "exclusive": 282653
+    },
+    {
+      "category": "piracy",
+      "domains": 38029,
+      "exclusive": 36674
+    },
+    {
+      "category": "phishing",
+      "domains": 34159,
+      "exclusive": 29830
+    },
+    {
+      "category": "streaming",
+      "domains": 27374,
+      "exclusive": 26451
+    },
+    {
+      "category": "spam",
+      "domains": 2566,
+      "exclusive": 2328
+    }
+  ],
+  "sources": [
+    {
+      "index": 0,
+      "url": "https://raw.githubusercontent.com/LanikSJ/ubo-filters/main/filters/getadmiral-domains.txt",
+      "http_status": 200,
+      "bytes": 33896,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 1672,
+      "candidates": 1645,
+      "pipeline_parsed": 1657,
+      "unreadable_by_pipeline": false,
+      "domains": 1645,
+      "error": null,
+      "unique_domains": 14,
+      "id": "ubo-getadmiral",
+      "name": "GetAdmiral domains",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 1,
+      "url": "https://raw.githubusercontent.com/dmachard/blocklist-domains/data/blocklist.txt",
+      "http_status": 200,
+      "bytes": 7625242,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 433749,
+      "candidates": 433646,
+      "pipeline_parsed": 433746,
+      "unreadable_by_pipeline": false,
+      "domains": 433589,
+      "error": null,
+      "unique_domains": 305804,
+      "id": "dmachard-blocklist",
+      "name": "blocklist-domains",
+      "categories": [
+        "mixed"
+      ]
+    },
+    {
+      "index": 2,
+      "url": "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt",
+      "http_status": 200,
+      "bytes": 252747,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 6373,
+      "candidates": 3496,
+      "pipeline_parsed": 81,
+      "unreadable_by_pipeline": false,
+      "domains": 676,
+      "error": null,
+      "unique_domains": 53,
+      "id": "ubo-badware",
+      "name": "uBO badware risks",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 3,
+      "url": "https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt",
+      "http_status": 200,
+      "bytes": 37598,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 2343,
+      "candidates": 2343,
+      "pipeline_parsed": 2343,
+      "unreadable_by_pipeline": false,
+      "domains": 2341,
+      "error": null,
+      "unique_domains": 2109,
+      "id": "matomo-referrer-spam",
+      "name": "Referrer spam list",
+      "categories": [
+        "spam"
+      ]
+    },
+    {
+      "index": 4,
+      "url": "https://raw.githubusercontent.com/What-Zit-Tooya/Ad-Block/main/Main-Blocklist/Ad-Block-HOSTS.txt",
+      "http_status": 200,
+      "bytes": 52081,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 1749,
+      "candidates": 1599,
+      "pipeline_parsed": 1596,
+      "unreadable_by_pipeline": false,
+      "domains": 1582,
+      "error": null,
+      "unique_domains": 873,
+      "id": "whatzittooya-adblock",
+      "name": "Ad-Block HOSTS",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 5,
+      "url": "https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt",
+      "http_status": 200,
+      "bytes": 623144,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 15368,
+      "candidates": 15357,
+      "pipeline_parsed": 15357,
+      "unreadable_by_pipeline": false,
+      "domains": 15326,
+      "error": null,
+      "unique_domains": 7157,
+      "id": "notrack",
+      "name": "NoTrack blocklist",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 6,
+      "url": "https://hostfiles.frogeye.fr/firstparty-only-trackers-hosts.txt",
+      "http_status": 200,
+      "bytes": 392316,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 12151,
+      "candidates": 12125,
+      "pipeline_parsed": 12125,
+      "unreadable_by_pipeline": false,
+      "domains": 12121,
+      "error": null,
+      "unique_domains": 0,
+      "id": "frogeye-firstparty-only",
+      "name": "First-party only trackers",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 7,
+      "url": "https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt",
+      "http_status": 200,
+      "bytes": 475135,
+      "fetch_seconds": 2,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 14675,
+      "candidates": 14649,
+      "pipeline_parsed": 14649,
+      "unreadable_by_pipeline": false,
+      "domains": 14641,
+      "error": null,
+      "unique_domains": 0,
+      "id": "frogeye-firstparty",
+      "name": "First-party trackers",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 8,
+      "url": "https://hostfiles.frogeye.fr/multiparty-only-trackers-hosts.txt",
+      "http_status": 200,
+      "bytes": 443076,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 13752,
+      "candidates": 13726,
+      "pipeline_parsed": 13725,
+      "unreadable_by_pipeline": false,
+      "domains": 13712,
+      "error": null,
+      "unique_domains": 0,
+      "id": "frogeye-multiparty-only",
+      "name": "Multi-party only trackers",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 9,
+      "url": "https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt",
+      "http_status": 200,
+      "bytes": 621427,
+      "fetch_seconds": 2,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 18991,
+      "candidates": 18965,
+      "pipeline_parsed": 18964,
+      "unreadable_by_pipeline": false,
+      "domains": 18943,
+      "error": null,
+      "unique_domains": 272,
+      "id": "frogeye-multiparty",
+      "name": "Multi-party trackers",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 10,
+      "url": "https://malware-filter.gitlab.io/malware-filter/phishing-filter-hosts.txt",
+      "http_status": 200,
+      "bytes": 1240346,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 33687,
+      "candidates": 33681,
+      "pipeline_parsed": 33658,
+      "unreadable_by_pipeline": false,
+      "domains": 33658,
+      "error": null,
+      "unique_domains": 29351,
+      "id": "phishing-filter",
+      "name": "Phishing filter",
+      "categories": [
+        "phishing"
+      ]
+    },
+    {
+      "index": 11,
+      "url": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt",
+      "http_status": 200,
+      "bytes": 397142,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 14239,
+      "candidates": 12329,
+      "pipeline_parsed": 12329,
+      "unreadable_by_pipeline": false,
+      "domains": 11724,
+      "error": null,
+      "unique_domains": 200,
+      "id": "adfilt-antimalware-hosts",
+      "name": "Anti-Malware List (hosts)",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 12,
+      "url": "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt",
+      "http_status": 200,
+      "bytes": 1928336,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 64378,
+      "candidates": 64332,
+      "pipeline_parsed": 64332,
+      "unreadable_by_pipeline": false,
+      "domains": 64331,
+      "error": null,
+      "unique_domains": 567,
+      "id": "kadhosts-pft",
+      "name": "KADhosts",
+      "categories": [
+        "ads",
+        "scam"
+      ]
+    },
+    {
+      "index": 13,
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Ads",
+      "http_status": 200,
+      "bytes": 456250,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 27097,
+      "candidates": 27087,
+      "pipeline_parsed": 27087,
+      "unreadable_by_pipeline": false,
+      "domains": 27070,
+      "error": null,
+      "unique_domains": 17245,
+      "id": "sw-ads",
+      "name": "ShadowWhisperer Ads",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 14,
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware",
+      "http_status": 200,
+      "bytes": 821432,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 43320,
+      "candidates": 43310,
+      "pipeline_parsed": 43310,
+      "unreadable_by_pipeline": false,
+      "domains": 43306,
+      "error": null,
+      "unique_domains": 28778,
+      "id": "sw-malware",
+      "name": "ShadowWhisperer Malware",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 15,
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Scam",
+      "http_status": 200,
+      "bytes": 132387,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 7307,
+      "candidates": 7297,
+      "pipeline_parsed": 7297,
+      "unreadable_by_pipeline": false,
+      "domains": 7297,
+      "error": null,
+      "unique_domains": 5776,
+      "id": "sw-scam",
+      "name": "ShadowWhisperer Scam",
+      "categories": [
+        "scam"
+      ]
+    },
+    {
+      "index": 16,
+      "url": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
+      "http_status": 200,
+      "bytes": 2486798,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 115526,
+      "candidates": 115516,
+      "pipeline_parsed": 115506,
+      "unreadable_by_pipeline": false,
+      "domains": 115417,
+      "error": null,
+      "unique_domains": 66144,
+      "id": "sw-tracking",
+      "name": "ShadowWhisperer Tracking",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 17,
+      "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/data/StevenBlack/hosts",
+      "http_status": 200,
+      "bytes": 96505,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 3261,
+      "candidates": 2845,
+      "pipeline_parsed": 2845,
+      "unreadable_by_pipeline": false,
+      "domains": 2831,
+      "error": null,
+      "unique_domains": 1295,
+      "id": "stevenblack",
+      "name": "StevenBlack hosts (base)",
+      "categories": [
+        "ads",
+        "malware"
+      ]
+    },
+    {
+      "index": 18,
+      "url": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/domains.txt",
+      "http_status": 200,
+      "bytes": 5408448,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 210223,
+      "candidates": 210207,
+      "pipeline_parsed": 210143,
+      "unreadable_by_pipeline": false,
+      "domains": 210072,
+      "error": null,
+      "unique_domains": 120418,
+      "id": "1hosts-pro",
+      "name": "1Hosts (Lite)",
+      "categories": [
+        "ads",
+        "tracking"
+      ]
+    },
+    {
+      "index": 19,
+      "url": "https://raw.githubusercontent.com/bigdargon/hostsVN/master/filters/adservers-all.txt",
+      "http_status": 200,
+      "bytes": 175308,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 8653,
+      "candidates": 8590,
+      "pipeline_parsed": 8589,
+      "unreadable_by_pipeline": false,
+      "domains": 8571,
+      "error": null,
+      "unique_domains": 14,
+      "id": "hostsvn-adservers",
+      "name": "hostsVN adservers",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 20,
+      "url": "https://raw.githubusercontent.com/bigdargon/hostsVN/master/option/domain.txt",
+      "http_status": 200,
+      "bytes": 344448,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 18318,
+      "candidates": 18318,
+      "pipeline_parsed": 18318,
+      "unreadable_by_pipeline": false,
+      "domains": 18285,
+      "error": null,
+      "unique_domains": 1661,
+      "id": "hostsvn-domains",
+      "name": "hostsVN domains",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 21,
+      "url": "https://raw.githubusercontent.com/durablenapkin/scamblocklist/master/hosts.txt",
+      "http_status": 200,
+      "bytes": 61493,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 2244,
+      "candidates": 2236,
+      "pipeline_parsed": 2236,
+      "unreadable_by_pipeline": false,
+      "domains": 2236,
+      "error": null,
+      "unique_domains": 1936,
+      "id": "durablenapkin-scam",
+      "name": "Scam Blocklist",
+      "categories": [
+        "scam"
+      ]
+    },
+    {
+      "index": 22,
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/anti.piracy.txt",
+      "http_status": 200,
+      "bytes": 796592,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 38072,
+      "candidates": 38059,
+      "pipeline_parsed": 38059,
+      "unreadable_by_pipeline": false,
+      "domains": 38029,
+      "error": null,
+      "unique_domains": 36674,
+      "id": "hagezi-piracy",
+      "name": "Anti-Piracy",
+      "categories": [
+        "piracy"
+      ]
+    },
+    {
+      "index": 23,
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/fake.txt",
+      "http_status": 200,
+      "bytes": 340159,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 16823,
+      "candidates": 16810,
+      "pipeline_parsed": 16810,
+      "unreadable_by_pipeline": false,
+      "domains": 16810,
+      "error": null,
+      "unique_domains": 14657,
+      "id": "hagezi-fake",
+      "name": "Fake sites",
+      "categories": [
+        "scam"
+      ]
+    },
+    {
+      "index": 24,
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/gambling.txt",
+      "http_status": 200,
+      "bytes": 7345197,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 373930,
+      "candidates": 373917,
+      "pipeline_parsed": 373917,
+      "unreadable_by_pipeline": false,
+      "domains": 373914,
+      "error": null,
+      "unique_domains": 371839,
+      "id": "hagezi-gambling",
+      "name": "Gambling",
+      "categories": [
+        "gambling"
+      ]
+    },
+    {
+      "index": 25,
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/ultimate.txt",
+      "http_status": 404,
+      "bytes": 14,
+      "fetch_seconds": 1,
+      "ok": false,
+      "format": null,
+      "raw_lines": 0,
+      "candidates": 0,
+      "domains": 0,
+      "unique_domains": 0,
+      "error": "HTTP 404",
+      "id": "hagezi-ultimate",
+      "name": "Ultimate",
+      "categories": [
+        "ads",
+        "tracking"
+      ]
+    },
+    {
+      "index": 26,
+      "url": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/tif.txt",
+      "http_status": 404,
+      "bytes": 14,
+      "fetch_seconds": 1,
+      "ok": false,
+      "format": null,
+      "raw_lines": 0,
+      "candidates": 0,
+      "domains": 0,
+      "unique_domains": 0,
+      "error": "HTTP 404",
+      "id": "hagezi-tif",
+      "name": "Threat Intelligence Feeds",
+      "categories": [
+        "malware",
+        "phishing"
+      ]
+    },
+    {
+      "index": 27,
+      "url": "https://raw.githubusercontent.com/mitchellkrogza/Ultimate.Hosts.Blacklist/master/domains/domains2.list",
+      "http_status": 200,
+      "bytes": 5242897,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 201176,
+      "candidates": 201176,
+      "pipeline_parsed": 200820,
+      "unreadable_by_pipeline": false,
+      "domains": 200783,
+      "error": null,
+      "unique_domains": 107204,
+      "id": "ultimatehosts-domains2",
+      "name": "Ultimate Hosts Blacklist (domains2)",
+      "categories": [
+        "mixed"
+      ]
+    },
+    {
+      "index": 28,
+      "url": "https://raw.githubusercontent.com/phishfort/phishfort-lists/master/blacklists/domains.json",
+      "http_status": 200,
+      "bytes": 93,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "json",
+      "raw_lines": 4,
+      "candidates": 2,
+      "pipeline_parsed": 0,
+      "unreadable_by_pipeline": true,
+      "domains": 0,
+      "error": null,
+      "unique_domains": 0,
+      "id": "phishfort",
+      "name": "PhishFort blacklist",
+      "categories": [
+        "phishing"
+      ]
+    },
+    {
+      "index": 29,
+      "url": "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt",
+      "http_status": 200,
+      "bytes": 312402,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 18150,
+      "candidates": 18150,
+      "pipeline_parsed": 18150,
+      "unreadable_by_pipeline": false,
+      "domains": 18112,
+      "error": null,
+      "unique_domains": 419,
+      "id": "blackbook",
+      "name": "blackbook",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 30,
+      "url": "https://small.oisd.nl/",
+      "http_status": 200,
+      "bytes": 1272097,
+      "fetch_seconds": 2,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 57230,
+      "candidates": 57218,
+      "pipeline_parsed": 57218,
+      "unreadable_by_pipeline": false,
+      "domains": 57212,
+      "error": null,
+      "unique_domains": 1051,
+      "id": "oisd-small",
+      "name": "oisd small",
+      "categories": [
+        "ads",
+        "tracking"
+      ]
+    },
+    {
+      "index": 31,
+      "url": "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-agh.txt",
+      "http_status": 200,
+      "bytes": 479932,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "adblock",
+      "raw_lines": 22506,
+      "candidates": 9130,
+      "pipeline_parsed": 22500,
+      "unreadable_by_pipeline": false,
+      "domains": 9130,
+      "error": null,
+      "unique_domains": 8645,
+      "id": "urlhaus-filter",
+      "name": "URLhaus filter",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 32,
+      "url": "https://v.firebog.net/hosts/AdguardDNS.txt",
+      "http_status": 200,
+      "bytes": 3325210,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 160731,
+      "candidates": 160722,
+      "pipeline_parsed": 160722,
+      "unreadable_by_pipeline": false,
+      "domains": 160694,
+      "error": null,
+      "unique_domains": 38138,
+      "id": "firebog-adguarddns",
+      "name": "AdGuard DNS filter",
+      "categories": [
+        "ads",
+        "tracking"
+      ]
+    },
+    {
+      "index": 33,
+      "url": "https://v.firebog.net/hosts/Easylist.txt",
+      "http_status": 200,
+      "bytes": 992442,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 51042,
+      "candidates": 51033,
+      "pipeline_parsed": 51033,
+      "unreadable_by_pipeline": false,
+      "domains": 51032,
+      "error": null,
+      "unique_domains": 0,
+      "id": "firebog-easylist",
+      "name": "EasyList",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 34,
+      "url": "https://v.firebog.net/hosts/Easyprivacy.txt",
+      "http_status": 200,
+      "bytes": 937018,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 42703,
+      "candidates": 42694,
+      "pipeline_parsed": 42693,
+      "unreadable_by_pipeline": false,
+      "domains": 42680,
+      "error": null,
+      "unique_domains": 12486,
+      "id": "firebog-easyprivacy",
+      "name": "EasyPrivacy",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 35,
+      "url": "https://v.firebog.net/hosts/Prigent-Ads.txt",
+      "http_status": 200,
+      "bytes": 70572,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 4275,
+      "candidates": 4270,
+      "pipeline_parsed": 4270,
+      "unreadable_by_pipeline": false,
+      "domains": 4253,
+      "error": null,
+      "unique_domains": 1026,
+      "id": "firebog-prigent-ads",
+      "name": "UT1 publicite",
+      "categories": [
+        "ads"
+      ]
+    },
+    {
+      "index": 36,
+      "url": "https://v.firebog.net/hosts/Prigent-Crypto.txt",
+      "http_status": 200,
+      "bytes": 203986,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 11496,
+      "candidates": 11491,
+      "pipeline_parsed": 11491,
+      "unreadable_by_pipeline": false,
+      "domains": 11488,
+      "error": null,
+      "unique_domains": 11003,
+      "id": "firebog-prigent-crypto",
+      "name": "UT1 cryptojacking",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 37,
+      "url": "https://v.firebog.net/hosts/Prigent-Malware.txt",
+      "http_status": 200,
+      "bytes": 4734530,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 248533,
+      "candidates": 248528,
+      "pipeline_parsed": 248527,
+      "unreadable_by_pipeline": false,
+      "domains": 248522,
+      "error": null,
+      "unique_domains": 192871,
+      "id": "firebog-prigent-malware",
+      "name": "UT1 malware",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 38,
+      "url": "https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt",
+      "http_status": 200,
+      "bytes": 14407741,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 429309,
+      "candidates": 429286,
+      "pipeline_parsed": 428454,
+      "unreadable_by_pipeline": false,
+      "domains": 428364,
+      "error": null,
+      "unique_domains": 329590,
+      "id": "developerdan-ads",
+      "name": "Ads and tracking extended",
+      "categories": [
+        "ads",
+        "tracking"
+      ]
+    },
+    {
+      "index": 39,
+      "url": "https://www.github.developerdan.com/hosts/lists/tracking-aggressive-extended.txt",
+      "http_status": 200,
+      "bytes": 6205307,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 171843,
+      "candidates": 171820,
+      "pipeline_parsed": 171738,
+      "unreadable_by_pipeline": false,
+      "domains": 171705,
+      "error": null,
+      "unique_domains": 166586,
+      "id": "developerdan-tracking",
+      "name": "Tracking aggressive extended",
+      "categories": [
+        "tracking"
+      ]
+    },
+    {
+      "index": 40,
+      "url": "https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/custom/streaming.txt",
+      "http_status": 200,
+      "bytes": 550359,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 28112,
+      "candidates": 28112,
+      "pipeline_parsed": 28111,
+      "unreadable_by_pipeline": false,
+      "domains": 27374,
+      "error": null,
+      "unique_domains": 26451,
+      "id": "salmi-streaming",
+      "name": "Streaming (custom)",
+      "categories": [
+        "streaming"
+      ]
+    },
+    {
+      "index": 41,
+      "url": "https://raw.githubusercontent.com/ThioJoe/YT-Spam-Lists/main/SpamDomainsList.txt",
+      "http_status": 200,
+      "bytes": 8582,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 683,
+      "candidates": 226,
+      "pipeline_parsed": 226,
+      "unreadable_by_pipeline": false,
+      "domains": 225,
+      "error": null,
+      "unique_domains": 219,
+      "id": "thiojoe-spam",
+      "name": "YouTube spam domains",
+      "categories": [
+        "spam"
+      ]
+    },
+    {
+      "index": 42,
+      "url": "https://phishunt.io/feed.txt",
+      "http_status": 200,
+      "bytes": 25050,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "url",
+      "raw_lines": 657,
+      "candidates": 657,
+      "pipeline_parsed": 513,
+      "unreadable_by_pipeline": false,
+      "domains": 527,
+      "error": null,
+      "unique_domains": 454,
+      "id": "phishunt",
+      "name": "phishunt feed",
+      "categories": [
+        "phishing"
+      ]
+    },
+    {
+      "index": 43,
+      "url": "https://raw.githubusercontent.com/jarelllama/Scam-Blocklist/main/lists/wildcard_domains/scams.txt",
+      "http_status": 200,
+      "bytes": 9947809,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 468739,
+      "candidates": 468729,
+      "pipeline_parsed": 468729,
+      "unreadable_by_pipeline": false,
+      "domains": 468705,
+      "error": null,
+      "unique_domains": 443272,
+      "id": "jarelllama-scams",
+      "name": "Scam Blocklist (wildcards)",
+      "categories": [
+        "scam"
+      ]
+    },
+    {
+      "index": 44,
+      "url": "https://raw.githubusercontent.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/master/hosts",
+      "http_status": 200,
+      "bytes": 368556,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "hosts",
+      "raw_lines": 13841,
+      "candidates": 13820,
+      "pipeline_parsed": 13816,
+      "unreadable_by_pipeline": false,
+      "domains": 13459,
+      "error": null,
+      "unique_domains": 12781,
+      "id": "biglist-hacked",
+      "name": "Big List of Hacked Malware Web Sites",
+      "categories": [
+        "malware"
+      ]
+    },
+    {
+      "index": 45,
+      "url": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt",
+      "http_status": 200,
+      "bytes": 313856,
+      "fetch_seconds": 1,
+      "ok": true,
+      "format": "domains",
+      "raw_lines": 13111,
+      "candidates": 11579,
+      "pipeline_parsed": 12136,
+      "unreadable_by_pipeline": false,
+      "domains": 11535,
+      "error": null,
+      "unique_domains": 1,
+      "id": "adfilt-antimalware-agh",
+      "name": "Anti-Malware List (AdGuard Home)",
+      "categories": [
+        "malware"
+      ]
+    }
+  ]
+}

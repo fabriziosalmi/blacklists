@@ -1,0 +1,2489 @@
+{
+  "state": "measured",
+  "entries": 2060,
+  "unique": 2060,
+  "active": 362,
+  "dormant": 1698,
+  "duplicates": [],
+  "active_entries": [
+    {
+      "domain": "1fichier.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "4shared.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "a.klaviyo.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "a1843.g.akamai.net",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "aax-eu.amazon.es",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "aax-eu.amazon.it",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "ab13.mktossl.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "abeagle-public.buzzfeed.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "above.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "hostsVN adservers",
+        "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "activity.windows.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ad.nl",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "adwords.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "afs.googleusercontent.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "ajax.cloudflare.com",
+      "held_back_from": [
+        "Ad-Block HOSTS"
+      ]
+    },
+    {
+      "domain": "akamai-san24.exacttarget.com.edgekey.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "amazonaws.com",
+      "held_back_from": [
+        "uBO badware risks",
+        "Anti-Malware List (AdGuard Home)"
+      ]
+    },
+    {
+      "domain": "amplitude.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "anime-loads.org",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "api-iam.intercom.io",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "api-unionid.meituan.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "api.intercom.io",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "api.ipify.org",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "app.blackkitetech.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "arc.msn.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "assets.activity.windows.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "assets.adobedtm.com",
+      "held_back_from": [
+        "Ads and tracking extended",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "asuracomic.net",
+      "held_back_from": [
+        "UT1 malware"
+      ]
+    },
+    {
+      "domain": "audid-api.taobao.com",
+      "held_back_from": [
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "auto.netdirector.co.uk",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "b.stats.paypal.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "bestgore.fun",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "bitcanna.io",
+      "held_back_from": [
+        "UT1 cryptojacking"
+      ]
+    },
+    {
+      "domain": "blackkite.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "blackkitetech.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "blogroll.livedoor.net",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "blogspot.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "browser.events.data.microsoft.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "browser.pipe.aria.microsoft.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "AdGuard DNS filter",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "bufferapp.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "c-ctrip.com",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "c.apple.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "c.bing.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "c.msn.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "AdGuard DNS filter",
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "capi.connatix.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "EasyPrivacy",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cbsi.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cbsinteractive.hb.omtrdc.net",
+      "held_back_from": [
+        "First-party trackers",
+        "Multi-party trackers",
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cd.connatix.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cda.pl",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "cdn.cookielaw.org",
+      "held_back_from": [
+        "StevenBlack hosts (base)"
+      ]
+    },
+    {
+      "domain": "cdn.discordapp.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "cdn.jsdelivr.net",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "cdn.mediavoice.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cdn.optimizely.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cdn.privacy-mgmt.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "cdn2.optimizely.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cdn3.optimizely.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cdns.gigya.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "cdp.cloud.unity3d.com",
+      "held_back_from": [
+        "Ad-Block HOSTS",
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "cds.connatix.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cf.iadsdk.apple.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "1Hosts (Lite)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "chomikuj.pl",
+      "held_back_from": [
+        "blocklist-domains",
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "cint.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "cldup.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "click.cptrack.de",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "click.discord.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "cloudflare-dns.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "cmp.tvspielfilm.de",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "collector.lightstep.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "collegehumor.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "config.uca.cloud.unity3d.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "consent.faz.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "content.aimatch.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "content.ibanking-services.com",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers"
+      ]
+    },
+    {
+      "domain": "continuum.dds.microsoft.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "cs.dds.microsoft.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cstat.apple.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ct.pinterest.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "EasyPrivacy",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cws-iad1.conviva.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cws-sjc2.conviva.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cws.conviva.com",
+      "held_back_from": [
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "EasyPrivacy",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "d25xi40x97liuc.cloudfront.net",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "d3tracking.rbc.com",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers"
+      ]
+    },
+    {
+      "domain": "data-191b2429e8.rtl.de",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "datafilehost.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "dc.services.visualstudio.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "dcf.espn.com",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "dcfdata.espn.com",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "dd.tidal.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "device-api.urbanairship.com",
+      "held_back_from": [
+        "StevenBlack hosts (base)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "device-metrics-us-2.amazon.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "oisd small",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "device-metrics-us.amazon.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "oisd small",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "devices.carnivalmobile.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "disney.demdex.net",
+      "held_back_from": [
+        "Multi-party trackers",
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "disneyholidays.fr",
+      "held_back_from": [
+        "blocklist-domains",
+        "UT1 malware"
+      ]
+    },
+    {
+      "domain": "disneyplus.bn5x.net",
+      "held_back_from": [
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "disneyplus.com.ssl.sc.omtrdc.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "dl.free.fr",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "dpm.demdex.net",
+      "held_back_from": [
+        "Multi-party trackers",
+        "hostsVN domains",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "drift.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "driftt.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "AdGuard DNS filter",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "dropbox.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "dtioykqj1u8de.cloudfront.net",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "e.reddit.com",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "ec-ns.sascdn.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ecommerce.iap.unity3d.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "edge-irl1.demdex.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ekomi.com",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "email-link.adtidy.org",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "ero-labs.online",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "et.tidal.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "feedbackws.icloud.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "feedburner.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "festyy.com",
+      "held_back_from": [
+        "oisd small"
+      ]
+    },
+    {
+      "domain": "filefactory.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "filmweb.pl",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "firebasestorage.googleapis.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.ae",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.co.uk",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.de",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.es",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.in",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.it",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.nl",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.sa",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-eu.amazon.se",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-fe.amazon.co.jp",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-fe.amazon.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "fls-fe.amazon.com.au",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-fe.amazon.sg",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-na.amazon.ca",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "fls-na.amazon.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ultimate Hosts Blacklist (domains2)",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "fls-na.amazon.com.br",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "fls-na.amazon.com.mx",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "flvto.biz",
+      "held_back_from": [
+        "ShadowWhisperer Malware"
+      ]
+    },
+    {
+      "domain": "fp.msedge.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "freeroms.com",
+      "held_back_from": [
+        "Anti-Malware List (hosts)",
+        "Anti-Piracy",
+        "Anti-Malware List (AdGuard Home)"
+      ]
+    },
+    {
+      "domain": "funnyordie.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "g.live.com",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers"
+      ]
+    },
+    {
+      "domain": "g.msn.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "gateway.scarf.sh",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "geo-prod.do.dsp.mp.microsoft.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "geo3.ggpht.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "geoim.bloomberght.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "get.contentpass.net",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "github.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "github.io",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "go.e2language.com",
+      "held_back_from": [
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "go.pardot.com",
+      "held_back_from": [
+        "First-party trackers",
+        "Multi-party trackers",
+        "Ultimate Hosts Blacklist (domains2)",
+        "EasyPrivacy",
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "gowc.us",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "gravatar.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "groups.google.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "gslb-2.demdex.net",
+      "held_back_from": [
+        "Multi-party trackers",
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "gstaticadssl.l.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "h-charter.online-metrix.net",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "hgc-cf-cache-1.svonm.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "hitfile.net",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "hubspot.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "i1.wp.com",
+      "held_back_from": [
+        "Ad-Block HOSTS"
+      ]
+    },
+    {
+      "domain": "iadsdk.apple.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "ShadowWhisperer Ads",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "Ultimate Hosts Blacklist (domains2)",
+        "oisd small",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "iadsdk.apple.com.akadns.net",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "icanhazip.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "ichnaea.dradis.netflix.com",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "ichnaea.netflix.com",
+      "held_back_from": [
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking",
+        "AdGuard DNS filter",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "ifconfig.io",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ilcorsaronero.link",
+      "held_back_from": [
+        "Streaming (custom)"
+      ]
+    },
+    {
+      "domain": "image-ard-de-cddc.at-o.net",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "image.ard.de",
+      "held_back_from": [
+        "First-party only trackers",
+        "First-party trackers",
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "AdGuard DNS filter",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "imagebam.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "imagizer.imageshack.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "imasdk.googleapis.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "img.connatix.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "imgbox.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "in.appcenter.ms",
+      "held_back_from": [
+        "Ad-Block HOSTS",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "includes.ccdc02.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "info.ammex.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ingest.lightstep.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ink1001.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ultimate Hosts Blacklist (domains2)",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "insomniagamingfestival.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "ip-api.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ipaddress.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ipchicken.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "iphone-ld.apple.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "iphone-ld.origin-apple.com.akadns.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ipinfo.io",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "it.gravatar.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "itad.linetv.tw",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "ix.de",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "jdownloader.org",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "js.maxmind.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "js.media-lab.ai",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "js.monitor.azure.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "js.pusher.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "kanlayanee.ac.th",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "l.instagram.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "learn.cisecurity.org",
+      "held_back_from": [
+        "First-party only trackers",
+        "First-party trackers",
+        "Multi-party only trackers",
+        "Multi-party trackers"
+      ]
+    },
+    {
+      "domain": "licenses.ashampoo.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "limetorrents.lol",
+      "held_back_from": [
+        "blocklist-domains",
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "lnks.gd",
+      "held_back_from": [
+        "blocklist-domains",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "m1.fwmrm.net",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "m2.fwmrm.net",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "mackeeper.com",
+      "held_back_from": [
+        "ShadowWhisperer Malware",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "mailchimp.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "mailerlite.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Ads",
+        "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "majorgeeks.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "marvel-b1-cdn.bc0a.com",
+      "held_back_from": [
+        "Ultimate Hosts Blacklist (domains2)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "maxmind.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "maxthon.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "media-lab.ai",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "mega.co.nz",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "mega.nz",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "metal-tracker.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "metricool.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "mobilecrashreporting.googleapis.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "mozilla.cloudflare-dns.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "mparticle.map.fastly.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "mparticle.weather.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "msmetrics.ws.sonos.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "StevenBlack hosts (base)",
+        "1Hosts (Lite)",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "mssl.fwmrm.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "myabandonware.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "myflixer.to",
+      "held_back_from": [
+        "Anti-Piracy",
+        "Streaming (custom)",
+        "Scam Blocklist (wildcards)"
+      ]
+    },
+    {
+      "domain": "myip.wtf",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "mywot.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "StevenBlack hosts (base)"
+      ]
+    },
+    {
+      "domain": "news.ebc.net.tw",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "news.iadsdk.apple.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "1Hosts (Lite)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "nitroflare.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "nutaku.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "nutaku.net",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "onecollector.cloudapp.aria.akadns.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ouo.io",
+      "held_back_from": [
+        "UT1 malware"
+      ]
+    },
+    {
+      "domain": "p.brid.tv",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "p.imgur.com",
+      "held_back_from": [
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "pastie.org",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "pcapredict.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "pi.pardot.com",
+      "held_back_from": [
+        "First-party trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking",
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "plarium.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "play.aniview.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "play.google.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "player-feedback-v1.glomex.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "player.avplayer.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "playstation.com.ssl.d1.sc.omtrdc.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "plugin.mediavoice.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "polyfill.io",
+      "held_back_from": [
+        "uBO badware risks",
+        "oisd small",
+        "UT1 malware"
+      ]
+    },
+    {
+      "domain": "postimage.org",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "prd.jwpltx.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "production-cmp.isgprivacy.cbsi.com",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "promodj.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "public-api.wordpress.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "publitas.com",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "push.services.mozilla.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "qualtrics.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "radarsubmissions.apple.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "rai-italia01.wt-eu02.net",
+      "held_back_from": [
+        "First-party trackers",
+        "Multi-party trackers",
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "rapidgator.net",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "rapidvideo.com",
+      "held_back_from": [
+        "UT1 cryptojacking"
+      ]
+    },
+    {
+      "domain": "rarbgmirrored.org",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "real-debrid.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "report-uri.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "s.pinimg.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "s.youtube.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "ShadowWhisperer Tracking",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "s0-2mdn-net.l.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "s0.2mdn.net",
+      "held_back_from": [
+        "blocklist-domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "s2.static.cfgr3.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "s3-iad-ww.cf.videorolls.row.aiv-cdn.net",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "s3.amazonaws.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "safebrowsing.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "safebrowsing.googleapis.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "save.tv",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "sdk-02.moengage.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "sdk.privacy-center.org",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "sdk.split.io",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "secure.gravatar.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "secure.livechatinc.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "securemvt.apple.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "self-events-data.trafficmanager.net",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "self.events.data.microsoft.com",
+      "held_back_from": [
+        "Ad-Block HOSTS",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "semanticlocation-pa.googleapis.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "sendspace.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "shalltry.com",
+      "held_back_from": [
+        "UT1 malware"
+      ]
+    },
+    {
+      "domain": "sinastorage.com",
+      "held_back_from": [
+        "ShadowWhisperer Malware"
+      ]
+    },
+    {
+      "domain": "slickdeals.net",
+      "held_back_from": [
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "slike.indiatimes.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "smart.link",
+      "held_back_from": [
+        "NoTrack blocklist"
+      ]
+    },
+    {
+      "domain": "socialize.eu1.gigya.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "spade.twitch.tv",
+      "held_back_from": [
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "sportsbet.com.au",
+      "held_back_from": [
+        "Gambling"
+      ]
+    },
+    {
+      "domain": "src.litix.io",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "sslgen-tidal.datadome.co",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "static.sahibinden.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "stats.gc.apple.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "stats.glb.paypal.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "storage.googleapis.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "stylitics.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "supportmetrics.apple.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Tracking",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "oisd small",
+        "AdGuard DNS filter",
+        "EasyPrivacy",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "surveymonkey.com",
+      "held_back_from": [
+        "Scam Blocklist (wildcards)"
+      ]
+    },
+    {
+      "domain": "syndication.twitter.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "t.paypal.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "tag.aticdn.net",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "tag.dickssportinggoods.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "tagger.opecloud.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "EasyPrivacy",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "tags.tiqcdn.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "target.clickfunnels.com",
+      "held_back_from": [
+        "UT1 publicite",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "target.microsoft.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "NoTrack blocklist",
+        "First-party only trackers",
+        "First-party trackers",
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking",
+        "1Hosts (Lite)",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "tawk.to",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "tdn.da-services.ch",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "te.technical-service.net",
+      "held_back_from": [
+        "StevenBlack hosts (base)"
+      ]
+    },
+    {
+      "domain": "thechive.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "thepiratebay.org",
+      "held_back_from": [
+        "Anti-Piracy",
+        "UT1 cryptojacking"
+      ]
+    },
+    {
+      "domain": "thetvdb.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "tinyurl.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "tm.jsuol.com.br",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "tools.pingdom.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "tracker.beyond-hd.me",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "translate.google.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "tsatu.edu.ua",
+      "held_back_from": [
+        "Referrer spam list"
+      ]
+    },
+    {
+      "domain": "twitchyhagg.is",
+      "held_back_from": [
+        "Scam Blocklist (wildcards)"
+      ]
+    },
+    {
+      "domain": "twttr.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "tyk.io",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "ublock.org",
+      "held_back_from": [
+        "blocklist-domains",
+        "Anti-Malware List (hosts)",
+        "KADhosts",
+        "1Hosts (Lite)",
+        "Anti-Malware List (AdGuard Home)"
+      ]
+    },
+    {
+      "domain": "uim.tifbs.net",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.co.uk",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.com",
+      "held_back_from": [
+        "1Hosts (Lite)",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.com.br",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.es",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.fr",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.in",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unagi.amazon.it",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "unpkg.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "uploaded.net",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "uploaded.to",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "uptimerobot.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "uptobox.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "userlocation.googleapis.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "userscloud.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "v.shopify.com",
+      "held_back_from": [
+        "hostsVN adservers",
+        "hostsVN domains",
+        "AdGuard DNS filter",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "vid.connatix.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "video-stats.l.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "vk.com",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "vlscppe.microsoft.com",
+      "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "vms.bluebillywig.com",
+      "held_back_from": [
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "vod.pl",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "voe.sx",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "wallet.advcash.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "wcpstatic.microsoft.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "webadvisorc.rest.gti.mcafee.com",
+      "held_back_from": [
+        "Anti-Malware List (hosts)",
+        "Anti-Malware List (AdGuard Home)"
+      ]
+    },
+    {
+      "domain": "whatismyip.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "widget.intercom.io",
+      "held_back_from": [
+        "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "wieistmeineip.de",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "hostsVN adservers",
+        "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "windows.net",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "wl.spotify.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "First-party only trackers",
+        "First-party trackers",
+        "Multi-party only trackers",
+        "Multi-party trackers",
+        "UT1 publicite"
+      ]
+    },
+    {
+      "domain": "wns.windows.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads"
+      ]
+    },
+    {
+      "domain": "ws.sharethis.com",
+      "held_back_from": [
+        "hostsVN domains",
+        "AdGuard DNS filter",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "www-googletagmanager.l.google.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking",
+        "hostsVN adservers",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "www.asadcdn.com",
+      "held_back_from": [
+        "StevenBlack hosts (base)",
+        "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "www.googletagmanager.com",
+      "held_back_from": [
+        "StevenBlack hosts (base)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "www.googletagservices.com",
+      "held_back_from": [
+        "blocklist-domains",
+        "1Hosts (Lite)",
+        "hostsVN domains",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "www.youtube.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "yacy.net",
+      "held_back_from": [
+        "ShadowWhisperer Malware"
+      ]
+    },
+    {
+      "domain": "yospace.com",
+      "held_back_from": [
+        "NoTrack blocklist",
+        "ShadowWhisperer Ads",
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "youtube.com",
+      "held_back_from": [
+        "uBO badware risks"
+      ]
+    },
+    {
+      "domain": "zajefajna.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "zippyshare.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    }
+  ]
+}
