@@ -6,6 +6,9 @@ on:
       - 'whitelist.txt'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   process:
     runs-on: ubuntu-latest
@@ -14,44 +17,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0  # Ensure full history for change detection
+          ref: ${{ github.ref_name }}
 
-      - name: Process and validate whitelist.txt
-        id: process_file
-        run: |
-          FILE_PATH="whitelist.txt"
-          TEMP_SORTED="sorted.txt"
-          TEMP_VALID="valid.txt"
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
 
-          # Sort, remove duplicates (case-insensitive), and lowercase
-          sort -uf "$FILE_PATH" | tr '[:upper:]' '[:lower:]' > "$TEMP_SORTED"
-
-          # Validate FQDNs and save only valid ones
-          while IFS= read -r fqdn; do
-            if echo "$fqdn" | grep -Pq "^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}\$"; then
-              echo "$fqdn" >> "$TEMP_VALID"
-            else
-              echo "Ignoring invalid FQDN: $fqdn"
-            fi
-          done < "$TEMP_SORTED"
-
-          # Check for changes *before* replacing the file
-          if ! cmp --silent "$FILE_PATH" "$TEMP_VALID"; then
-            echo "::set-output name=changed::true"
-            mv "$TEMP_VALID" "$FILE_PATH"
-          else
-            echo "::set-output name=changed::false"
-            rm "$TEMP_VALID"
-          fi
-
-          # Clean up temporary sorted file
-          rm "$TEMP_SORTED"
+      # Comments in whitelist.txt are data: they record why an entry exists.
+      # A previous shell version of this step validated every line against an
+      # FQDN regex and kept only what matched, so the day entries gained trailing
+      # comments it deleted 384 of them - every entry that was actively holding a
+      # source back, a DNS resolver and a CDN apex among them. The normaliser
+      # preserves comments and reports anything it drops.
+      - name: Normalise whitelist.txt
+        run: python3 scripts/format_whitelist.py
 
       - name: Commit changes
-        if: steps.process_file.outputs.changed == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add whitelist.txt
-          git commit -m "Process and validate whitelist.txt"
-          git push
+          if git diff --staged --quiet; then
+            echo "whitelist.txt already normalised"
+          else
+            git commit -m "Normalise whitelist.txt [skip ci]"
+            git push
+          fi
