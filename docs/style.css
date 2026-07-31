@@ -1316,3 +1316,55 @@ body {
 [data-theme="dark"] .table-scroll {
   background: var(--bg-secondary);
 }
+
+/* Quality cross-check ------------------------------------------------------ */
+
+.quality {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border);
+}
+
+.quality h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.quality-intro {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.quality-bands {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.quality-band {
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.quality-band-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.quality-band-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+}
+
+[data-theme="dark"] .quality-band {
+  background: var(--bg-secondary);
+}

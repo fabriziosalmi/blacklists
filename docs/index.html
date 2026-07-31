@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'">
     <title>Domains Blacklist - Daily Aggregated DNS Blocklist</title>
     <meta name="description"
-        content="An open-source domain blacklist rebuilt daily from 50 curated upstream lists, published with per-source attribution, licences and verifiable provenance.">
+        content="An open-source domain blacklist rebuilt daily from curated upstream lists, published with per-source attribution, verified licences and a public quality cross-check.">
 
     <!-- Fonts -->
     <link href="fonts/fonts.css"
@@ -36,14 +36,14 @@
                     <a href="#sources">Sources</a>
                     <a href="#download">Download</a>
                     <a href="#docs">Docs</a>
-                    <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" class="github-link">
+                    <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" class="github-link" rel="noopener">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                         GitHub
                     </a>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="5" />
@@ -62,7 +62,7 @@
                         </svg>
                     </button>
                 </div>
-                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <button type="button" class="mobile-menu-btn" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -82,7 +82,7 @@
                 <h1>An aggregated domain blacklist you can audit</h1>
                 <p class="hero-description">
                     <strong id="hero-count">—</strong> domains, rebuilt every day from
-                    <span id="hero-sources">50</span> upstream lists. Every source is published with its
+                    <span id="hero-sources">—</span> upstream lists. Every source is published with its
                     maintainer, licence and the number of domains it actually contributed.
                 </p>
                 <div class="hero-buttons">
@@ -101,7 +101,7 @@
                 <p class="search-subtitle">Query the current list, including parent-domain matches</p>
                 <div class="search-box">
                     <input type="text" id="domainInput" placeholder="example.com" aria-label="Domain name">
-                    <button id="searchBtn" class="btn btn-primary">Check domain</button>
+                    <button type="button" id="searchBtn" class="btn btn-primary">Check domain</button>
                 </div>
                 <div id="searchResult" class="search-result"></div>
                 <div class="search-info">
@@ -247,6 +247,47 @@
                 </table>
             </div>
 
+            <!-- Quality -->
+            <div class="quality">
+                <h3>What this list blocks among popular domains</h3>
+                <p class="quality-intro">
+                    A blocklist is easy to judge by size and hard to judge by correctness. Every
+                    release is cross-checked against the Tranco top-1M ranking. Many popular
+                    domains are blocked entirely on purpose - that is what an ad and tracker list
+                    is for - so this is published rather than hidden, with the source responsible
+                    for each one.
+                </p>
+
+                <div id="quality-status" class="chart-status" hidden></div>
+
+                <div class="quality-bands" id="quality-bands"></div>
+
+                <div class="table-scroll">
+                    <table class="sources-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Rank</th>
+                                <th scope="col">Domain</th>
+                                <th scope="col">Supplied by</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quality-body">
+                            <tr>
+                                <td colspan="3">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="sources-footnote">
+                    A separate list of protected domains - DNS resolvers, OS update and certificate
+                    endpoints, CDN apexes - is checked on every release and <strong>fails the
+                    build</strong> rather than shipping. Blocking something here by mistake?
+                    <a href="https://github.com/fabriziosalmi/blacklists/issues/new/choose"
+                        target="_blank" rel="noopener">Report it</a>.
+                </p>
+            </div>
+
             <p class="sources-footnote">
                 Licences are recorded only when confirmed against the upstream repository, licence page
                 or list header; anything else is marked <em>unverified</em> rather than guessed. If you
@@ -315,8 +356,8 @@
                     <div class="download-url-container">
                         <input type="text" readonly
                             value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt"
-                            id="url-standard">
-                        <button class="copy-btn" data-target="url-standard">
+                            id="url-standard" aria-label="Standard blacklist URL">
+                        <button type="button" class="copy-btn" data-target="url-standard">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -335,8 +376,8 @@
                     <div class="download-url-container">
                         <input type="text" readonly
                             value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/unbound_blacklist.txt"
-                            id="url-unbound">
-                        <button class="copy-btn" data-target="url-unbound">
+                            id="url-unbound" aria-label="Unbound blacklist URL">
+                        <button type="button" class="copy-btn" data-target="url-unbound">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -355,8 +396,8 @@
                     <div class="download-url-container">
                         <input type="text" readonly
                             value="https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt"
-                            id="url-rpz">
-                        <button class="copy-btn" data-target="url-rpz">
+                            id="url-rpz" aria-label="RPZ blacklist URL">
+                        <button type="button" class="copy-btn" data-target="url-rpz">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -405,25 +446,25 @@
 
             <div class="docs-grid">
                 <a href="https://github.com/fabriziosalmi/blacklists/blob/main/docs/USER_GUIDE.md" class="doc-card"
-                    target="_blank">
+                    target="_blank" rel="noopener">
 
                     <h3>User Guide</h3>
                     <p>Complete installation and usage instructions</p>
                 </a>
                 <a href="https://github.com/fabriziosalmi/blacklists/blob/main/docs/PERFORMANCE.md" class="doc-card"
-                    target="_blank">
+                    target="_blank" rel="noopener">
 
                     <h3>Performance</h3>
                     <p>Benchmarks and optimization tips</p>
                 </a>
                 <a href="https://github.com/fabriziosalmi/blacklists/blob/main/docs/TESTING.md" class="doc-card"
-                    target="_blank">
+                    target="_blank" rel="noopener">
 
                     <h3>Testing</h3>
                     <p>How to test and verify your setup</p>
                 </a>
                 <a href="https://github.com/fabriziosalmi/blacklists/blob/main/docs/TROUBLESHOOTING.md" class="doc-card"
-                    target="_blank">
+                    target="_blank" rel="noopener">
 
                     <h3>Troubleshooting</h3>
                     <p>Common issues and solutions</p>
@@ -454,33 +495,33 @@
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Resources</h4>
-                        <a href="https://github.com/fabriziosalmi/blacklists" target="_blank">GitHub</a>
-                        <a href="https://github.com/fabriziosalmi/blacklists/releases" target="_blank">Releases</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/releases" target="_blank" rel="noopener">Releases</a>
                         <a href="https://github.com/fabriziosalmi/blacklists/blob/main/README.md"
-                            target="_blank">README</a>
+                            target="_blank" rel="noopener">README</a>
                     </div>
                     <div class="footer-column">
                         <h4>Community</h4>
-                        <a href="https://github.com/fabriziosalmi/blacklists/issues" target="_blank">Issues</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/issues" target="_blank" rel="noopener">Issues</a>
                         <a href="https://github.com/fabriziosalmi/blacklists/blob/main/CONTRIBUTING.md"
-                            target="_blank">Contributing</a>
-                        <a href="https://github.com/fabriziosalmi/blacklists/issues/new/choose" target="_blank">Submit
+                            target="_blank" rel="noopener">Contributing</a>
+                        <a href="https://github.com/fabriziosalmi/blacklists/issues/new/choose" target="_blank" rel="noopener">Submit
                             Request</a>
                     </div>
                     <div class="footer-column">
                         <h4>Legal</h4>
                         <a href="https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE"
-                            target="_blank">License</a>
+                            target="_blank" rel="noopener">License</a>
                         <a href="https://github.com/fabriziosalmi/blacklists/blob/main/SECURITY.md"
-                            target="_blank">Security</a>
+                            target="_blank" rel="noopener">Security</a>
                         <a href="https://github.com/fabriziosalmi/blacklists/blob/main/CODE_OF_CONDUCT.md"
-                            target="_blank">Code of Conduct</a>
+                            target="_blank" rel="noopener">Code of Conduct</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Domains Blacklist. Open-source project by <a href="https://github.com/fabriziosalmi"
-                        target="_blank">@fabriziosalmi</a></p>
+                        target="_blank" rel="noopener">@fabriziosalmi</a></p>
                 <p>Licensed under MIT. Updated daily with ❤️ for the cybersecurity community.</p>
                 <p><a href="https://fabriziosalmi.github.io/privacy">Privacy &amp; legal</a></p>
             </div>
@@ -488,7 +529,7 @@
     </footer>
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 19V5M5 12L12 5L19 12" />
         </svg>

@@ -1,0 +1,161 @@
+# Domains in the global top 1000 that this list blocks.
+#
+# Presence here means the block has been looked at, not that it is
+# endorsed. A domain entering the top 1000 that is not listed here
+# fails the release, so that an upstream list changing under us is
+# noticed rather than shipped.
+#
+# Format: domain  # rank - source that supplied it
+
+googletagmanager.com  # rank 21 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), EasyPrivacy, Ads and tracking extended
+appsflyersdk.com  # rank 35 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, Ultimate, Ads and tracking extended
+doubleclick.net  # rank 36 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+googlesyndication.com  # rank 64 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Ads, hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, UT1 publicite, Ads and tracking extended
+gvt2.com  # rank 80 - blocklist-domains, hostsVN adservers, Ultimate, oisd small, AdGuard DNS filter, EasyList
+sentry.io  # rank 102 - ShadowWhisperer Tracking, Ultimate, Ads and tracking extended
+google-analytics.com  # rank 108 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+b-cdn.net  # rank 112 - blocklist-domains, uBO badware risks
+criteo.com  # rank 114 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+app-measurement.com  # rank 121 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, Ads and tracking extended
+amazon-adsystem.com  # rank 125 - blocklist-domains, ShadowWhisperer Ads, hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+app-analytics-services.com  # rank 127 - ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+prodregistryv2.org  # rank 131 - 1Hosts (Lite)
+googleadservices.com  # rank 141 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+adtrafficquality.google  # rank 163 - ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+applovin.com  # rank 164 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+vungle.com  # rank 188 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+rubiconproject.com  # rank 190 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, EasyList, UT1 publicite, Ads and tracking extended
+taboola.com  # rank 193 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+adsafeprotected.com  # rank 221 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+adsrvr.org  # rank 230 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+pubmatic.com  # rank 233 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+scorecardresearch.com  # rank 245 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, UT1 publicite, Ads and tracking extended
+adnxs.com  # rank 251 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+omtrdc.net  # rank 258 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, UT1 publicite, Ads and tracking extended
+pages.dev  # rank 265 - uBO badware risks
+forter.com  # rank 269 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, Ads and tracking extended
+nr-data.net  # rank 279 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, Ads and tracking extended
+duckdns.org  # rank 284 - uBO badware risks, Tracking aggressive extended
+inmobi.com  # rank 285 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate Hosts Blacklist (domains2), UT1 publicite, Ads and tracking extended
+telecid.ru  # rank 300 - NoTrack blocklist, 1Hosts (Lite), Ultimate, oisd small, AdGuard DNS filter
+doubleverify.com  # rank 302 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+clarity.ms  # rank 304 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyPrivacy, Ads and tracking extended
+appsflyer.com  # rank 307 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, UT1 publicite, Ads and tracking extended
+mtgglobals.com  # rank 308 - ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+datadoghq.com  # rank 316 - NoTrack blocklist, ShadowWhisperer Tracking, Ads and tracking extended
+media.net  # rank 317 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, UT1 publicite, Ads and tracking extended
+smartadserver.com  # rank 320 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+crashlytics.com  # rank 332 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, Ads and tracking extended
+inner-active.mobi  # rank 340 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, AdGuard DNS filter, Ads and tracking extended
+demdex.net  # rank 376 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyPrivacy, UT1 publicite, Ads and tracking extended
+onelink.me  # rank 402 - UT1 publicite
+casalemedia.com  # rank 405 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+163.com  # rank 411 - blocklist-domains
+online-metrix.net  # rank 423 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), UT1 publicite, Ads and tracking extended
+openx.net  # rank 424 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+pangle.io  # rank 427 - ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+adriver.ru  # rank 451 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, UT1 publicite, Ads and tracking extended
+list-manage.com  # rank 461 - UT1 publicite
+featureassets.org  # rank 470 - ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains
+addtoany.com  # rank 472 - NoTrack blocklist, 1Hosts (Lite), Ultimate, Ads and tracking extended
+beyondwickedmapping.org  # rank 504 - ShadowWhisperer Tracking, 1Hosts (Lite), Ultimate, oisd small, AdGuard DNS filter
+nease.net  # rank 506 - Ultimate
+2mdn.net  # rank 508 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, Ultimate, UT1 publicite, Ads and tracking extended
+amzn.to  # rank 514 - Tracking aggressive extended
+360.cn  # rank 518 - Tracking aggressive extended
+dynatrace.com  # rank 524 - ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate
+adobedtm.com  # rank 525 - NoTrack blocklist, ShadowWhisperer Tracking, Ads and tracking extended
+360yield.com  # rank 545 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+cloudflareinsights.com  # rank 547 - blocklist-domains, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ads and tracking extended
+aboutads.info  # rank 567 - ShadowWhisperer Ads, Ultimate
+3lift.com  # rank 568 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+xhamster.com  # rank 569 - blocklist-domains
+rlcdn.com  # rank 570 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+hotjar.com  # rank 573 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+adobedc.net  # rank 583 - ShadowWhisperer Tracking, Ultimate
+klaviyo.com  # rank 598 - NoTrack blocklist, Ultimate Hosts Blacklist (domains2), Ads and tracking extended
+bidswitch.net  # rank 599 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, EasyPrivacy, UT1 publicite, Ads and tracking extended
+onetrust.com  # rank 605 - NoTrack blocklist, ShadowWhisperer Ads
+sharethrough.com  # rank 618 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+newrelic.com  # rank 623 - NoTrack blocklist, ShadowWhisperer Tracking, Ultimate, Ads and tracking extended
+googletagservices.com  # rank 624 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), EasyList, Ads and tracking extended
+branch.io  # rank 633 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, UT1 publicite, Ads and tracking extended
+braze.com  # rank 636 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), Ultimate, Ads and tracking extended
+pushy.io  # rank 637 - ShadowWhisperer Ads, 1Hosts (Lite), Ultimate
+smaato.net  # rank 640 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, Ads and tracking extended
+stackadapt.com  # rank 653 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+outbrain.com  # rank 661 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+intercom.io  # rank 666 - ShadowWhisperer Tracking, Ultimate Hosts Blacklist (domains2), Tracking aggressive extended
+optimizely.com  # rank 669 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, UT1 publicite, Ads and tracking extended
+dotomi.com  # rank 679 - blocklist-domains, NoTrack blocklist, hostsVN adservers, hostsVN domains, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+quantserve.com  # rank 682 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+yieldmo.com  # rank 688 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+id5-sync.com  # rank 690 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, AdGuard DNS filter, EasyList, Ads and tracking extended
+1rx.io  # rank 692 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, Ads and tracking extended
+samsungacr.com  # rank 695 - blocklist-domains, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite
+crwdcntrl.net  # rank 698 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, EasyPrivacy, UT1 publicite, Ads and tracking extended
+creativecdn.com  # rank 705 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, Ads and tracking extended
+agkn.com  # rank 709 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, AdGuard DNS filter, EasyPrivacy, UT1 publicite, Ads and tracking extended
+nmrodam.com  # rank 712 - ShadowWhisperer Tracking, 1Hosts (Lite), Ultimate, AdGuard DNS filter
+mediafire.com  # rank 719 - uBO badware risks, Anti-Piracy
+lijit.com  # rank 725 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+criteo.net  # rank 727 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+stripchat.com  # rank 728 - blocklist-domains, StevenBlack hosts (base), Ultimate
+bidr.io  # rank 731 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+imrworldwide.com  # rank 740 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), EasyPrivacy, UT1 publicite, Ads and tracking extended
+browser-intake-datadoghq.com  # rank 742 - NoTrack blocklist, ShadowWhisperer Tracking, StevenBlack hosts (base), 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, Ads and tracking extended
+networkadvertising.org  # rank 750 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), Ultimate
+adform.net  # rank 755 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+safebrowsing.apple  # rank 757 - ShadowWhisperer Tracking
+bugsnag.com  # rank 760 - NoTrack blocklist, ShadowWhisperer Tracking, Ultimate, Ads and tracking extended
+conviva.com  # rank 763 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), Ultimate, oisd small, AdGuard DNS filter, Ads and tracking extended
+moe.video  # rank 766 - ShadowWhisperer Ads, 1Hosts (Lite), Ultimate, AdGuard DNS filter
+teads.tv  # rank 767 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+gumgum.com  # rank 768 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+360safe.com  # rank 769 - Ads and tracking extended
+singular.net  # rank 771 - NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ads and tracking extended
+adjust.com  # rank 776 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), Ultimate, Ads and tracking extended
+ipify.org  # rank 777 - ShadowWhisperer Tracking, Ultimate
+liadm.com  # rank 788 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, EasyList, UT1 publicite, Ads and tracking extended
+moloco.com  # rank 794 - ShadowWhisperer Ads, 1Hosts (Lite), Ultimate, oisd small, AdGuard DNS filter, UT1 publicite
+a-mo.net  # rank 799 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, Ads and tracking extended
+liftoff.io  # rank 804 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+mixpanel.com  # rank 811 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, hostsVN adservers, hostsVN domains, Ultimate, UT1 publicite, Ads and tracking extended
+erome.com  # rank 817 - blocklist-domains
+33across.com  # rank 821 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+turn.com  # rank 823 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+onetag-sys.com  # rank 842 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+pornhub.com  # rank 848 - blocklist-domains
+yellowblue.io  # rank 854 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, Ads and tracking extended
+hath.network  # rank 855 - blocklist-domains
+adgrx.com  # rank 856 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, Ads and tracking extended
+onlyfans.com  # rank 857 - blocklist-domains
+xvideos.com  # rank 864 - blocklist-domains
+fwmrm.net  # rank 882 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate Hosts Blacklist (domains2), EasyList, Ads and tracking extended
+thenai.org  # rank 895 - ShadowWhisperer Ads
+eu-1-id5-sync.com  # rank 898 - ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyPrivacy
+eporner.com  # rank 899 - blocklist-domains
+go-mpulse.net  # rank 904 - blocklist-domains, Ad-Block HOSTS, NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, Ads and tracking extended
+dv.tech  # rank 914 - 1Hosts (Lite), Ultimate
+flashtalking.com  # rank 920 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, UT1 publicite, Ads and tracking extended
+seedtag.com  # rank 921 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, Ads and tracking extended
+mercadolibre.com.ar  # rank 922 - Ultimate Hosts Blacklist (domains2)
+life360.com  # rank 930 - ShadowWhisperer Tracking
+chaturbate.com  # rank 939 - blocklist-domains
+agora.io  # rank 940 - ShadowWhisperer Tracking
+tsyndicate.com  # rank 942 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, StevenBlack hosts (base), 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyList, UT1 publicite, UT1 malware, Ads and tracking extended, Scam Blocklist (wildcards)
+nexusmods.com  # rank 954 - blocklist-domains
+xnxx.com  # rank 955 - blocklist-domains
+presage.io  # rank 956 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, Ads and tracking extended
+4dex.io  # rank 959 - blocklist-domains, NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, EasyList, Ads and tracking extended
+footprintdns.com  # rank 961 - ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, Ultimate Hosts Blacklist (domains2), AdGuard DNS filter, Ads and tracking extended
+segment.io  # rank 963 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter, Ads and tracking extended
+nextlgsdp.com  # rank 970 - ShadowWhisperer Tracking, 1Hosts (Lite), Ultimate
+btloader.com  # rank 973 - NoTrack blocklist, ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, oisd small, AdGuard DNS filter, EasyPrivacy, Ads and tracking extended
+kwai.com  # rank 974 - Ultimate
+xhcdn.com  # rank 976 - blocklist-domains
+onesignal.com  # rank 989 - NoTrack blocklist, ShadowWhisperer Ads, Ads and tracking extended
+contentsquare.net  # rank 990 - NoTrack blocklist, ShadowWhisperer Tracking, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+faphouse.com  # rank 993 - blocklist-domains
+internetwarriors.net  # rank 996 - Anti-Piracy
+tiktokpangle.us  # rank 999 - ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter

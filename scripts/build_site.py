@@ -353,6 +353,19 @@ def main() -> int:
         encoding='utf-8',
     )
 
+    # The quality report answers the question size cannot: what does this list
+    # block among the domains people actually use. Absent until the pipeline has
+    # produced one, in which case the page says so instead of implying a clean
+    # result that was never measured.
+    quality_file = stats_dir / 'quality.json'
+    if quality_file.exists():
+        (data_dir / 'quality.json').write_text(
+            quality_file.read_text(encoding='utf-8'), encoding='utf-8'
+        )
+        log('✓ Published quality report')
+    else:
+        log('Warning: no stats/quality.json, the site will report it as unmeasured')
+
     # Served as the index manifest so a client can verify the shard scheme it is
     # querying instead of assuming it.
     (data_dir / 'index.json').write_text(json.dumps({

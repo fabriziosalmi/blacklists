@@ -40,20 +40,22 @@ jobs:
         continue-on-error: true
         run: python3 scripts/source_stats.py
 
-      - name: Commit per-source statistics
+      # Runs BEFORE anything is published. A release that blocks a DNS
+      # resolver, an OS update endpoint or a CDN apex must not leave the runner,
+      # because by the time anyone notices it is already installed.
+      - name: Quality gate
+        run: python3 scripts/check_quality.py --blacklist all.fqdn.blacklist
+
+      - name: Commit statistics
         continue-on-error: true
         run: |
-          if [ ! -f stats/sources.json ]; then
-            echo "No stats/sources.json produced, nothing to commit"
-            exit 0
-          fi
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add stats/sources.json
+          git add stats/sources.json stats/quality.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "📎 Update per-source statistics [skip ci]"
+            git commit -m "📎 Update per-source and quality statistics [skip ci]"
             git push
           fi
 

@@ -1,0 +1,85 @@
+# Domains that must never appear in the published blacklist.
+#
+# Checked by scripts/check_quality.py on every release. A single hit FAILS the
+# release rather than shipping it, because these are not domains whose blocking
+# annoys a user - they are domains whose blocking stops the machine from
+# updating itself, validating a certificate, resolving a name or keeping time.
+#
+# The bar for adding an entry: blocking it breaks the system or a large share of
+# the web, and the breakage is not obviously attributable to a blocklist, so the
+# user would have no way to diagnose it.
+#
+# Explicitly NOT a false-positive list. Advertising, analytics and tracking
+# domains belong in the blacklist however popular they are; that is the point of
+# the project. Entries that merely need an exception go in whitelist.txt.
+#
+# Format: domain  # why it is protected
+
+# --- Public DNS resolvers -------------------------------------------------
+# Blocking a resolver endpoint breaks name resolution for anyone using it,
+# including the resolution needed to fetch a corrected blacklist.
+cloudflare-dns.com          # Cloudflare DoH/DoT endpoint
+one.one.one.one             # Cloudflare resolver
+dns.google                  # Google Public DNS DoH endpoint
+dns.quad9.net               # Quad9 DoH endpoint
+quad9.net                   # Quad9
+opendns.com                 # Cisco OpenDNS
+
+# --- Time synchronisation -------------------------------------------------
+# A wrong clock invalidates every TLS certificate on the machine.
+pool.ntp.org                # the default NTP pool for most Linux installs
+time.windows.com            # Windows time service
+time.apple.com              # macOS/iOS time service
+time.google.com             # Google NTP
+
+# --- Certificate validation -----------------------------------------------
+# Blocking OCSP/CRL endpoints causes TLS failures or silent revocation bypass.
+ocsp.digicert.com           # DigiCert OCSP responder
+crl3.digicert.com           # DigiCert CRL
+ocsp.pki.goog               # Google Trust Services OCSP
+ocsp.sectigo.com            # Sectigo OCSP responder
+crl.sectigo.com             # Sectigo CRL
+letsencrypt.org             # Let's Encrypt
+o.lencr.org                 # Let's Encrypt OCSP responder
+
+# --- Operating system updates ---------------------------------------------
+# Blocking these leaves machines unpatched, which is the opposite of the
+# outcome this project exists to produce.
+windowsupdate.com           # Windows Update
+update.microsoft.com        # Windows Update
+swcdn.apple.com             # macOS software update CDN
+mesu.apple.com              # Apple software update catalogue
+archive.ubuntu.com          # Ubuntu package archive
+security.ubuntu.com         # Ubuntu security updates
+deb.debian.org              # Debian package archive
+dl.fedoraproject.org        # Fedora package downloads
+
+# --- Content delivery networks --------------------------------------------
+# These apexes serve a large share of the web. Blocking one takes down
+# thousands of unrelated sites, and the cause is invisible to the user.
+amazonaws.com               # AWS
+cloudfront.net              # AWS CloudFront
+akamai.net                  # Akamai
+akamaiedge.net              # Akamai
+akamaized.net               # Akamai
+fastly.net                  # Fastly
+azureedge.net               # Azure CDN
+cloudflare.com              # Cloudflare
+gstatic.com                 # Google static assets
+googleusercontent.com       # Google user content
+jsdelivr.net                # jsDelivr
+unpkg.com                   # unpkg
+
+# --- Package registries ---------------------------------------------------
+# Blocking these breaks software installation and CI on the affected machine.
+pypi.org                    # Python package index
+files.pythonhosted.org      # PyPI artifact host
+registry.npmjs.org          # npm registry
+rubygems.org                # RubyGems
+crates.io                   # Rust crate registry
+
+# --- Source hosting -------------------------------------------------------
+# Also where this blacklist itself is published and corrected.
+github.com                  # GitHub
+githubusercontent.com       # GitHub raw content
+gitlab.com                  # GitLab

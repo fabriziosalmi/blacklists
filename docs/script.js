@@ -12,6 +12,7 @@
         STATS: 'data/stats.json',
         HISTORY: 'data/history.json',
         SOURCES: 'data/sources.json',
+        QUALITY: 'data/quality.json',
         INDEX: 'data/index.json',
         SHARDS: 'data/shards',
         DEFAULT_TREND_DAYS: 90
@@ -446,6 +447,107 @@
         }
     }
 
+    // Renders the popularity cross-check: which widely-used domains this list
+    // blocks, and which source supplied each one. Published rather than hidden
+    // because most of these blocks are deliberate, and the ones that are not
+    // should be easy for anyone to spot and report.
+    class QualityManager {
+        constructor() {
+            this.body = document.getElementById('quality-body');
+            this.bands = document.getElementById('quality-bands');
+            this.status = document.getElementById('quality-status');
+        }
+
+        async init() {
+            if (!this.body) return;
+
+            let data;
+            try {
+                data = await utils.fetchJSON(CONFIG.QUALITY);
+            } catch (error) {
+                console.error('Failed to load quality report:', error);
+                this.body.innerHTML = '';
+                if (this.status) {
+                    this.status.hidden = false;
+                    this.status.textContent =
+                        'No cross-check has been published yet. It is produced by the release pipeline.';
+                }
+                return;
+            }
+
+            this.renderBands(data);
+            this.renderTable(data);
+        }
+
+        renderBands(data) {
+            if (!this.bands) return;
+
+            const counts = (data.popularity && data.popularity.blocked_in_band) || {};
+            const labels = [
+                ['top_1000', 'of the top 1,000'],
+                ['top_10000', 'of the top 10,000'],
+                ['top_100000', 'of the top 100,000'],
+                ['top_1000000', 'of the top 1,000,000']
+            ];
+
+            this.bands.innerHTML = '';
+            labels.forEach(([key, label]) => {
+                if (typeof counts[key] !== 'number') return;
+
+                const cell = document.createElement('div');
+                cell.className = 'quality-band';
+
+                const value = document.createElement('div');
+                value.className = 'quality-band-value';
+                value.textContent = utils.formatNumber(counts[key]);
+
+                const caption = document.createElement('div');
+                caption.className = 'quality-band-label';
+                caption.textContent = label;
+
+                cell.append(value, caption);
+                this.bands.appendChild(cell);
+            });
+        }
+
+        renderTable(data) {
+            const entries = (data.popularity && data.popularity.most_popular_blocked) || [];
+            this.body.innerHTML = '';
+
+            if (!entries.length) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 3;
+                cell.textContent = 'No blocked domain appears in the ranking.';
+                row.appendChild(cell);
+                this.body.appendChild(row);
+                return;
+            }
+
+            entries.forEach(entry => {
+                const row = document.createElement('tr');
+
+                const rank = document.createElement('td');
+                rank.className = 'numeric';
+                rank.textContent = `#${utils.formatNumber(entry.rank)}`;
+
+                const domain = document.createElement('td');
+                domain.textContent = entry.domain;
+
+                const sources = document.createElement('td');
+                if (entry.sources && entry.sources.length) {
+                    sources.textContent = entry.sources.join(', ');
+                } else {
+                    sources.textContent = 'not recorded';
+                    sources.classList.add('value-unavailable');
+                }
+
+                row.append(rank, domain, sources);
+                this.body.appendChild(row);
+            });
+        }
+    }
+
     // Domain lookup against the static sharded index.
     //
     // The index is a set of files named after the first N hex characters of the
@@ -672,6 +774,7 @@
     function init() {
         new StatsManager().init();
         new SourcesManager().init();
+        new QualityManager().init();
         new DomainSearchManager();
         new ClipboardManager();
         new ScrollManager();
