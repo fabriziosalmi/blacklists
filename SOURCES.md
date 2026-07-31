@@ -110,18 +110,6 @@ These sources publish terms that do not map to a standard license identifier. Th
 | blackbook | Miroslav Stampar - https://github.com/stamparm/blackbook | Public domain (declared by author) | Credit | [readme](https://github.com/stamparm/blackbook#readme) |
 | Anti-Malware List (AdGuard Home) | DandelionSprout - https://github.com/DandelionSprout/adfilt | Dandelicence (custom licence) | Credit | [license-file](https://github.com/DandelionSprout/adfilt/blob/master/LICENSE.md) |
 
-## No license statement found
-
-**These sources publish no license terms that could be located.** They are redistributed on the basis that they are published as public threat-intelligence feeds, but that is an assumption, not a grant. Rights holders should open an issue and the feed will be removed on request.
-
-| List | Upstream (owner / URL) | License | Attribution | Evidence |
-|---|---|---|---|---|
-| CERT Polska warning list | CERT Polska (NASK) - https://cert.pl/en/warning-list/ | Not stated | Credit | - |
-| Peter Lowe's ad/tracking server list | Peter Lowe - https://pgl.yoyo.org/adservers/ | Not stated | Credit | - |
-
-- **CERT Polska warning list**: No licence statement published on the project page; redistribution terms unconfirmed.
-- **Peter Lowe's ad/tracking server list**: No licence statement found on the project page; redistribution terms unconfirmed. SOURCES.md previously stated 'redistribution permitted (by written permission)'. No such statement could be located on the project page; if a written permission exists it should be recorded here as evidence.
-
 ## Notes on mirrors
 
 Some lists are fetched through **firebog** (`https://v.firebog.net`), which is a
@@ -143,6 +131,8 @@ The following feeds are deliberately **not** fetched:
 | [urlhaus.abuse.ch hostfile (direct)](https://urlhaus.abuse.ch/) | replaced | - | Replaced by the MIT-licensed urlhaus-filter repackage from malware-filter (same data, permissive terms). |
 | [KADhosts (azet12 fork) (FiltersHeroes / PolishFiltersTeam)](https://github.com/FiltersHeroes/KADhosts) | duplicate | CC-BY-SA-4.0 | Byte-identical to the PolishFiltersTeam/KADhosts feed; fetching it twice inflated the source count without adding a single domain. |
 | [Suspicious domains (MalwareWorld)](https://malwareworld.com/) | unavailable | - | Endpoint returned HTTP 404 and no licence statement could be located. |
+| [CERT Polska warning list (CERT Polska (NASK))](https://cert.pl/en/warning-list/) | licence | - | No redistribution grant. The Polish project page states only that anyone may download the list and deploy it in their own security systems ("kazdy moze ja pobrac i wdrozyc w swoich systemach bezpieczenstwa"), which authorises use but not republication inside an aggregated list. Removed pending explicit permission from CERT Polska / NASK. |
+| [Peter Lowe's ad/tracking server list (Peter Lowe)](https://pgl.yoyo.org/adservers/) | licence | - | No licence or redistribution terms published anywhere on the project site; the pages carry usage instructions only. A prior claim of "redistribution permitted by written permission" could not be substantiated. Removed pending written permission from Peter Lowe. |
 
 ---
 

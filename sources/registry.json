@@ -2,7 +2,7 @@
   "schema_version": 1,
   "description": "Curated metadata for every upstream list aggregated by this project. Licences are recorded only when confirmed against an authoritative source (repository licence file, project licence page or the list's own header); otherwise license.verified is false and license.spdx is null. Categories reflect how each list is labelled upstream.",
   "licenses_verified_at": "2026-07-31",
-  "source_count": 48,
+  "source_count": 46,
   "removed_sources": [
     {
       "name": "StopForumSpam toxic_domains_whole",
@@ -59,6 +59,20 @@
       "reason": "unavailable",
       "license": null,
       "detail": "Endpoint returned HTTP 404 and no licence statement could be located."
+    },
+    {
+      "name": "CERT Polska warning list (CERT Polska (NASK))",
+      "homepage": "https://cert.pl/en/warning-list/",
+      "reason": "licence",
+      "license": null,
+      "detail": "No redistribution grant. The Polish project page states only that anyone may download the list and deploy it in their own security systems (\"kazdy moze ja pobrac i wdrozyc w swoich systemach bezpieczenstwa\"), which authorises use but not republication inside an aggregated list. Removed pending explicit permission from CERT Polska / NASK."
+    },
+    {
+      "name": "Peter Lowe's ad/tracking server list (Peter Lowe)",
+      "homepage": "https://pgl.yoyo.org/adservers/",
+      "reason": "licence",
+      "license": null,
+      "detail": "No licence or redistribution terms published anywhere on the project site; the pages carry usage instructions only. A prior claim of \"redistribution permitted by written permission\" could not be substantiated. Removed pending written permission from Peter Lowe."
     }
   ],
   "sources": [
@@ -189,28 +203,6 @@
       "notes": null
     },
     {
-      "id": "certpl",
-      "url": "https://hole.cert.pl/domains/domains.txt",
-      "name": "CERT Polska warning list",
-      "project": "CERT Polska warning list",
-      "maintainer": "CERT Polska (NASK)",
-      "homepage": "https://cert.pl/en/warning-list/",
-      "categories": [
-        "phishing"
-      ],
-      "license": {
-        "spdx": null,
-        "name": "Not stated",
-        "url": null,
-        "verified": false,
-        "evidence": null,
-        "checked_at": "2026-07-31",
-        "note": "No licence statement published on the project page; redistribution terms unconfirmed."
-      },
-      "mirror_of": null,
-      "notes": "Endpoint redirects (HTTP 301); requires a client that follows redirects."
-    },
-    {
       "id": "frogeye-firstparty-only",
       "url": "https://hostfiles.frogeye.fr/firstparty-only-trackers-hosts.txt",
       "name": "First-party only trackers",
@@ -311,29 +303,6 @@
         "verified": true,
         "evidence": "gitlab-api",
         "checked_at": "2026-07-31"
-      },
-      "mirror_of": null,
-      "notes": null
-    },
-    {
-      "id": "yoyo-adservers",
-      "url": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&showintro=0&mimetype=plaintext",
-      "name": "Peter Lowe's ad/tracking server list",
-      "project": "pgl.yoyo.org adservers",
-      "maintainer": "Peter Lowe",
-      "homepage": "https://pgl.yoyo.org/adservers/",
-      "categories": [
-        "ads",
-        "tracking"
-      ],
-      "license": {
-        "spdx": null,
-        "name": "Not stated",
-        "url": null,
-        "verified": false,
-        "evidence": null,
-        "checked_at": "2026-07-31",
-        "note": "No licence statement found on the project page; redistribution terms unconfirmed. SOURCES.md previously stated 'redistribution permitted (by written permission)'. No such statement could be located on the project page; if a written permission exists it should be recorded here as evidence."
       },
       "mirror_of": null,
       "notes": null

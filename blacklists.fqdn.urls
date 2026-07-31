@@ -4,13 +4,11 @@ https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.tx
 https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt
 https://raw.githubusercontent.com/What-Zit-Tooya/Ad-Block/main/Main-Blocklist/Ad-Block-HOSTS.txt
 https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
-https://hole.cert.pl/domains/domains.txt
 https://hostfiles.frogeye.fr/firstparty-only-trackers-hosts.txt
 https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
 https://hostfiles.frogeye.fr/multiparty-only-trackers-hosts.txt
 https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt
 https://malware-filter.gitlab.io/malware-filter/phishing-filter-hosts.txt
-https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&showintro=0&mimetype=plaintext
 https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
 https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
 https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Ads
