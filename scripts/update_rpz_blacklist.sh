@@ -43,6 +43,12 @@ if [ ! -f "$RPZ_DIRECTORY/rpz_blacklist.txt" ]; then
     exit 1
 fi
 
+# Verify that the blacklist file is non-empty
+if [ ! -s "$RPZ_DIRECTORY/rpz_blacklist.txt" ]; then
+    echo "Error: rpz_blacklist.txt is empty. Exiting."
+    exit 1
+fi
+
 # Check if the configuration is already added to avoid duplicate entries
 if ! grep -q "rpz.blacklist" "$BIND_CONFIG"; then
     # Append configuration to BIND's config file
