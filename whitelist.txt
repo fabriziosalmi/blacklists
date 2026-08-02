@@ -16,7 +16,6 @@
 # To see the current picture:  python3 scripts/whitelist_report.py
 # To propose an addition:      https://github.com/fabriziosalmi/blacklists/issues/new/choose
 
-maniek86.xyz
 17track.net
 1drv.com
 1fichier.com  # 2026-07-31: blocked by Anti-Piracy
@@ -1110,6 +1109,7 @@ malwaredomains.usu.edu
 malwareurls.joxeankoret.com
 managehosting.aruba.it
 manager-magazin-de.manager-magazin.de
+maniek86.xyz
 manifest.googlevideo.com
 manifest.prod.boltdns.net
 mapbox.com
