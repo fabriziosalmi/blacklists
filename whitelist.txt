@@ -16,7 +16,6 @@
 # To see the current picture:  python3 scripts/whitelist_report.py
 # To propose an addition:      https://github.com/fabriziosalmi/blacklists/issues/new/choose
 
-s.uicdn.com
 17track.net
 1drv.com
 1fichier.com  # 2026-07-31: blocked by Anti-Piracy
@@ -1483,6 +1482,7 @@ s.shopify.com  # 2026-07-31: blocked by Ultimate
 s.sony.net
 s.ss2.us
 s.team
+s.uicdn.com
 s.yimg.com
 s.youtube.com  # 2026-07-31: blocked by blocklist-domains, ShadowWhisperer Tracking, Tracking aggressive extended
 s.ytimg.com
