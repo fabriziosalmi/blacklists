@@ -16,6 +16,7 @@
 # To see the current picture:  python3 scripts/whitelist_report.py
 # To propose an addition:      https://github.com/fabriziosalmi/blacklists/issues/new/choose
 
+maniek86.xyz
 17track.net
 1drv.com
 1fichier.com  # 2026-07-31: blocked by Anti-Piracy
