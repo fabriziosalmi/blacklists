@@ -1,9 +1,9 @@
 {
   "state": "measured",
-  "entries": 2060,
-  "unique": 2060,
-  "active": 380,
-  "dormant": 1680,
+  "entries": 2062,
+  "unique": 2062,
+  "active": 381,
+  "dormant": 1681,
   "duplicates": [],
   "active_entries": [
     {
@@ -742,7 +742,6 @@
     {
       "domain": "dpm.demdex.net",
       "held_back_from": [
-        "Multi-party trackers",
         "hostsVN domains",
         "Tracking aggressive extended"
       ]
@@ -1275,10 +1274,6 @@
     {
       "domain": "image.ard.de",
       "held_back_from": [
-        "First-party only trackers",
-        "First-party trackers",
-        "Multi-party only trackers",
-        "Multi-party trackers",
         "Ultimate",
         "AdGuard DNS filter",
         "EasyPrivacy"
@@ -1932,6 +1927,12 @@
       "domain": "s.shopify.com",
       "held_back_from": [
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "s.uicdn.com",
+      "held_back_from": [
+        "ShadowWhisperer Tracking"
       ]
     },
     {
