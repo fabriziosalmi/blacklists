@@ -2082,7 +2082,8 @@
     {
       "domain": "sinastorage.com",
       "held_back_from": [
-        "ShadowWhisperer Malware"
+        "ShadowWhisperer Malware",
+        "Ultimate"
       ]
     },
     {
