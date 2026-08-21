@@ -26,10 +26,14 @@ Four separate mechanisms, because one gate cannot serve four purposes:
 
   3. sources/acknowledged.txt - the top-1000 blocks already reviewed. A domain
      that is popular AND newly added to the list, and that nobody has reviewed,
-     fails the release. It is compared against the previously published release
-     because Tranco reranks daily: without that, domains drifting across the
-     rank-1000 boundary read as new blocks and freeze the pipeline on a
-     non-event.
+     is REPORTED, not blocked. Whether a popular domain belongs in the list is
+     an editorial question, and blocking a release on one froze the published
+     list for two weeks. Checks 0 and 1 cover what is actually broken; this one
+     leaves a review queue.
+
+     It is still compared against the previously published release, because
+     Tranco reranks daily and domains drifting across the rank-1000 boundary
+     would otherwise fill the queue with non-events.
 
 Tranco is downloaded during the run and never redistributed, so it places no
 licensing obligation on this repository.
@@ -409,15 +413,20 @@ def main() -> int:
         return 0
 
     if unacknowledged:
+        # Reported, not enforced. A popular domain being newly blocked is a
+        # judgement call, not a defect: the size and protected-domain checks
+        # above cover the cases where something is actually broken. Blocking the
+        # release on an editorial question is what froze the published list for
+        # two weeks, so this now leaves a review queue instead of a locked door.
         log('')
-        log(f'FAIL: {len(unacknowledged)} domain(s) newly blocked in the top '
+        log(f'REVIEW: {len(unacknowledged)} domain(s) newly blocked in the top '
             f'{REVIEW_RANK} and not yet reviewed:')
         for rank, domain in unacknowledged:
             who = ', '.join(attribution.get(domain, [])) or 'source unrecorded'
             log(f'  - #{rank} {domain}  <- {who}')
         log('')
-        log(f'Review each one, then either whitelist it or add it to {ACKNOWLEDGED}.')
-        return 1
+        log(f'Not blocking the release. Review at leisure, then either whitelist '
+            f'each one or add it to {ACKNOWLEDGED}.')
 
     log('')
     log('✓ No protected domain blocked, no unreviewed entry in the top '

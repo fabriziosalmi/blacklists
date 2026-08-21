@@ -124,8 +124,10 @@ def test_a_popular_ad_domain_does_not_fail_the_release(tmp_path, monkeypatch):
     assert report['popularity']['unacknowledged'] == []
 
 
-def test_an_unreviewed_top_1000_entry_fails_the_release(tmp_path, monkeypatch):
-    """The upstream-changed-under-us case: something new and very popular."""
+def test_an_unreviewed_top_1000_entry_is_reported_not_blocked(tmp_path, monkeypatch):
+    """Whether a popular domain belongs in the list is a judgement call, not a
+    defect. Blocking a release on one froze the published list for two weeks, so
+    it lands in a review queue and the release still ships."""
     code, report = run_gate(
         tmp_path, monkeypatch,
         blacklist=['roblox.com'],
@@ -134,7 +136,7 @@ def test_an_unreviewed_top_1000_entry_fails_the_release(tmp_path, monkeypatch):
         ranks={'roblox.com': 56},
         previous=[],            # it was not in the list before
     )
-    assert code == 1
+    assert code == 0
     assert [e['domain'] for e in report['popularity']['unacknowledged']] == ['roblox.com']
 
 
@@ -316,9 +318,10 @@ def test_a_domain_that_merely_became_popular_does_not_fail_the_release(tmp_path,
     assert report['popularity']['unacknowledged'] == []
 
 
-def test_a_genuinely_new_popular_block_still_fails_the_release(tmp_path, monkeypatch):
-    """The case the gate exists for: an upstream list starts blocking something
-    widely used, and it was not in yesterday's release."""
+def test_a_genuinely_new_popular_block_reaches_the_review_queue(tmp_path, monkeypatch):
+    """The case this check exists for: an upstream list starts blocking
+    something widely used that was not in yesterday's release. It is queued for
+    a human, and only the domain that is actually new."""
     code, report = run_gate(
         tmp_path, monkeypatch,
         blacklist=['newly-blocked.example', 'old.example'],
@@ -327,7 +330,7 @@ def test_a_genuinely_new_popular_block_still_fails_the_release(tmp_path, monkeyp
         ranks={'newly-blocked.example': 300, 'old.example': 400},
         previous=['old.example'],
     )
-    assert code == 1
+    assert code == 0
     assert [e['domain'] for e in report['popularity']['unacknowledged']] == \
         ['newly-blocked.example']
 
@@ -370,3 +373,38 @@ def test_a_protected_domain_fails_even_with_a_previous_release(tmp_path, monkeyp
         previous=['cloudflare-dns.com'],
     )
     assert code == 1
+
+
+def test_the_release_still_ships_with_a_full_review_queue(tmp_path, monkeypatch):
+    """Many pending reviews must not add up to a blocked release."""
+    blacklist = [f'new{i}.example' for i in range(25)]
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=blacklist,
+        protected=[],
+        acknowledged=[],
+        ranks={d: i + 1 for i, d in enumerate(blacklist)},
+        previous=[],
+    )
+    assert code == 0
+    assert len(report['popularity']['unacknowledged']) == 25
+
+
+def test_a_protected_domain_still_blocks_while_the_queue_only_reports(tmp_path, monkeypatch):
+    """Downgrading the editorial check must not soften the one that catches a
+    genuinely broken release."""
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['cloudflare-dns.com', 'newly-popular.example'],
+        protected=['cloudflare-dns.com  # DoH endpoint'],
+        acknowledged=[],
+        ranks={'cloudflare-dns.com': 5000, 'newly-popular.example': 10},
+        previous=[],
+    )
+    assert code == 1
+    assert report['protected']['violations'][0]['domain'] == 'cloudflare-dns.com'
+
+
+def test_a_shrunken_list_still_blocks_while_the_queue_only_reports():
+    from check_quality import check_shrinkage
+    assert not check_shrinkage(2_754_896, 4_755_218)[0]

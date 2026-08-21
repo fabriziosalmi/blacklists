@@ -65,6 +65,57 @@ jobs:
             --blacklist all.fqdn.blacklist \
             --previous previous_blacklist.txt
 
+      # The review queue. Runs on a SUCCESSFUL release, because the popularity
+      # check no longer blocks: without its own channel a new popular block
+      # would be recorded in quality.json and seen by nobody, which is the
+      # silence that let the list go stale for two weeks.
+      #
+      # One running issue, one comment per occurrence, so a busy week is a
+      # thread to skim rather than a pile of issues to close.
+      - name: Queue popular new blocks for review
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          PENDING=$(jq -r '.popularity.unacknowledged | length' stats/quality.json)
+          if [ "$PENDING" = "0" ] || [ -z "$PENDING" ]; then
+            echo "Nothing to review"
+            exit 0
+          fi
+
+          # jq's // only substitutes for null and false, and join on an empty
+          # array yields "", so the fallback has to be explicit or an entry with
+          # no recorded source renders as a dangling "supplied by".
+          LIST=$(jq -r '.popularity.unacknowledged[]
+            | "- **#\(.rank) \(.domain)** - supplied by " +
+              (if (.sources | length) > 0 then (.sources | join(", "))
+               else "source unrecorded" end)' \
+            stats/quality.json)
+
+          BODY="$PENDING domain(s) in the global top 1000 were newly added to the list and have not been reviewed.
+
+          $LIST
+
+          This did **not** block the release — it is a judgement call, not a defect.
+
+          For each one, either add it to \`whitelist.txt\` if it should not be blocked, or to \`sources/acknowledged.txt\` if it should. Acknowledged entries stop appearing here.
+
+          Run: $RUN_URL"
+
+          EXISTING=$(gh issue list --repo "${{ github.repository }}" \
+            --state open --label review-queue --limit 1 --json number --jq '.[0].number')
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "${{ github.repository }}" --body "$BODY"
+          else
+            gh issue create --repo "${{ github.repository }}" \
+              --title "Popular domains newly blocked - review queue" \
+              --body "$BODY" --label review-queue || \
+            gh issue create --repo "${{ github.repository }}" \
+              --title "Popular domains newly blocked - review queue" --body "$BODY"
+          fi
+
       # Classifies the published domains by content rather than by which source
       # supplied them, which is the only way a category no upstream declares
       # becomes visible. Reporting only.
