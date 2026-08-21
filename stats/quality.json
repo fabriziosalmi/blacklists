@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-21T05:58:19.808895+00:00",
+  "generated_at": "2026-08-21T06:18:56.938756+00:00",
   "ranking_source": "Tranco top 1M (tranco-list.eu), fetched at build time",
   "ranking_available": true,
-  "published_domains": 5249203,
+  "published_domains": 5249236,
   "size": {
-    "published_domains": 5249203,
+    "published_domains": 5249236,
     "previous_domains": 4822309,
     "accepted": true,
-    "detail": "+426,894 against the previous 4,822,309 (+8.9%)"
+    "detail": "+426,927 against the previous 4,822,309 (+8.9%)"
   },
   "protected": {
     "checked": 45,
@@ -16,15 +16,13 @@
   "popularity": {
     "blocked_in_band": {
       "top_1000": 153,
-      "top_10000": 1889,
-      "top_100000": 11671,
-      "top_1000000": 55051
+      "top_10000": 1890,
+      "top_100000": 11678,
+      "top_1000000": 55068
     },
     "review_rank": 1000,
     "enforced": true,
-    "newly_blocked_in_band": [
-      "xhamster46.desi"
-    ],
+    "newly_blocked_in_band": [],
     "unacknowledged": [],
     "most_popular_blocked": [
       {
@@ -1741,6 +1739,7 @@
         "rank": 908,
         "sources": [
           "blocklist-domains",
+          "ShadowWhisperer Ads",
           "1Hosts (Lite)",
           "Ultimate"
         ]
