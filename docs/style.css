@@ -1368,3 +1368,14 @@ body {
 [data-theme="dark"] .quality-band {
   background: var(--bg-secondary);
 }
+
+.classified {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px dashed var(--border);
+}
+
+.classified h4 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-xs);
+}

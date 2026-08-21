@@ -298,6 +298,19 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div id="classified" class="classified" hidden>
+                    <h4>Blocked without any source declaring it</h4>
+                    <p class="quality-intro">
+                        The table above counts domains by how each upstream list labels itself.
+                        That cannot see a category no source declares - so these are classified by
+                        content instead, against the
+                        <a href="https://dsi.ut-capitole.fr/blacklists/index_en.php" target="_blank"
+                            rel="noopener">Universite Toulouse 1 Capitole</a> reference lists,
+                        downloaded at build time and never redistributed.
+                    </p>
+                    <div class="quality-bands" id="classified-bands"></div>
+                </div>
             </div>
 
             <!-- Quality -->

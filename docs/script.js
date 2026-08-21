@@ -148,6 +148,8 @@
                     `${utils.formatNumber(s.whitelist.active)} holding back a source today`);
             }
 
+            this.renderClassified(s);
+
             const published = s.release && s.release.published_at;
             utils.setText('last-update', utils.formatRelative(published));
             utils.setText('update-time', utils.formatUTC(published));
@@ -173,6 +175,35 @@
             utils.setText('footer-sources', `${s.blacklist_sources} sources`);
 
             this.renderProvenance();
+        }
+
+        // Categories the list blocks that no upstream source declares, so the
+        // source-derived table cannot show them. Adult content is the reason
+        // this exists: it went undeclared for as long as the site did.
+        renderClassified(s) {
+            const section = document.getElementById('classified');
+            const bands = document.getElementById('classified-bands');
+            const entries = s.classified_categories || [];
+            if (!section || !bands || !entries.length) return;
+
+            bands.innerHTML = '';
+            entries.forEach(entry => {
+                const cell = document.createElement('div');
+                cell.className = 'quality-band';
+
+                const value = document.createElement('div');
+                value.className = 'quality-band-value';
+                value.textContent = utils.formatNumber(entry.domains);
+
+                const caption = document.createElement('div');
+                caption.className = 'quality-band-label';
+                caption.textContent = `${entry.category} (${entry.percent}% of the list)`;
+
+                cell.append(value, caption);
+                bands.appendChild(cell);
+            });
+
+            section.hidden = false;
         }
 
         renderProvenance() {

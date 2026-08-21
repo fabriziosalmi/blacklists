@@ -374,6 +374,17 @@ def main() -> int:
         except json.JSONDecodeError as exc:
             log(f'Warning: could not parse {whitelist_file}: {exc}')
 
+    # Content classification: categories the list blocks that no upstream
+    # source declares, so a source-derived count cannot see them.
+    classification_file = stats_dir / 'classification.json'
+    if classification_file.exists():
+        try:
+            payload = json.loads(classification_file.read_text(encoding='utf-8'))
+            stats['classified_categories'] = payload.get('categories', [])
+            stats['classification_reference'] = payload.get('reference')
+        except json.JSONDecodeError as exc:
+            log(f'Warning: could not parse {classification_file}: {exc}')
+
     (data_dir / 'stats.json').write_text(json.dumps(stats, indent=2), encoding='utf-8')
     (data_dir / 'history.json').write_text(json.dumps(history, indent=2), encoding='utf-8')
     (data_dir / 'sources.json').write_text(

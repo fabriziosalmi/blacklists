@@ -145,3 +145,86 @@ def test_load_history_sorts_and_skips_malformed_rows(tmp_path):
 
 def test_load_history_returns_empty_when_missing(tmp_path):
     assert load_history(tmp_path / 'nope.csv') == []
+
+
+# --------------------------------------------------------------------------
+# stats.json must carry everything that was merged into it
+#
+# Twice now a new block was added after stats.json had already been written, so
+# the value was computed, discarded and silently absent from the site. Ordering
+# is easy to get wrong and invisible when it is, so it is pinned here rather
+# than left to review.
+# --------------------------------------------------------------------------
+
+def build_minimal_site(tmp_path, monkeypatch, extra_stats=None):
+    import build_site
+
+    repo = tmp_path / 'repo'
+    (repo / 'sources').mkdir(parents=True)
+    (repo / 'stats').mkdir()
+    (repo / 'docs').mkdir()
+    (repo / 'docs' / 'index.html').write_text('<h1>site</h1>', encoding='utf-8')
+
+    (repo / 'sources' / 'registry.json').write_text(json.dumps({
+        'sources': [{
+            'id': 'example', 'url': 'https://example.org/l.txt', 'name': 'Example',
+            'project': 'example', 'maintainer': 'Example', 'homepage': 'https://example.org',
+            'categories': ['ads'],
+            'license': {'spdx': 'MIT', 'name': 'MIT', 'url': 'https://example.org/L',
+                        'verified': True, 'evidence': 'github-api', 'checked_at': '2026-01-01'},
+        }],
+    }), encoding='utf-8')
+
+    (repo / 'stats' / 'daily_stats.json').write_text(json.dumps({
+        'whitelisted_domains': 5, 'blacklist_sources': 1, 'changes': {},
+    }), encoding='utf-8')
+    (repo / 'stats' / 'whitelist.json').write_text(json.dumps({
+        'unique': 7, 'active': 3, 'dormant': 4,
+    }), encoding='utf-8')
+    (repo / 'stats' / 'classification.json').write_text(json.dumps({
+        'categories': [{'category': 'adult', 'domains': 42, 'percent': 1.5}],
+        'reference': {'name': 'Reference list'},
+    }), encoding='utf-8')
+
+    for name, payload in (extra_stats or {}).items():
+        (repo / 'stats' / name).write_text(json.dumps(payload), encoding='utf-8')
+
+    blacklist = tmp_path / 'blacklist.txt'
+    blacklist.write_text(
+        '\n'.join(f'domain{i:05d}.example' for i in range(100)) + '\n',
+        encoding='utf-8',
+    )
+
+    monkeypatch.setattr(build_site, 'MIN_PLAUSIBLE_DOMAINS', 1)
+    monkeypatch.setattr('sys.argv', [
+        'build_site.py', '--repo-path', str(repo),
+        '--blacklist', str(blacklist), '--out', str(tmp_path / 'site'),
+    ])
+    build_site.main()
+
+    return json.loads(
+        (tmp_path / 'site' / 'data' / 'stats.json').read_text(encoding='utf-8'))
+
+
+def test_stats_json_carries_the_whitelist_summary(tmp_path, monkeypatch):
+    stats = build_minimal_site(tmp_path, monkeypatch)
+    assert stats['whitelist'] == {'entries': 7, 'active': 3, 'dormant': 4}
+
+
+def test_stats_json_carries_the_content_classification(tmp_path, monkeypatch):
+    stats = build_minimal_site(tmp_path, monkeypatch)
+    assert stats['classified_categories'] == [
+        {'category': 'adult', 'domains': 42, 'percent': 1.5}
+    ]
+    assert stats['classification_reference']['name'] == 'Reference list'
+
+
+def test_the_whitelist_count_comes_from_the_current_run(tmp_path, monkeypatch):
+    """daily_stats.json says 5, the run that built the artifact says 7."""
+    stats = build_minimal_site(tmp_path, monkeypatch)
+    assert stats['whitelisted_domains'] == 7
+
+
+def test_the_source_count_comes_from_the_registry(tmp_path, monkeypatch):
+    stats = build_minimal_site(tmp_path, monkeypatch)
+    assert stats['blacklist_sources'] == 1

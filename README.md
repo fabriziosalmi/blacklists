@@ -5,12 +5,14 @@ published with per-source attribution, verified licences and a public
 false-positive cross-check.
 
 > **What you are installing.** This is a single list, not a menu. Alongside
-> advertising, tracking, malware and phishing it also blocks **gambling, piracy
-> and streaming** domains, because some upstream lists cover them - roughly 6% of
-> the list comes from those categories alone. The live per-category breakdown is
-> published on the [site](https://fabriziosalmi.github.io/blacklists/#sources).
-> If you want only the security categories, this list is not the right choice
-> today.
+> advertising, tracking, malware and phishing it also blocks **gambling, piracy,
+> streaming and adult** domains, because some upstream lists cover them. Roughly
+> 6% of the list comes from the gambling, piracy and streaming sources alone, and
+> a further **2.7% (about 143,000 domains) is adult content** - measured against
+> the Universite Toulouse 1 Capitole reference list, since no upstream source
+> here declares itself an adult blocklist. The live breakdown is published on the
+> [site](https://fabriziosalmi.github.io/blacklists/#sources). If you want only
+> the security categories, this list is not the right choice today.
 
 ## Downloads
 - Pi-Hole, AdGuard, uBlock Origin: 
