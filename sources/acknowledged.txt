@@ -159,3 +159,4 @@ contentsquare.net  # rank 990 - NoTrack blocklist, ShadowWhisperer Tracking, 1Ho
 faphouse.com  # rank 993 - blocklist-domains
 internetwarriors.net  # rank 996 - Anti-Piracy
 tiktokpangle.us  # rank 999 - ShadowWhisperer Ads, 1Hosts (Lite), hostsVN adservers, hostsVN domains, Ultimate, AdGuard DNS filter
+xhamster46.desi  # rank 966 - blocklist-domains. Reviewed 2026-08-21: one of 399 xhamster mirror domains already in the list, consistent with the adult domains it has long blocked. Not a false positive; see the undeclared-category note in the README discussion.
