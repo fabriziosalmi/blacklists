@@ -31,7 +31,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import date
+from datetime import date, datetime, timezone
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Optional, Set
@@ -159,6 +159,9 @@ def main() -> int:
     dormant = sorted(unique - set(active))
 
     payload = {
+        # Every other stats file records when it was measured; without it a
+        # reader cannot tell a fresh report from one left over from a failed run.
+        'generated_at': datetime.now(timezone.utc).isoformat(),
         'state': state,
         'entries': len(entries),
         'unique': len(unique),
