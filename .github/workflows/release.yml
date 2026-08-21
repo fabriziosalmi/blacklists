@@ -103,6 +103,12 @@ jobs:
 
           Run: $RUN_URL"
 
+          # The label is how the existing issue is found again. Without it every
+          # occurrence opens a new issue, which is the pile this design avoids.
+          gh label create review-queue --repo "${{ github.repository }}" \
+            --color fbca04 --description "Popular domains newly blocked, awaiting review" \
+            2>/dev/null || true
+
           EXISTING=$(gh issue list --repo "${{ github.repository }}" \
             --state open --label review-queue --limit 1 --json number --jq '.[0].number')
 
@@ -111,9 +117,7 @@ jobs:
           else
             gh issue create --repo "${{ github.repository }}" \
               --title "Popular domains newly blocked - review queue" \
-              --body "$BODY" --label review-queue || \
-            gh issue create --repo "${{ github.repository }}" \
-              --title "Popular domains newly blocked - review queue" --body "$BODY"
+              --body "$BODY" --label review-queue
           fi
 
       # Classifies the published domains by content rather than by which source
@@ -251,6 +255,10 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           TITLE="Daily release is failing"
+          gh label create release-failure --repo "${{ github.repository }}" \
+            --color d73a4a --description "The scheduled release did not publish" \
+            2>/dev/null || true
+
           EXISTING=$(gh issue list --repo "${{ github.repository }}" \
             --state open --label release-failure --limit 1 --json number --jq '.[0].number')
 
@@ -264,7 +272,5 @@ jobs:
             gh issue comment "$EXISTING" --repo "${{ github.repository }}" --body "$BODY"
           else
             gh issue create --repo "${{ github.repository }}" \
-              --title "$TITLE" --body "$BODY" --label release-failure || \
-            gh issue create --repo "${{ github.repository }}" \
-              --title "$TITLE" --body "$BODY"
+              --title "$TITLE" --body "$BODY" --label release-failure
           fi
