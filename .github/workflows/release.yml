@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write  # Required for release creation
   id-token: write
+  issues: write    # Required to report a failed release
 
 jobs:
   generate_and_publish:
@@ -40,11 +41,29 @@ jobs:
         continue-on-error: true
         run: python3 scripts/source_stats.py
 
+      # The currently published list, used by the gate to tell a newly blocked
+      # domain apart from one that merely climbed the popularity ranking. Not
+      # fatal if it cannot be fetched: the gate degrades to reporting that band
+      # rather than blocking the release.
+      - name: Fetch the published release for comparison
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download latest \
+            --repo "${{ github.repository }}" \
+            --pattern blacklist.txt \
+            --output previous_blacklist.txt
+          wc -l previous_blacklist.txt
+
       # Runs BEFORE anything is published. A release that blocks a DNS
       # resolver, an OS update endpoint or a CDN apex must not leave the runner,
       # because by the time anyone notices it is already installed.
       - name: Quality gate
-        run: python3 scripts/check_quality.py --blacklist all.fqdn.blacklist
+        run: |
+          python3 scripts/check_quality.py \
+            --blacklist all.fqdn.blacklist \
+            --previous previous_blacklist.txt
 
       # Reports which whitelist entries are holding a source back today. Never
       # fails the build and never edits the file: a dormant entry is doing
@@ -68,7 +87,7 @@ jobs:
 
       - name: Remove downloaded source files
         if: always()
-        run: rm -rf sources_raw
+        run: rm -rf sources_raw previous_blacklist.txt
 
       - name: Prepare Blacklist Directory
         run: |
@@ -161,3 +180,33 @@ jobs:
 
       - name: Clean up
         run: rm -rf blacklist_output rpz_blacklist.txt unbound_blacklist.txt
+
+      # A gate that stops the release protects users only if somebody finds out.
+      # This one failed for fourteen consecutive nights without anyone noticing,
+      # and the published list went stale for two weeks. A failed run now files
+      # an issue, and reuses the open one so a long outage is a single thread
+      # rather than a nightly pile.
+      - name: Report a failed release
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Daily release is failing"
+          EXISTING=$(gh issue list --repo "${{ github.repository }}" \
+            --state open --label release-failure --limit 1 --json number --jq '.[0].number')
+
+          BODY="The scheduled release did not publish. The previously published list stays in place and is now getting older.
+
+          Run: $RUN_URL
+
+          Check the 'Quality gate' step first: it prints exactly which check failed and, for a source problem, which source stopped answering."
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "${{ github.repository }}" --body "$BODY"
+          else
+            gh issue create --repo "${{ github.repository }}" \
+              --title "$TITLE" --body "$BODY" --label release-failure || \
+            gh issue create --repo "${{ github.repository }}" \
+              --title "$TITLE" --body "$BODY"
+          fi

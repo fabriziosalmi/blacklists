@@ -25,9 +25,11 @@ Four separate mechanisms, because one gate cannot serve four purposes:
      domains" rule would fail on the project's whole reason to exist.
 
   3. sources/acknowledged.txt - the top-1000 blocks already reviewed. A domain
-     entering the top 1000 that nobody has reviewed fails the release. This
-     catches an upstream list changing under us, which is the failure mode
-     nobody notices, without passing judgement on decisions already made.
+     that is popular AND newly added to the list, and that nobody has reviewed,
+     fails the release. It is compared against the previously published release
+     because Tranco reranks daily: without that, domains drifting across the
+     rank-1000 boundary read as new blocks and freeze the pipeline on a
+     non-event.
 
 Tranco is downloaded during the run and never redistributed, so it places no
 licensing obligation on this repository.
@@ -223,6 +225,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description='Measure blacklist quality')
     parser.add_argument('--blacklist', default='all.fqdn.blacklist')
     parser.add_argument('--sources-dir', default='sources_raw')
+    parser.add_argument('--previous', default=None,
+                        help='Path to the previously published blacklist. Used to '
+                             'tell a newly blocked domain apart from a blocked '
+                             'domain that merely became more popular.')
     parser.add_argument('--cache', default=None,
                         help='Cache the downloaded ranking at this path')
     parser.add_argument('--write-acknowledged', action='store_true',
@@ -283,8 +289,37 @@ def main() -> int:
     attribution = attribute({d for _, d in top_entries}, Path(args.sources_dir), REGISTRY)
 
     # --- 3. unreviewed entries in the review band ----------------------------
+    #
+    # The question is "did a popular domain just get ADDED to the list", not
+    # "is a blocked domain now popular". Tranco reranks daily, so domains drift
+    # across the rank-1000 boundary on their own: an earlier version of this
+    # check fired on that drift and blocked every release for ten nights, six of
+    # the seven domains it flagged having been in the list for weeks. A gate
+    # that fails on a non-event is a gate that gets switched off.
+    #
+    # So a domain is only escalated when it is popular AND absent from the
+    # previously published list. Without that comparison the two cases are
+    # indistinguishable, and the band is reported rather than enforced.
     in_band = [(rank, domain) for rank, domain in blocked_ranked if rank <= REVIEW_RANK]
-    unacknowledged = [(r, d) for r, d in in_band if d not in acknowledged]
+
+    previous_blacklist: Optional[Set[str]] = None
+    if args.previous:
+        previous_path = Path(args.previous)
+        if previous_path.is_file():
+            previous_blacklist = load_blacklist(previous_path)
+            log(f'✓ Previous release: {len(previous_blacklist):,} domains')
+        else:
+            log(f'Warning: previous release not found at {previous_path}')
+
+    if previous_blacklist is None:
+        log('No previous release to compare against; the review band is reported, '
+            'not enforced.')
+        unacknowledged = []
+    else:
+        unacknowledged = [
+            (r, d) for r, d in in_band
+            if d not in acknowledged and d not in previous_blacklist
+        ]
 
     if args.write_acknowledged:
         lines = [
@@ -328,6 +363,11 @@ def main() -> int:
         'popularity': {
             'blocked_in_band': bands,
             'review_rank': REVIEW_RANK,
+            'enforced': previous_blacklist is not None,
+            'newly_blocked_in_band': [
+                d for _, d in in_band
+                if previous_blacklist is not None and d not in previous_blacklist
+            ],
             'unacknowledged': [
                 {'domain': d, 'rank': r, 'sources': attribution.get(d, [])}
                 for r, d in unacknowledged

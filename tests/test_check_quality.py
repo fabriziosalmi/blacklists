@@ -58,7 +58,7 @@ def test_blacklist_header_is_not_read_as_a_domain(tmp_path):
 # --------------------------------------------------------------------------
 
 def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
-             load_tranco=None):
+             load_tranco=None, previous=None):
     """Drive main() against a synthetic list, with no network access.
 
     ``load_tranco`` replaces the ranking fetch outright, so a test can simulate
@@ -83,7 +83,12 @@ def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
     monkeypatch.setattr(check_quality, 'OUTPUT', check_quality.Path('stats/quality.json'))
     monkeypatch.setattr(check_quality, 'load_tranco',
                         load_tranco or (lambda cache: ranks))
-    monkeypatch.setattr('sys.argv', ['check_quality.py', '--blacklist', str(bl)])
+    argv = ['check_quality.py', '--blacklist', str(bl)]
+    if previous is not None:
+        prev = tmp_path / 'previous.txt'
+        prev.write_text('\n'.join(previous) + '\n', encoding='utf-8')
+        argv += ['--previous', str(prev)]
+    monkeypatch.setattr('sys.argv', argv)
 
     code = check_quality.main()
     report = json.loads((tmp_path / 'stats' / 'quality.json').read_text(encoding='utf-8'))
@@ -112,6 +117,7 @@ def test_a_popular_ad_domain_does_not_fail_the_release(tmp_path, monkeypatch):
         protected=['github.com  # source hosting'],
         acknowledged=['doubleclick.net  # rank 36 - reviewed'],
         ranks={'doubleclick.net': 36},
+        previous=['doubleclick.net'],
     )
     assert code == 0
     assert report['popularity']['blocked_in_band']['top_1000'] == 1
@@ -126,6 +132,7 @@ def test_an_unreviewed_top_1000_entry_fails_the_release(tmp_path, monkeypatch):
         protected=[],
         acknowledged=[],
         ranks={'roblox.com': 56},
+        previous=[],            # it was not in the list before
     )
     assert code == 1
     assert [e['domain'] for e in report['popularity']['unacknowledged']] == ['roblox.com']
@@ -283,3 +290,83 @@ def test_previous_total_reads_the_last_history_row(tmp_path):
 def test_previous_total_is_none_without_history(tmp_path):
     from check_quality import previous_total
     assert previous_total(tmp_path / 'absent.csv') is None
+
+
+# --------------------------------------------------------------------------
+# Rank drift is not a new block
+# --------------------------------------------------------------------------
+
+def test_a_domain_that_merely_became_popular_does_not_fail_the_release(tmp_path, monkeypatch):
+    """The outage of August 2026, written down.
+
+    Tranco reranks daily, so a long-blocked domain crosses the rank-1000
+    boundary on its own. The gate read that as a new block and stopped every
+    release for ten nights; six of the seven domains it flagged had been in the
+    list for weeks, and the published blacklist went two weeks stale.
+    """
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['parklogic.com'],
+        protected=[],
+        acknowledged=[],
+        ranks={'parklogic.com': 771},       # newly inside the review band
+        previous=['parklogic.com'],         # but blocked for weeks already
+    )
+    assert code == 0
+    assert report['popularity']['unacknowledged'] == []
+
+
+def test_a_genuinely_new_popular_block_still_fails_the_release(tmp_path, monkeypatch):
+    """The case the gate exists for: an upstream list starts blocking something
+    widely used, and it was not in yesterday's release."""
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['newly-blocked.example', 'old.example'],
+        protected=[],
+        acknowledged=[],
+        ranks={'newly-blocked.example': 300, 'old.example': 400},
+        previous=['old.example'],
+    )
+    assert code == 1
+    assert [e['domain'] for e in report['popularity']['unacknowledged']] == \
+        ['newly-blocked.example']
+
+
+def test_the_band_is_reported_not_enforced_without_a_previous_release(tmp_path, monkeypatch):
+    """Without the comparison the two cases are indistinguishable, so the gate
+    reports rather than blocking - a first run must not be unpublishable."""
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['popular.example'],
+        protected=[],
+        acknowledged=[],
+        ranks={'popular.example': 10},
+        previous=None,
+    )
+    assert code == 0
+    assert report['popularity']['enforced'] is False
+
+
+def test_an_acknowledged_new_block_does_not_fail_the_release(tmp_path, monkeypatch):
+    code, _ = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['reviewed.example'],
+        protected=[],
+        acknowledged=['reviewed.example  # deliberate, checked on 2026-08-21'],
+        ranks={'reviewed.example': 500},
+        previous=[],
+    )
+    assert code == 0
+
+
+def test_a_protected_domain_fails_even_with_a_previous_release(tmp_path, monkeypatch):
+    """Relaxing the review band must not weaken the safety-critical check."""
+    code, _ = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['cloudflare-dns.com'],
+        protected=['cloudflare-dns.com  # DoH endpoint'],
+        acknowledged=[],
+        ranks={'cloudflare-dns.com': 5000},
+        previous=['cloudflare-dns.com'],
+    )
+    assert code == 1
