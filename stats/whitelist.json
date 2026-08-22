@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-21T06:46:39.889889+00:00",
+  "generated_at": "2026-08-22T00:18:31.859808+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 383,
-  "dormant": 1679,
+  "active": 384,
+  "dormant": 1678,
   "duplicates": [],
   "active_entries": [
     {
@@ -827,6 +827,12 @@
       "domain": "email-link.adtidy.org",
       "held_back_from": [
         "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "embed.dugout.com",
+      "held_back_from": [
+        "AdGuard DNS filter"
       ]
     },
     {
