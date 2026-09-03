@@ -30,7 +30,7 @@
         },
 
         formatBytes(bytes) {
-            if (!bytes) return '—';
+            if (!bytes) return '…';
             const mb = bytes / (1024 * 1024);
             return mb >= 1 ? `${mb.toFixed(1)} MB` : `${(bytes / 1024).toFixed(0)} KB`;
         },
@@ -232,7 +232,7 @@
              'weekly-growth', 'monthly-growth', 'avg-daily'].forEach(id => {
                 utils.setUnavailable(id);
             });
-            utils.setText('hero-count', '—');
+            utils.setText('hero-count', '…');
             utils.setText('update-time', '');
 
             const banner = document.getElementById('data-error');
@@ -495,7 +495,7 @@
                 if (metrics && typeof metrics.domains === 'number') {
                     domainsCell.textContent = utils.formatNumber(metrics.domains);
                 } else {
-                    domainsCell.textContent = '—';
+                    domainsCell.textContent = '…';
                     domainsCell.classList.add('value-unavailable');
                 }
                 row.appendChild(domainsCell);
@@ -838,37 +838,100 @@
         }
     }
 
-    class DarkModeManager {
+    // The theme follows the operating system preference and nothing else: there
+    // is no toggle and no stored override. It is applied on load and kept in
+    // sync live if the viewer switches their system between light and dark.
+    class AutoThemeManager {
         constructor() {
-            this.toggle = document.getElementById('themeToggle');
-            const stored = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const query = window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)');
 
-            this.theme = stored || (prefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', this.theme);
+            this.apply(query ? query.matches : false);
 
-            if (this.toggle) {
-                this.toggle.addEventListener('click', () => this.switch());
+            if (query) {
+                const onChange = e => this.apply(e.matches);
+                if (query.addEventListener) {
+                    query.addEventListener('change', onChange);
+                } else if (query.addListener) {
+                    query.addListener(onChange);
+                }
             }
         }
 
-        switch() {
-            this.theme = this.theme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', this.theme);
-            localStorage.setItem('theme', this.theme);
+        apply(prefersDark) {
+            document.documentElement.setAttribute(
+                'data-theme', prefersDark ? 'dark' : 'light'
+            );
         }
+    }
+
+    // Keeps long tables short until the reader asks for the rest. Given a tbody
+    // and a threshold, it hides every row past the threshold and injects a
+    // toggle button that reveals or re-hides them. Tables at or under the
+    // threshold get no button. Safe to call repeatedly: any button it added on a
+    // previous pass is removed first.
+    function makeCollapsible(tbody, threshold) {
+        if (!tbody) return;
+
+        const wrapper = tbody.closest('.table-scroll') || tbody.parentElement;
+        if (wrapper) {
+            const existing = wrapper.parentElement &&
+                wrapper.parentElement.querySelector(':scope > .show-all-btn');
+            if (existing) existing.remove();
+        }
+
+        const rows = Array.from(tbody.querySelectorAll(':scope > tr'));
+        const hideable = rows.filter(r => !r.querySelector('[colspan]'));
+        if (hideable.length <= threshold) return;
+
+        const hidden = hideable.slice(threshold);
+        const setHidden = state => hidden.forEach(r => { r.hidden = state; });
+        setHidden(true);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'show-all-btn';
+        let expanded = false;
+        const label = () => {
+            btn.textContent = expanded ? 'Show fewer' : `Show all (${hideable.length})`;
+            btn.setAttribute('aria-expanded', String(expanded));
+        };
+        label();
+
+        btn.addEventListener('click', () => {
+            expanded = !expanded;
+            setHidden(!expanded);
+            label();
+        });
+
+        if (wrapper && wrapper.parentElement) {
+            wrapper.insertAdjacentElement('afterend', btn);
+        }
+    }
+
+    function collapseLongTables() {
+        makeCollapsible(document.getElementById('sources-body'), 10);
+        makeCollapsible(document.getElementById('categories-body'), 10);
+        makeCollapsible(document.getElementById('quality-body'), 10);
     }
 
     function init() {
         new StatsManager().init();
-        new SourcesManager().init();
-        new QualityManager().init();
+        // The source, category and quality tables are rendered asynchronously;
+        // collapse them once their managers have populated the DOM.
+        Promise.allSettled([
+            new SourcesManager().init(),
+            new QualityManager().init()
+        ]).then(collapseLongTables);
         new DomainSearchManager();
         new ClipboardManager();
         new ScrollManager();
         new MobileMenu();
-        new DarkModeManager();
+        new AutoThemeManager();
+
+        const year = document.getElementById('footer-year');
+        if (year) year.textContent = String(new Date().getFullYear());
+
         document.body.classList.add('loaded');
     }
 

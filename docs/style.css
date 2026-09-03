@@ -196,9 +196,9 @@ body {
 }
 
 .hero h1 {
-  font-size: var(--font-size-5xl);
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.15;
   margin-bottom: var(--spacing-md);
   color: var(--text-primary);
 }
@@ -223,13 +223,28 @@ body {
 }
 
 .btn {
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: calc(var(--spacing-md) + 0.1rem) calc(var(--spacing-xl) + 0.25rem);
   border-radius: var(--radius-lg);
   font-weight: 600;
   text-decoration: none;
   transition: var(--transition);
-  font-size: var(--font-size-base);
+  font-size: 1.15rem;
+  line-height: 1.1;
   display: inline-block;
+}
+
+/* Small live-status pill in the navbar (moved out of the hero). */
+.nav-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.72rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -262,8 +277,9 @@ body {
 }
 
 .section-title {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
   font-weight: 800;
+  line-height: 1.2;
   text-align: center;
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
@@ -285,7 +301,7 @@ body {
 
 .stat-card {
   background: var(--bg-secondary);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   transition: var(--transition);
@@ -297,8 +313,9 @@ body {
 }
 
 .stat-value {
-  font-size: var(--font-size-3xl);
+  font-size: 1.6rem;
   font-weight: 800;
+  line-height: 1.2;
   color: var(--primary);
   margin-bottom: var(--spacing-xs);
 }
@@ -343,6 +360,7 @@ body {
 .chart-container h3 {
   font-size: var(--font-size-xl);
   font-weight: 700;
+  line-height: 1.25;
   margin-bottom: var(--spacing-lg);
   color: var(--text-primary);
 }
@@ -380,44 +398,6 @@ body {
   color: var(--primary);
 }
 
-/* Features Section */
-.features-section {
-  padding: var(--spacing-2xl) 0;
-  background: var(--bg-secondary);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-xl);
-}
-
-.feature-card {
-  background: var(--bg-primary);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border);
-  transition: var(--transition);
-}
-
-.feature-card:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
-}
-
-.feature-card h3 {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
-  color: var(--text-primary);
-}
-
-.feature-card p {
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
 /* Download Section */
 .download-section {
   padding: var(--spacing-2xl) 0;
@@ -448,6 +428,7 @@ body {
 .download-header h3 {
   font-size: var(--font-size-xl);
   font-weight: 700;
+  line-height: 1.25;
   color: var(--text-primary);
 }
 
@@ -517,8 +498,9 @@ body {
 }
 
 .quick-start h3 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   font-weight: 700;
+  line-height: 1.25;
   margin-bottom: var(--spacing-lg);
   text-align: center;
 }
@@ -590,6 +572,7 @@ body {
 .doc-card h3 {
   font-size: var(--font-size-xl);
   font-weight: 700;
+  line-height: 1.25;
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
 }
@@ -728,10 +711,6 @@ body {
     padding: var(--spacing-xl) 0;
   }
 
-  .hero h1 {
-    font-size: var(--font-size-4xl);
-  }
-
   .hero-description {
     font-size: var(--font-size-lg);
   }
@@ -739,10 +718,6 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
   }
 
   .download-grid {
@@ -762,7 +737,6 @@ body {
   }
 
   .stat-card,
-  .feature-card,
   .download-card {
     padding: var(--spacing-md);
   }
@@ -786,16 +760,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero h1 {
-    font-size: var(--font-size-3xl);
-    line-height: 1.1;
-  }
-
-  .section-title {
-    font-size: var(--font-size-3xl);
-    line-height: 1.2;
-  }
-
   .hero-buttons {
     flex-direction: column;
     width: 100%;
@@ -814,7 +778,6 @@ body {
     font-size: var(--font-size-2xl);
   }
 
-  .feature-card h3,
   .download-header h3,
   .doc-card h3 {
     font-size: var(--font-size-lg);
@@ -866,41 +829,9 @@ body {
   background: var(--bg-primary);
 }
 
-[data-theme="dark"] .features-section,
 [data-theme="dark"] .docs-section,
 [data-theme="dark"] .domain-search-section {
   background: var(--bg-secondary);
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: var(--spacing-xs);
-  color: var(--text-secondary);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-}
-
-.theme-toggle:hover {
-  color: var(--primary);
-  background: var(--bg-tertiary);
-}
-
-.theme-toggle .moon-icon {
-  display: none;
-}
-
-[data-theme="dark"] .theme-toggle .sun-icon {
-  display: none;
-}
-
-[data-theme="dark"] .theme-toggle .moon-icon {
-  display: block;
 }
 
 /* Domain Search Section */
@@ -916,8 +847,9 @@ body {
 }
 
 .search-container h2 {
-  font-size: var(--font-size-3xl);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
   font-weight: 800;
+  line-height: 1.2;
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
 }
@@ -1378,4 +1310,30 @@ body {
 .classified h4 {
   font-size: var(--font-size-base);
   margin-bottom: var(--spacing-xs);
+}
+
+/* Show all / show fewer toggle for long tables ----------------------------- */
+
+.show-all-btn {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.show-all-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .show-all-btn {
+  background: var(--bg-secondary);
 }

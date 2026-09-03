@@ -11,19 +11,30 @@
 
     <link rel="canonical" href="https://fabriziosalmi.github.io/blacklists/">
 
-    <!-- Shared-link preview. The image is deliberately omitted rather than
-         pointed at a file that does not exist: a broken og:image renders worse
-         than none. -->
+    <!-- Shared-link preview. -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Domains Blacklist">
     <meta property="og:title" content="Domains Blacklist - an aggregated DNS blocklist you can audit">
     <meta property="og:description"
         content="Rebuilt daily from curated upstream lists. Every source published with its maintainer, licence and the domains it actually contributed, plus a cross-check of what the list blocks among popular domains.">
     <meta property="og:url" content="https://fabriziosalmi.github.io/blacklists/">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="https://fabriziosalmi.github.io/blacklists/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Domains Blacklist - an aggregated DNS blocklist you can audit">
     <meta name="twitter:description"
         content="Rebuilt daily from curated upstream lists, with per-source attribution, verified licences and a public false-positive cross-check.">
+    <meta name="twitter:image" content="https://fabriziosalmi.github.io/blacklists/og.png">
+
+    <!-- Structured data for search engines. The schema.org and opensource.org
+         values are identifiers, not fetched resources. -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Dataset","name":"Domains Blacklist","description":"An open-source domain blacklist rebuilt daily from curated, attributed upstream lists, with verified licences and a public quality cross-check.","url":"https://fabriziosalmi.github.io/blacklists/","sameAs":"https://github.com/fabriziosalmi/blacklists","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"creator":{"@type":"Person","name":"Fabrizio Salmi","url":"https://github.com/fabriziosalmi"},"keywords":["DNS blocklist","domain blacklist","Pi-hole","AdGuard","Unbound","RPZ","ad blocking","malware","phishing"],"distribution":[{"@type":"DataDownload","encodingFormat":"text/plain","name":"Standard (hosts/domains)","contentUrl":"https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt"},{"@type":"DataDownload","encodingFormat":"text/plain","name":"Unbound","contentUrl":"https://github.com/fabriziosalmi/blacklists/releases/download/latest/unbound_blacklist.txt"},{"@type":"DataDownload","encodingFormat":"text/plain","name":"RPZ","contentUrl":"https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt"}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Domains Blacklist","codeRepository":"https://github.com/fabriziosalmi/blacklists","programmingLanguage":"Python","license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"Fabrizio Salmi","url":"https://github.com/fabriziosalmi"}}
+    </script>
 
     <!-- Inline SVG: the CSP allows data: images, and an external icon file
          would be one more request for 16 pixels. -->
@@ -53,6 +64,7 @@
                     <span>Domains Blacklist</span>
                 </div>
                 <div class="nav-links">
+                    <span class="nav-status"><span class="status-dot"></span>Updated daily</span>
                     <a href="#stats">Statistics</a>
                     <a href="#sources">Sources</a>
                     <a href="#download">Download</a>
@@ -64,24 +76,6 @@
                         </svg>
                         GitHub
                     </a>
-                    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="5" />
-                            <line x1="12" y1="1" x2="12" y2="3" />
-                            <line x1="12" y1="21" x2="12" y2="23" />
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                            <line x1="1" y1="12" x2="3" y2="12" />
-                            <line x1="21" y1="12" x2="23" y2="12" />
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                        </svg>
-                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                        </svg>
-                    </button>
                 </div>
                 <button type="button" class="mobile-menu-btn" aria-label="Toggle menu">
                     <span></span>
@@ -96,14 +90,10 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="badge">
-                    <span class="status-dot"></span>
-                    Daily Updated
-                </div>
                 <h1>An aggregated domain blacklist you can audit</h1>
                 <p class="hero-description">
-                    <strong id="hero-count">—</strong> domains, rebuilt every day from
-                    <span id="hero-sources">—</span> upstream lists. Every source is published with its
+                    <strong id="hero-count">2.9M+</strong> domains, rebuilt every day from
+                    <span id="hero-sources">61</span> upstream lists. Every source is published with its
                     maintainer, licence and the number of domains it actually contributed.
                 </p>
                 <div class="hero-buttons">
@@ -148,25 +138,25 @@
             <div class="stats-grid">
                 <div class="stat-card">
 
-                    <div class="stat-value" id="total-domains">Loading...</div>
+                    <div class="stat-value" id="total-domains">2.9M+</div>
                     <div class="stat-label">Total Domains</div>
                     <div class="stat-change" id="daily-change">...</div>
                 </div>
                 <div class="stat-card">
 
-                    <div class="stat-value" id="sources-count">Loading...</div>
+                    <div class="stat-value" id="sources-count">61</div>
                     <div class="stat-label">Upstream sources</div>
                     <div class="stat-sublabel"><a href="#sources">see the full list</a></div>
                 </div>
                 <div class="stat-card">
 
-                    <div class="stat-value" id="whitelisted-count">Loading...</div>
+                    <div class="stat-value" id="whitelisted-count">&hellip;</div>
                     <div class="stat-label">Whitelisted domains</div>
                     <div class="stat-sublabel" id="whitelist-active">Removed to limit false positives</div>
                 </div>
                 <div class="stat-card">
 
-                    <div class="stat-value" id="last-update">Loading...</div>
+                    <div class="stat-value" id="last-update">&hellip;</div>
                     <div class="stat-label">Last release</div>
                     <div class="stat-sublabel" id="update-time">...</div>
                 </div>
@@ -212,27 +202,27 @@
                 <dl class="provenance-grid">
                     <div>
                         <dt>Release published</dt>
-                        <dd id="prov-release">—</dd>
+                        <dd id="prov-release">&hellip;</dd>
                     </div>
                     <div>
                         <dt>Site built</dt>
-                        <dd id="prov-built">—</dd>
+                        <dd id="prov-built">&hellip;</dd>
                     </div>
                     <div>
                         <dt>Domains indexed</dt>
-                        <dd id="prov-domains">—</dd>
+                        <dd id="prov-domains">&hellip;</dd>
                     </div>
                     <div>
                         <dt>Artifact size</dt>
-                        <dd id="prov-size">—</dd>
+                        <dd id="prov-size">&hellip;</dd>
                     </div>
                     <div class="provenance-wide">
                         <dt>blacklist.txt SHA-256</dt>
-                        <dd><code id="prov-sha256">—</code></dd>
+                        <dd><code id="prov-sha256">&hellip;</code></dd>
                     </div>
                     <div>
                         <dt>Build</dt>
-                        <dd><a id="prov-run" href="#" target="_blank" rel="noopener">—</a></dd>
+                        <dd><a id="prov-run" href="#" target="_blank" rel="noopener">&hellip;</a></dd>
                     </div>
                 </dl>
             </div>
@@ -364,53 +354,11 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="container">
-            <h2 class="section-title">Why Choose Our Blacklist?</h2>
-
-            <div class="features-grid">
-                <div class="feature-card">
-
-                    <h3>Daily Updates</h3>
-                    <p>Automated updates every 24 hours ensure protection against emerging threats while keeping costs
-                        sustainable.</p>
-                </div>
-                <div class="feature-card">
-
-                    <h3>Universal Compatibility</h3>
-                    <p>Works with Pi-Hole, AdGuard, Unbound, BIND, Squid, uBlock Origin, and more platforms.</p>
-                </div>
-                <div class="feature-card">
-
-                    <h3>Attributed Coverage</h3>
-                    <p>Aggregates curated lists covering phishing, malware, ads, trackers, scams and
-                        gambling - each one credited, licensed and measured.</p>
-                </div>
-                <div class="feature-card">
-
-                    <h3>Open Source</h3>
-                    <p>Fully transparent, community-driven project. Review, contribute, and customize freely.</p>
-                </div>
-                <div class="feature-card">
-
-                    <h3>Zero Configuration</h3>
-                    <p>Copy URL, paste into your tool, and you're protected. No complex setup required.</p>
-                </div>
-                <div class="feature-card">
-
-                    <h3>ML-Enhanced</h3>
-                    <p>Machine learning classifier available to predict and identify malicious domains.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Download Section -->
     <section id="download" class="download-section">
         <div class="container">
             <h2 class="section-title">Download & Deploy</h2>
-            <p class="section-subtitle">Choose your platform and get started in seconds</p>
+            <p class="section-subtitle">Point your tool at a release URL; it is rebuilt daily.</p>
 
             <div class="download-grid">
                 <div class="download-card">
@@ -551,7 +499,7 @@
                         </svg>
                         <span>Domains Blacklist</span>
                     </div>
-                    <p>Open-source domain blacklist for a safer digital experience</p>
+                    <p>Aggregated, audited domain blacklist, rebuilt daily from attributed upstream lists.</p>
                     <div class="footer-stats">
                         <span id="footer-domains">2.9M+ domains</span> •
                         <span id="footer-sources">61 sources</span> •
@@ -586,9 +534,9 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Domains Blacklist. Open-source project by <a href="https://github.com/fabriziosalmi"
+                <p>&copy; <span id="footer-year">2026</span> Domains Blacklist. Open-source project by <a href="https://github.com/fabriziosalmi"
                         target="_blank" rel="noopener">@fabriziosalmi</a></p>
-                <p>Licensed under MIT. Updated daily with ❤️ for the cybersecurity community.</p>
+                <p>Licensed under MIT.</p>
                 <p><a href="https://fabriziosalmi.github.io/privacy">Privacy &amp; legal</a></p>
             </div>
         </div>

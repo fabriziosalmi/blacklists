@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fabriziosalmi.github.io/blacklists/sitemap.xml
