@@ -773,13 +773,22 @@
         }
 
         async copy(btn) {
-            const input = document.getElementById(btn.dataset.target);
-            if (!input) return;
+            const el = document.getElementById(btn.dataset.target);
+            if (!el) return;
+            const text = el.value !== undefined ? el.value : el.textContent;
 
             try {
-                await navigator.clipboard.writeText(input.value);
+                await navigator.clipboard.writeText(text);
             } catch (error) {
-                input.select();
+                if (typeof el.select === 'function') {
+                    el.select();
+                } else {
+                    const range = document.createRange();
+                    range.selectNodeContents(el);
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
                 document.execCommand('copy');
             }
             this.showCopied(btn);

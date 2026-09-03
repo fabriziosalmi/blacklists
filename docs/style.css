@@ -416,6 +416,8 @@ body {
   padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
 
 .download-header {
@@ -433,12 +435,16 @@ body {
 }
 
 .badge-popular {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  background: var(--primary);
-  color: white;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .download-platforms {
@@ -449,19 +455,36 @@ body {
 
 .download-url-container {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
+  margin-top: auto;              /* aligns the URL block to the card bottom across all cards */
+  padding-top: var(--spacing-md);
 }
 
-.download-url-container input {
-  flex: 1;
-  min-width: 0;
-  padding: var(--spacing-sm);
+.download-url {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.8rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   font-family: "Monaco", "Courier New", monospace;
-  font-size: var(--font-size-sm);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-primary);
   background: var(--bg-primary);
+  word-break: break-all;
+  user-select: all;
+  cursor: text;
+}
+
+.download-url:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.download-url-container .copy-btn {
+  width: 100%;
+  justify-content: center;
 }
 
 .copy-btn {
@@ -749,7 +772,7 @@ body {
     flex-direction: column;
   }
 
-  .download-url-container input {
+  .download-url {
     font-size: 0.75rem;
   }
 
@@ -814,7 +837,7 @@ body {
   background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
 }
 
-[data-theme="dark"] .download-url-container input {
+[data-theme="dark"] .download-url {
   background: var(--bg-tertiary);
   color: var(--text-primary);
 }
