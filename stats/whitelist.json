@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T00:39:11.391701+00:00",
+  "generated_at": "2026-09-05T00:39:14.589708+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -1904,7 +1904,6 @@
     {
       "domain": "rai-italia01.wt-eu02.net",
       "held_back_from": [
-        "blocklist-domains",
         "First-party trackers",
         "Multi-party trackers",
         "1Hosts (Lite)",
