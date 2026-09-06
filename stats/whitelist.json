@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-05T00:39:14.589708+00:00",
+  "generated_at": "2026-09-06T00:45:44.678090+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 384,
-  "dormant": 1678,
+  "active": 387,
+  "dormant": 1675,
   "duplicates": [],
   "active_entries": [
     {
@@ -138,6 +138,7 @@
     {
       "domain": "anime-loads.org",
       "held_back_from": [
+        "blocklist-domains",
         "Anti-Piracy"
       ]
     },
@@ -562,6 +563,12 @@
       ]
     },
     {
+      "domain": "cosmopolitan.com",
+      "held_back_from": [
+        "blocklist-domains"
+      ]
+    },
+    {
       "domain": "cs.dds.microsoft.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
@@ -785,6 +792,12 @@
         "blocklist-domains",
         "uBO badware risks",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "dynu.net",
+      "held_back_from": [
+        "blocklist-domains"
       ]
     },
     {
@@ -1222,6 +1235,12 @@
       "held_back_from": [
         "NoTrack blocklist",
         "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "i.shoosh.co",
+      "held_back_from": [
+        "blocklist-domains"
       ]
     },
     {
