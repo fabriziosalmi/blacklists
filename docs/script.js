@@ -524,7 +524,21 @@
             const summary = document.getElementById('sources-summary');
             if (summary) {
                 const verified = sources.filter(s => s.license && s.license.verified).length;
-                const parts = [`${sources.length} upstream lists`, `${verified} with a verified licence`];
+
+                // "Upstream" has to mean upstream. One of these feeds is
+                // maintained in this repository, and folding it into the count
+                // inflated the one number a reader uses to judge how many
+                // independent curators stand behind the list.
+                const own = this.data.first_party_count || 0;
+                const upstream = this.data.upstream_count != null
+                    ? this.data.upstream_count
+                    : sources.length - own;
+
+                const parts = [`${upstream} upstream lists`];
+                if (own) {
+                    parts.push(`${own} maintained here`);
+                }
+                parts.push(`${verified} with a verified licence`);
                 if (this.data.measured) {
                     const failing = sources.filter(s => s.metrics && !s.metrics.ok).length;
                     parts.push(failing ? `${failing} failing` : 'all fetching cleanly');

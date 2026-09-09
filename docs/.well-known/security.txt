@@ -1,0 +1,16 @@
+# Security contact for fabriziosalmi/blacklists (RFC 9116)
+#
+# This project publishes DNS filtering data that people install on machines the
+# maintainers cannot see. Please report privately: a vulnerability disclosed in
+# public is a vulnerability available to everyone who reads the repository
+# before it is fixed.
+#
+# A wrongly blocked domain is NOT a security issue. It is a false positive, it
+# is normal for a list aggregated from third parties, and it has its own route:
+# https://github.com/fabriziosalmi/blacklists/issues/new/choose
+
+Contact: https://github.com/fabriziosalmi/blacklists/security/advisories/new
+Expires: 2027-09-09T00:00:00.000Z
+Policy: https://github.com/fabriziosalmi/blacklists/blob/main/SECURITY.md
+Preferred-Languages: en, it
+Canonical: https://fabriziosalmi.github.io/blacklists/.well-known/security.txt
