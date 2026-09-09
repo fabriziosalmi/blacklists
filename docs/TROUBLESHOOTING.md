@@ -36,11 +36,12 @@ ping github.com
 curl -I https://github.com
 ```
 
-4. **Use Docker mirror**:
+4. **Serve a local copy**: fetch the release asset once from a machine that can
+   reach GitHub, then serve it on your own network:
 ```bash
-docker pull fabriziosalmi/blacklists:latest
-docker run -p 80:80 fabriziosalmi/blacklists
-# Access at http://localhost/blacklist.txt
+curl -fsSL -o blacklist.txt \
+  https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
+shasum -a 256 blacklist.txt   # compare with the digest on the statistics page
 ```
 
 ### Blacklist File Corrupted
@@ -51,11 +52,14 @@ docker run -p 80:80 fabriziosalmi/blacklists
 
 1. **Verify file integrity**:
 ```bash
-# Check file size (should be 50-100 MB)
+# Check the size and the count against the figures published for the current
+# release, rather than against a number written down here that goes stale:
+#   https://fabriziosalmi.github.io/blacklists/#stats
 ls -lh blacklist.txt
-
-# Check line count (should be 2-3 million)
 wc -l blacklist.txt
+
+# The page also publishes the SHA-256 of the artifact, which is the actual test:
+shasum -a 256 blacklist.txt
 
 # Check for binary data
 file blacklist.txt  # Should say "ASCII text"

@@ -30,7 +30,6 @@ Choose based on your infrastructure:
 - **Unbound**: Recursive DNS server
 - **BIND9**: Enterprise DNS with RPZ support
 - **Squid**: HTTP/HTTPS proxy
-- **nftables**: Firewall-level blocking
 
 ## Installation by Platform
 
@@ -395,10 +394,14 @@ cat /var/cache/bind/named.stats | grep RPZ
 Run your own blacklist mirror:
 
 ```bash
-docker pull fabriziosalmi/blacklists:latest
-docker run -d -p 8080:80 fabriziosalmi/blacklists
+# Fetch the release asset on a schedule and serve the directory statically.
+mkdir -p /srv/blacklists
+curl -fsSL -o /srv/blacklists/blacklist.txt \
+  https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
 
-# Access at http://localhost:8080/blacklist.txt
+# Confirm you got the artifact this project published: compare the digest with
+# the SHA-256 on https://fabriziosalmi.github.io/blacklists/#stats
+shasum -a 256 /srv/blacklists/blacklist.txt
 ```
 
 ### Custom Blacklist Generation
@@ -420,12 +423,6 @@ bash generate.sh
 ```
 
 ### Integration with Other Tools
-
-**Firewall (nftables)**:
-```bash
-# Use provided script
-bash scripts/nft_blacklist_fqdn.sh
-```
 
 **Machine Learning**:
 - Use [FQDN Classifier](https://github.com/fabriziosalmi/fqdn-model)

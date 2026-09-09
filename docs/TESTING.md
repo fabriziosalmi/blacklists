@@ -25,9 +25,17 @@ these checks:
 | `scripts/generate_sources_md.py --check` | SOURCES.md and the README credits still match the registry |
 | `scripts/format_whitelist.py --check` | whitelist.txt is normalised and no entry was dropped |
 
-The release pipeline additionally runs `scripts/check_quality.py`, which fails
-the build rather than publishing a list that blocks a protected domain - a DNS
-resolver, an OS update endpoint, a certificate responder or a CDN apex.
+The release pipeline additionally runs two gates before anything is published:
+
+| Gate | What it protects |
+|---|---|
+| `scripts/check_quality.py` | Refuses a list that blocks a domain in `sources/protected.txt` - a DNS resolver, an OS update endpoint, a certificate responder, a CDN or shared-hosting apex. Also refuses one whose size moved more than 10% overnight **in either direction**, measured against the previously published release |
+| `named-checkzone` | Refuses an `rpz_blacklist.txt` that BIND would not load. The artifact previously shipped with no SOA or NS record, so it was not a loadable zone at all |
+
+The size gate is deliberately symmetric. Losing coverage means some domains stop
+being blocked; gaining several hundred thousand overnight means they start being
+blocked with nobody looking, and over-blocking is the failure a user cannot
+diagnose from the symptom.
 
 Fastest way to convince yourself the suite is load-bearing: break a rule in
 `sanitize.py` on purpose and watch it go red.
