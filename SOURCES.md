@@ -6,14 +6,28 @@
 This project is an **aggregator**. The published `blacklist.txt` (and the
 derived `rpz_blacklist.txt` and `unbound_blacklist.txt`) is a compilation of
 domain lists produced by third parties. Each upstream list remains the property
-of its authors and is redistributed here **under its own license and terms**,
-listed below.
+of its authors, and this page records the license each one is redistributed
+under.
+
+> **The published blacklist is distributed under `GPL-3.0-only`.** It is a
+> combined work - the sources are merged and deduplicated into one file from
+> which no individual list can be extracted - so the licenses below govern the
+> whole rather than surviving separately inside it.
+> [`LICENSING.md`](LICENSING.md) sets out how each license reaches that outcome,
+> which branch is elected for the dual-licensed sources, and the three whose
+> terms are not yet settled. [`NOTICES.txt`](NOTICES.txt) is the attribution
+> published alongside every release.
+
+Not every feed is third-party. One is maintained in this repository, and it is
+counted separately from the upstream sources in every published figure - see
+[Maintained in this repository](#maintained-in-this-repository). A list this
+project wrote itself is a source of domains, but it is not independent
+corroboration, and the headline count is the number people read as "how many
+other curators agree".
 
 The aggregation tooling in this repository (`generate.sh`, `sanitize.py`,
-`whitelist.py`, and the scripts under `scripts/`) is
-licensed under **GPL-3.0** (see [`LICENSE`](LICENSE) and the License section of
-the [README](README.md)). That license covers the code, **not** the aggregated
-data, which stays under the licenses on this page.
+`whitelist.py`, and the scripts under `scripts/`) is licensed under **GPL-3.0**
+(see [`LICENSE`](LICENSE) and the License section of the [README](README.md)).
 
 The list of upstream feeds is maintained in
 [`blacklists.fqdn.urls`](blacklists.fqdn.urls). If you are a rights holder and
@@ -75,7 +89,6 @@ Attribution key:
 | PhishFort blacklist | PhishFort - https://github.com/phishfort/phishfort-lists | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/phishfort/phishfort-lists/blob/master/LICENSE) |
 | oisd small | Stephan van Ruth - https://oisd.nl/ | GPL-3.0-only | Credit + GPL-3.0 + source | [list-header](https://github.com/sjhgvr/oisd/blob/main/LICENSE) |
 | AdGuard DNS filter | AdGuard - https://github.com/AdguardTeam/AdGuardSDNSFilter (via firebog.net) | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE) |
-| Streaming (custom) | Fabrizio Salmi - https://github.com/fabriziosalmi/blacklists | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE) |
 | Scam Blocklist (wildcards) | jarelllama - https://github.com/jarelllama/Scam-Blocklist | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/jarelllama/Scam-Blocklist/blob/main/LICENSE.md) |
 
 ## Share-alike (attribution + share-alike)
@@ -85,9 +98,9 @@ Attribution key:
 | KADhosts | FiltersHeroes / PolishFiltersTeam - https://github.com/FiltersHeroes/KADhosts | CC-BY-SA-4.0 | Credit + same license | [github-api](https://github.com/FiltersHeroes/KADhosts/blob/master/LICENSE) |
 | EasyList | The EasyList authors - https://easylist.to/ (via firebog.net) | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
 | EasyPrivacy | The EasyList authors - https://easylist.to/ (via firebog.net) | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
-| UT1 publicite | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php (via firebog.net) | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
-| UT1 cryptojacking | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php (via firebog.net) | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
-| UT1 malware | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php (via firebog.net) | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
+| UT1 publicite | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
+| UT1 cryptojacking | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
+| UT1 malware | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
 
 ## Public domain (free to use)
 
@@ -100,15 +113,13 @@ Attribution key:
 | ShadowWhisperer Tracking | ShadowWhisperer - https://github.com/ShadowWhisperer/BlockLists | Unlicense | Not required | [github-api](https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE) |
 | phishunt feed | phishunt.io - https://phishunt.io/ | CC0-1.0 | Not required | [project-page](https://phishunt.io/) |
 
-## Custom terms (no standard SPDX identifier)
+## Maintained in this repository
 
-These sources publish terms that do not map to a standard license identifier. The evidence link is the exact text that was read.
+These feeds are **not** third-party lists. They are this project's own editorial contribution, served from this repository and counted separately from the upstream sources everywhere a figure is published, because they are not independent corroboration.
 
 | List | Upstream (owner / URL) | License | Attribution | Evidence |
 |---|---|---|---|---|
-| Anti-Malware List (hosts) | DandelionSprout - https://github.com/DandelionSprout/adfilt | Dandelicence (custom licence) | Credit | [license-file](https://github.com/DandelionSprout/adfilt/blob/master/LICENSE.md) |
-| blackbook | Miroslav Stampar - https://github.com/stamparm/blackbook | Public domain (declared by author) | Credit | [readme](https://github.com/stamparm/blackbook#readme) |
-| Anti-Malware List (AdGuard Home) | DandelionSprout - https://github.com/DandelionSprout/adfilt | Dandelicence (custom licence) | Credit | [license-file](https://github.com/DandelionSprout/adfilt/blob/master/LICENSE.md) |
+| Streaming (custom) | Fabrizio Salmi - https://github.com/fabriziosalmi/blacklists | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE) |
 
 ## Notes on mirrors
 
@@ -133,6 +144,9 @@ The following feeds are deliberately **not** fetched:
 | [Suspicious domains (MalwareWorld)](https://malwareworld.com/) | unavailable | - | Endpoint returned HTTP 404 and no licence statement could be located. |
 | [CERT Polska warning list (CERT Polska (NASK))](https://cert.pl/en/warning-list/) | licence | - | No redistribution grant. The Polish project page states only that anyone may download the list and deploy it in their own security systems ("kazdy moze ja pobrac i wdrozyc w swoich systemach bezpieczenstwa"), which authorises use but not republication inside an aggregated list. Removed pending explicit permission from CERT Polska / NASK. |
 | [Peter Lowe's ad/tracking server list (Peter Lowe)](https://pgl.yoyo.org/adservers/) | licence | - | No licence or redistribution terms published anywhere on the project site; the pages carry usage instructions only. A prior claim of "redistribution permitted by written permission" could not be substantiated. Removed pending written permission from Peter Lowe. |
+| [Anti-Malware List (hosts) (DandelionSprout/adfilt)](https://github.com/DandelionSprout/adfilt) | licence | Dandelicence (custom) | Bespoke licence, not reviewed by FSF, OSI or SPDX, so its compatibility with the GPL-3.0 the aggregate carries could not be recorded as settled. It reads as permissive and no conflict was apparent, but the list supplied only 157 domains no other source did - 0.003% of the published list - so the uncertainty was not worth carrying. Re-add if the author confirms. |
+| [Anti-Malware List (AdGuard Home) (DandelionSprout/adfilt)](https://github.com/DandelionSprout/adfilt) | duplicate | Dandelicence (custom) | The same list as the hosts variant in a different syntax: it contributed exactly ONE domain no other source did. Fetched twice for one domain, and carrying the same unsettled licence question. Removed on redundancy alone. |
+| [blackbook (stamparm/blackbook)](https://github.com/stamparm/blackbook) | licence | Public domain (asserted in README only) | Public domain is asserted in the project README rather than by a LICENSE file or a formal dedication, which is thin evidence on which to rest redistribution inside a copyleft aggregate. Supplied 325 domains no other source did - 0.005% of the list. Re-add if the author publishes CC0-1.0. |
 
 ---
 
