@@ -8,6 +8,12 @@ on:
 permissions:
   contents: write  # Required for committing changes
 
+# Pushes README.md and stats/ to main. A second run starting while the
+# first is pushing loses one of the two commits.
+concurrency:
+  group: daily-stats
+  cancel-in-progress: false
+
 jobs:
   update_statistics:
     runs-on: ubuntu-latest

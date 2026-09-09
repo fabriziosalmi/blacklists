@@ -5,20 +5,28 @@ Navigate quickly:
 - [Downloading the blacklist](#downloading-the-blacklist)
 - [Implementing the blacklist](#implementing-the-blacklist)
 - [Integrate your whitelist](#integrate-your-whitelist)
-- [Blacklist mirror](#docker)
 
 ## Generating the blacklist 
 
-I utilize the capabilities of ChangeDetection ([selfhosted](https://changedetection.io/)) to monitor and merge updates from curated [blacklists](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls). GitHub Actions automate the download of these blacklists daily, consolidating them into a single file.
+A GitHub Actions workflow (`.github/workflows/release.yml`) runs daily at midnight
+UTC. It downloads every feed listed in
+[blacklists.fqdn.urls](https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls),
+sanitises and deduplicates them, removes everything in
+[whitelist.txt](https://github.com/fabriziosalmi/blacklists/blob/main/whitelist.txt),
+and publishes the result as a GitHub Release.
 
-Furthermore, I conduct regular [reviews](https://github.com/fabriziosalmi/blacklists/blob/main/docs/blacklists_reviews.md) to scrutinize the source blacklists, ensuring the accuracy and relevance of the information through whitelist updates.
+Before anything is published, `scripts/check_quality.py` refuses the release if
+the list changed size sharply overnight in either direction, or if it blocks any
+domain in [sources/protected.txt](https://github.com/fabriziosalmi/blacklists/blob/main/sources/protected.txt).
+What the list blocks among widely-used domains is published on the
+[statistics page](https://fabriziosalmi.github.io/blacklists/#quality).
 
 ## Downloads
 - Pi-Hole, AdGuard, uBlock Origin, Squid: **[blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt)** 
 - Unbound: **[unbound_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/unbound_blacklist.txt)** 
 - Bind (rpz): **[rpz_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt)** 
 ```
-https://get.domainsblacklists.com/blacklist.txt
+https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
 ```
 
 ## Implementing the Blacklist
@@ -38,7 +46,7 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 2. Select **Add Blacklist** 
 3. Input the following URL and save:
 ```
-https://get.domainsblacklists.com/blacklist.txt
+https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
 ```
 
 ### [Squid](http://www.squid-cache.org/)
@@ -153,7 +161,7 @@ With these changes, Squid will deny requests made directly to IP addresses and w
 1. Open the browser and go to the uBlock Origin dashboard by clicking on the extension icon > settings icon
 2. Go to the end of the page and in the Import form paste this url
 ```
-https://get.domainsblacklists.com/blacklist.txt
+https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
 ```
 3. Click on the Apply Changes button in the top of the page
 4. You will find the blacklist in the Custom list at the end of the page, before the Import form
@@ -161,15 +169,22 @@ https://get.domainsblacklists.com/blacklist.txt
 
 ## Integrate your Whitelist
 
-For public domain whitelisting, [submit your whitelist](https://req.domainsblacklists.com). For private whitelisting, use the provided script along with a `whitelist.txt` file.
+To propose a domain for whitelisting, [open an issue](https://github.com/fabriziosalmi/blacklists/issues/new/choose).
+For private whitelisting, run `whitelist.py` against your own `whitelist.txt`.
 
-## Docker
+## Running a local mirror
 
-Use our [Docker image](https://hub.docker.com/repository/docker/fabriziosalmi/blacklists/) to deploy your own blacklist mirror:
+There is no published image for this. Fetch the release asset on a schedule and
+serve it with any static web server:
 
 ```bash
-docker pull fabriziosalmi/blacklists:latest
-docker run -p 80:80 fabriziosalmi/blacklists
+curl -fsSL -o /srv/blacklists/blacklist.txt \
+  https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt
 ```
 
-Access the blacklist at `http://$DOCKER_IP/blacklist.txt`. Restart the container to refresh the blacklist.
+Verify what you fetched against the SHA-256 published on the
+[statistics page](https://fabriziosalmi.github.io/blacklists/#stats), which is
+computed from the same artifact the release carries.
+
+Point your clients at the file your server publishes, and re-run the fetch on a
+schedule (the release is rebuilt daily at midnight UTC).

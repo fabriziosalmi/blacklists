@@ -9,10 +9,19 @@ ship if it blocks something that must never be blocked.
 
 Four separate mechanisms, because one gate cannot serve four purposes:
 
-  0. Size. A release that lost a large share of the list overnight is refused.
-     Counting successful downloads is not enough: two of forty-six sources 404'd
-     on 2026-07-31 and took 46% of the domains with them, because one was almost
-     half the list on its own, and a source-count threshold waved it through.
+  0. Size. A release whose size moved sharply overnight, in EITHER direction,
+     is refused. Counting successful downloads is not enough: two of forty-six
+     sources 404'd on 2026-07-31 and took 46% of the domains with them, because
+     one was almost half the list on its own, and a source-count threshold waved
+     it through. Growth is checked too, and for the stronger reason: the list
+     grew 681,064 domains in one day on 2026-09-06 and shipped unexamined,
+     because only shrinkage was guarded. Over-blocking is what breaks a machine.
+
+     The baseline is the previously published release, downloaded during this
+     run. It used to be stats/history.csv, which a different workflow writes an
+     hour after this one from a count taken off the release this gate approved
+     the day before - so a stale or failed statistics job silently degraded the
+     guard. history.csv is now only the fallback.
 
   1. sources/protected.txt - a small curated set of domains whose blocking
      breaks the machine rather than the page: DNS resolvers, OS update and
@@ -70,6 +79,32 @@ OUTPUT = Path('stats/quality.json')
 # internet getting safer.
 MAX_SHRINK_PERCENT = 10.0
 
+# Largest single-day growth accepted without review.
+#
+# This check was missing, and the asymmetry was backwards: losing coverage is
+# the cheap failure, while gaining 681,064 domains overnight - which is what
+# happened on 2026-09-06, +12.77% - means several hundred thousand names started
+# being blocked with nobody looking. Over-blocking is the direction that breaks
+# a user's machine, so it is the direction that deserves the tighter guard.
+#
+# Sized against the recorded history: in 90 days only two days exceeded 9% and
+# only one exceeded 10%, so this fires on genuinely rare events rather than on
+# daily churn. A stopped release is safe to prefer here because a failed run now
+# files an issue - the silence that caused the fourteen-day blackout is gone.
+MAX_GROWTH_PERCENT = 10.0
+
+# Below this many domains moved, the percentage is not evidence of anything.
+#
+# A ratio needs a denominator worth dividing by. On the real list a 10% move is
+# roughly 600,000 domains; on a list of five, it is one. Without a floor the
+# guard fires on arithmetic rather than on a problem - which is precisely how a
+# gate earns a reputation for crying wolf and gets switched off.
+#
+# 50,000 sits well above ordinary daily churn (the recorded history tops out
+# around 20,000 on a normal day) and far below every anomaly worth catching: the
+# events this gate exists for moved 434,921, 681,064 and 2,000,322 domains.
+MIN_SIGNIFICANT_DELTA = 50_000
+
 # A domain entering this band without review fails the release.
 REVIEW_RANK = 1000
 
@@ -122,8 +157,8 @@ def previous_total(history: Path) -> Optional[int]:
     return latest
 
 
-def check_shrinkage(current: int, previous: Optional[int]) -> Tuple[bool, str]:
-    """Refuse a release that lost a large share of the list overnight.
+def check_size_change(current: int, previous: Optional[int]) -> Tuple[bool, str]:
+    """Refuse a release whose size moved sharply overnight, in either direction.
 
     Counting how many sources downloaded is not enough protection: two of
     forty-six sources 404'd on 2026-07-31 and took 46% of the domains with them,
@@ -131,7 +166,13 @@ def check_shrinkage(current: int, previous: Optional[int]) -> Tuple[bool, str]:
     threshold waved that through. Size is what users receive, so size is what
     gets checked.
 
-    Growth is never blocked - adding coverage is the normal outcome of a fix.
+    This used to check shrinkage only, on the reasoning that "adding coverage is
+    the normal outcome of a fix". That reasoning had it backwards. Losing
+    coverage means some domains stop being blocked; GAINING several hundred
+    thousand overnight means they start being blocked, on nobody's authority,
+    and over-blocking is the failure that breaks a machine in a way its owner
+    cannot diagnose. On 2026-09-06 the list grew 681,064 domains in one day,
+    +12.77%, and shipped unexamined because only one direction was guarded.
     """
     if previous is None or previous <= 0:
         return True, 'no previous total recorded, nothing to compare against'
@@ -139,11 +180,24 @@ def check_shrinkage(current: int, previous: Optional[int]) -> Tuple[bool, str]:
     delta = current - previous
     percent = delta / previous * 100
 
+    # A percentage of a small number is arithmetic, not evidence.
+    if abs(delta) < MIN_SIGNIFICANT_DELTA:
+        return True, (f'{delta:+,} against the previous {previous:,} '
+                      f'({percent:+.1f}%), below the {MIN_SIGNIFICANT_DELTA:,} '
+                      f'domain floor for treating a percentage as meaningful')
+
     if percent < -MAX_SHRINK_PERCENT:
         return False, (
             f'the list lost {abs(delta):,} domains against the previous '
             f'{previous:,} ({percent:.1f}%), beyond the {MAX_SHRINK_PERCENT}% '
             f'limit. A source has almost certainly stopped answering.'
+        )
+    if percent > MAX_GROWTH_PERCENT:
+        return False, (
+            f'the list gained {delta:,} domains against the previous '
+            f'{previous:,} ({percent:+.1f}%), beyond the {MAX_GROWTH_PERCENT}% '
+            f'limit. A source has changed shape or a parser change is blocking '
+            f'more than it should; both need a look before this reaches users.'
         )
     return True, f'{delta:+,} against the previous {previous:,} ({percent:+.1f}%)'
 
@@ -263,8 +317,39 @@ def main() -> int:
     # fetched.
     violations = sorted(domain for domain in protected if domain in blacklist)
 
-    size_ok, size_message = check_shrinkage(len(blacklist), previous_total(HISTORY))
+    # The previously published release, loaded before the size check because it
+    # is the better baseline for it. Also used further down to tell a newly
+    # blocked popular domain from one that merely became popular.
+    previous_blacklist: Optional[Set[str]] = None
+    if args.previous:
+        previous_path = Path(args.previous)
+        if previous_path.is_file():
+            previous_blacklist = load_blacklist(previous_path)
+            log(f'✓ Previous release: {len(previous_blacklist):,} domains')
+        else:
+            log(f'Warning: previous release not found at {previous_path}')
+
+    # Prefer the artifact this run actually downloaded over stats/history.csv.
+    #
+    # history.csv is written by a DIFFERENT workflow (daily-stats.yml, 01:00)
+    # from the one this gate runs in (release.yml, 00:00), from a count it took
+    # off the release this gate itself let through the day before. So the guard
+    # was comparing against a number produced ~23 hours earlier by a job that can
+    # fail on its own - and when it did, the baseline silently went stale and the
+    # percentage threshold stopped meaning anything, exactly when it mattered.
+    #
+    # The previously published blacklist is fetched during this run, is the thing
+    # users currently have, and needs no other workflow to have succeeded.
+    if previous_blacklist is not None:
+        baseline = len(previous_blacklist)
+        baseline_source = 'the previously published release'
+    else:
+        baseline = previous_total(HISTORY)
+        baseline_source = f'{HISTORY} (no previous release available)'
+
+    size_ok, size_message = check_size_change(len(blacklist), baseline)
     log(f'{"✓" if size_ok else "✗"} Size: {size_message}')
+    log(f'  compared against {baseline_source}')
 
     # The popularity checks need a ranking. If it cannot be fetched, they are
     # skipped loudly rather than failing the release: an unreachable third-party
@@ -306,15 +391,6 @@ def main() -> int:
     # indistinguishable, and the band is reported rather than enforced.
     in_band = [(rank, domain) for rank, domain in blocked_ranked if rank <= REVIEW_RANK]
 
-    previous_blacklist: Optional[Set[str]] = None
-    if args.previous:
-        previous_path = Path(args.previous)
-        if previous_path.is_file():
-            previous_blacklist = load_blacklist(previous_path)
-            log(f'✓ Previous release: {len(previous_blacklist):,} domains')
-        else:
-            log(f'Warning: previous release not found at {previous_path}')
-
     if previous_blacklist is None:
         log('No previous release to compare against; the review band is reported, '
             'not enforced.')
@@ -354,7 +430,8 @@ def main() -> int:
         'published_domains': len(blacklist),
         'size': {
             'published_domains': len(blacklist),
-            'previous_domains': previous_total(HISTORY),
+            'previous_domains': baseline,
+            'baseline_source': baseline_source,
             'accepted': size_ok,
             'detail': size_message,
         },

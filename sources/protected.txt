@@ -70,6 +70,35 @@ googleusercontent.com       # Google user content
 jsdelivr.net                # jsDelivr
 unpkg.com                   # unpkg
 
+# --- Shared hosting apexes ------------------------------------------------
+# Suffixes under which third parties are given a subdomain each. Blocking one
+# takes down every unrelated site beneath it, and both the Unbound and the RPZ
+# output expand a listed name to its whole subtree.
+#
+# Every entry below was actually published by this list. A cosmetic Adblock
+# rule ("load the site, hide this element") anchored to a bare domain walked
+# past the parser and was read as a block - see drop_cosmetic_rules in
+# sanitize.py. The parser no longer does that; these are here so that a
+# regression fails the release instead of shipping, which is the protection
+# that was missing when it happened.
+pages.dev                   # Cloudflare Pages
+workers.dev                 # Cloudflare Workers
+web.core.windows.net        # Azure Storage static websites
+blob.core.windows.net       # Azure Blob Storage
+azurewebsites.net           # Azure App Service
+webflow.io                  # Webflow hosting
+ondigitalocean.app          # DigitalOcean App Platform
+digitaloceanspaces.com      # DigitalOcean Spaces
+netlify.app                 # Netlify
+vercel.app                  # Vercel
+herokuapp.com               # Heroku
+github.io                   # GitHub Pages
+firebaseapp.com             # Firebase Hosting
+web.app                     # Firebase Hosting
+appspot.com                 # Google App Engine
+r2.dev                      # Cloudflare R2
+storage.googleapis.com      # Google Cloud Storage
+
 # --- Package registries ---------------------------------------------------
 # Blocking these breaks software installation and CI on the affected machine.
 pypi.org                    # Python package index

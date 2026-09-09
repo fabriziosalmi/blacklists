@@ -27,6 +27,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 from collections import defaultdict
@@ -194,13 +195,23 @@ def load_sources(repo: Path, stats_dir: Path) -> Dict:
         merged.append(item)
 
     matched = sum(1 for item in merged if item['metrics'])
-    log(f'✓ Registry: {len(merged)} sources, {matched} with measured metrics')
+    upstream = sum(1 for item in merged if not item.get('first_party'))
+    first_party = len(merged) - upstream
+    log(f'✓ Registry: {len(merged)} feeds ({upstream} upstream, {first_party} '
+        f'maintained here), {matched} with measured metrics')
 
     return {
         'measured': bool(measured),
         'measured_at': measured_at,
         'licenses_verified_at': registry.get('licenses_verified_at'),
         'categories': categories,
+        # Published separately because they answer different questions. The
+        # headline figure is read as "how many other curators agree", so it
+        # counts third-party feeds only; the total is still available for anyone
+        # who wants the number of feeds actually fetched.
+        'upstream_count': upstream,
+        'first_party_count': first_party,
+        'feed_count': len(merged),
         'sources': merged,
     }
 
@@ -265,6 +276,32 @@ def copy_static(docs_dir: Path, out_dir: Path) -> None:
     # Jekyll would otherwise ignore any path starting with an underscore.
     (out_dir / '.nojekyll').touch()
 
+    # The site is rebuilt after every release, so a <lastmod> committed by hand
+    # is wrong from the day after it is written. Stamped at build time instead.
+    sitemap = out_dir / 'sitemap.xml'
+    if sitemap.exists():
+        today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+        text = re.sub(r'<lastmod>[^<]*</lastmod>',
+                      f'<lastmod>{today}</lastmod>',
+                      sitemap.read_text(encoding='utf-8'))
+        sitemap.write_text(text, encoding='utf-8')
+        log(f'✓ Stamped sitemap.xml with {today}')
+
+    # RFC 9116 requires an Expires date and says a security.txt past it must not
+    # be used. A hand-written date silently turns the file into a liability on a
+    # day nobody is watching, so it is re-stamped a year ahead on every build -
+    # and the site is rebuilt after every release.
+    security = out_dir / '.well-known' / 'security.txt'
+    if security.exists():
+        now = datetime.now(timezone.utc)
+        expires = now.replace(year=now.year + 1).strftime('%Y-%m-%dT%H:%M:%S.000Z')
+        text = re.sub(r'(?m)^Expires:.*$', f'Expires: {expires}',
+                      security.read_text(encoding='utf-8'))
+        security.write_text(text, encoding='utf-8')
+        log(f'✓ Stamped .well-known/security.txt, expires {expires}')
+    else:
+        log('Warning: .well-known/security.txt not found in the site output')
+
     log(f'✓ Copied static assets from {docs_dir}')
 
 
@@ -324,7 +361,16 @@ def main() -> int:
     # cannot disagree with the source table rendered on the same page. The stats
     # file is written by a separate schedule and lags whenever sources change.
     sources_data = load_sources(repo, stats_dir)
-    sources_count = len(sources_data['sources'])
+
+    # The headline figure counts UPSTREAM feeds only.
+    #
+    # It used to be the total, which included custom/streaming.txt - a list
+    # maintained in this repository and fetched from GitHub's CDN like any third
+    # party. Every place the number is shown frames it as lists aggregated from
+    # others ("aggregated from curated upstream lists"), so counting one of our
+    # own inflated the single metric that stands for independent corroboration.
+    # The total is still published as feed_count for anyone who wants it.
+    sources_count = sources_data['upstream_count']
 
     stats = {
         'generated_at': datetime.now(timezone.utc).isoformat(),

@@ -1,0 +1,17 @@
+blank_issues_enabled: true
+contact_links:
+  - name: A domain is wrongly blocked
+    url: https://fabriziosalmi.github.io/blacklists/
+    about: >-
+      Check the domain first - the search box says whether it is listed and
+      which upstream source supplied it. Then open a Whitelist request.
+  - name: Security vulnerability
+    url: https://github.com/fabriziosalmi/blacklists/security/advisories/new
+    about: >-
+      Report privately, never as a public issue. A wrongly blocked domain is
+      not a vulnerability - use the Whitelist request template for that.
+  - name: A problem with an upstream list
+    url: https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md
+    about: >-
+      The upstream lists are maintained by other people. SOURCES.md maps every
+      source to its project so you can report it where it will be fixed.

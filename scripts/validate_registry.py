@@ -28,6 +28,40 @@ REQUIRED_LICENSE_FIELDS = ('spdx', 'name', 'url', 'verified', 'evidence', 'check
 
 ID_PATTERN = re.compile(r'^[a-z0-9][a-z0-9-]*$')
 
+# Feeds served out of this repository rather than by a third party. They are
+# real sources of domains, but they are not independent corroboration, and every
+# published count is framed as lists aggregated FROM OTHERS. Counting one of our
+# own among them inflates the single number that represents that independence.
+SELF_URL_PREFIX = 'https://raw.githubusercontent.com/fabriziosalmi/blacklists/'
+
+# Licences whose content can be incorporated into a GPL-3.0 combined work.
+#
+# The published blacklist merges and deduplicates every source into one file, so
+# it is a combined work and every source must be compatible with the licence the
+# aggregate carries. Deciding that per source, from memory, is how a CC BY-NC
+# feed eventually gets added by someone who did not know: the reasoning lives in
+# LICENSING.md and the enforcement lives here.
+#
+# An SPDX id outside this set fails the build. That is the point.
+GPL3_COMPATIBLE_SPDX = {
+    'MIT',
+    'Apache-2.0',
+    'BSD-2-Clause',
+    'BSD-3-Clause',
+    'ISC',
+    'GPL-3.0-only',
+    'GPL-3.0-or-later',
+    'LGPL-3.0-only',
+    'LGPL-3.0-or-later',
+    'MPL-2.0',
+    'CC-BY-SA-4.0',
+    'CC-BY-4.0',
+    'CC0-1.0',
+    'Unlicense',
+}
+
+COMPATIBILITY_STATES = ('compatible', 'pending')
+
 
 def load_urls(path: Path) -> list:
     with path.open(encoding='utf-8') as handle:
@@ -107,9 +141,65 @@ def main() -> int:
         if not isinstance(entry.get('categories'), list):
             errors.append(f'[{sid}] categories must be a list')
 
+        # Every source must state how it reaches the licence the aggregate
+        # carries, and a "pending" one must say what is still open. Both are
+        # required so that an unreviewed source is visible rather than assumed.
+        compat = license.get('gpl3_compatibility') or {}
+        status = compat.get('status')
+        if status not in COMPATIBILITY_STATES:
+            errors.append(
+                f'[{sid}] license.gpl3_compatibility.status must be one of '
+                f'{", ".join(COMPATIBILITY_STATES)}'
+            )
+        elif not compat.get('rationale'):
+            errors.append(f'[{sid}] gpl3_compatibility records no rationale')
+        elif status == 'pending':
+            warnings.append(f'[{sid}] GPL-3.0 compatibility not settled: '
+                            f'{compat["rationale"][:100]}...')
+
+        # The licence actually relied on: a dual-licensed source is only usable
+        # once a branch is elected, and an unrecorded election is unauditable.
+        effective = license.get('elected') or license.get('spdx')
+        if effective and status == 'compatible' and effective not in GPL3_COMPATIBLE_SPDX:
+            errors.append(
+                f'[{sid}] {effective} is not in the GPL-3.0-compatible set, so it '
+                f'cannot be redistributed inside the aggregate. Either drop the '
+                f'source or justify it in LICENSING.md and add it to '
+                f'GPL3_COMPATIBLE_SPDX.'
+            )
+        if license.get('elected') and ' OR ' not in str(license.get('spdx') or ''):
+            errors.append(f'[{sid}] license.elected is set but the licence is not dual')
+
+        # A feed served out of this repository must say so. Without this the
+        # only thing distinguishing it from a third-party list is a URL nobody
+        # reads, and it silently counts as independent corroboration - which is
+        # exactly how this project came to advertise 46 upstream sources while
+        # aggregating 45 and one of its own.
+        flag = entry.get('first_party')
+        if not isinstance(flag, bool):
+            errors.append(f'[{sid}] first_party must be true or false')
+        elif str(entry.get('url', '')).startswith(SELF_URL_PREFIX) and not flag:
+            errors.append(
+                f'[{sid}] is served from this repository but is not marked '
+                f'first_party, so it would be counted as an upstream source'
+            )
+
+    first_party = [e for e in sources if e.get('first_party')]
+    upstream = [e for e in sources if not e.get('first_party')]
+
     declared = registry.get('source_count')
     if declared is not None and declared != len(sources):
         errors.append(f'source_count says {declared} but registry holds {len(sources)} sources')
+
+    declared_upstream = registry.get('upstream_count')
+    if declared_upstream is not None and declared_upstream != len(upstream):
+        errors.append(f'upstream_count says {declared_upstream} but '
+                      f'{len(upstream)} sources are third-party')
+
+    declared_first = registry.get('first_party_count')
+    if declared_first is not None and declared_first != len(first_party):
+        errors.append(f'first_party_count says {declared_first} but '
+                      f'{len(first_party)} sources are maintained here')
 
     for warning in warnings:
         print(f'WARN  {warning}')
@@ -122,8 +212,18 @@ def main() -> int:
         return 1
 
     verified = sum(1 for e in sources if (e.get('license') or {}).get('verified'))
-    print(f'\nOK: {len(sources)} sources, registry matches {URL_LIST}')
-    print(f'    licences verified: {verified}/{len(sources)}')
+    pending = [e['id'] for e in sources
+               if ((e.get('license') or {}).get('gpl3_compatibility') or {})
+               .get('status') == 'pending']
+
+    print(f'\nOK: {len(sources)} feeds, registry matches {URL_LIST}')
+    print(f'    upstream (third-party) : {len(upstream)}')
+    print(f'    maintained here        : {len(first_party)}'
+          + (f"  ({', '.join(e['id'] for e in first_party)})" if first_party else ''))
+    print(f'    licences verified      : {verified}/{len(sources)}')
+    print(f'    aggregate licence      : {registry.get("aggregate_license") or "NOT DECLARED"}')
+    print(f'    GPL-3.0 compatibility  : {len(sources) - len(pending)}/{len(sources)} settled'
+          + (f'   pending: {", ".join(pending)}' if pending else ''))
     return 0
 
 

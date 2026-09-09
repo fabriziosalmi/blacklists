@@ -33,14 +33,28 @@ PREAMBLE = """# Sources and Licenses
 This project is an **aggregator**. The published `blacklist.txt` (and the
 derived `rpz_blacklist.txt` and `unbound_blacklist.txt`) is a compilation of
 domain lists produced by third parties. Each upstream list remains the property
-of its authors and is redistributed here **under its own license and terms**,
-listed below.
+of its authors, and this page records the license each one is redistributed
+under.
+
+> **The published blacklist is distributed under `GPL-3.0-only`.** It is a
+> combined work - the sources are merged and deduplicated into one file from
+> which no individual list can be extracted - so the licenses below govern the
+> whole rather than surviving separately inside it.
+> [`LICENSING.md`](LICENSING.md) sets out how each license reaches that outcome,
+> which branch is elected for the dual-licensed sources, and the three whose
+> terms are not yet settled. [`NOTICES.txt`](NOTICES.txt) is the attribution
+> published alongside every release.
+
+Not every feed is third-party. One is maintained in this repository, and it is
+counted separately from the upstream sources in every published figure - see
+[Maintained in this repository](#maintained-in-this-repository). A list this
+project wrote itself is a source of domains, but it is not independent
+corroboration, and the headline count is the number people read as "how many
+other curators agree".
 
 The aggregation tooling in this repository (`generate.sh`, `sanitize.py`,
-`whitelist.py`, and the scripts under `scripts/`) is
-licensed under **GPL-3.0** (see [`LICENSE`](LICENSE) and the License section of
-the [README](README.md)). That license covers the code, **not** the aggregated
-data, which stays under the licenses on this page.
+`whitelist.py`, and the scripts under `scripts/`) is licensed under **GPL-3.0**
+(see [`LICENSE`](LICENSE) and the License section of the [README](README.md)).
 
 The list of upstream feeds is maintained in
 [`blacklists.fqdn.urls`](blacklists.fqdn.urls). If you are a rights holder and
@@ -151,6 +165,11 @@ def build(registry: Dict) -> str:
     sources = registry['sources']
     grouped: Dict[str, List[Dict]] = {}
     for entry in sources:
+        # First-party feeds get their own section further down, so they must not
+        # also appear under a licence family - the licence tables are the map of
+        # what is redistributed from other people.
+        if entry.get('first_party'):
+            continue
         grouped.setdefault(group_key(entry), []).append(entry)
 
     parts = [PREAMBLE]
@@ -185,6 +204,22 @@ def build(registry: Dict) -> str:
                 f'- **{escape(name)}**: {escape(note)}' for name, note in notes
             ) + '\n')
 
+    # Named separately rather than filed under a licence family. It is not
+    # third-party content and does not corroborate anything: it is this
+    # project's own editorial contribution, and a reader weighing how many
+    # independent curators stand behind the list should not have to notice a
+    # URL to work that out.
+    first_party = [e for e in sources if e.get('first_party')]
+    if first_party:
+        parts.append(
+            '\n## Maintained in this repository\n\n'
+            'These feeds are **not** third-party lists. They are this project\'s '
+            'own editorial contribution, served from this repository and counted '
+            'separately from the upstream sources everywhere a figure is '
+            'published, because they are not independent corroboration.\n\n'
+            + render_table(first_party)
+        )
+
     parts.append(MIRRORS_NOTE)
 
     removed = registry.get('removed_sources') or []
@@ -211,9 +246,16 @@ def build_credits(registry: Dict) -> str:
     removed from the pipeline but left in the credits keeps claiming an
     attribution that is no longer owed, and one added without a credit owes an
     attribution it never gets.
+
+    First-party feeds are excluded. The block is introduced as the projects
+    "this project would not exist without", so listing ourselves in it is not a
+    rounding error in a count - it is thanking yourself in a list of other
+    people. The in-repo list is named separately in SOURCES.md instead.
     """
     seen: Dict[str, str] = {}
     for entry in registry['sources']:
+        if entry.get('first_party'):
+            continue
         # Credit the original author, not the mirror that re-published the list.
         seen.setdefault(entry['project'], entry['homepage'])
 

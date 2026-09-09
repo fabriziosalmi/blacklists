@@ -1,0 +1,51 @@
+# Domains Blacklist
+
+> A DNS blocklist rebuilt daily from 45 curated upstream lists, published with
+> per-source attribution, verified licences and a public cross-check of what it
+> blocks among the domains people actually use.
+
+This is a single aggregated list, not a menu of categories. Alongside
+advertising, tracking, malware and phishing it also blocks gambling, piracy,
+streaming and adult domains, because some upstream sources cover them. The live
+breakdown is published on the statistics page. Anyone who wants only the
+security categories should use a different list.
+
+Deliberately not published here: a domain count, a source count or a file size.
+Those change every night, and a number written into a document is wrong the day
+after. Every figure lives in the JSON endpoints below, generated from the
+artifact that was actually built.
+
+## Documentation
+
+- [README](https://github.com/fabriziosalmi/blacklists/blob/main/README.md): what the list is, what it blocks, and how to install it
+- [Statistics and lookup](https://fabriziosalmi.github.io/blacklists/): live figures, per-source contribution, and a search box that says whether a given domain is listed and which source supplied it
+- [User guide](https://github.com/fabriziosalmi/blacklists/blob/main/docs/USER_GUIDE.md): installation for Pi-hole, AdGuard Home, Unbound, BIND9 RPZ, Squid and uBlock Origin
+- [Troubleshooting](https://github.com/fabriziosalmi/blacklists/blob/main/docs/TROUBLESHOOTING.md): diagnosing a domain that is blocked or not blocked when it should be
+- [Performance](https://github.com/fabriziosalmi/blacklists/blob/main/docs/PERFORMANCE.md): sizing and configuration guidance per platform
+- [Testing](https://github.com/fabriziosalmi/blacklists/blob/main/docs/TESTING.md): how to verify a deployment, and what the project's own gates check
+
+## Downloads
+
+- [blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.txt): one domain per line, for Pi-hole, AdGuard Home, uBlock Origin and Squid
+- [unbound_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/unbound_blacklist.txt): Unbound `local-zone` directives inside a `server:` clause
+- [rpz_blacklist.txt](https://github.com/fabriziosalmi/blacklists/releases/download/latest/rpz_blacklist.txt): a BIND9/PowerDNS response policy zone, verified loadable by `named-checkzone` before publication
+
+## Provenance and licensing
+
+- [SOURCES.md](https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md): every upstream list with its maintainer, licence and the evidence that licence was verified against
+- [LICENSING.md](https://github.com/fabriziosalmi/blacklists/blob/main/LICENSING.md): why the published list is distributed under GPL-3.0-only, how each source reaches that licence, and which questions are still open
+- [NOTICES.txt](https://github.com/fabriziosalmi/blacklists/blob/main/NOTICES.txt): the attribution that ships with each release
+- [registry.json](https://github.com/fabriziosalmi/blacklists/blob/main/sources/registry.json): the machine-readable source registry the pipeline and the site are both built from
+
+## Data endpoints
+
+- [stats.json](https://fabriziosalmi.github.io/blacklists/data/stats.json): domain count, whitelist size, source count, and the SHA-256 of the release artifact each figure describes
+- [sources.json](https://fabriziosalmi.github.io/blacklists/data/sources.json): per-source HTTP status, domains contributed, and domains contributed exclusively
+- [quality.json](https://fabriziosalmi.github.io/blacklists/data/quality.json): which widely-used domains the list blocks, ranked, with the source responsible
+- [history.json](https://fabriziosalmi.github.io/blacklists/data/history.json): the daily time series
+- [index.json](https://fabriziosalmi.github.io/blacklists/data/index.json): manifest for the sharded SHA-256 lookup index, which answers "is this domain listed" without downloading the whole file
+
+## Reporting a wrongly blocked domain
+
+- [Open a whitelist request](https://github.com/fabriziosalmi/blacklists/issues/new/choose): the supported route for a false positive. Check the domain on the site first - the search says which upstream source supplied it
+- [Security policy](https://github.com/fabriziosalmi/blacklists/blob/main/SECURITY.md): a wrongly blocked domain is not a security issue; vulnerabilities go through a private advisory

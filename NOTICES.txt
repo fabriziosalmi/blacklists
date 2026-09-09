@@ -1,0 +1,293 @@
+NOTICES
+=======
+
+The blacklist distributed with this file is an aggregate of 43 domain
+lists produced by other people. It is published under GPL-3.0-only; see
+LICENSING.md in the project repository for why.
+
+Every list below is redistributed under the licence named against it. This file
+exists so that the attribution travels with the released artifact: MIT and
+Apache-2.0 require their notice to accompany the work, and someone who downloads
+a release asset never sees the repository.
+
+The authoritative licence text for each entry is at the URL given. Where a
+verbatim upstream copyright line has been recorded it is reproduced; at the time
+of writing 0 of 43 entries carry one, and the remainder name the
+maintainer and link to the licence instead. Closing that gap is tracked in the
+project's issues.
+
+Project repository: https://github.com/fabriziosalmi/blacklists
+Full licence map  : https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md
+
+-------------------------------------------------------------------------------
+
+1Hosts (Lite)
+    Project     : badmojr/1Hosts
+    Attribution : badmojr
+    Homepage    : https://github.com/badmojr/1Hosts
+    Licence     : MPL-2.0
+    Licence text: https://github.com/badmojr/1Hosts/blob/master/LICENSE
+Ad-Block HOSTS
+    Project     : What-Zit-Tooya/Ad-Block
+    Attribution : What-Zit-Tooya
+    Homepage    : https://github.com/What-Zit-Tooya/Ad-Block
+    Licence     : MIT
+    Licence text: https://github.com/What-Zit-Tooya/Ad-Block/blob/main/LICENSE
+AdGuard DNS filter
+    Project     : AdGuard DNS filter
+    Attribution : AdGuard
+    Homepage    : https://github.com/AdguardTeam/AdGuardSDNSFilter
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE
+    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
+Ads and tracking extended
+    Project     : lightswitch05/hosts
+    Attribution : Daniel White
+    Homepage    : https://www.github.developerdan.com/hosts/
+    Licence     : Apache-2.0
+    Licence text: https://github.com/lightswitch05/hosts/blob/master/LICENSE
+Anti-Piracy
+    Project     : hagezi/dns-blocklists
+    Attribution : hagezi
+    Homepage    : https://github.com/hagezi/dns-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/hagezi/dns-blocklists/blob/main/LICENSE
+Big List of Hacked Malware Web Sites
+    Project     : The-Big-List-of-Hacked-Malware-Web-Sites
+    Attribution : Mitchell Krog
+    Homepage    : https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites
+    Licence     : MIT
+    Licence text: https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/blob/master/LICENSE.md
+blocklist-domains
+    Project     : dmachard/blocklist-domains
+    Attribution : Denis Machard
+    Homepage    : https://github.com/dmachard/blocklist-domains
+    Licence     : MIT
+    Licence text: https://github.com/dmachard/blocklist-domains/blob/main/LICENSE
+EasyList
+    Project     : EasyList
+    Attribution : The EasyList authors
+    Homepage    : https://easylist.to/
+    Licence     : GPL-3.0-or-later
+    Offered as  : GPL-3.0-or-later OR CC-BY-SA-3.0 (this project elects GPL-3.0-or-later)
+    Licence text: https://easylist.to/pages/licence.html
+    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
+EasyPrivacy
+    Project     : EasyList
+    Attribution : The EasyList authors
+    Homepage    : https://easylist.to/
+    Licence     : GPL-3.0-or-later
+    Offered as  : GPL-3.0-or-later OR CC-BY-SA-3.0 (this project elects GPL-3.0-or-later)
+    Licence text: https://easylist.to/pages/licence.html
+    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
+Fake sites
+    Project     : hagezi/dns-blocklists
+    Attribution : hagezi
+    Homepage    : https://github.com/hagezi/dns-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/hagezi/dns-blocklists/blob/main/LICENSE
+First-party only trackers
+    Project     : eulaurarien (frogeye)
+    Attribution : Geoffrey 'Frogeye' Preud'homme
+    Homepage    : https://hostfiles.frogeye.fr/
+    Licence     : MIT
+    Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+First-party trackers
+    Project     : eulaurarien (frogeye)
+    Attribution : Geoffrey 'Frogeye' Preud'homme
+    Homepage    : https://hostfiles.frogeye.fr/
+    Licence     : MIT
+    Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+Gambling
+    Project     : hagezi/dns-blocklists
+    Attribution : hagezi
+    Homepage    : https://github.com/hagezi/dns-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/hagezi/dns-blocklists/blob/main/LICENSE
+GetAdmiral domains
+    Project     : LanikSJ/ubo-filters
+    Attribution : LanikSJ
+    Homepage    : https://github.com/LanikSJ/ubo-filters
+    Licence     : MIT
+    Licence text: https://github.com/LanikSJ/ubo-filters/blob/main/LICENSE
+hostsVN adservers
+    Project     : bigdargon/hostsVN
+    Attribution : bigdargon
+    Homepage    : https://github.com/bigdargon/hostsVN
+    Licence     : MIT
+    Licence text: https://github.com/bigdargon/hostsVN/blob/master/LICENSE
+hostsVN domains
+    Project     : bigdargon/hostsVN
+    Attribution : bigdargon
+    Homepage    : https://github.com/bigdargon/hostsVN
+    Licence     : MIT
+    Licence text: https://github.com/bigdargon/hostsVN/blob/master/LICENSE
+KADhosts
+    Project     : FiltersHeroes/KADhosts
+    Attribution : FiltersHeroes / PolishFiltersTeam
+    Homepage    : https://github.com/FiltersHeroes/KADhosts
+    Licence     : CC-BY-SA-4.0
+    Licence text: https://github.com/FiltersHeroes/KADhosts/blob/master/LICENSE
+Multi-party only trackers
+    Project     : eulaurarien (frogeye)
+    Attribution : Geoffrey 'Frogeye' Preud'homme
+    Homepage    : https://hostfiles.frogeye.fr/
+    Licence     : MIT
+    Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+Multi-party trackers
+    Project     : eulaurarien (frogeye)
+    Attribution : Geoffrey 'Frogeye' Preud'homme
+    Homepage    : https://hostfiles.frogeye.fr/
+    Licence     : MIT
+    Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+NoTrack blocklist
+    Project     : quidsup/notrack-blocklists
+    Attribution : quidsup
+    Homepage    : https://gitlab.com/quidsup/notrack-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://gitlab.com/quidsup/notrack-blocklists/-/blob/master/LICENSE
+oisd small
+    Project     : oisd
+    Attribution : Stephan van Ruth
+    Homepage    : https://oisd.nl/
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/sjhgvr/oisd/blob/main/LICENSE
+PhishFort blacklist
+    Project     : phishfort/phishfort-lists
+    Attribution : PhishFort
+    Homepage    : https://github.com/phishfort/phishfort-lists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/phishfort/phishfort-lists/blob/master/LICENSE
+Phishing filter
+    Project     : malware-filter
+    Attribution : curbengh / malware-filter
+    Homepage    : https://gitlab.com/malware-filter/malware-filter
+    Licence     : MIT
+    Licence text: https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE
+phishunt feed
+    Project     : phishunt.io
+    Attribution : phishunt.io
+    Homepage    : https://phishunt.io/
+    Licence     : CC0-1.0
+    Licence text: https://phishunt.io/
+Referrer spam list
+    Project     : matomo-org/referrer-spam-blacklist
+    Attribution : Matomo
+    Homepage    : https://github.com/matomo-org/referrer-spam-blacklist
+    Licence     : CC0-1.0
+    Licence text: https://github.com/matomo-org/referrer-spam-blacklist/blob/master/composer.json
+Scam Blocklist
+    Project     : durablenapkin/scamblocklist
+    Attribution : durablenapkin
+    Homepage    : https://github.com/durablenapkin/scamblocklist
+    Licence     : MIT
+    Licence text: https://github.com/durablenapkin/scamblocklist/blob/master/LICENSE
+Scam Blocklist (wildcards)
+    Project     : jarelllama/Scam-Blocklist
+    Attribution : jarelllama
+    Homepage    : https://github.com/jarelllama/Scam-Blocklist
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/jarelllama/Scam-Blocklist/blob/main/LICENSE.md
+ShadowWhisperer Ads
+    Project     : ShadowWhisperer/BlockLists
+    Attribution : ShadowWhisperer
+    Homepage    : https://github.com/ShadowWhisperer/BlockLists
+    Licence     : Unlicense
+    Licence text: https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE
+ShadowWhisperer Malware
+    Project     : ShadowWhisperer/BlockLists
+    Attribution : ShadowWhisperer
+    Homepage    : https://github.com/ShadowWhisperer/BlockLists
+    Licence     : Unlicense
+    Licence text: https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE
+ShadowWhisperer Scam
+    Project     : ShadowWhisperer/BlockLists
+    Attribution : ShadowWhisperer
+    Homepage    : https://github.com/ShadowWhisperer/BlockLists
+    Licence     : Unlicense
+    Licence text: https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE
+ShadowWhisperer Tracking
+    Project     : ShadowWhisperer/BlockLists
+    Attribution : ShadowWhisperer
+    Homepage    : https://github.com/ShadowWhisperer/BlockLists
+    Licence     : Unlicense
+    Licence text: https://github.com/ShadowWhisperer/BlockLists/blob/master/LICENSE
+StevenBlack hosts (base)
+    Project     : StevenBlack/hosts
+    Attribution : Steven Black
+    Homepage    : https://github.com/StevenBlack/hosts
+    Licence     : MIT
+    Licence text: https://github.com/StevenBlack/hosts/blob/master/license.txt
+Streaming (custom)
+    Project     : fabriziosalmi/blacklists
+    Attribution : Fabrizio Salmi
+    Homepage    : https://github.com/fabriziosalmi/blacklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/fabriziosalmi/blacklists/blob/main/LICENSE
+    Note        : maintained in this repository, not a third-party list
+Threat Intelligence Feeds
+    Project     : hagezi/dns-blocklists
+    Attribution : hagezi
+    Homepage    : https://github.com/hagezi/dns-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/hagezi/dns-blocklists/blob/main/LICENSE
+Tracking aggressive extended
+    Project     : lightswitch05/hosts
+    Attribution : Daniel White
+    Homepage    : https://www.github.developerdan.com/hosts/
+    Licence     : Apache-2.0
+    Licence text: https://github.com/lightswitch05/hosts/blob/master/LICENSE
+uBO badware risks
+    Project     : uBlockOrigin/uAssets
+    Attribution : uBlock Origin
+    Homepage    : https://github.com/uBlockOrigin/uAssets
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+Ultimate
+    Project     : hagezi/dns-blocklists
+    Attribution : hagezi
+    Homepage    : https://github.com/hagezi/dns-blocklists
+    Licence     : GPL-3.0-only
+    Licence text: https://github.com/hagezi/dns-blocklists/blob/main/LICENSE
+Ultimate Hosts Blacklist (domains2)
+    Project     : Ultimate.Hosts.Blacklist
+    Attribution : Mitchell Krog / Ultimate-Hosts-Blacklist
+    Homepage    : https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist
+    Licence     : MIT
+    Licence text: https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/blob/master/LICENSE.md
+URLhaus filter
+    Project     : malware-filter
+    Attribution : curbengh / malware-filter
+    Homepage    : https://gitlab.com/malware-filter/malware-filter
+    Licence     : MIT
+    Licence text: https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE
+UT1 cryptojacking
+    Project     : UT1 blacklists
+    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
+    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
+    Licence     : CC-BY-SA-4.0
+    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
+UT1 malware
+    Project     : UT1 blacklists
+    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
+    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
+    Licence     : CC-BY-SA-4.0
+    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
+UT1 publicite
+    Project     : UT1 blacklists
+    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
+    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
+    Licence     : CC-BY-SA-4.0
+    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
+YouTube spam domains
+    Project     : ThioJoe/YT-Spam-Lists
+    Attribution : ThioJoe
+    Homepage    : https://github.com/ThioJoe/YT-Spam-Lists
+    Licence     : MIT
+    Licence text: https://github.com/ThioJoe/YT-Spam-Lists/blob/main/LICENSE
+
+-------------------------------------------------------------------------------
+
+If you hold rights in any list above and want it changed or removed, open an
+issue at https://github.com/fabriziosalmi/blacklists/issues and it will be
+removed.
