@@ -54,30 +54,24 @@ update_and_install() {
     pip3 install --no-cache-dir --upgrade pip setuptools tldextract tqdm | tee -a "$LOGFILE"
 }
 
-# Install additional required packages
-install_additional_packages() {
-    local packages="pv ncftp"
-
-    # Handle macOS with brew differently: pv is coreutils, ncftp might not be available
-    if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
-        packages="coreutils wget" # coreutils includes pv on macOS
-
-        # Try installing ncftp, but don't fatally fail if it's not found
-        if ! $INSTALL_CMD ncftp | tee -a "$LOGFILE" 2>&1; then
-          echo "ncftp not found on brew. Proceeding without it (Optional Package)." | tee -a "$LOGFILE"
-          NCFTP_INSTALLED=false
-        else
-          NCFTP_INSTALLED=true
-        fi
-    fi
-
-    for package in $packages; do
-        echo "Installing package: $package..." | tee -a "$LOGFILE"
-        if ! $INSTALL_CMD $package | tee -a "$LOGFILE"; then
-            echo "Failed to install '$package' using $PACKAGE_MANAGER ❌." | tee -a "$LOGFILE"
-            exit 1
-        fi
+# Check that the tools this script actually uses are present.
+#
+# This used to install "pv" and "ncftp", plus coreutils and wget on macOS, and
+# had a whole branch for tolerating a missing ncftp. None of the four is used
+# anywhere in this file - the downloads are curl and the aggregation is sort and
+# grep - so every run spent time, and a sudo package install, on nothing, and
+# could fail the build on a package it did not need.
+check_required_tools() {
+    local missing=""
+    for tool in curl sort grep awk; do
+        command -v "$tool" &>/dev/null || missing="$missing $tool"
     done
+
+    if [ -n "$missing" ]; then
+        echo "Missing required tools:$missing ❌." | tee -a "$LOGFILE"
+        exit 1
+    fi
+    echo "Required tools present: curl, sort, grep, awk." | tee -a "$LOGFILE"
 }
 
 # Directory holding one downloaded file per source, named by its position in
@@ -85,6 +79,25 @@ install_additional_packages() {
 # attribution possible later: with random names the aggregate cannot be traced
 # back to the list that supplied each domain.
 SOURCES_DIR="sources_raw"
+
+# Sources that are maintained inside this repository rather than upstream.
+#
+# These were being fetched from raw.githubusercontent.com, which made the build
+# depend on GitHub's CDN to read a file two directories away on the same disk.
+# That bought nothing and cost three things: the build could run against a
+# cached copy that no longer matched the checkout it was building from, a rename
+# or a CDN blip looked exactly like an upstream source going down, and the
+# project appeared in its own credits as a third-party feed.
+#
+# The URL is kept as the identifier so sources/registry.json, source_stats.py
+# and the published attribution keep working unchanged - only the fetch is local.
+local_source_path() {
+    case "$1" in
+        https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/*)
+            echo "${1#https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/}"
+            ;;
+    esac
+}
 
 # Download a single source and record the outcome.
 #
@@ -97,6 +110,24 @@ download_url() {
     local url="$2"
     local target="${SOURCES_DIR}/$(printf '%03d' "$index").fqdn.list"
     local meta="${SOURCES_DIR}/$(printf '%03d' "$index").meta"
+
+    # Resolve a repository-local source from the checkout. Recorded with the
+    # same meta shape as a fetch so the statistics step needs no special case.
+    local local_path
+    local_path=$(local_source_path "$url")
+    if [ -n "$local_path" ]; then
+        if [ ! -f "$local_path" ]; then
+            echo "Local source $index is missing from the checkout: $local_path ❌" | tee -a "$LOGFILE"
+            printf '%s\t%s\t%s\t%s\t%s\n' "$index" "$url" "404" "0" "0" > "$meta"
+            return 1
+        fi
+        cp "$local_path" "$target"
+        local local_bytes
+        local_bytes=$(wc -c < "$target" | tr -d ' ')
+        printf '%s\t%s\t%s\t%s\t%s\n' "$index" "$url" "200" "$local_bytes" "0" > "$meta"
+        echo "Read local source $index (${local_bytes} bytes): $local_path" | tee -a "$LOGFILE"
+        return 0
+    fi
 
     local start_ts=$(date +%s)
     local status
@@ -120,6 +151,43 @@ download_url() {
         echo "Source $index returned HTTP $status, excluding from aggregate: $url ❌" | tee -a "$LOGFILE"
         rm -f "$target"
         return 1
+    fi
+
+    # Some publishers ship a category as a tar.gz holding a "domains" file
+    # rather than a flat list. Unpacking it here keeps one download path and one
+    # meta record per source, and lets the registry point at the authoritative
+    # endpoint instead of a re-publisher's flattened copy of it.
+    #
+    # The directory inside the archive is not always named after the category -
+    # UT1's malware.tar.gz unpacks to phishing/ - so the member is matched by
+    # glob and never by a path built from the URL.
+    #
+    # Extracting is not optional: handing sanitize.py a gzip blob would yield
+    # zero domains from a source that answered HTTP 200, and losing one source's
+    # worth of domains is well inside the release size gate's tolerance. It would
+    # ship silently.
+    if [[ "$url" == *.tar.gz ]]; then
+        local unpacked="${target}.domains"
+        # GNU tar and bsdtar disagree on whether extraction patterns glob by
+        # default, so try the portable form first and the GNU flag second.
+        tar -xzOf "$target" '*/domains' > "$unpacked" 2>/dev/null || true
+        if [ ! -s "$unpacked" ]; then
+            tar -xzOf "$target" --wildcards '*/domains' > "$unpacked" 2>/dev/null || true
+        fi
+
+        if [ ! -s "$unpacked" ]; then
+            echo "Source $index: no domains file inside the archive, excluding: $url ❌" | tee -a "$LOGFILE"
+            rm -f "$target" "$unpacked"
+            printf '%s\t%s\t%s\t%s\t%s\n' "$index" "$url" "$status" "0" "$elapsed" > "$meta"
+            return 1
+        fi
+
+        mv "$unpacked" "$target"
+        # Report the size of what the pipeline actually reads, not of the archive.
+        bytes=$(wc -c < "$target" | tr -d ' ')
+        printf '%s\t%s\t%s\t%s\t%s\n' "$index" "$url" "$status" "$bytes" "$elapsed" > "$meta"
+        echo "Downloaded source $index (HTTP $status, archive unpacked to ${bytes} bytes): $url" | tee -a "$LOGFILE"
+        return 0
     fi
 
     echo "Downloaded source $index (HTTP $status, ${bytes} bytes): $url" | tee -a "$LOGFILE"
@@ -156,8 +224,33 @@ manage_downloads() {
         exit 1
     fi
 
-    # Refuse to build a release from a partial fetch: silently shipping a list
-    # missing half its sources looks like a real update to every downstream user.
+    # Name the sources that failed. A count alone tells nobody which feed to go
+    # and look at, and this log is the first thing read when a release is wrong.
+    if [ "$downloaded" -lt "$index" ]; then
+        echo "Sources that did not download:" | tee -a "$LOGFILE"
+        for meta in "$SOURCES_DIR"/*.meta; do
+            [ -f "$meta" ] || continue
+            local m_index m_url m_status
+            IFS=$'\t' read -r m_index m_url m_status _ _ < "$meta"
+            if [ ! -f "${SOURCES_DIR}/$(printf '%03d' "$m_index").fqdn.list" ]; then
+                echo "  HTTP ${m_status}: ${m_url}" | tee -a "$LOGFILE"
+            fi
+        done
+    fi
+
+    # A coarse early exit, and deliberately not the real guard.
+    #
+    # This threshold counts SOURCES, and the project has already been burned by
+    # exactly that: on 2026-07-31 two of forty-six sources 404'd and took 46% of
+    # the domains with them, because one of them was almost half the list on its
+    # own. Forty-four of forty-six downloaded, so a source count saw nothing
+    # wrong. Sources are not interchangeable and counting them cannot detect
+    # that.
+    #
+    # What actually protects the release is scripts/check_quality.py, which
+    # compares the SIZE of the result against the previously published list in
+    # both directions. This check only stops the run early when the fetch was so
+    # broken that there is no point continuing.
     local min_required=$(( index / 2 ))
     if [ "$downloaded" -lt "$min_required" ]; then
         echo "Only ${downloaded}/${index} sources downloaded (need at least ${min_required}). Exiting ❌." | tee -a "$LOGFILE"
@@ -219,9 +312,19 @@ prepend_attribution_header() {
 
     local tmp="${target}.tmp"
     {
-        echo "# Aggregated by fabriziosalmi/blacklists from multiple third-party sources under their respective licenses - see SOURCES.md"
+        echo "# Aggregated by fabriziosalmi/blacklists from multiple third-party sources."
         echo "# Generated: ${gen_date} UTC"
         echo "# Domains: ${domain_count}"
+        echo "#"
+        # The licence has to be stated on the artifact itself. A file that only
+        # says "see SOURCES.md" tells someone holding a downloaded copy nothing
+        # about what they may do with it, and the released assets are what
+        # actually circulate.
+        echo "# License: GPL-3.0-only. This is a combined work: the sources are merged"
+        echo "#   and deduplicated into one file, so their licenses govern the whole."
+        echo "#   Why, and how each source reaches it: LICENSING.md"
+        echo "# Attribution: NOTICES.txt, published with every release"
+        echo "# Per-source licence map: https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md"
         echo "# Source lists: https://github.com/fabriziosalmi/blacklists/blob/main/blacklists.fqdn.urls"
         cat "$target"
     } > "$tmp" && mv "$tmp" "$target"
@@ -233,7 +336,7 @@ prepend_attribution_header() {
 main() {
     detect_package_manager
     update_and_install
-    install_additional_packages
+    check_required_tools
     manage_downloads
     sanitize_and_whitelist
     prepend_attribution_header
