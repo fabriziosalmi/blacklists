@@ -91,6 +91,75 @@ def test_untranslatable_rules_are_dropped(line, rules):
 
 
 # --------------------------------------------------------------------------
+# Cosmetic filters
+#
+# These are anchored to a BARE domain, with no "||" prefix. That is the whole
+# difficulty: strip_adblock_syntax only inspects lines starting with "||", so a
+# cosmetic rule walked past every guard and reached take_first_token, which
+# split it on "#" and kept the hostname.
+#
+# The case above pinned '||example.com##.ad-banner' - a form that does not occur
+# in the wild, because the "||" prefix is what makes it a network rule. The
+# tests here use the shape sources actually publish, which shipped
+# pages.dev, web.core.windows.net, webflow.io, ondigitalocean.app and
+# ublockorigin.com to users.
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize('line', [
+    'example.com##.ad-banner',                 # element hiding
+    'example.com##+js(aeld, mousemove, x)',    # scriptlet injection (uBO)
+    'example.com#@#.ad-banner',                # element hiding EXCEPTION
+    'example.com#?#div:has-text(Offer)',       # extended CSS selector
+    'example.com#$#.banner { display: none }', # style injection
+    'example.com#%#//scriptlet("abort")',      # AdGuard scriptlet
+    'example.com#@$#.banner { color: red }',   # negated style injection
+    'example.com###promo-box',                 # id selector, "##" + "#promo-box"
+    'example.com##main::before:style(content: "x")',
+])
+def test_cosmetic_rules_never_become_domain_blocks(line, rules):
+    """A cosmetic rule says "load this site and hide an element on it".
+
+    Reading it as a block inverts the author's intent exactly as an "@@"
+    exception would.
+    """
+    assert sanitize(line, rules) is None
+
+
+@pytest.mark.parametrize('line', [
+    'pages.dev##html[lang="ja"] > body > .main-container',
+    'web.core.windows.net##+js(aeld, beforeunload, /[Ww]orker/)',
+    'webflow.io##html.w-mod-js:not(.wf-active) > body:not([class])',
+    'ondigitalocean.app##+js(aeld, mousemove, loadSecret)',
+    'ublockorigin.com##.title::before:style(content: "not official")',
+])
+def test_shared_hosting_apexes_are_not_blocked_by_cosmetic_rules(line, rules):
+    """The regression that put hosting apexes in the published list.
+
+    Each of these blocked every unrelated site under the apex, and the Unbound
+    and RPZ outputs expand a listed name to its whole subtree. None of the four
+    quality gates could see it: the size gate only measures shrinkage, and
+    sources/protected.txt is a hand-curated list that did not name them.
+    """
+    assert sanitize(line, rules) is None
+
+
+def test_multi_domain_cosmetic_rules_are_dropped(rules):
+    """One rule can carry several hostnames and a negation."""
+    assert sanitize('~support.ublock.org,ublock.org##main::before', rules) is None
+    assert sanitize('a.example,b.example##.ad', rules) is None
+
+
+def test_inline_comment_is_still_a_comment_not_a_cosmetic_rule(rules):
+    """The separator is only cosmetic when attached to the hostname.
+
+    Whitespace before it means a human wrote a note, so these must survive.
+    """
+    assert sanitize('example.com  ## why this is listed', rules) == 'example.com'
+    assert sanitize('example.com # note ## more', rules) == 'example.com'
+    assert sanitize('0.0.0.0 example.com  # see #123', rules) == 'example.com'
+
+
+# --------------------------------------------------------------------------
 # Metadata and comments
 # --------------------------------------------------------------------------
 
