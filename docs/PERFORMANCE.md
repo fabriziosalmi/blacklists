@@ -20,9 +20,11 @@ The blacklist is updated **daily at midnight UTC**. For use cases requiring more
 
 ### Blacklist Formats
 
-Measured from the published release on 2026-07-31 (4,755,218 domains). The
-live figures are on the [statistics page](https://fabriziosalmi.github.io/blacklists/#stats),
-which also publishes the SHA-256 of the artifact each number describes.
+> These sizes were measured on 2026-07-31, when the list held 4,755,218 domains.
+> The list has grown since, so treat them as a floor rather than a current
+> figure. The live numbers are on the
+> [statistics page](https://fabriziosalmi.github.io/blacklists/#stats), which
+> also publishes the SHA-256 of the artifact each one describes.
 
 | Format | File size | Use case |
 |--------|-----------|----------|
@@ -37,7 +39,6 @@ directive: one line of `blacklist.txt` becomes `local-zone: "domain" static` or
 ### Download Performance
 
 - **GitHub Releases**: Fast, CDN-backed
-- **Docker Image**: Pre-packaged, instant deployment
 - **Direct Download**: Bandwidth depends on GitHub's CDN
 
 ## Platform-Specific Performance
@@ -255,7 +256,7 @@ Tested on a typical home network (100 Mbps):
 
 **Solutions**:
 1. Check internet connection speed
-2. Use local mirror (Docker image)
+2. Use a local mirror of the release asset
 3. Schedule updates during off-peak
 4. Optimize disk I/O
 

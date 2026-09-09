@@ -24,7 +24,10 @@ Domains listed in `whitelist.txt` are excluded from all output files during gene
 
 ## Local Mirror
 
-A Docker image (`fabriziosalmi/blacklists`) serves the blacklist files via HTTP and can be used as a local mirror. See the [docker/](../docker/) directory for configuration.
+The release assets are served by GitHub's CDN. To run a local mirror, fetch
+`blacklist.txt` from the release on a schedule and serve it with any static web
+server; verify it against the SHA-256 published on the
+[statistics page](https://fabriziosalmi.github.io/blacklists/#stats).
 
 ## Further Reading
 

@@ -56,10 +56,13 @@ For large whitelist updates, users can submit via:
 
 Conduct periodic reviews of source blacklists:
 
-1. Check `docs/blacklists_reviews.md` for review schedule
-2. Test random samples from each source
+1. Read `stats/sources.json`, written by every release: it records each source's
+   HTTP status, how many domains it contributed, and how many came from it alone
+2. Check the `unreadable_by_pipeline` flag - a source offering domains the
+   parser cannot read contributes nothing while still looking healthy
 3. Verify sources are still active and maintained
-4. Remove inactive or low-quality sources
+4. Remove inactive or low-quality sources, recording the reason in
+   `sources/registry.json` under `removed_sources`
 
 ### Quality Metrics
 
@@ -157,7 +160,6 @@ If data is lost, historical blacklists can be recovered from:
 
 - GitHub Releases (tagged as `latest`)
 - Git history
-- Docker Hub mirror
 
 ## Contributing to Maintenance
 
