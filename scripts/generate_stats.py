@@ -84,12 +84,55 @@ class StatsGenerator:
         except FileNotFoundError:
             return 0
     
+    def count_whitelist_entries(self, filepath: Path) -> int:
+        """Count the domains in whitelist.txt, not the lines in it.
+
+        A raw line count includes the header block and every trailing comment
+        line, so this reported 2080 where the file holds 2062 domains. That
+        number reached README.md, while the badge and the site took theirs from
+        stats/whitelist.json - which parses the file properly - and showed 2062.
+        The two published surfaces disagreed about the same metric.
+
+        Deduplicated to match the "unique" figure in stats/whitelist.json, so
+        there is one definition of the number rather than two.
+        """
+        domains = set()
+        try:
+            with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                for line in f:
+                    domain = line.split('#', 1)[0].strip()
+                    if domain:
+                        domains.add(domain.lower())
+        except FileNotFoundError:
+            return 0
+        return len(domains)
+
     def count_blacklist_sources(self) -> int:
-        """Count number of blacklist sources."""
+        """Count the UPSTREAM sources, i.e. the lists other people maintain.
+
+        Prefers sources/registry.json, which records first_party per feed, and
+        falls back to counting the URL list when the registry is unavailable.
+
+        Counting lines in blacklists.fqdn.urls returned 46, because one of those
+        URLs points at custom/streaming.txt in this very repository. The README
+        presents this figure under a project described as "aggregated from
+        curated upstream lists", so including our own list overstated the number
+        of independent curators behind it by one.
+        """
+        registry_file = self.repo_path / "sources" / "registry.json"
+        if registry_file.exists():
+            try:
+                with open(registry_file, 'r', encoding='utf-8') as f:
+                    entries = json.load(f).get('sources', [])
+                if entries:
+                    return sum(1 for e in entries if not e.get('first_party'))
+            except (json.JSONDecodeError, OSError) as exc:
+                print(f"Warning: could not read {registry_file}: {exc}")
+
         sources_file = self.repo_path / "blacklists.fqdn.urls"
         if not sources_file.exists():
             return 0
-        
+
         with open(sources_file, 'r') as f:
             # Count non-empty, non-comment lines
             return sum(1 for line in f if line.strip() and not line.strip().startswith('#'))
@@ -345,7 +388,7 @@ class StatsGenerator:
             if total_domains == 0:
                 print("Warning: Could not determine domain count from any source")
         
-        whitelisted = self.count_lines(self.repo_path / "whitelist.txt")
+        whitelisted = self.count_whitelist_entries(self.repo_path / "whitelist.txt")
         sources = self.count_blacklist_sources()
         
         # Get historical data

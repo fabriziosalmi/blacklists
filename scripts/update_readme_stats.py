@@ -69,31 +69,6 @@ class ReadmeUpdater:
         
         return section
     
-    def update_badges(self, content: str, stats: Dict) -> str:
-        """Update badge values in README."""
-        # Update blacklisted badge
-        content = re.sub(
-            r'blacklisted-\d+',
-            f"blacklisted-{stats['total_domains']}",
-            content
-        )
-        
-        # Update whitelisted badge
-        content = re.sub(
-            r'whitelisted-\d+',
-            f"whitelisted-{stats['whitelisted_domains']}",
-            content
-        )
-        
-        # Update blacklists count badge
-        content = re.sub(
-            r'blacklists-\d+',
-            f"blacklists-{stats['blacklist_sources']}",
-            content
-        )
-        
-        return content
-    
     def update_readme(self, dry_run: bool = False) -> bool:
         """Update README with statistics."""
         # Load stats
@@ -145,10 +120,14 @@ class ReadmeUpdater:
                 print("Error: Could not find suitable location for stats")
                 return False
         
-        # Update badges
-        updated_content = self.update_badges(updated_content, stats)
-        print("✓ Updated badges")
-        
+        # There is deliberately no badge rewriting here. The README's badges are
+        # shields.io endpoints reading data/badges/*.json, which build_site.py
+        # publishes from the artifact it actually indexed, so they cannot go
+        # stale and there is nothing to substitute. The function that used to do
+        # it matched patterns ("blacklisted-\d+") that had not been in the README
+        # for some time: it ran every night, changed nothing, and reported
+        # "✓ Updated badges".
+
         if dry_run:
             print("\n" + "=" * 60)
             print("DRY RUN - Would update README with:")
@@ -163,27 +142,6 @@ class ReadmeUpdater:
         
         print(f"✓ README updated: {self.readme_file}")
         return True
-    
-    def update_hourly_to_daily(self) -> bool:
-        """Update 'Hourly' references to 'Daily' in README."""
-        if not self.readme_file.exists():
-            return False
-        
-        with open(self.readme_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Replace hourly with daily
-        updated = content.replace('Hourly updated', 'Daily updated')
-        updated = updated.replace('Hourly Updates', 'Daily Updates')
-        updated = updated.replace('**Hourly Updates**', '**Daily Updates**')
-        
-        if updated != content:
-            with open(self.readme_file, 'w', encoding='utf-8') as f:
-                f.write(updated)
-            print("✓ Updated 'Hourly' to 'Daily' references")
-            return True
-        
-        return False
 
 
 def main():
@@ -193,8 +151,6 @@ def main():
     parser = argparse.ArgumentParser(description='Update README with statistics')
     parser.add_argument('--repo-path', default='.', help='Path to repository')
     parser.add_argument('--dry-run', action='store_true', help='Dry run (do not write)')
-    parser.add_argument('--update-schedule', action='store_true', 
-                       help='Update hourly to daily references')
     
     args = parser.parse_args()
     
@@ -203,9 +159,6 @@ def main():
     print("=" * 60)
     print("README Statistics Updater")
     print("=" * 60)
-    
-    if args.update_schedule:
-        updater.update_hourly_to_daily()
     
     success = updater.update_readme(dry_run=args.dry_run)
     
