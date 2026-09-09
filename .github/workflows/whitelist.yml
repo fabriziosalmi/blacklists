@@ -9,6 +9,11 @@ on:
 permissions:
   contents: write
 
+# Rewrites and pushes whitelist.txt, which the release pipeline reads.
+concurrency:
+  group: whitelist
+  cancel-in-progress: false
+
 jobs:
   process:
     runs-on: ubuntu-latest

@@ -10,6 +10,12 @@ permissions:
   id-token: write
   issues: write    # Required to report a failed release
 
+# The daily build pushes statistics to main and publishes the release;
+# two overlapping runs would race on both.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   generate_and_publish:
     runs-on: ubuntu-latest
@@ -30,6 +36,12 @@ jobs:
       # matches the sources actually being fetched.
       - name: Validate source registry
         run: python3 scripts/validate_registry.py
+
+      # The attribution that ships with the release must match the registry the
+      # pipeline fetches from. If it has drifted, the artifact would carry a
+      # licence map describing sources it no longer uses.
+      - name: Attribution documents match the registry
+        run: python3 scripts/generate_licensing.py --check
 
       - name: Generate blacklist
         run: /bin/bash generate.sh  # Removed sudo
@@ -134,18 +146,38 @@ jobs:
         continue-on-error: true
         run: python3 scripts/whitelist_report.py
 
+      # Kept non-fatal: a statistics problem must not stop the blacklist from
+      # shipping. But "non-fatal" used to mean a rejected push vanished without
+      # a trace, because continue-on-error hides the exit code and nothing
+      # retried - so a day's statistics were simply lost. The retry makes the
+      # ordinary cause (another workflow pushed to main first) self-healing, and
+      # the final message says plainly that the data was dropped.
       - name: Commit statistics
         continue-on-error: true
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add stats/sources.json stats/quality.json stats/whitelist.json stats/classification.json 2>/dev/null || true
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
-          else
-            git commit -m "📎 Update per-source and quality statistics [skip ci]"
-            git push
+            exit 0
           fi
+
+          git commit -m "📎 Update per-source and quality statistics [skip ci]"
+
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "✓ Statistics pushed (attempt $attempt)"
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt, rebasing onto origin/main..."
+            git pull --rebase --autostash origin main || break
+          done
+
+          echo "::warning::Could not push the per-source statistics after 3 attempts."
+          echo "::warning::The release itself is unaffected; today's stats/*.json are not committed."
+          exit 1
 
       - name: Remove downloaded source files
         if: always()
@@ -174,51 +206,44 @@ jobs:
           echo "Number of domains: $count"
           echo "count=$count" >> $GITHUB_OUTPUT
 
-      - name: Delete Release if Exists
-        id: delete_release
-        run: |
-          release_id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/tags/latest" | jq -r .id)
-          if [[ ! -z "$release_id" ]]; then
-            curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id"
-          fi
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.1.4  # Consider upgrading if newer version available
-        with:
-          tag_name: latest
-          release_name: "Domains Blacklist"
-          body: "Domains: ${{ steps.count_domains.outputs.count }}"
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Release Asset (Original Blacklist)
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: blacklist_output/blacklist.txt
-          asset_name: blacklist.txt
-          asset_content_type: text/plain
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create RPZ Blacklist
         run: |
-          # Skip the attribution header comments and blank lines (BIND uses ';',
-          # not '#', for comments) so the RPZ zone stays syntactically valid.
-          awk '!/^[[:space:]]*#/ && NF {print $0 " CNAME ."}' blacklist_output/blacklist.txt > rpz_blacklist.txt
+          # A response policy zone is a DNS zone, and a zone without SOA and NS
+          # records is not one: named-checkzone rejects it and BIND refuses to
+          # load the policy. The published file carried neither and began
+          # straight with a CNAME record, so every RPZ user got a file their
+          # resolver would not accept.
+          #
+          # SOA/NS are deliberately generic and the entries stay RELATIVE to the
+          # origin, so the file works whatever the operator names the zone in
+          # named.conf. "example.com CNAME ." inside zone rpz.blacklist is the
+          # QNAME trigger for example.com, which is what RPZ expects.
+          #
+          # The '#' header of blacklist.txt is dropped because BIND comments
+          # with ';', but the attribution itself is not: it is re-emitted below
+          # in the syntax this format understands. Two of the three published
+          # artifacts used to carry no attribution at all, while SOURCES.md and
+          # the README claimed otherwise.
+          serial=$(date -u '+%Y%m%d%H')
+          {
+            echo "; Aggregated by fabriziosalmi/blacklists from multiple third-party"
+            echo "; sources under their respective licenses - see SOURCES.md"
+            echo "; https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md"
+            echo "; Generated: $(date -u '+%Y-%m-%d') UTC"
+            echo ';'
+            echo '$TTL 60'
+            echo "@ IN SOA localhost. root.localhost. ( ${serial} 3600 600 604800 60 )"
+            echo "@ IN NS  localhost."
+            awk '!/^[[:space:]]*#/ && NF {print $0 " CNAME ."}' blacklist_output/blacklist.txt
+          } > rpz_blacklist.txt
 
-      - name: Upload Release Asset (RPZ Blacklist)
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: rpz_blacklist.txt
-          asset_name: rpz_blacklist.txt
-          asset_content_type: text/plain
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # A zone that does not load protects nobody. This is the check whose
+      # absence let an unloadable artifact ship as a headline download.
+      - name: Verify the RPZ zone loads
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq bind9-utils >/dev/null
+          named-checkzone -q rpz.blacklist rpz_blacklist.txt
+          echo "✓ rpz_blacklist.txt is a loadable zone"
 
       - name: Create Unbound Blacklist
         run: |
@@ -226,19 +251,65 @@ jobs:
           # million times and took 89s of a 176s release - half the run, for the
           # same transformation the RPZ step does in awk in 2s. It also got
           # slower every day the list grew.
-          printf "# Unbound blacklist format\n" > unbound_blacklist.txt
-          awk '!/^[[:space:]]*#/ && NF {printf "local-zone: \"%s\" static\n", $0}' \
-            blacklist_output/blacklist.txt >> unbound_blacklist.txt
+          #
+          # The directives are wrapped in a "server:" clause because that is the
+          # only context in which Unbound accepts local-zone. The file used to
+          # emit them bare, so including it anywhere other than inside an
+          # existing server: block was a parse error. Repeating the clause is
+          # harmless - Unbound merges server: sections - so this is valid both
+          # ways round.
+          {
+            echo "# Aggregated by fabriziosalmi/blacklists from multiple third-party"
+            echo "# sources under their respective licenses - see SOURCES.md"
+            echo "# https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md"
+            echo "# Generated: $(date -u '+%Y-%m-%d') UTC"
+            echo "#"
+            echo "# Include from unbound.conf:  include: \"unbound_blacklist.txt\""
+            echo "server:"
+            awk '!/^[[:space:]]*#/ && NF {printf "    local-zone: \"%s\" static\n", $0}' \
+              blacklist_output/blacklist.txt
+          } > unbound_blacklist.txt
 
-      - name: Upload Release Asset (Unbound Blacklist)
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: unbound_blacklist.txt
-          asset_name: unbound_blacklist.txt
-          asset_content_type: text/plain
+      # Every artifact is built and verified before anything is published, and
+      # the release is updated in place rather than deleted and recreated.
+      #
+      # The old sequence deleted the "latest" release and then created a new
+      # one, which meant two things. Every download URL in every user's cron
+      # returned 404 for the length of three uploads. And if any step after the
+      # deletion failed - the RPZ build, an upload, a network blip - the previous
+      # release was already gone and the new one did not exist, so the project
+      # went from "yesterday's list" to "no list at all". The failure notice at
+      # the end of this workflow claims the previous list stays in place; that
+      # was only true before the deletion step ran.
+      #
+      # actions/create-release and actions/upload-release-asset were archived by
+      # GitHub in 2021 and receive no fixes; gh is maintained and already used
+      # elsewhere in this file.
+      - name: Publish release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NOTES="Domains: ${{ steps.count_domains.outputs.count }}"
+
+          if gh release view latest --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release edit latest --repo "${{ github.repository }}" \
+              --title "Domains Blacklist" --notes "$NOTES"
+          else
+            gh release create latest --repo "${{ github.repository }}" \
+              --title "Domains Blacklist" --notes "$NOTES"
+          fi
+
+          # --clobber replaces each asset in place, so a download in flight sees
+          # either the old file or the new one, never a missing one.
+          gh release upload latest --repo "${{ github.repository }}" --clobber \
+            blacklist_output/blacklist.txt \
+            rpz_blacklist.txt \
+            unbound_blacklist.txt \
+            NOTICES.txt \
+            LICENSING.md
+
+          gh release view latest --repo "${{ github.repository }}" --json assets \
+            --jq '.assets[] | "  published: \(.name) (\(.size) bytes)"'
 
       - name: Clean up
         run: rm -rf blacklist_output rpz_blacklist.txt unbound_blacklist.txt
