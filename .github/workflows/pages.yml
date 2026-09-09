@@ -80,6 +80,15 @@ jobs:
       - name: Verify build output
         run: |
           test -f _site/index.html
+          # Files that exist only to be fetched by a machine, so nobody would
+          # notice them going missing. .well-known in particular is a dot
+          # directory: it survives the copy only because .nojekyll stops GitHub
+          # Pages running Jekyll, which would drop it.
+          test -f _site/.nojekyll
+          test -f _site/.well-known/security.txt
+          test -f _site/llms.txt
+          test -f _site/apple-touch-icon.png
+          grep -q '^Expires:' _site/.well-known/security.txt
           test -f _site/data/stats.json
           test -f _site/data/index.json
           test -f _site/data/history.json
