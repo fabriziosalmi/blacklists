@@ -1,15 +1,18 @@
 import re
 import tldextract
-from tqdm import tqdm
-from typing import Set, List, Callable, Optional
+from typing import Set, List, Callable, Iterator, Optional
 from functools import lru_cache
 import multiprocessing as mp
 from itertools import islice
-import mmap
 import os
 
 # Pre-compiled regex pattern for FQDN validation (kept exactly as original)
 FQDN_PATTERN = re.compile(r'^(?!-)[A-Za-z0-9-]{1,63}(?<!-)$')
+
+# How many chunks may be outstanding per worker before the reader stops reading.
+# This is the whole memory bound: without it the pool's task handler pulls the
+# entire input onto its queue regardless of how lazily the chunks are produced.
+MAX_PENDING_CHUNKS = 2
 
 @lru_cache(maxsize=10000)
 def is_valid_fqdn(s: str) -> bool:
@@ -78,6 +81,40 @@ def strip_adblock_syntax(line: str) -> Optional[str]:
         return None
     return line
 
+# Adblock cosmetic separators, anchored to a bare domain rather than to "||":
+# "##" (element hiding), "#@#" (its exception), "#?#" / "#$?#" (extended CSS),
+# "#$#" (style/snippet) and "#%#" (AdGuard scriptlet), each optionally negated
+# with "@". The separator is attached directly to the hostname, so it is only
+# treated as cosmetic when nothing separates it from the domain - that is what
+# keeps a genuine inline comment such as "example.com  ## note" out of scope.
+COSMETIC_PATTERN = re.compile(r'(?<!\s)#@?[$%]?\??#')
+
+
+def drop_cosmetic_rules(line: str) -> Optional[str]:
+    """Drop Adblock cosmetic filters, which are the opposite of a block.
+
+    ``example.com##.banner`` tells a browser extension to LOAD example.com and
+    hide one element on it. It is not a blocking rule, and a domain list has no
+    way to express it.
+
+    This mattered because ``strip_adblock_syntax`` only inspects lines starting
+    with ``||``, while cosmetic rules are anchored to a bare domain. Such a line
+    therefore reached ``take_first_token``, which split it on ``#`` and kept the
+    hostname - turning "hide a div on this site" into "NXDOMAIN this site".
+
+    The published list carried ``pages.dev``, ``web.core.windows.net``,
+    ``webflow.io`` and ``ondigitalocean.app`` as a result: shared-hosting apexes
+    whose blocking takes down every unrelated site beneath them, and which the
+    Unbound and RPZ outputs expand to the whole subtree. ``ublockorigin.com``
+    was blocked by uBlock's own anti-impostor rule.
+
+    Nothing is lost by dropping these: a cosmetic rule never asked for a block.
+    """
+    if not line:
+        return None
+    return None if COSMETIC_PATTERN.search(line) else line
+
+
 def take_first_token(line: str) -> Optional[str]:
     """Keep the hostname from lines that carry trailing text.
 
@@ -96,6 +133,7 @@ def get_sanitization_rules() -> List[Callable]:
         drop_metadata,                                             # Drop comments, headers and exception rules
         lambda line: remove_prefixes(line, ["127.0.0.1", "0.0.0.0", "http://", "https://"]),  # Remove prefixes
         strip_adblock_syntax,                                      # Reduce ||domain^ to domain
+        drop_cosmetic_rules,                                       # Drop domain##selector and friends
         take_first_token,                                          # Drop trailing comments / hosts remainder
         lambda line: line.rstrip('.'),                             # Remove trailing dot
         lambda line: line.lower()                                  # Convert to lowercase
@@ -125,68 +163,84 @@ def get_file_size(file_path: str) -> int:
     """Get file size in bytes."""
     return os.path.getsize(file_path)
 
-def process_large_file(input_file_path: str, output_file_path: str, chunk_size: int = 50000):
+
+def iter_chunks(handle, chunk_size: int) -> Iterator[List[str]]:
+    """Yield lists of at most ``chunk_size`` decoded lines, one at a time.
+
+    Reads in binary and decodes per line so that an undecodable line is skipped
+    rather than aborting the run, which is what the previous implementation did.
     """
-    Process large files using memory mapping and multiprocessing.
-    
+    chunk: List[str] = []
+    for raw in handle:
+        try:
+            chunk.append(raw.decode('utf-8'))
+        except UnicodeDecodeError:
+            continue
+        if len(chunk) >= chunk_size:
+            yield chunk
+            chunk = []
+    if chunk:
+        yield chunk
+
+
+def process_large_file(input_file_path: str, output_file_path: str, chunk_size: int = 50000):
+    """Sanitize a large file in parallel, holding a bounded slice of it in memory.
+
+    The previous version described itself as memory-mapped and chunked for
+    exactly this reason, and then did the opposite: it read the whole file into
+    a list of lists of Python strings BEFORE dispatching any work, so peak
+    memory scaled with the input instead of being bounded by it. On a 150 MB
+    aggregate that is several gigabytes of str objects, every one of which then
+    had to be pickled to a worker. The mmap contributed nothing, because each
+    line was decoded into a Python object anyway.
+
+    Chunks are now produced lazily and dispatched in waves of at most
+    ``MAX_PENDING_CHUNKS`` per worker. Pool.imap_unordered cannot provide this
+    on its own: its task handler drains the whole input iterable onto the queue
+    as fast as it can, so a generator alone would still buffer everything. The
+    wave is what applies the backpressure.
+
+    What remains proportional to the data is the output set, which is inherent:
+    the result is the deduplicated, sorted set of domains.
+
     Args:
         input_file_path: Path to input file
         output_file_path: Path to output file
-        chunk_size: Number of lines to process in each chunk
+        chunk_size: Number of lines handed to a worker at a time
     """
-    # Get number of CPU cores (leave one core free for system processes)
     num_processes = max(1, mp.cpu_count() - 1)
-    
+    in_flight = num_processes * MAX_PENDING_CHUNKS
+
     try:
-        file_size = get_file_size(input_file_path)
         unique_domains: Set[str] = set()
-        
-        # Use memory mapping for efficient file reading
-        with open(input_file_path, 'r') as infile:
-            mm = mmap.mmap(infile.fileno(), 0, access=mmap.ACCESS_READ)
-            
-            # Create process pool
+        lines_read = 0
+
+        with open(input_file_path, 'rb') as infile:
+            chunks = iter_chunks(infile, chunk_size)
+
             with mp.Pool(num_processes) as pool:
-                # Process file in chunks
-                chunks = []
-                current_chunk = []
-                
-                # Use tqdm to show progress
-                with tqdm(total=file_size, desc="Reading file") as pbar:
-                    for line in iter(mm.readline, b""):
-                        try:
-                            decoded_line = line.decode('utf-8')
-                            current_chunk.append(decoded_line)
-                            
-                            if len(current_chunk) >= chunk_size:
-                                chunks.append(current_chunk)
-                                current_chunk = []
-                                
-                            pbar.update(len(line))
-                        except UnicodeDecodeError:
-                            continue
-                
-                # Add remaining lines
-                if current_chunk:
-                    chunks.append(current_chunk)
-                
-                # Process chunks in parallel
-                with tqdm(total=len(chunks), desc="Processing chunks") as pbar:
-                    for result in pool.imap_unordered(process_chunk, chunks):
+                while True:
+                    wave = list(islice(chunks, in_flight))
+                    if not wave:
+                        break
+                    lines_read += sum(len(c) for c in wave)
+
+                    for result in pool.imap_unordered(process_chunk, wave):
                         unique_domains.update(result)
-                        pbar.update(1)
-        
-        # Sort the unique domain names in alphabetical order (kept exactly as original)
+
+                    # A plain line rather than a progress bar: this runs in a
+                    # non-interactive CI log, where a bar redraws into thousands
+                    # of unreadable lines.
+                    print(f"  {lines_read:,} lines read, "
+                          f"{len(unique_domains):,} unique domains so far", flush=True)
+
         sorted_unique_domains = sorted(unique_domains)
-        
-        # Write results in batches
-        batch_size = 10000
+
         with open(output_file_path, 'w') as outfile:
-            with tqdm(total=len(sorted_unique_domains), desc="Writing results") as pbar:
-                for i in range(0, len(sorted_unique_domains), batch_size):
-                    batch = sorted_unique_domains[i:i + batch_size]
-                    outfile.writelines(f"{domain}\n" for domain in batch)
-                    pbar.update(len(batch))
+            outfile.writelines(f"{domain}\n" for domain in sorted_unique_domains)
+
+        print(f"✓ {lines_read:,} lines in, {len(sorted_unique_domains):,} domains out",
+              flush=True)
     except Exception as e:
         print(f"Error processing file: {str(e)}")
         raise
