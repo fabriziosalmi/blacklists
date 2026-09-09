@@ -40,8 +40,8 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 | Metric | Value |
 |--------|-------|
 | **Total Domains** | **5,974,511** |
-| **Whitelisted** | 2,080 |
-| **Sources** | 46 |
+| **Whitelisted** | 2,062 |
+| **Sources** | 42 |
 | **Daily Change** | -7,564 (-0.13%) |
 | **Weekly Change** | +668,828 (+12.61%) |
 | **Monthly Change** | +1,152,202 (+23.89%) |
@@ -56,15 +56,14 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 - **iPhone** (Safari + DNS) via [AdGuard Pro for IOS](https://download.adguard.com/d/18672/ios-pro?exid=3ail29lmsdyc84s84c0gkosgo)
 - **Android** via [AdGuard Pro for Android](https://adguard.com/it/adguard-android/overview.html)
 - [PiHole](https://pi-hole.net/), [AdGuard Home](https://adguard.com/it/adguard-home/overview.html) and [Unbound](https://github.com/fabriziosalmi/blacklists/releases/tag/latest) **DNS filtering applications**
-- **Proxies** like [Squid](http://www.squid-cache.org/), **firewalls** like [nftables](https://github.com/fabriziosalmi/blacklists/blob/main/scripts/nft_blacklist_fqdn.sh) and **WAF** like [OPNsense](https://docs.opnsense.org/manual/how-tos/proxywebfilter.html)
+- **Proxies** like [Squid](http://www.squid-cache.org/) and **WAF** like [OPNsense](https://docs.opnsense.org/manual/how-tos/proxywebfilter.html)
 - **DNS servers** like [BIND9](https://github.com/fabriziosalmi/blacklists/tree/main/docs#how-to-implement-the-rpz-blacklist-with-bind9) or [PowerDNS](https://github.com/PowerDNS/pdns)
   
 ### Features
 - **Daily Updates**: Aggregated and deduplicated daily from all configured sources
 - **Multiple Formats**: Plain domain list (`blacklist.txt`), Unbound (`unbound_blacklist.txt`), BIND9 RPZ (`rpz_blacklist.txt`)
-- **Broad Compatibility**: Works with Pi-Hole, AdGuard Home, Unbound, BIND9, Squid, nftables, uBlock Origin, and more
+- **Broad Compatibility**: Works with Pi-Hole, AdGuard Home, Unbound, BIND9, PowerDNS, Squid, uBlock Origin, and more
 - **Whitelist Support**: [Submit domains for whitelisting](https://github.com/fabriziosalmi/blacklists/issues/new/choose)
-- **Local Mirror**: Deploy using the [Docker image](https://hub.docker.com/repository/docker/fabriziosalmi/blacklists/)
 - **FQDN Classifier**: A machine learning model to [predict bad domains](https://github.com/fabriziosalmi/fqdn-model) trained on this blacklist
 
 ## Contribute
@@ -76,14 +75,14 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 ## Credits
 
 This project would not exist without the maintainers of the upstream lists it
-aggregates. Every source is redistributed under its own license. The full
-per-source license and attribution map lives in **[SOURCES.md](SOURCES.md)**.
+aggregates. The full per-source license and attribution map lives in
+**[SOURCES.md](SOURCES.md)**, and **[LICENSING.md](LICENSING.md)** explains how
+each one reaches the licence the published list carries.
 
 Upstream sources currently aggregated:
 
 <!-- CREDITS_START -->
 [AdGuard DNS filter](https://github.com/AdguardTeam/AdGuardSDNSFilter) ·
-[DandelionSprout/adfilt](https://github.com/DandelionSprout/adfilt) ·
 [EasyList](https://easylist.to/) ·
 [FiltersHeroes/KADhosts](https://github.com/FiltersHeroes/KADhosts) ·
 [LanikSJ/ubo-filters](https://github.com/LanikSJ/ubo-filters) ·
@@ -99,7 +98,6 @@ Upstream sources currently aggregated:
 [dmachard/blocklist-domains](https://github.com/dmachard/blocklist-domains) ·
 [durablenapkin/scamblocklist](https://github.com/durablenapkin/scamblocklist) ·
 [eulaurarien (frogeye)](https://hostfiles.frogeye.fr/) ·
-[fabriziosalmi/blacklists](https://github.com/fabriziosalmi/blacklists) ·
 [hagezi/dns-blocklists](https://github.com/hagezi/dns-blocklists) ·
 [jarelllama/Scam-Blocklist](https://github.com/jarelllama/Scam-Blocklist) ·
 [lightswitch05/hosts](https://www.github.developerdan.com/hosts/) ·
@@ -109,7 +107,6 @@ Upstream sources currently aggregated:
 [phishfort/phishfort-lists](https://github.com/phishfort/phishfort-lists) ·
 [phishunt.io](https://phishunt.io/) ·
 [quidsup/notrack-blocklists](https://gitlab.com/quidsup/notrack-blocklists) ·
-[stamparm/blackbook](https://github.com/stamparm/blackbook) ·
 [uBlockOrigin/uAssets](https://github.com/uBlockOrigin/uAssets)
 <!-- CREDITS_END -->
 
@@ -124,11 +121,20 @@ The **aggregation tooling** in this repository (`generate.sh`, `sanitize.py`,
 licensed under the **GNU General Public License v3.0** (see [`LICENSE`](LICENSE)).
 
 The generated **`blacklist.txt`** (and the derived `rpz_blacklist.txt` and
-`unbound_blacklist.txt`) is **not** covered by that license. It is an **aggregate**
-that redistributes third-party domain lists, each under its own license and terms.
-The published file carries an attribution header and points to
-**[SOURCES.md](SOURCES.md)**, which maps every source to its license and the
-attribution it requires.
+`unbound_blacklist.txt`) is distributed under **GPL-3.0-only** as well.
+
+It is a **combined work**, not a mere aggregation: the sources are merged and
+deduplicated into a single file from which no individual list can be extracted,
+so the licences of the inputs govern the whole. Twelve of them are
+GPL-3.0-only, which is why the result is `only` rather than `or later`.
+
+**[LICENSING.md](LICENSING.md)** sets out how every source reaches that licence,
+which branch is elected for the dual-licensed ones, and the three whose terms are
+not yet settled. **[SOURCES.md](SOURCES.md)** is the per-source licence map, and
+**[NOTICES.txt](NOTICES.txt)** is the attribution that ships with each release.
+
+Using the list imposes nothing on you. Redistributing it means keeping the
+notices, passing on the same licence, and shipping `NOTICES.txt` alongside it.
 
 If you are a rights holder and want a list changed or removed, please
 [open an issue](https://github.com/fabriziosalmi/blacklists/issues/new/choose).

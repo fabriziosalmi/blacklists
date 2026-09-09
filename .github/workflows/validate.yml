@@ -11,6 +11,8 @@ on:
       - 'sources/**'
       - 'blacklists.fqdn.urls'
       - 'SOURCES.md'
+      - 'LICENSING.md'
+      - 'NOTICES.txt'
       - 'README.md'
       - 'scripts/**'
       - 'tests/**'
@@ -24,6 +26,8 @@ on:
       - 'sources/**'
       - 'blacklists.fqdn.urls'
       - 'SOURCES.md'
+      - 'LICENSING.md'
+      - 'NOTICES.txt'
       - 'README.md'
       - 'scripts/**'
       - 'tests/**'
@@ -70,6 +74,9 @@ jobs:
 
       - name: SOURCES.md and README credits are up to date
         run: python3 scripts/generate_sources_md.py --check
+
+      - name: LICENSING.md and NOTICES.txt are up to date
+        run: python3 scripts/generate_licensing.py --check
 
       - name: whitelist.txt is normalised
         run: python3 scripts/format_whitelist.py --check
