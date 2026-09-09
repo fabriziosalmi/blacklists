@@ -58,16 +58,25 @@ def test_blacklist_header_is_not_read_as_a_domain(tmp_path):
 # --------------------------------------------------------------------------
 
 def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
-             load_tranco=None, previous=None):
+             load_tranco=None, previous=None, history=None):
     """Drive main() against a synthetic list, with no network access.
 
     ``load_tranco`` replaces the ranking fetch outright, so a test can simulate
-    the download failing rather than returning data.
+    the download failing rather than returning data. ``history`` writes a
+    stats/history.csv, which is the size baseline only when no previous release
+    is supplied.
     """
     import check_quality
 
     (tmp_path / 'sources').mkdir(exist_ok=True)
     (tmp_path / 'stats').mkdir(exist_ok=True)
+
+    if history is not None:
+        (tmp_path / 'stats' / 'history.csv').write_text(
+            'date,total_domains,whitelisted,sources\n'
+            + '\n'.join(f'{d},{n},0,46' for d, n in history) + '\n',
+            encoding='utf-8',
+        )
 
     bl = tmp_path / 'bl.txt'
     bl.write_text('\n'.join(blacklist) + '\n', encoding='utf-8')
@@ -239,41 +248,139 @@ def test_a_large_overnight_loss_is_refused():
     """The 2026-07-31 failure: two sources 404'd and took 46% of the list.
     Forty-four of forty-six sources still downloaded, so counting sources saw
     nothing wrong."""
-    from check_quality import check_shrinkage
+    from check_quality import check_size_change
 
-    ok, message = check_shrinkage(2_754_896, 4_755_218)
+    ok, message = check_size_change(2_754_896, 4_755_218)
     assert not ok
     assert '42.1%' in message
 
 
 def test_normal_daily_churn_is_accepted():
-    from check_quality import check_shrinkage
+    from check_quality import check_size_change
 
-    ok, _ = check_shrinkage(4_700_000, 4_755_218)   # -1.2%
+    ok, _ = check_size_change(4_700_000, 4_755_218)   # -1.2%
     assert ok
 
 
-def test_growth_is_never_blocked():
+def test_ordinary_growth_is_accepted():
     """Adding coverage is the normal outcome of fixing a parser."""
-    from check_quality import check_shrinkage
+    from check_quality import check_size_change
 
-    ok, _ = check_shrinkage(5_114_007, 4_755_218)   # +7.5%
+    ok, _ = check_size_change(5_114_007, 4_755_218)   # +7.5%
     assert ok
+
+
+def test_a_large_overnight_gain_is_refused():
+    """The 2026-09-06 event: +681,064 domains, +12.77%, shipped unexamined.
+
+    Only shrinkage was guarded, on the reasoning that growth is always benign.
+    It is not: a sudden gain means several hundred thousand names started being
+    blocked with nobody looking, and over-blocking is the failure a user cannot
+    diagnose. This is the direction that had no guard at all.
+    """
+    from check_quality import check_size_change
+
+    ok, message = check_size_change(6_013_484, 5_332_420)
+    assert not ok
+    assert '+12.8%' in message
+    assert '681,064' in message
+
+
+def test_the_growth_boundary_is_not_off_by_one():
+    from check_quality import check_size_change
+
+    assert check_size_change(1_100_000, 1_000_000)[0]       # exactly +10%
+    assert not check_size_change(1_100_001, 1_000_000)[0]   # just past it
+
+
+def test_a_percentage_of_a_small_number_does_not_fail_the_release():
+    """A ratio needs a denominator worth dividing by.
+
+    Doubling a five-domain list is +100% and means nothing; without a floor the
+    gate fires on arithmetic, and a gate that cries wolf gets switched off. The
+    floor is absolute so it cannot be argued away by the list being small.
+    """
+    from check_quality import check_size_change, MIN_SIGNIFICANT_DELTA
+
+    ok, message = check_size_change(2, 1)               # +100%
+    assert ok
+    assert 'floor' in message
+
+    ok, _ = check_size_change(1, 100)                   # -99%
+    assert ok
+
+    # The floor only ever adds a condition. Once a move clears it AND the
+    # percentage, the gate fires exactly as before - it is not a way out.
+    assert not check_size_change(1_200_000, 1_000_000)[0]   # +200,000, +20%
+    assert not check_size_change(800_000, 1_000_000)[0]     # -200,000, -20%
+
+    # And a move that clears the floor but not the percentage is still fine:
+    # both conditions have to hold.
+    assert check_size_change(1_000_000 + MIN_SIGNIFICANT_DELTA + 1,
+                             1_000_000)[0]                  # +50,001 is only +5%
+
+
+# --------------------------------------------------------------------------
+# Which baseline the size check compares against
+# --------------------------------------------------------------------------
+
+def test_the_previous_release_outranks_history_csv(tmp_path, monkeypatch):
+    """history.csv is written by a different workflow, an hour after this gate.
+
+    It records the count of the release this gate approved yesterday, so using it
+    made the guard depend on a job that can fail on its own - and when it did,
+    the baseline silently went stale. The previously published release is fetched
+    during this run and is what users actually have.
+
+    Here the two disagree sharply: history claims 4 domains, the real previous
+    release has 100. Against history the current list looks like enormous growth;
+    against the release it is a 2% trim. Only one of those is the truth.
+    """
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(98)],
+        protected=['github.com  # source hosting'],
+        acknowledged=[],
+        ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        history=[('2026-09-08', 4)],
+    )
+    assert code == 0
+    assert report['size']['previous_domains'] == 100
+    assert 'previously published release' in report['size']['baseline_source']
+
+
+def test_history_csv_is_the_fallback_when_there_is_no_previous_release(
+        tmp_path, monkeypatch):
+    """The release download is allowed to fail without stopping the build, so
+    the older baseline has to remain usable rather than leaving the check blind."""
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(100)],
+        protected=['github.com  # source hosting'],
+        acknowledged=[],
+        ranks={},
+        history=[('2026-09-07', 96), ('2026-09-08', 99)],
+    )
+    assert code == 0
+    assert report['size']['previous_domains'] == 99
+    assert 'history.csv' in report['size']['baseline_source']
 
 
 def test_a_first_run_with_no_history_is_accepted():
-    from check_quality import check_shrinkage
+    from check_quality import check_size_change
 
-    ok, message = check_shrinkage(1000, None)
+    ok, message = check_size_change(1000, None)
     assert ok
     assert 'no previous total' in message
 
 
 def test_the_boundary_is_not_off_by_one():
-    from check_quality import check_shrinkage
+    from check_quality import check_size_change
 
-    assert check_shrinkage(900, 1000)[0]        # exactly -10%, accepted
-    assert not check_shrinkage(899, 1000)[0]    # -10.1%, refused
+    # At a realistic magnitude, so the absolute floor is not what decides it.
+    assert check_size_change(900_000, 1_000_000)[0]       # exactly -10%, accepted
+    assert not check_size_change(899_999, 1_000_000)[0]   # just past it, refused
 
 
 def test_previous_total_reads_the_last_history_row(tmp_path):
@@ -406,5 +513,5 @@ def test_a_protected_domain_still_blocks_while_the_queue_only_reports(tmp_path, 
 
 
 def test_a_shrunken_list_still_blocks_while_the_queue_only_reports():
-    from check_quality import check_shrinkage
-    assert not check_shrinkage(2_754_896, 4_755_218)[0]
+    from check_quality import check_size_change
+    assert not check_size_change(2_754_896, 4_755_218)[0]
