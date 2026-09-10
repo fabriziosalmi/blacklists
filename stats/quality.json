@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-10T00:39:04.290910+00:00",
+  "generated_at": "2026-09-10T09:08:24.200317+00:00",
   "ranking_source": "Tranco top 1M (tranco-list.eu), fetched at build time",
   "ranking_available": true,
-  "published_domains": 6021677,
+  "published_domains": 6022461,
   "size": {
-    "published_domains": 6021677,
+    "published_domains": 6022461,
     "previous_domains": 5974511,
     "baseline_source": "the previously published release",
     "accepted": true,
-    "detail": "+47,166 against the previous 5,974,511 (+0.8%), below the 50,000 domain floor for treating a percentage as meaningful"
+    "detail": "+47,950 against the previous 5,974,511 (+0.8%), below the 50,000 domain floor for treating a percentage as meaningful"
   },
   "protected": {
     "checked": 62,
@@ -19,7 +19,7 @@
       "top_1000": 148,
       "top_10000": 1949,
       "top_100000": 12218,
-      "top_1000000": 60056
+      "top_1000000": 60052
     },
     "review_rank": 1000,
     "enforced": true,
@@ -45,6 +45,7 @@
         "domain": "appsflyersdk.com",
         "rank": 34,
         "sources": [
+          "blocklist-domains",
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
           "1Hosts (Lite)",
