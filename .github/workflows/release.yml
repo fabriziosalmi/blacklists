@@ -214,35 +214,31 @@ jobs:
           # straight with a CNAME record, so every RPZ user got a file their
           # resolver would not accept.
           #
-          # SOA/NS are deliberately generic and the entries stay RELATIVE to the
-          # origin, so the file works whatever the operator names the zone in
-          # named.conf. "example.com CNAME ." inside zone rpz.blacklist is the
-          # QNAME trigger for example.com, which is what RPZ expects.
+          # Entries stay RELATIVE to the origin, so the file works whatever the
+          # operator names the zone in named.conf, and SOA/NS are deliberately
+          # generic. The '#' header of blacklist.txt is dropped because BIND
+          # comments with ';': the attribution is re-emitted in that syntax.
           #
-          # The '#' header of blacklist.txt is dropped because BIND comments
-          # with ';', but the attribution itself is not: it is re-emitted below
-          # in the syntax this format understands. Two of the three published
-          # artifacts used to carry no attribution at all, while SOURCES.md and
-          # the README claimed otherwise.
-          serial=$(date -u '+%Y%m%d%H')
-          {
-            echo "; Aggregated by fabriziosalmi/blacklists from multiple third-party"
-            echo "; sources under their respective licenses - see SOURCES.md"
-            echo "; https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md"
-            echo "; Generated: $(date -u '+%Y-%m-%d') UTC"
-            echo ';'
-            echo '$TTL 60'
-            echo "@ IN SOA localhost. root.localhost. ( ${serial} 3600 600 604800 60 )"
-            echo "@ IN NS  localhost."
-            awk '!/^[[:space:]]*#/ && NF {print $0 " CNAME ."}' blacklist_output/blacklist.txt
-          } > rpz_blacklist.txt
+          # The build lives in a script rather than inline awk because it also
+          # has to DROP what cannot be an owner name here. Every entry becomes a
+          # name relative to the origin, and DNS caps an encoded name at 255
+          # octets, so a valid domain can still overflow once the origin is
+          # appended. One such entry out of six million refuses the whole zone,
+          # and the daily release stops. See scripts/rpz_from_blacklist.py.
+          python3 scripts/rpz_from_blacklist.py \
+            --blacklist blacklist_output/blacklist.txt \
+            --out rpz_blacklist.txt \
+            --origin rpz.blacklist
 
       # A zone that does not load protects nobody. This is the check whose
       # absence let an unloadable artifact ship as a headline download.
       - name: Verify the RPZ zone loads
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq bind9-utils >/dev/null
-          named-checkzone -q rpz.blacklist rpz_blacklist.txt
+          # NOT -q. Quiet suppresses the one line that makes this diagnosable,
+          # "<file>:<line>: ran out of space", and a validation step that fails
+          # without saying which record broke costs more than it saves.
+          named-checkzone rpz.blacklist rpz_blacklist.txt
           echo "✓ rpz_blacklist.txt is a loadable zone"
 
       - name: Create Unbound Blacklist
