@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-09T00:41:01.013622+00:00",
+  "generated_at": "2026-09-10T00:39:23.688496+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 387,
-  "dormant": 1675,
+  "active": 386,
+  "dormant": 1676,
   "duplicates": [],
   "active_entries": [
     {
@@ -120,8 +120,7 @@
     {
       "domain": "amazonaws.com",
       "held_back_from": [
-        "uBO badware risks",
-        "Anti-Malware List (AdGuard Home)"
+        "uBO badware risks"
       ]
     },
     {
@@ -131,8 +130,8 @@
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
         "Ultimate",
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -315,8 +314,8 @@
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
         "AdGuard DNS filter",
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -331,8 +330,8 @@
       "domain": "cbsi.com",
       "held_back_from": [
         "blocklist-domains",
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -1078,9 +1077,7 @@
     {
       "domain": "freeroms.com",
       "held_back_from": [
-        "Anti-Malware List (hosts)",
-        "Anti-Piracy",
-        "Anti-Malware List (AdGuard Home)"
+        "Anti-Piracy"
       ]
     },
     {
@@ -1166,8 +1163,8 @@
         "Multi-party trackers",
         "Ultimate Hosts Blacklist (domains2)",
         "EasyPrivacy",
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -1784,8 +1781,8 @@
         "First-party trackers",
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -2297,8 +2294,8 @@
     {
       "domain": "target.clickfunnels.com",
       "held_back_from": [
-        "UT1 publicite",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "UT1 publicite"
       ]
     },
     {
@@ -2420,10 +2417,8 @@
       "domain": "ublock.org",
       "held_back_from": [
         "blocklist-domains",
-        "Anti-Malware List (hosts)",
         "KADhosts",
-        "1Hosts (Lite)",
-        "Anti-Malware List (AdGuard Home)"
+        "1Hosts (Lite)"
       ]
     },
     {
@@ -2614,13 +2609,6 @@
       "domain": "web.facebook.com",
       "held_back_from": [
         "Ultimate"
-      ]
-    },
-    {
-      "domain": "webadvisorc.rest.gti.mcafee.com",
-      "held_back_from": [
-        "Anti-Malware List (hosts)",
-        "Anti-Malware List (AdGuard Home)"
       ]
     },
     {
