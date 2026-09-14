@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T00:45:33.591056+00:00",
+  "generated_at": "2026-09-14T00:44:46.200740+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -73,6 +73,7 @@
     {
       "domain": "acr0.samsungcloudsolution.com",
       "held_back_from": [
+        "blocklist-domains",
         "Ultimate"
       ]
     },
@@ -2135,8 +2136,7 @@
     {
       "domain": "sinastorage.com",
       "held_back_from": [
-        "ShadowWhisperer Malware",
-        "Ultimate"
+        "ShadowWhisperer Malware"
       ]
     },
     {
@@ -2303,10 +2303,6 @@
       "held_back_from": [
         "blocklist-domains",
         "NoTrack blocklist",
-        "First-party only trackers",
-        "First-party trackers",
-        "Multi-party only trackers",
-        "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
         "hostsVN adservers",
