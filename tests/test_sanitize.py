@@ -13,7 +13,11 @@ offline.
 import pytest
 
 from sanitize import (
+    MAX_ENCODED_NAME,
     drop_metadata,
+    encoded_length,
+    fits,
+    is_valid_fqdn,
     get_sanitization_rules,
     remove_prefixes,
     sanitize_line,
@@ -240,3 +244,73 @@ def test_adblock_list_yields_only_unconditional_rules(rules):
     ]
     got = [d for d in (sanitize(line, rules) for line in document) if d]
     assert got == ['blocked-one.com', 'blocked-two.com']
+
+
+# --------------------------------------------------------------------------
+# Name length
+#
+# is_valid_fqdn checked each label against a pattern and never measured the
+# name as a whole, so it accepted names no resolver can put on the wire. One
+# such entry - 249 characters, every label fine - entered the published list
+# and then made named-checkzone refuse the ENTIRE RPZ zone once the origin
+# pushed it past 255 octets. Six million domains did not ship because of one
+# upstream row.
+# --------------------------------------------------------------------------
+
+def test_encoded_length_is_not_the_character_count():
+    """One length byte per label, plus the labels, plus the root."""
+    assert encoded_length('a.b') == 1 + 1 + 1 + 1 + 1        # a=2, b=2, root=1
+    assert encoded_length('a.b', 'x') == 7
+    # For a bare name the octet count is the character count plus two.
+    assert encoded_length('example.com') == len('example.com') + 2
+
+
+def test_a_name_whose_labels_are_all_valid_can_still_be_too_long():
+    """The hole this closes: per-label checks say nothing about the total."""
+    name = '.'.join(['a' * 50] * 6) + '.com'
+    assert len(name) == 309
+    assert all(len(label) <= 63 for label in name.split('.'))
+    assert not fits(name)
+    assert not is_valid_fqdn(name)
+
+
+def test_the_boundary_is_the_encoded_limit():
+    """Built to land exactly on 255 octets, so one more character must fail.
+
+    encoded = sum(len(label)) + one length byte per label + the root byte, so
+    the label characters available are MAX - labels - 1. Dividing that evenly
+    leaves a remainder, and ignoring it lands short of the boundary rather than
+    on it - which is a test that passes without testing anything.
+    """
+    labels = 4
+    budget = MAX_ENCODED_NAME - labels - 1
+    sizes = [budget // labels] * labels
+    for i in range(budget - sum(sizes)):
+        sizes[i] += 1
+    assert sum(sizes) == budget and all(size <= 63 for size in sizes)
+
+    name = '.'.join('a' * size for size in sizes)
+    assert encoded_length(name) == MAX_ENCODED_NAME
+    assert fits(name)
+    assert not fits(name + 'a')
+
+
+def test_an_ordinary_domain_is_unaffected():
+    for name in ('example.com', 'sub.example.co.uk', 'a.b.c.example.org'):
+        assert fits(name)
+        assert is_valid_fqdn(name)
+
+
+def test_the_entry_that_stopped_the_release_is_now_rejected_at_the_source():
+    """249 characters, 17 labels: valid alone, 265 octets under rpz.blacklist.
+
+    It is under the 255-octet limit as a bare name, so is_valid_fqdn keeps it -
+    correctly, because it IS resolvable on its own. The RPZ builder is what
+    measures it against the origin. This pins the division of labour: the
+    source check rejects the unresolvable, the zone builder rejects what does
+    not fit in the zone.
+    """
+    entry = '.'.join(['aaaaaaaaaaaaaa'] * 16) + '.org'
+    assert len(entry) == 243
+    assert fits(entry)                    # resolvable on its own
+    assert not fits(entry, 'rpz.blacklist')   # but not as an owner name there
