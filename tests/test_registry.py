@@ -227,3 +227,64 @@ def test_registry_matches_url_list_per_the_validator():
         cwd=REPO_ROOT, capture_output=True, text=True,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+# --------------------------------------------------------------------------
+# Copyright notices
+#
+# MIT requires its notice "in all copies or substantial portions", and a
+# release asset is exactly that. NOTICES.txt ships with every release so the
+# attribution reaches someone who only ever downloads the artifact - which it
+# cannot do if the registry records a link to the licence and not the notice.
+# --------------------------------------------------------------------------
+
+def test_every_notice_requiring_licence_records_its_copyright(registry):
+    import sys
+    sys.path.insert(0, str(REPO_ROOT / 'scripts'))
+    from validate_registry import NOTICE_REQUIRED_SPDX
+
+    for entry in registry['sources']:
+        if entry['license'].get('spdx') not in NOTICE_REQUIRED_SPDX:
+            continue
+        assert entry['license'].get('copyright'), entry['id']
+
+
+def test_every_recorded_notice_says_where_it_was_read(registry):
+    """A notice with no provenance cannot be checked, which is the whole point."""
+    import sys
+    sys.path.insert(0, str(REPO_ROOT / 'scripts'))
+    from validate_registry import COPYRIGHT_EVIDENCE
+
+    for entry in registry['sources']:
+        if not entry['license'].get('copyright'):
+            continue
+        assert entry['license'].get('copyright_evidence') in COPYRIGHT_EVIDENCE, entry['id']
+
+
+def test_recorded_notices_look_like_copyright_statements(registry):
+    """Guards against the Apache-2.0 trap.
+
+    lightswitch05's LICENSE is the bare Apache text with no copyright filled
+    in, so grepping it for /copyright/i returns boilerplate from the licence
+    body - "Licensor shall mean the copyright owner..." - which is not a
+    notice. Its real statement is in the published list header, and that is
+    what is recorded.
+    """
+    for entry in registry['sources']:
+        text = entry['license'].get('copyright')
+        if not text:
+            continue
+        for line in text.split('\n'):
+            assert line.lower().startswith('copyright'), f"{entry['id']}: {line}"
+            assert 'shall mean' not in line.lower(), f"{entry['id']}: boilerplate"
+
+
+def test_notices_reach_the_generated_NOTICES_file(registry):
+    """The registry holding a notice is useless if the artifact does not."""
+    notices = (REPO_ROOT / 'NOTICES.txt').read_text(encoding='utf-8')
+    for entry in registry['sources']:
+        text = entry['license'].get('copyright')
+        if not text:
+            continue
+        for line in text.split('\n'):
+            assert line in notices, f"{entry['id']}: {line[:60]}"

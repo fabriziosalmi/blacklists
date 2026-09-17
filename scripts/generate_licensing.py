@@ -209,7 +209,12 @@ def build_notices(registry: Dict) -> str:
         if license.get('url'):
             lines.append(f"    Licence text: {license['url']}")
         if license.get('copyright'):
-            lines.append(f"    Copyright   : {license['copyright']}")
+            holders = license['copyright'].split('\n')
+            lines.append(f"    Copyright   : {holders[0]}")
+            # Several projects list more than one holder; MIT asks for "the"
+            # notice, and theirs is all of them.
+            for extra in holders[1:]:
+                lines.append(f"                  {extra}")
         if entry.get('mirror_of'):
             lines.append(f"    Fetched via : {entry['mirror_of']['name']} "
                          f"({entry['mirror_of']['url']}) - a re-publisher, not the author")
@@ -231,11 +236,17 @@ exists so that the attribution travels with the released artifact: MIT and
 Apache-2.0 require their notice to accompany the work, and someone who downloads
 a release asset never sees the repository.
 
-The authoritative licence text for each entry is at the URL given. Where a
-verbatim upstream copyright line has been recorded it is reproduced; at the time
-of writing {recorded} of {len(sources)} entries carry one, and the remainder name the
-maintainer and link to the licence instead. Closing that gap is tracked in the
-project's issues.
+The authoritative licence text for each entry is at the URL given.
+
+Verbatim copyright notices are reproduced for {recorded} of the {len(sources)} entries,
+which covers every source whose licence requires it - MIT, Apache-2.0, BSD and
+ISC all ask for the notice to accompany the work. The remaining entries are
+copyleft, share-alike or public-domain sources that state no copyright line to
+carry; those name the maintainer and link to their licence.
+
+Each notice was read from the upstream itself, and the registry records where:
+from the project's LICENSE file, or from the published list's own header where
+the LICENSE is the bare licence text with no copyright filled in.
 
 Project repository: https://github.com/fabriziosalmi/blacklists
 Full licence map  : https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md
