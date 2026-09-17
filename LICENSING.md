@@ -75,8 +75,8 @@ choice cannot be audited. The election is stored in the registry as
 
 | Source | Offered as | Elected |
 |---|---|---|
-| `firebog-easylist` | GPL-3.0-or-later OR CC-BY-SA-3.0 | **GPL-3.0-or-later** |
-| `firebog-easyprivacy` | GPL-3.0-or-later OR CC-BY-SA-3.0 | **GPL-3.0-or-later** |
+| `easylist` | GPL-3.0-or-later OR CC-BY-SA-3.0 | **GPL-3.0-or-later** |
+| `easyprivacy` | GPL-3.0-or-later OR CC-BY-SA-3.0 | **GPL-3.0-or-later** |
 
 ### Not yet settled
 

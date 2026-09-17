@@ -39,7 +39,6 @@ AdGuard DNS filter
     Homepage    : https://github.com/AdguardTeam/AdGuardSDNSFilter
     Licence     : GPL-3.0-only
     Licence text: https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE
-    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
 Ads and tracking extended
     Project     : lightswitch05/hosts
     Attribution : Daniel White
@@ -71,7 +70,6 @@ EasyList
     Licence     : GPL-3.0-or-later
     Offered as  : GPL-3.0-or-later OR CC-BY-SA-3.0 (this project elects GPL-3.0-or-later)
     Licence text: https://easylist.to/pages/licence.html
-    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
 EasyPrivacy
     Project     : EasyList
     Attribution : The EasyList authors
@@ -79,7 +77,6 @@ EasyPrivacy
     Licence     : GPL-3.0-or-later
     Offered as  : GPL-3.0-or-later OR CC-BY-SA-3.0 (this project elects GPL-3.0-or-later)
     Licence text: https://easylist.to/pages/licence.html
-    Fetched via : firebog.net (https://firebog.net/) - a re-publisher, not the author
 Fake sites
     Project     : hagezi/dns-blocklists
     Attribution : hagezi

@@ -886,8 +886,8 @@
       "notes": null
     },
     {
-      "id": "firebog-adguarddns",
-      "url": "https://v.firebog.net/hosts/AdguardDNS.txt",
+      "id": "adguard-dns",
+      "url": "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",
       "first_party": false,
       "name": "AdGuard DNS filter",
       "project": "AdGuard DNS filter",
@@ -909,16 +909,12 @@
           "rationale": "The licence elected for the aggregate."
         }
       },
-      "mirror_of": {
-        "name": "firebog.net",
-        "url": "https://firebog.net/",
-        "role": "re-publisher"
-      },
-      "notes": null
+      "mirror_of": null,
+      "notes": "Fetched from the artifact the AdGuardSDNSFilter project publishes itself, which declares its own homepage and licence in the list header. Adblock syntax: sanitize.py keeps the unconditional domain anchors and drops the cosmetic, path-scoped and modifier rules, which is the only subset a DNS blocklist can express."
     },
     {
-      "id": "firebog-easylist",
-      "url": "https://v.firebog.net/hosts/Easylist.txt",
+      "id": "easylist",
+      "url": "https://easylist.to/easylist/easylist.txt",
       "first_party": false,
       "name": "EasyList",
       "project": "EasyList",
@@ -940,16 +936,12 @@
           "rationale": "May be used under GPL-3.0, which is what the aggregate elects. Dual-licensed upstream; this project elects the GPL-3.0-or-later branch."
         }
       },
-      "mirror_of": {
-        "name": "firebog.net",
-        "url": "https://firebog.net/",
-        "role": "re-publisher"
-      },
-      "notes": null
+      "mirror_of": null,
+      "notes": "Fetched from easylist.to, the project itself. Adblock syntax, parsed as above."
     },
     {
-      "id": "firebog-easyprivacy",
-      "url": "https://v.firebog.net/hosts/Easyprivacy.txt",
+      "id": "easyprivacy",
+      "url": "https://easylist.to/easylist/easyprivacy.txt",
       "first_party": false,
       "name": "EasyPrivacy",
       "project": "EasyList",
@@ -971,12 +963,8 @@
           "rationale": "May be used under GPL-3.0, which is what the aggregate elects. Dual-licensed upstream; this project elects the GPL-3.0-or-later branch."
         }
       },
-      "mirror_of": {
-        "name": "firebog.net",
-        "url": "https://firebog.net/",
-        "role": "re-publisher"
-      },
-      "notes": null
+      "mirror_of": null,
+      "notes": "Fetched from easylist.to, the project itself. Adblock syntax, parsed as above."
     },
     {
       "id": "ut1-publicite",
