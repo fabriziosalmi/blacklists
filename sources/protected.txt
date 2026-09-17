@@ -13,6 +13,16 @@
 # domains belong in the blacklist however popular they are; that is the point of
 # the project. Entries that merely need an exception go in whitelist.txt.
 #
+# An entry is considered hit when it, or any ANCESTOR of it, appears in the
+# list. Listing "ocsp.digicert.com" therefore also guards against a block on
+# "digicert.com", which would take it down on Unbound or AdGuard Home even
+# though the protected name itself is not on the list. Blocks BELOW an entry are
+# untouched: "malware.pages.dev" is exactly what this project is for, while
+# "pages.dev" is not.
+#
+# So protect the most specific name that must keep working, not its parent - the
+# walk upwards is automatic, and a broader entry would forbid legitimate blocks.
+#
 # Format: domain  # why it is protected
 
 # --- Public DNS resolvers -------------------------------------------------

@@ -515,3 +515,104 @@ def test_a_protected_domain_still_blocks_while_the_queue_only_reports(tmp_path, 
 def test_a_shrunken_list_still_blocks_while_the_queue_only_reports():
     from check_quality import check_size_change
     assert not check_size_change(2_754_896, 4_755_218)[0]
+
+
+# --------------------------------------------------------------------------
+# Protected names broken by an ancestor
+#
+# The published formats disagree about scope: an Unbound local-zone covers the
+# whole subtree and AdGuard Home matches subdomains, while Pi-hole's gravity
+# matches exactly. The check tested the exact name only, which left the more
+# dangerous case unguarded - a block on a PARENT of a protected name takes it
+# down on any subtree-matching resolver while the exact test sees nothing.
+# --------------------------------------------------------------------------
+
+def test_ancestors_walk_up_to_the_registered_domain_and_stop():
+    from check_quality import ancestors
+
+    assert ancestors('ocsp.digicert.com') == ['ocsp.digicert.com', 'digicert.com']
+    assert ancestors('amazonaws.com') == ['amazonaws.com']
+    assert ancestors('2.android.pool.ntp.org') == [
+        '2.android.pool.ntp.org', 'android.pool.ntp.org',
+        'pool.ntp.org', 'ntp.org',
+    ]
+    # 'com' is never a candidate: a block on a public suffix is not a scenario
+    # this check can reason about, and walking into it would be noise.
+    assert 'com' not in ancestors('ocsp.digicert.com')
+
+
+def test_ancestors_handles_a_multi_label_public_suffix():
+    from check_quality import ancestors
+
+    assert ancestors('www.example.co.uk') == ['www.example.co.uk', 'example.co.uk']
+
+
+def test_a_block_on_a_parent_breaks_a_protected_name(tmp_path, monkeypatch):
+    """The hole this closes.
+
+    ocsp.digicert.com is protected so certificate validation keeps working. A
+    feed blocking digicert.com takes it down on Unbound, and the exact-match
+    check saw nothing wrong because digicert.com is not itself protected.
+    """
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['ads.example', 'digicert.com'],
+        protected=['ocsp.digicert.com  # DigiCert OCSP responder'],
+        acknowledged=[],
+        ranks={},
+    )
+    assert code == 1
+
+    violation = report['protected']['violations'][0]
+    assert violation['domain'] == 'ocsp.digicert.com'
+    # The entry to go and remove is the blocker, which is not the protected
+    # name: a report naming only the protected name sends the reader looking
+    # for something that is not on the list.
+    assert violation['blocked_by'] == 'digicert.com'
+
+
+def test_a_direct_block_still_reports_itself_as_the_blocker(tmp_path, monkeypatch):
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['cloudflare-dns.com'],
+        protected=['cloudflare-dns.com  # DoH endpoint'],
+        acknowledged=[],
+        ranks={},
+    )
+    assert code == 1
+    violation = report['protected']['violations'][0]
+    assert violation['domain'] == violation['blocked_by'] == 'cloudflare-dns.com'
+
+
+def test_a_block_on_a_CHILD_of_a_protected_name_is_allowed(tmp_path, monkeypatch):
+    """The check must not become over-eager in the other direction.
+
+    pages.dev is protected because blocking the apex takes down every site on
+    the platform. Blocking ONE site hosted there - malware.pages.dev - is
+    exactly what the list is for, and must not fail the release.
+    """
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['malware.pages.dev', 'phishing.site.pages.dev'],
+        protected=['pages.dev  # Cloudflare Pages apex'],
+        acknowledged=[],
+        ranks={},
+    )
+    assert code == 0
+    assert report['protected']['violations'] == []
+
+
+def test_the_closest_block_is_the_one_reported(tmp_path, monkeypatch):
+    """With both a parent and a grandparent blocked, name the nearest one.
+
+    It is the more specific entry and the one most likely to be the mistake.
+    """
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['pool.ntp.org', 'ntp.org'],
+        protected=['2.android.pool.ntp.org  # Android NTP'],
+        acknowledged=[],
+        ranks={},
+    )
+    assert code == 1
+    assert report['protected']['violations'][0]['blocked_by'] == 'pool.ntp.org'
