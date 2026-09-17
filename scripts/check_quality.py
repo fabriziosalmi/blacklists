@@ -25,7 +25,17 @@ Four separate mechanisms, because one gate cannot serve four purposes:
 
   1. sources/protected.txt - a small curated set of domains whose blocking
      breaks the machine rather than the page: DNS resolvers, OS update and
-     certificate-validation endpoints, CDN apexes. Any hit fails the release.
+     certificate-validation endpoints, CDN and shared-hosting apexes. Any hit
+     fails the release.
+
+     A protected name counts as hit when it, or ANY ANCESTOR of it, is on the
+     list. The formats disagree about scope - an Unbound local-zone covers the
+     whole subtree, AdGuard Home matches subdomains, Pi-hole's gravity matches
+     exactly - so testing the exact name left the worse case unguarded: a feed
+     blocking digicert.com takes ocsp.digicert.com down on a subtree-matching
+     resolver, while an exact test sees nothing because digicert.com is not
+     itself protected. Blocks BELOW a protected name are untouched: blocking one
+     site on a hosting platform is what the list is for.
 
   2. Popularity report - the most popular blocked domains with their Tranco
      rank and the source responsible. Published, not gated: 1,900 domains in
@@ -61,6 +71,8 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
+
+import tldextract
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -155,6 +167,58 @@ def previous_total(history: Path) -> Optional[int]:
                 except ValueError:
                     continue
     return latest
+
+
+def ancestors(domain: str) -> List[str]:
+    """The domain and every ancestor of it down to its registered domain.
+
+    ``ocsp.digicert.com`` yields ``[ocsp.digicert.com, digicert.com]``. The walk
+    stops at the registered domain, because above that lies the public suffix -
+    a block on ``com`` is not a scenario this check can usefully reason about.
+
+    The registered domain is assembled from tldextract's ``domain`` and
+    ``suffix`` rather than read from its ``registered_domain`` property, which
+    is deprecated and renamed in newer versions; the pipeline installs
+    tldextract unpinned, so this has to work across both.
+    """
+    extracted = tldextract.extract(domain)
+    if not extracted.suffix or not extracted.domain:
+        return [domain]
+
+    registered_labels = f'{extracted.domain}.{extracted.suffix}'.split('.')
+    labels = domain.split('.')
+    depth = len(labels) - len(registered_labels)
+    if depth < 0:
+        return [domain]
+    return ['.'.join(labels[index:]) for index in range(depth + 1)]
+
+
+def protected_violations(protected: Dict[str, Optional[str]],
+                         blacklist: Set[str]) -> List[Tuple[str, str]]:
+    """Protected names that the list breaks, with the block that breaks each.
+
+    A protected name is broken by a block on itself OR on any ancestor of it,
+    because the published formats do not agree on scope: an Unbound
+    ``local-zone`` covers the entire subtree and AdGuard Home matches
+    subdomains, while Pi-hole's gravity matches exactly.
+
+    Testing only for the exact name, which is what this did, left the more
+    dangerous case unguarded. ``ocsp.digicert.com`` is protected so that
+    certificate validation keeps working; a feed blocking ``digicert.com``
+    takes it down on any subtree-matching resolver, and an exact-match check
+    sees nothing wrong because ``digicert.com`` is not itself on the list.
+
+    Returns ``(protected_name, blocking_name)`` pairs, closest block first, so
+    the failure message can say which entry to go and look at rather than only
+    that something is wrong.
+    """
+    violations: List[Tuple[str, str]] = []
+    for domain in sorted(protected):
+        for candidate in ancestors(domain):
+            if candidate in blacklist:
+                violations.append((domain, candidate))
+                break
+    return violations
 
 
 def check_size_change(current: int, previous: Optional[int]) -> Tuple[bool, str]:
@@ -315,7 +379,7 @@ def main() -> int:
     # Deliberately first, and deliberately independent of the network: this is
     # the safety-critical check and it must run even when the ranking cannot be
     # fetched.
-    violations = sorted(domain for domain in protected if domain in blacklist)
+    violations = protected_violations(protected, blacklist)
 
     # The previously published release, loaded before the size check because it
     # is the better baseline for it. Also used further down to tell a newly
@@ -438,7 +502,11 @@ def main() -> int:
         'protected': {
             'checked': len(protected),
             'violations': [
-                {'domain': d, 'reason': protected[d]} for d in violations
+                # 'blocked_by' is the entry actually on the list: it equals
+                # 'domain' for a direct hit, and is an ancestor of it when the
+                # protected name is collateral damage from a broader block.
+                {'domain': d, 'reason': protected[d], 'blocked_by': blocker}
+                for d, blocker in violations
             ],
         },
         'popularity': {
@@ -476,11 +544,20 @@ def main() -> int:
 
     if violations:
         log('')
-        log(f'FAIL: {len(violations)} protected domain(s) are blocked:')
-        for domain in violations:
+        log(f'FAIL: {len(violations)} protected domain(s) are broken by this list:')
+        for domain, blocker in violations:
             reason = protected[domain] or 'no reason recorded'
             log(f'  - {domain}  ({reason})')
-            for source in attribution.get(domain, []):
+            if blocker == domain:
+                log(f'      blocked directly')
+            else:
+                # Naming the ancestor matters: the entry to remove is the
+                # blocker, and it is not the protected name, so a message that
+                # only named the protected name would send the reader looking
+                # for something that is not on the list.
+                log(f'      blocked by {blocker}, which covers it on Unbound '
+                    f'and AdGuard Home')
+            for source in attribution.get(blocker, []):
                 log(f'      supplied by: {source}')
         return 1
 
