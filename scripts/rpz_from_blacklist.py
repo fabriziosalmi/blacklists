@@ -32,23 +32,25 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-# RFC 1035 2.3.4: 255 octets for the encoded name, root label included.
-MAX_ENCODED_NAME = 255
+# sanitize.py lives at the repository root, which is not on sys.path when this
+# script runs as `python3 scripts/rpz_from_blacklist.py`.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# The encoded-length rule is defined once, in the module that decides what a
+# valid domain is, and imported here. Keeping a second copy alongside this
+# builder is how the two would drift: sanitize.py now rejects an over-long name
+# at the source, and this builder still measures it against the ORIGIN, which is
+# a stricter question - both have to use the same arithmetic to agree.
+from sanitize import (  # noqa: E402  (import needs the path set above)
+    MAX_ENCODED_NAME,
+    encoded_length,
+    fits,
+)
 
 # A handful of over-long entries is one bad feed row. Hundreds means an upstream
 # format changed and we are about to silently discard real blocking rules, which
 # is worse than failing.
 DEFAULT_MAX_DROPPED = 25
-
-
-def encoded_length(name: str, origin: str) -> int:
-    """Octets the name occupies on the wire once placed under `origin`."""
-    labels = [label for label in (name.split('.') + origin.split('.')) if label]
-    return sum(1 + len(label) for label in labels) + 1
-
-
-def fits(name: str, origin: str) -> bool:
-    return encoded_length(name, origin) <= MAX_ENCODED_NAME
 
 
 def build(source: Path, out: Path, origin: str, serial: str) -> tuple[int, list[str]]:

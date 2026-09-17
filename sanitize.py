@@ -9,6 +9,33 @@ import os
 # Pre-compiled regex pattern for FQDN validation (kept exactly as original)
 FQDN_PATTERN = re.compile(r'^(?!-)[A-Za-z0-9-]{1,63}(?<!-)$')
 
+# RFC 1035 2.3.4: 255 octets for the encoded name, root label included.
+#
+# This lives here, in the module that decides what a valid domain is, rather
+# than in the RPZ builder that first needed it. There is one DNS rule and there
+# must be one implementation of it: source_stats.py records what happens when
+# this module's rules get a parallel copy elsewhere - it "silently fell out of
+# step the moment the Adblock parsing changed".
+MAX_ENCODED_NAME = 255
+
+
+def encoded_length(name: str, origin: str = '') -> int:
+    """Octets the name occupies on the wire, once placed under ``origin``.
+
+    Counting characters is not the same thing: the encoding spends one length
+    byte per label plus the label bytes plus the root, so the octet count is the
+    character count plus two for a bare name, and more once an origin is
+    appended. A limit written against ``len(name)`` is right for exactly one
+    origin and wrong for every other.
+    """
+    labels = [label for label in (name.split('.') + origin.split('.')) if label]
+    return sum(1 + len(label) for label in labels) + 1
+
+
+def fits(name: str, origin: str = '') -> bool:
+    """Whether the name is short enough to be queried at all under ``origin``."""
+    return encoded_length(name, origin) <= MAX_ENCODED_NAME
+
 # How many chunks may be outstanding per worker before the reader stops reading.
 # This is the whole memory bound: without it the pool's task handler pulls the
 # entire input onto its queue regardless of how lazily the chunks are produced.
@@ -16,8 +43,24 @@ MAX_PENDING_CHUNKS = 2
 
 @lru_cache(maxsize=10000)
 def is_valid_fqdn(s: str) -> bool:
-    """Check if the string is a valid FQDN."""
+    """Check if the string is a valid FQDN.
+
+    The length check is on the whole name, not only on its labels. Checking
+    labels alone accepts a name of any total length as long as each piece is
+    within 63 octets, and such a name is not resolvable by anything: no resolver
+    can put it on the wire, so blocking it protects nobody.
+
+    It also has a way of surfacing far from where it was let in. On 2026-09-10 a
+    249-character entry passed every per-label check, entered the published list,
+    and then made `named-checkzone` refuse the ENTIRE RPZ zone once the origin
+    pushed it to 265 octets - six million domains did not ship because of one
+    upstream row. scripts/rpz_from_blacklist.py now drops such entries when
+    building the zone, but that is a guard at the last gate; this is the check
+    that stops them entering in the first place.
+    """
     if '*' in s or not s:
+        return False
+    if not fits(s):
         return False
     extracted = tldextract.extract(s)
     if not all([extracted.domain, extracted.suffix]):
