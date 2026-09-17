@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-16T00:40:28.339388+00:00",
+  "generated_at": "2026-09-17T00:40:33.289649+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 386,
-  "dormant": 1676,
+  "active": 387,
+  "dormant": 1675,
   "duplicates": [],
   "active_entries": [
     {
@@ -17,6 +17,12 @@
       "domain": "4shared.com",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "56.com",
+      "held_back_from": [
+        "blocklist-domains"
       ]
     },
     {
