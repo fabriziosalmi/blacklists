@@ -88,7 +88,7 @@ Attribution key:
 | Threat Intelligence Feeds | hagezi - https://github.com/hagezi/dns-blocklists | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/hagezi/dns-blocklists/blob/main/LICENSE) |
 | PhishFort blacklist | PhishFort - https://github.com/phishfort/phishfort-lists | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/phishfort/phishfort-lists/blob/master/LICENSE) |
 | oisd small | Stephan van Ruth - https://oisd.nl/ | GPL-3.0-only | Credit + GPL-3.0 + source | [list-header](https://github.com/sjhgvr/oisd/blob/main/LICENSE) |
-| AdGuard DNS filter | AdGuard - https://github.com/AdguardTeam/AdGuardSDNSFilter (via firebog.net) | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE) |
+| AdGuard DNS filter | AdGuard - https://github.com/AdguardTeam/AdGuardSDNSFilter | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/AdguardTeam/AdGuardSDNSFilter/blob/master/LICENSE) |
 | Scam Blocklist (wildcards) | jarelllama - https://github.com/jarelllama/Scam-Blocklist | GPL-3.0-only | Credit + GPL-3.0 + source | [github-api](https://github.com/jarelllama/Scam-Blocklist/blob/main/LICENSE.md) |
 
 ## Share-alike (attribution + share-alike)
@@ -96,8 +96,8 @@ Attribution key:
 | List | Upstream (owner / URL) | License | Attribution | Evidence |
 |---|---|---|---|---|
 | KADhosts | FiltersHeroes / PolishFiltersTeam - https://github.com/FiltersHeroes/KADhosts | CC-BY-SA-4.0 | Credit + same license | [github-api](https://github.com/FiltersHeroes/KADhosts/blob/master/LICENSE) |
-| EasyList | The EasyList authors - https://easylist.to/ (via firebog.net) | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
-| EasyPrivacy | The EasyList authors - https://easylist.to/ (via firebog.net) | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
+| EasyList | The EasyList authors - https://easylist.to/ | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
+| EasyPrivacy | The EasyList authors - https://easylist.to/ | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
 | UT1 publicite | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
 | UT1 cryptojacking | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
 | UT1 malware | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
@@ -123,10 +123,16 @@ These feeds are **not** third-party lists. They are this project's own editorial
 
 ## Notes on mirrors
 
-Some lists are fetched through **firebog** (`https://v.firebog.net`), which is a
-mirror/index, not the original author. The rows above attribute those lists to
-their **upstream** authors (AdGuard, EasyList, UT1 Toulouse), which is where the
-license and credit are owed.
+**Every list is fetched from the project that publishes it.** No source is taken
+from a re-publisher or an index.
+
+That was not always true: six lists used to come through firebog
+(`https://v.firebog.net`), which re-publishes and reformats them. The licences
+were verified against the original authors while the bytes came from a third
+party whose transformation was neither verified nor reproducible. The three UT1
+lists were repointed first, then the AdGuard DNS filter, EasyList and
+EasyPrivacy - each measured against the re-published copy beforehand, and in
+every case the direct source was a superset.
 
 ## Removed for licensing or availability
 

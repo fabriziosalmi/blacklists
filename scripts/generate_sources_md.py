@@ -82,10 +82,25 @@ Attribution key:
 MIRRORS_NOTE = """
 ## Notes on mirrors
 
-Some lists are fetched through **firebog** (`https://v.firebog.net`), which is a
-mirror/index, not the original author. The rows above attribute those lists to
-their **upstream** authors (AdGuard, EasyList, UT1 Toulouse), which is where the
-license and credit are owed.
+Some lists are fetched through a **re-publisher** rather than from the original
+author. The rows above attribute them to their **upstream** authors, which is
+where the license and credit are owed, and name the re-publisher in the same
+cell so the difference is visible.
+"""
+
+NO_MIRRORS_NOTE = """
+## Notes on mirrors
+
+**Every list is fetched from the project that publishes it.** No source is taken
+from a re-publisher or an index.
+
+That was not always true: six lists used to come through firebog
+(`https://v.firebog.net`), which re-publishes and reformats them. The licences
+were verified against the original authors while the bytes came from a third
+party whose transformation was neither verified nor reproducible. The three UT1
+lists were repointed first, then the AdGuard DNS filter, EasyList and
+EasyPrivacy - each measured against the re-published copy beforehand, and in
+every case the direct source was a superset.
 """
 
 FOOTER = """
@@ -220,7 +235,10 @@ def build(registry: Dict) -> str:
             + render_table(first_party)
         )
 
-    parts.append(MIRRORS_NOTE)
+    # A note about mirrors that lists no mirrors is worse than no note: it
+    # tells the reader the opposite of what the registry says.
+    mirrored = [e for e in sources if e.get('mirror_of')]
+    parts.append(MIRRORS_NOTE if mirrored else NO_MIRRORS_NOTE)
 
     removed = registry.get('removed_sources') or []
     if removed:
