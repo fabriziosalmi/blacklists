@@ -62,6 +62,15 @@ GPL3_COMPATIBLE_SPDX = {
 
 COMPATIBILITY_STATES = ('compatible', 'pending')
 
+# Licences that require their copyright notice to travel with the work. MIT is
+# explicit - "in all copies or substantial portions" - and a released artifact
+# is exactly that, so a source under one of these must record the notice it
+# published rather than only a link to it.
+NOTICE_REQUIRED_SPDX = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'ISC'}
+
+# Where a recorded notice was read. Anything else is a guess dressed as a fact.
+COPYRIGHT_EVIDENCE = ('license-file', 'list-header', 'readme', 'project-page')
+
 
 def load_urls(path: Path) -> list:
     with path.open(encoding='utf-8') as handle:
@@ -170,6 +179,25 @@ def main() -> int:
         if license.get('elected') and ' OR ' not in str(license.get('spdx') or ''):
             errors.append(f'[{sid}] license.elected is set but the licence is not dual')
 
+        # A notice-requiring licence must carry the notice, read from the
+        # upstream and with a record of where. NOTICES.txt ships with every
+        # release precisely so the attribution reaches someone who only ever
+        # downloads the artifact; an entry that links the licence without
+        # reproducing the notice does not satisfy what MIT asks for.
+        if license.get('spdx') in NOTICE_REQUIRED_SPDX:
+            if not license.get('copyright'):
+                errors.append(
+                    f'[{sid}] {license["spdx"]} requires its copyright notice to '
+                    f'accompany the work, but none is recorded. Read it from the '
+                    f'upstream and set license.copyright.'
+                )
+            elif license.get('copyright_evidence') not in COPYRIGHT_EVIDENCE:
+                errors.append(
+                    f'[{sid}] license.copyright_evidence must be one of '
+                    f'{", ".join(COPYRIGHT_EVIDENCE)} - a notice with no record '
+                    f'of where it was read cannot be checked'
+                )
+
         # A feed served out of this repository must say so. Without this the
         # only thing distinguishing it from a third-party list is a URL nobody
         # reads, and it silently counts as independent corroboration - which is
@@ -222,6 +250,11 @@ def main() -> int:
           + (f"  ({', '.join(e['id'] for e in first_party)})" if first_party else ''))
     print(f'    licences verified      : {verified}/{len(sources)}')
     print(f'    aggregate licence      : {registry.get("aggregate_license") or "NOT DECLARED"}')
+    notices = [e for e in sources
+               if (e.get('license') or {}).get('spdx') in NOTICE_REQUIRED_SPDX]
+    print(f'    copyright notices      : '
+          f'{sum(1 for e in notices if e["license"].get("copyright"))}/{len(notices)} '
+          f'of the sources whose licence requires one')
     print(f'    GPL-3.0 compatibility  : {len(sources) - len(pending)}/{len(sources)} settled'
           + (f'   pending: {", ".join(pending)}' if pending else ''))
     return 0

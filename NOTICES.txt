@@ -10,11 +10,17 @@ exists so that the attribution travels with the released artifact: MIT and
 Apache-2.0 require their notice to accompany the work, and someone who downloads
 a release asset never sees the repository.
 
-The authoritative licence text for each entry is at the URL given. Where a
-verbatim upstream copyright line has been recorded it is reproduced; at the time
-of writing 0 of 43 entries carry one, and the remainder name the
-maintainer and link to the licence instead. Closing that gap is tracked in the
-project's issues.
+The authoritative licence text for each entry is at the URL given.
+
+Verbatim copyright notices are reproduced for 18 of the 43 entries,
+which covers every source whose licence requires it - MIT, Apache-2.0, BSD and
+ISC all ask for the notice to accompany the work. The remaining entries are
+copyleft, share-alike or public-domain sources that state no copyright line to
+carry; those name the maintainer and link to their licence.
+
+Each notice was read from the upstream itself, and the registry records where:
+from the project's LICENSE file, or from the published list's own header where
+the LICENSE is the bare licence text with no copyright filled in.
 
 Project repository: https://github.com/fabriziosalmi/blacklists
 Full licence map  : https://github.com/fabriziosalmi/blacklists/blob/main/SOURCES.md
@@ -33,6 +39,7 @@ Ad-Block HOSTS
     Homepage    : https://github.com/What-Zit-Tooya/Ad-Block
     Licence     : MIT
     Licence text: https://github.com/What-Zit-Tooya/Ad-Block/blob/main/LICENSE
+    Copyright   : Copyright (c) 2021 What Zit Tooya
 AdGuard DNS filter
     Project     : AdGuard DNS filter
     Attribution : AdGuard
@@ -45,6 +52,7 @@ Ads and tracking extended
     Homepage    : https://www.github.developerdan.com/hosts/
     Licence     : Apache-2.0
     Licence text: https://github.com/lightswitch05/hosts/blob/master/LICENSE
+    Copyright   : Copyright 2023 Daniel White
 Anti-Piracy
     Project     : hagezi/dns-blocklists
     Attribution : hagezi
@@ -57,12 +65,14 @@ Big List of Hacked Malware Web Sites
     Homepage    : https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites
     Licence     : MIT
     Licence text: https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/blob/master/LICENSE.md
+    Copyright   : Copyright (c) 2017 Mitchell Krog - mitchellkrog@gmail.com
 blocklist-domains
     Project     : dmachard/blocklist-domains
     Attribution : Denis Machard
     Homepage    : https://github.com/dmachard/blocklist-domains
     Licence     : MIT
     Licence text: https://github.com/dmachard/blocklist-domains/blob/main/LICENSE
+    Copyright   : Copyright (c) 2020 Denis MACHARD
 EasyList
     Project     : EasyList
     Attribution : The EasyList authors
@@ -89,12 +99,14 @@ First-party only trackers
     Homepage    : https://hostfiles.frogeye.fr/
     Licence     : MIT
     Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+    Copyright   : Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme
 First-party trackers
     Project     : eulaurarien (frogeye)
     Attribution : Geoffrey 'Frogeye' Preud'homme
     Homepage    : https://hostfiles.frogeye.fr/
     Licence     : MIT
     Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+    Copyright   : Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme
 Gambling
     Project     : hagezi/dns-blocklists
     Attribution : hagezi
@@ -107,18 +119,21 @@ GetAdmiral domains
     Homepage    : https://github.com/LanikSJ/ubo-filters
     Licence     : MIT
     Licence text: https://github.com/LanikSJ/ubo-filters/blob/main/LICENSE
+    Copyright   : Copyright (c) 2016-2026 LanikSJ <http://forums.lanik.us>
 hostsVN adservers
     Project     : bigdargon/hostsVN
     Attribution : bigdargon
     Homepage    : https://github.com/bigdargon/hostsVN
     Licence     : MIT
     Licence text: https://github.com/bigdargon/hostsVN/blob/master/LICENSE
+    Copyright   : Copyright (c) 2026 BigDargon
 hostsVN domains
     Project     : bigdargon/hostsVN
     Attribution : bigdargon
     Homepage    : https://github.com/bigdargon/hostsVN
     Licence     : MIT
     Licence text: https://github.com/bigdargon/hostsVN/blob/master/LICENSE
+    Copyright   : Copyright (c) 2026 BigDargon
 KADhosts
     Project     : FiltersHeroes/KADhosts
     Attribution : FiltersHeroes / PolishFiltersTeam
@@ -131,12 +146,14 @@ Multi-party only trackers
     Homepage    : https://hostfiles.frogeye.fr/
     Licence     : MIT
     Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+    Copyright   : Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme
 Multi-party trackers
     Project     : eulaurarien (frogeye)
     Attribution : Geoffrey 'Frogeye' Preud'homme
     Homepage    : https://hostfiles.frogeye.fr/
     Licence     : MIT
     Licence text: https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE
+    Copyright   : Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme
 NoTrack blocklist
     Project     : quidsup/notrack-blocklists
     Attribution : quidsup
@@ -161,6 +178,7 @@ Phishing filter
     Homepage    : https://gitlab.com/malware-filter/malware-filter
     Licence     : MIT
     Licence text: https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE
+    Copyright   : Copyright (c) 2023 Ming Di Leom
 phishunt feed
     Project     : phishunt.io
     Attribution : phishunt.io
@@ -179,6 +197,7 @@ Scam Blocklist
     Homepage    : https://github.com/durablenapkin/scamblocklist
     Licence     : MIT
     Licence text: https://github.com/durablenapkin/scamblocklist/blob/master/LICENSE
+    Copyright   : Copyright (c) 2019 durablenapkin
 Scam Blocklist (wildcards)
     Project     : jarelllama/Scam-Blocklist
     Attribution : jarelllama
@@ -215,6 +234,7 @@ StevenBlack hosts (base)
     Homepage    : https://github.com/StevenBlack/hosts
     Licence     : MIT
     Licence text: https://github.com/StevenBlack/hosts/blob/master/license.txt
+    Copyright   : Copyright © 2023 Steven Black
 Streaming (custom)
     Project     : fabriziosalmi/blacklists
     Attribution : Fabrizio Salmi
@@ -234,6 +254,7 @@ Tracking aggressive extended
     Homepage    : https://www.github.developerdan.com/hosts/
     Licence     : Apache-2.0
     Licence text: https://github.com/lightswitch05/hosts/blob/master/LICENSE
+    Copyright   : Copyright 2023 Daniel White
 uBO badware risks
     Project     : uBlockOrigin/uAssets
     Attribution : uBlock Origin
@@ -252,12 +273,16 @@ Ultimate Hosts Blacklist (domains2)
     Homepage    : https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist
     Licence     : MIT
     Licence text: https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/blob/master/LICENSE.md
+    Copyright   : Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Ultimate Hosts Blacklist - @Ultimate-Hosts-Blacklist Contributors
+                  Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2024 Mitchell Krog - @mitchellkrogza
+                  Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Nissar Chababy - @funilrys
 URLhaus filter
     Project     : malware-filter
     Attribution : curbengh / malware-filter
     Homepage    : https://gitlab.com/malware-filter/malware-filter
     Licence     : MIT
     Licence text: https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE
+    Copyright   : Copyright (c) 2023 Ming Di Leom
 UT1 cryptojacking
     Project     : UT1 blacklists
     Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
@@ -282,6 +307,7 @@ YouTube spam domains
     Homepage    : https://github.com/ThioJoe/YT-Spam-Lists
     Licence     : MIT
     Licence text: https://github.com/ThioJoe/YT-Spam-Lists/blob/main/LICENSE
+    Copyright   : Copyright (c) 2021 ThioJoe
 
 -------------------------------------------------------------------------------
 

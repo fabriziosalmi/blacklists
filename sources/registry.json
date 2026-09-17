@@ -116,6 +116,8 @@
         "url": "https://github.com/LanikSJ/ubo-filters/blob/main/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2016-2026 LanikSJ <http://forums.lanik.us>",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -142,6 +144,8 @@
         "url": "https://github.com/dmachard/blocklist-domains/blob/main/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2020 Denis MACHARD",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -220,6 +224,8 @@
         "url": "https://github.com/What-Zit-Tooya/Ad-Block/blob/main/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2021 What Zit Tooya",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -272,6 +278,8 @@
         "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -298,6 +306,8 @@
         "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -324,6 +334,8 @@
         "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -350,6 +362,8 @@
         "url": "https://git.frogeye.fr/geoffrey/eulaurarien/src/branch/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright (c) 2019 Geoffrey 'Frogeye' Preud'homme",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -376,6 +390,8 @@
         "url": "https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE",
         "verified": true,
         "evidence": "gitlab-api",
+        "copyright": "Copyright (c) 2023 Ming Di Leom",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -534,6 +550,8 @@
         "url": "https://github.com/StevenBlack/hosts/blob/master/license.txt",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright © 2023 Steven Black",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -587,6 +605,8 @@
         "url": "https://github.com/bigdargon/hostsVN/blob/master/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2026 BigDargon",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -613,6 +633,8 @@
         "url": "https://github.com/bigdargon/hostsVN/blob/master/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2026 BigDargon",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -639,6 +661,8 @@
         "url": "https://github.com/durablenapkin/scamblocklist/blob/master/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2019 durablenapkin",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -797,6 +821,8 @@
         "url": "https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/blob/master/LICENSE.md",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Ultimate Hosts Blacklist - @Ultimate-Hosts-Blacklist Contributors\nCopyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2024 Mitchell Krog - @mitchellkrogza\nCopyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Nissar Chababy - @funilrys",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -876,6 +902,8 @@
         "url": "https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE",
         "verified": true,
         "evidence": "gitlab-api",
+        "copyright": "Copyright (c) 2023 Ming Di Leom",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -1062,6 +1090,8 @@
         "url": "https://github.com/lightswitch05/hosts/blob/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright 2023 Daniel White",
+        "copyright_evidence": "list-header",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -1088,6 +1118,8 @@
         "url": "https://github.com/lightswitch05/hosts/blob/master/LICENSE",
         "verified": true,
         "evidence": "list-header",
+        "copyright": "Copyright 2023 Daniel White",
+        "copyright_evidence": "list-header",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -1140,6 +1172,8 @@
         "url": "https://github.com/ThioJoe/YT-Spam-Lists/blob/main/LICENSE",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2021 ThioJoe",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
@@ -1218,6 +1252,8 @@
         "url": "https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/blob/master/LICENSE.md",
         "verified": true,
         "evidence": "github-api",
+        "copyright": "Copyright (c) 2017 Mitchell Krog - mitchellkrog@gmail.com",
+        "copyright_evidence": "license-file",
         "checked_at": "2026-07-31",
         "gpl3_compatibility": {
           "status": "compatible",
