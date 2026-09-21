@@ -35,7 +35,7 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 <!-- STATS_START -->
 ## Daily Statistics
 
-**Last Updated**: 2026-09-20 01:31 UTC
+**Last Updated**: 2026-09-21 01:33 UTC
 
 | Metric | Value |
 |--------|-------|
@@ -43,8 +43,8 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 | **Whitelisted** | 2,062 |
 | **Sources** | 42 |
 | **Daily Change** | +0 (+0.00%) |
-| **Weekly Change** | +59,240 (+0.95%) |
-| **Monthly Change** | +1,456,093 (+30.19%) |
+| **Weekly Change** | +143,311 (+2.34%) |
+| **Monthly Change** | +1,021,172 (+19.42%) |
 
 ![Trend Chart](stats/trend.png)
 
