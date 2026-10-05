@@ -52,9 +52,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # assets carries the name and byte size of every published file, so
+          # the site can state the size of all three formats without
+          # downloading ~400 MB to measure them.
           gh release view latest \
             --repo "${{ github.repository }}" \
-            --json tagName,publishedAt \
+            --json tagName,publishedAt,assets \
             > release.json
           echo "tag=$(jq -r .tagName release.json)" >> "$GITHUB_OUTPUT"
           echo "published_at=$(jq -r .publishedAt release.json)" >> "$GITHUB_OUTPUT"
@@ -75,7 +78,8 @@ jobs:
           RELEASE_PUBLISHED_AT: ${{ steps.release.outputs.published_at }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          python3 scripts/build_site.py --blacklist blacklist.txt --out _site
+          python3 scripts/build_site.py --blacklist blacklist.txt --out _site \
+            --release-json release.json
 
       - name: Verify build output
         run: |

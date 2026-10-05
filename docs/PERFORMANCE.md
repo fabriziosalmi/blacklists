@@ -20,17 +20,29 @@ The blacklist is updated **daily at midnight UTC**. For use cases requiring more
 
 ### Blacklist Formats
 
-> These sizes were measured on 2026-07-31, when the list held 4,755,218 domains.
-> The list has grown since, so treat them as a floor rather than a current
-> figure. The live numbers are on the
-> [statistics page](https://fabriziosalmi.github.io/blacklists/#stats), which
-> also publishes the SHA-256 of the artifact each one describes.
+**File sizes are not written down here.** They were, measured once at 4,755,218
+domains, and within six weeks the list had grown to 6.2 million and the Unbound
+figure was understated by 43%. A size written into a document is wrong the day
+after.
 
-| Format | File size | Use case |
-|--------|-----------|----------|
-| **blacklist.txt** | 96 MB | Pi-Hole, AdGuard, uBlock Origin, Squid |
-| **rpz_blacklist.txt** | 132 MB | BIND, PowerDNS |
-| **unbound_blacklist.txt** | 191 MB | Unbound |
+The current size of every published format is in
+[`data/stats.json`](https://fabriziosalmi.github.io/blacklists/data/stats.json)
+under `release.assets`, taken from the release itself on every site build:
+
+```bash
+curl -s https://fabriziosalmi.github.io/blacklists/data/stats.json \
+  | jq -r '.release.assets[] | "\(.name)\t\(.bytes/1048576 | floor) MB"'
+```
+
+| Format | Use case |
+|--------|----------|
+| **blacklist.txt** | Pi-Hole, AdGuard, uBlock Origin, Squid |
+| **rpz_blacklist.txt** | BIND, PowerDNS |
+| **unbound_blacklist.txt** | Unbound |
+
+As an order of magnitude at the time of writing: the plain list is comfortably
+over 100 MB, RPZ around 1.4x that, and Unbound over 2x. Size with the list, not
+with this sentence.
 
 The Unbound and RPZ formats are larger because each domain is wrapped in a
 directive: one line of `blacklist.txt` becomes `local-zone: "domain" static` or

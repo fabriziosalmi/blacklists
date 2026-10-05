@@ -259,6 +259,37 @@ def write_badges(badge_dir: Path, stats: Dict) -> None:
     log(f'✓ Wrote {len(badges)} badge endpoints')
 
 
+def release_assets(release_json: Optional[str]) -> List[Dict]:
+    """Name and byte size of every asset in the published release.
+
+    Read from `gh release view --json assets` rather than by downloading the
+    files: the three formats together are around 400 MB, and the release
+    already knows how big they are.
+    """
+    if not release_json:
+        return []
+
+    path = Path(release_json)
+    if not path.is_file():
+        log(f'Warning: {path} not found, asset sizes will be absent')
+        return []
+
+    try:
+        payload = json.loads(path.read_text(encoding='utf-8'))
+    except json.JSONDecodeError as exc:
+        log(f'Warning: could not parse {path}: {exc}')
+        return []
+
+    assets = [
+        {'name': asset['name'], 'bytes': asset['size']}
+        for asset in payload.get('assets', [])
+        if asset.get('name') and isinstance(asset.get('size'), int)
+    ]
+    assets.sort(key=lambda asset: asset['name'])
+    log(f'✓ Release assets: {len(assets)} with published sizes')
+    return assets
+
+
 def copy_static(docs_dir: Path, out_dir: Path) -> None:
     if not docs_dir.is_dir():
         raise SystemExit(f'Static source directory not found: {docs_dir}')
@@ -315,6 +346,9 @@ def main() -> int:
     parser.add_argument('--release-published-at',
                         default=os.environ.get('RELEASE_PUBLISHED_AT', ''))
     parser.add_argument('--run-url', default=os.environ.get('RUN_URL', ''))
+    parser.add_argument('--release-json', default=None,
+                        help='gh release view output, used to publish the size '
+                             'of every released asset')
     args = parser.parse_args()
 
     repo = Path(args.repo_path).resolve()
@@ -384,6 +418,11 @@ def main() -> int:
             'published_at': args.release_published_at or None,
             'blacklist_sha256': blacklist_sha256,
             'blacklist_bytes': blacklist_bytes,
+            # Every published asset with its size. docs/PERFORMANCE.md used to
+            # carry these as a hand-measured table, which was 27% out within
+            # six weeks; a number written into a document is wrong the day
+            # after. The release itself is the only thing that knows.
+            'assets': release_assets(args.release_json),
         },
         'build': {
             'run_url': args.run_url or None,
