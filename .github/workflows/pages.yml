@@ -38,12 +38,12 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
 
@@ -102,9 +102,13 @@ jobs:
           echo "site size: $(du -sh _site | cut -f1)"
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          # Since v4 the artifact leaves out dotfiles unless told otherwise, and
+          # the site needs two: .nojekyll and .well-known/security.txt (checked
+          # in _site above, which would still pass while the deploy drops them).
+          include-hidden-files: true
 
   deploy:
     needs: build
@@ -115,4 +119,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
