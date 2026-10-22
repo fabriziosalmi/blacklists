@@ -90,7 +90,6 @@ Upstream sources currently aggregated:
 [StevenBlack/hosts](https://github.com/StevenBlack/hosts) ·
 [The-Big-List-of-Hacked-Malware-Web-Sites](https://github.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites) ·
 [ThioJoe/YT-Spam-Lists](https://github.com/ThioJoe/YT-Spam-Lists) ·
-[UT1 blacklists](https://dsi.ut-capitole.fr/blacklists/index_en.php) ·
 [Ultimate.Hosts.Blacklist](https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist) ·
 [What-Zit-Tooya/Ad-Block](https://github.com/What-Zit-Tooya/Ad-Block) ·
 [badmojr/1Hosts](https://github.com/badmojr/1Hosts) ·

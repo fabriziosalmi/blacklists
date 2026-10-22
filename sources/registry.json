@@ -2,8 +2,8 @@
   "schema_version": 1,
   "description": "Curated metadata for every upstream list aggregated by this project. Licences are recorded only when confirmed against an authoritative source (repository licence file, project licence page or the list's own header); otherwise license.verified is false and license.spdx is null. Categories reflect how each list is labelled upstream.",
   "licenses_verified_at": "2026-07-31",
-  "source_count": 43,
-  "upstream_count": 42,
+  "source_count": 40,
+  "upstream_count": 39,
   "first_party_count": 1,
   "removed_sources": [
     {
@@ -96,6 +96,13 @@
       "reason": "licence",
       "license": "Public domain (asserted in README only)",
       "detail": "Public domain is asserted in the project README rather than by a LICENSE file or a formal dedication, which is thin evidence on which to rest redistribution inside a copyleft aggregate. Supplied 325 domains no other source did - 0.005% of the list. Re-add if the author publishes CC0-1.0."
+    },
+    {
+      "name": "UT1 blacklists: publicite, cryptojacking, malware (Universite Toulouse 1 Capitole)",
+      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
+      "reason": "unavailable",
+      "license": "CC-BY-SA-4.0",
+      "detail": "As of 2026-10-22 the project page and the whole /blacklists/download/ path return HTTP 404, and so does the FTP mirror under ftp.ut-capitole.fr. The only copy left is a third-party mirror on GitHub, not fetched for the same reason firebog is not. The three lists supplied about 148,000 domains no other source did."
     }
   ],
   "sources": [
@@ -993,84 +1000,6 @@
       },
       "mirror_of": null,
       "notes": "Fetched from easylist.to, the project itself. Adblock syntax, parsed as above."
-    },
-    {
-      "id": "ut1-publicite",
-      "url": "https://dsi.ut-capitole.fr/blacklists/download/publicite.tar.gz",
-      "first_party": false,
-      "name": "UT1 publicite",
-      "project": "UT1 blacklists",
-      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
-      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-      "categories": [
-        "ads"
-      ],
-      "license": {
-        "spdx": "CC-BY-SA-4.0",
-        "name": "Creative Commons Attribution-ShareAlike 4.0",
-        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-        "verified": true,
-        "evidence": "project-page",
-        "checked_at": "2026-07-31",
-        "gpl3_compatibility": {
-          "status": "compatible",
-          "rationale": "Creative Commons' one-way ShareAlike compatibility declaration permits Adapted Material to be licensed under GPL-3.0."
-        }
-      },
-      "mirror_of": null,
-      "notes": "Fetched directly from UT1 as a tar.gz archive."
-    },
-    {
-      "id": "ut1-cryptojacking",
-      "url": "https://dsi.ut-capitole.fr/blacklists/download/cryptojacking.tar.gz",
-      "first_party": false,
-      "name": "UT1 cryptojacking",
-      "project": "UT1 blacklists",
-      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
-      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-      "categories": [
-        "malware"
-      ],
-      "license": {
-        "spdx": "CC-BY-SA-4.0",
-        "name": "Creative Commons Attribution-ShareAlike 4.0",
-        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-        "verified": true,
-        "evidence": "project-page",
-        "checked_at": "2026-07-31",
-        "gpl3_compatibility": {
-          "status": "compatible",
-          "rationale": "Creative Commons' one-way ShareAlike compatibility declaration permits Adapted Material to be licensed under GPL-3.0."
-        }
-      },
-      "mirror_of": null,
-      "notes": "Fetched directly from UT1 as a tar.gz archive."
-    },
-    {
-      "id": "ut1-malware",
-      "url": "https://dsi.ut-capitole.fr/blacklists/download/malware.tar.gz",
-      "first_party": false,
-      "name": "UT1 malware",
-      "project": "UT1 blacklists",
-      "maintainer": "Fabrice Prigent (Universite Toulouse 1 Capitole)",
-      "homepage": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-      "categories": [
-        "malware"
-      ],
-      "license": {
-        "spdx": "CC-BY-SA-4.0",
-        "name": "Creative Commons Attribution-ShareAlike 4.0",
-        "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
-        "verified": true,
-        "evidence": "project-page",
-        "checked_at": "2026-07-31",
-        "gpl3_compatibility": {
-          "status": "compatible",
-          "rationale": "Creative Commons' one-way ShareAlike compatibility declaration permits Adapted Material to be licensed under GPL-3.0."
-        }
-      },
-      "mirror_of": null,
-      "notes": "Fetched directly from UT1 as a tar.gz archive. The archive unpacks to a phishing/ directory rather than malware/, so the domains file is matched by glob and not by a path built from the category name."
     },
     {
       "id": "developerdan-ads",

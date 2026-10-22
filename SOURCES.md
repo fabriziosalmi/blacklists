@@ -98,9 +98,6 @@ Attribution key:
 | KADhosts | FiltersHeroes / PolishFiltersTeam - https://github.com/FiltersHeroes/KADhosts | CC-BY-SA-4.0 | Credit + same license | [github-api](https://github.com/FiltersHeroes/KADhosts/blob/master/LICENSE) |
 | EasyList | The EasyList authors - https://easylist.to/ | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
 | EasyPrivacy | The EasyList authors - https://easylist.to/ | GPL-3.0-or-later OR CC-BY-SA-3.0 | Credit + same license | [project-page](https://easylist.to/pages/licence.html) |
-| UT1 publicite | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
-| UT1 cryptojacking | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
-| UT1 malware | Fabrice Prigent (Universite Toulouse 1 Capitole) - https://dsi.ut-capitole.fr/blacklists/index_en.php | CC-BY-SA-4.0 | Credit + same license | [project-page](https://dsi.ut-capitole.fr/blacklists/index_en.php) |
 
 ## Public domain (free to use)
 
@@ -153,6 +150,7 @@ The following feeds are deliberately **not** fetched:
 | [Anti-Malware List (hosts) (DandelionSprout/adfilt)](https://github.com/DandelionSprout/adfilt) | licence | Dandelicence (custom) | Bespoke licence, not reviewed by FSF, OSI or SPDX, so its compatibility with the GPL-3.0 the aggregate carries could not be recorded as settled. It reads as permissive and no conflict was apparent, but the list supplied only 157 domains no other source did - 0.003% of the published list - so the uncertainty was not worth carrying. Re-add if the author confirms. |
 | [Anti-Malware List (AdGuard Home) (DandelionSprout/adfilt)](https://github.com/DandelionSprout/adfilt) | duplicate | Dandelicence (custom) | The same list as the hosts variant in a different syntax: it contributed exactly ONE domain no other source did. Fetched twice for one domain, and carrying the same unsettled licence question. Removed on redundancy alone. |
 | [blackbook (stamparm/blackbook)](https://github.com/stamparm/blackbook) | licence | Public domain (asserted in README only) | Public domain is asserted in the project README rather than by a LICENSE file or a formal dedication, which is thin evidence on which to rest redistribution inside a copyleft aggregate. Supplied 325 domains no other source did - 0.005% of the list. Re-add if the author publishes CC0-1.0. |
+| [UT1 blacklists: publicite, cryptojacking, malware (Universite Toulouse 1 Capitole)](https://dsi.ut-capitole.fr/blacklists/index_en.php) | unavailable | CC-BY-SA-4.0 | As of 2026-10-22 the project page and the whole /blacklists/download/ path return HTTP 404, and so does the FTP mirror under ftp.ut-capitole.fr. The only copy left is a third-party mirror on GitHub, not fetched for the same reason firebog is not. The three lists supplied about 148,000 domains no other source did. |
 
 ---
 

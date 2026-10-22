@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
   workflow_dispatch:  # Allows manual triggering
+    inputs:
+      accept_size_from:
+        description: >-
+          Accept a size change beyond the gate's limit, only against a previous
+          release of exactly this many domains (from the failed run's Quality
+          gate log). Leave empty for a normal run.
+        required: false
+        default: ''
 
 permissions:
   contents: write  # Required for release creation
@@ -71,11 +79,17 @@ jobs:
       # Runs BEFORE anything is published. A release that blocks a DNS
       # resolver, an OS update endpoint or a CDN apex must not leave the runner,
       # because by the time anyone notices it is already installed.
+      # accept_size_from is only ever set by hand on a manual run; a scheduled
+      # run has no inputs and gets the gate unchanged. Passed through env, never
+      # interpolated into the script.
       - name: Quality gate
+        env:
+          ACCEPT_SIZE_FROM: ${{ inputs.accept_size_from }}
         run: |
           python3 scripts/check_quality.py \
             --blacklist all.fqdn.blacklist \
-            --previous previous_blacklist.txt
+            --previous previous_blacklist.txt \
+            ${ACCEPT_SIZE_FROM:+--accept-size-from "$ACCEPT_SIZE_FROM"}
 
       # The review queue. Runs on a SUCCESSFUL release, because the popularity
       # check no longer blocks: without its own channel a new popular block

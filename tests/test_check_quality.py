@@ -58,7 +58,7 @@ def test_blacklist_header_is_not_read_as_a_domain(tmp_path):
 # --------------------------------------------------------------------------
 
 def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
-             load_tranco=None, previous=None, history=None):
+             load_tranco=None, previous=None, history=None, extra_argv=()):
     """Drive main() against a synthetic list, with no network access.
 
     ``load_tranco`` replaces the ranking fetch outright, so a test can simulate
@@ -97,6 +97,7 @@ def run_gate(tmp_path, monkeypatch, blacklist, protected, acknowledged, ranks,
         prev = tmp_path / 'previous.txt'
         prev.write_text('\n'.join(previous) + '\n', encoding='utf-8')
         argv += ['--previous', str(prev)]
+    argv += list(extra_argv)
     monkeypatch.setattr('sys.argv', argv)
 
     code = check_quality.main()
@@ -616,3 +617,67 @@ def test_the_closest_block_is_the_one_reported(tmp_path, monkeypatch):
     )
     assert code == 1
     assert report['protected']['violations'][0]['blocked_by'] == 'pool.ntp.org'
+
+
+# --------------------------------------------------------------------------
+# Accepting a size change by hand
+#
+# A source that is gone for good leaves the list smaller every day, and the
+# size gate cannot tell that from one having a bad night. The maintainer can
+# accept the change, but only against the exact baseline they reviewed.
+# --------------------------------------------------------------------------
+
+def shrunk_gate(tmp_path, monkeypatch, extra_argv=()):
+    """A list that lost half its domains against a 100-domain release."""
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    return run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(50)],
+        protected=[],
+        acknowledged=[],
+        ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        extra_argv=extra_argv,
+    )
+
+
+def test_a_large_shrink_fails_without_acceptance(tmp_path, monkeypatch):
+    code, report = shrunk_gate(tmp_path, monkeypatch)
+    assert code == 1
+    assert report['size']['accepted'] is False
+    assert report['size']['accepted_by_hand'] is False
+
+
+def test_a_shrink_accepted_against_its_baseline_passes(tmp_path, monkeypatch):
+    code, report = shrunk_gate(tmp_path, monkeypatch,
+                               extra_argv=['--accept-size-from', '100'])
+    assert code == 0
+    assert report['size']['accepted'] is True
+    assert report['size']['accepted_by_hand'] is True
+
+
+def test_an_acceptance_for_another_baseline_does_not_apply(tmp_path, monkeypatch):
+    """Once a release moves the baseline, yesterday's acceptance is spent."""
+    code, report = shrunk_gate(tmp_path, monkeypatch,
+                               extra_argv=['--accept-size-from', '99'])
+    assert code == 1
+    assert report['size']['accepted'] is False
+    assert report['size']['accepted_by_hand'] is False
+
+
+def test_acceptance_does_not_excuse_a_protected_domain(tmp_path, monkeypatch):
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=['cloudfront.net'] + [f'd{i}.example' for i in range(49)],
+        protected=['cloudfront.net  # AWS CloudFront'],
+        acknowledged=[],
+        ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        extra_argv=['--accept-size-from', '100'],
+    )
+    assert code == 1
+    assert report['size']['accepted_by_hand'] is True
+    assert report['protected']['violations']

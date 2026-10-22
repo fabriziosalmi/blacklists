@@ -57,7 +57,7 @@ cannot offer it either.
 | Effective licence | Sources | Why it can be incorporated |
 |---|---|---|
 | `Apache-2.0` | 2 | FSF: compatible with GPL-3.0 (not GPL-2.0, whose terms conflict with the patent and indemnity clauses). |
-| `CC-BY-SA-4.0` | 4 | Creative Commons' one-way ShareAlike compatibility declaration permits Adapted Material to be licensed under GPL-3.0. |
+| `CC-BY-SA-4.0` | 1 | Creative Commons' one-way ShareAlike compatibility declaration permits Adapted Material to be licensed under GPL-3.0. |
 | `CC0-1.0` | 2 | Public domain dedication; imposes no downstream condition. |
 | `GPL-3.0-only` | 12 | The licence elected for the aggregate. |
 | `GPL-3.0-or-later` | 2 | May be used under GPL-3.0, which is what the aggregate elects. Dual-licensed upstream; this project elects the GPL-3.0-or-later branch. |
@@ -65,7 +65,7 @@ cannot offer it either.
 | `MPL-2.0` | 1 | MPL-2.0 section 3.3 expressly permits distribution under a Secondary License, which includes GPL-3.0. |
 | `Unlicense` | 4 | Public domain dedication; imposes no downstream condition. |
 
-**43 of 43 sources** are settled on this basis.
+**40 of 40 sources** are settled on this basis.
 
 ### Dual-licensed sources: the branch elected
 
