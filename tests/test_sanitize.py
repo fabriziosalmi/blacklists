@@ -94,6 +94,26 @@ def test_untranslatable_rules_are_dropped(line, rules):
     assert sanitize(line, rules) is None
 
 
+@pytest.mark.parametrize('line', [
+    '||akamai.net^*/sitetracking/',
+    '||cloudfront.net^*.bmp?',
+    '||azureedge.net^*/fnix.js',
+    '||example.com^/ads/',
+    '||example.com^*',
+])
+def test_a_path_after_the_separator_is_still_a_path(line, rules):
+    """The path in ||host^*/path sits after the "^", not before it.
+
+    Checking for "/" only in the part before the separator turned these
+    single-URL rules into blocks on entire CDNs.
+    """
+    assert sanitize(line, rules) is None
+
+
+def test_the_end_anchor_after_the_separator_keeps_the_host(rules):
+    assert sanitize('||example.com^|', rules) == 'example.com'
+
+
 # --------------------------------------------------------------------------
 # Cosmetic filters
 #
