@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-17T00:40:33.289649+00:00",
+  "generated_at": "2026-10-22T19:46:30.731891+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 387,
-  "dormant": 1675,
+  "active": 646,
+  "dormant": 1416,
   "duplicates": [],
   "active_entries": [
     {
@@ -16,7 +16,9 @@
     {
       "domain": "4shared.com",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -30,7 +32,8 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "Ultimate",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -42,17 +45,14 @@
     {
       "domain": "aax-eu.amazon.es",
       "held_back_from": [
-        "ShadowWhisperer Ads",
-        "Ultimate",
-        "UT1 publicite"
+        "ShadowWhisperer Ads"
       ]
     },
     {
       "domain": "aax-eu.amazon.it",
       "held_back_from": [
         "ShadowWhisperer Ads",
-        "Ultimate",
-        "UT1 publicite"
+        "Ultimate"
       ]
     },
     {
@@ -69,11 +69,29 @@
       ]
     },
     {
+      "domain": "about.me",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "above.com",
       "held_back_from": [
         "blocklist-domains",
         "hostsVN adservers",
         "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "accounts.google.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "accuweather.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -98,6 +116,24 @@
       ]
     },
     {
+      "domain": "adguard.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "adobe.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "adobe.io",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "adwords.google.com",
       "held_back_from": [
         "ShadowWhisperer Ads",
@@ -113,6 +149,18 @@
       ]
     },
     {
+      "domain": "afternic.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "agoda.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "ajax.cloudflare.com",
       "held_back_from": [
         "Ad-Block HOSTS"
@@ -125,9 +173,61 @@
       ]
     },
     {
+      "domain": "akamai.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "alexa.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "alibaba.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "alice.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "alternativeto.net",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "amazon.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "amazonaws.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "americanexpress.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "amnesty.org",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -138,7 +238,7 @@
         "ShadowWhisperer Tracking",
         "Ultimate",
         "Ads and tracking extended",
-        "UT1 publicite"
+        "EasyPrivacy"
       ]
     },
     {
@@ -151,7 +251,8 @@
     {
       "domain": "api-iam.intercom.io",
       "held_back_from": [
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -179,10 +280,22 @@
       ]
     },
     {
+      "domain": "apple.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "arc.msn.com",
       "held_back_from": [
         "ShadowWhisperer Ads",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "arstechnica.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -195,13 +308,20 @@
       "domain": "assets.adobedtm.com",
       "held_back_from": [
         "Ads and tracking extended",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "assets.minutemediacdn.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "asuracomic.net",
       "held_back_from": [
-        "UT1 malware"
+        "EasyList"
       ]
     },
     {
@@ -219,11 +339,41 @@
       ]
     },
     {
+      "domain": "avvenire.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "b.stats.paypal.com",
       "held_back_from": [
         "blocklist-domains",
         "hostsVN domains",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "bbc.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "bedbathandbeyond.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "behance.net",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "bestbuy.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -233,9 +383,16 @@
       ]
     },
     {
-      "domain": "bitcanna.io",
+      "domain": "bgr.com",
       "held_back_from": [
-        "UT1 cryptojacking"
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "bit.ly",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -259,7 +416,8 @@
       "held_back_from": [
         "blocklist-domains",
         "1Hosts (Lite)",
-        "Ultimate"
+        "Ultimate",
+        "EasyPrivacy"
       ]
     },
     {
@@ -269,9 +427,41 @@
       ]
     },
     {
+      "domain": "bloomberg.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "bluehost.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "box.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "breitbart.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "britannica.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "browser.events.data.microsoft.com",
       "held_back_from": [
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -291,6 +481,19 @@
       ]
     },
     {
+      "domain": "businessinsider.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "buzzfeed.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "c-ctrip.com",
       "held_back_from": [
         "NoTrack blocklist"
@@ -299,8 +502,7 @@
     {
       "domain": "c.apple.com",
       "held_back_from": [
-        "blocklist-domains",
-        "UT1 publicite"
+        "blocklist-domains"
       ]
     },
     {
@@ -309,8 +511,6 @@
         "blocklist-domains",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
-        "hostsVN adservers",
-        "hostsVN domains",
         "Ultimate",
         "Ads and tracking extended"
       ]
@@ -320,25 +520,28 @@
       "held_back_from": [
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
-        "AdGuard DNS filter",
         "Ads and tracking extended",
-        "UT1 publicite"
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "c.paypal.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "capi.connatix.com",
       "held_back_from": [
-        "hostsVN domains",
-        "EasyPrivacy",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "cbsi.com",
       "held_back_from": [
         "blocklist-domains",
-        "Ads and tracking extended",
-        "UT1 publicite"
+        "Ads and tracking extended"
       ]
     },
     {
@@ -351,9 +554,14 @@
       ]
     },
     {
+      "domain": "cbsnews.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "cd.connatix.com",
       "held_back_from": [
-        "hostsVN domains",
         "Ads and tracking extended"
       ]
     },
@@ -376,9 +584,18 @@
       ]
     },
     {
+      "domain": "cdn.fluidplayer.com",
+      "held_back_from": [
+        "ShadowWhisperer Ads",
+        "Ultimate"
+      ]
+    },
+    {
       "domain": "cdn.jsdelivr.net",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -405,6 +622,13 @@
       "domain": "cdn.privacy-mgmt.com",
       "held_back_from": [
         "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "cdn.statically.io",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -443,7 +667,6 @@
     {
       "domain": "cds.connatix.com",
       "held_back_from": [
-        "hostsVN domains",
         "Ads and tracking extended"
       ]
     },
@@ -455,6 +678,12 @@
         "1Hosts (Lite)",
         "hostsVN domains",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "chase.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -474,23 +703,28 @@
       ]
     },
     {
+      "domain": "cisco.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "cldup.com",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "EasyList"
       ]
     },
     {
       "domain": "click.cptrack.de",
       "held_back_from": [
-        "1Hosts (Lite)",
-        "UT1 publicite"
+        "1Hosts (Lite)"
       ]
     },
     {
       "domain": "click.discord.com",
       "held_back_from": [
-        "blocklist-domains",
-        "UT1 publicite"
+        "blocklist-domains"
       ]
     },
     {
@@ -500,9 +734,27 @@
       ]
     },
     {
+      "domain": "cloudflare.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "cmp.tvspielfilm.de",
       "held_back_from": [
         "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "cnbc.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "cnn.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -525,8 +777,8 @@
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
         "Ultimate",
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
       ]
     },
     {
@@ -538,7 +790,8 @@
     {
       "domain": "connect.facebook.net",
       "held_back_from": [
-        "Ultimate"
+        "Ultimate",
+        "EasyPrivacy"
       ]
     },
     {
@@ -558,7 +811,8 @@
       "domain": "content.ibanking-services.com",
       "held_back_from": [
         "Multi-party only trackers",
-        "Multi-party trackers"
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking"
       ]
     },
     {
@@ -575,10 +829,28 @@
       ]
     },
     {
+      "domain": "costco.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "crunchbase.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "cs.dds.microsoft.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "cse.google.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -598,14 +870,20 @@
         "hostsVN adservers",
         "hostsVN domains",
         "Ultimate",
-        "EasyPrivacy",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "cvs.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "cws-iad1.conviva.com",
       "held_back_from": [
-        "blocklist-domains",
         "1Hosts (Lite)",
         "Ads and tracking extended"
       ]
@@ -624,8 +902,8 @@
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
-        "EasyPrivacy",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -638,7 +916,28 @@
       "domain": "d3tracking.rbc.com",
       "held_back_from": [
         "Multi-party only trackers",
-        "Multi-party trackers"
+        "Multi-party trackers",
+        "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "dailycaller.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "dailymail.co.uk",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "dailymotion.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -668,7 +967,8 @@
     {
       "domain": "dcf.espn.com",
       "held_back_from": [
-        "AdGuard DNS filter"
+        "AdGuard DNS filter",
+        "EasyPrivacy"
       ]
     },
     {
@@ -681,6 +981,18 @@
       "domain": "dd.tidal.com",
       "held_back_from": [
         "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "dell.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "developers.google.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -728,9 +1040,32 @@
       ]
     },
     {
+      "domain": "dhl.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "digg.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "digitaltrends.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "discord.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "disney.demdex.net",
       "held_back_from": [
-        "blocklist-domains",
         "Multi-party trackers",
         "1Hosts (Lite)",
         "Ads and tracking extended"
@@ -740,14 +1075,7 @@
       "domain": "disneyholidays.fr",
       "held_back_from": [
         "blocklist-domains",
-        "Ultimate",
-        "UT1 malware"
-      ]
-    },
-    {
-      "domain": "disneyplus.bn5x.net",
-      "held_back_from": [
-        "UT1 publicite"
+        "Ultimate"
       ]
     },
     {
@@ -757,9 +1085,34 @@
       ]
     },
     {
+      "domain": "disqus.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "dl.free.fr",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "domaintools.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "doodle.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "download.cnet.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -774,7 +1127,8 @@
       "domain": "drift.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -782,14 +1136,15 @@
       "held_back_from": [
         "NoTrack blocklist",
         "Ultimate",
-        "AdGuard DNS filter",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "AdGuard DNS filter"
       ]
     },
     {
       "domain": "dropbox.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyPrivacy"
       ]
     },
     {
@@ -798,6 +1153,19 @@
         "blocklist-domains",
         "uBO badware risks",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "duckduckgo.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "duolingo.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -811,6 +1179,13 @@
       "held_back_from": [
         "NoTrack blocklist",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "ebay.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -828,6 +1203,18 @@
         "ShadowWhisperer Ads",
         "1Hosts (Lite)",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "economist.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "ecosia.org",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -855,6 +1242,24 @@
       ]
     },
     {
+      "domain": "engadget.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "entrepreneur.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "eonline.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "ero-labs.online",
       "held_back_from": [
         "blocklist-domains"
@@ -867,6 +1272,43 @@
       ]
     },
     {
+      "domain": "eventbrite.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "ew.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "express.co.uk",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "facebook.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "fanpage.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "fastcompany.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "feedbackws.icloud.com",
       "held_back_from": [
         "blocklist-domains",
@@ -874,7 +1316,8 @@
         "1Hosts (Lite)",
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -883,6 +1326,12 @@
         "ShadowWhisperer Ads",
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "feedly.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -901,9 +1350,21 @@
       ]
     },
     {
+      "domain": "files.im",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "filmweb.pl",
       "held_back_from": [
         "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "firebaseinstallations.googleapis.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1067,9 +1528,29 @@
       ]
     },
     {
-      "domain": "forums.ilounge.com",
+      "domain": "forbes.com",
       "held_back_from": [
-        "blocklist-domains"
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "formula1.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "fortune.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "foxnews.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1085,6 +1566,13 @@
       "domain": "freeroms.com",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "ft.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1112,6 +1600,12 @@
       "held_back_from": [
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "gazzetta.it",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1146,21 +1640,41 @@
       ]
     },
     {
+      "domain": "giphy.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "github.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "github.io",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList"
       ]
     },
     {
-      "domain": "go.e2language.com",
+      "domain": "gizmodo.com",
       "held_back_from": [
-        "UT1 publicite"
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "globo.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "gmx.net",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1169,9 +1683,28 @@
         "First-party trackers",
         "Multi-party trackers",
         "Ultimate Hosts Blacklist (domains2)",
-        "EasyPrivacy",
         "Ads and tracking extended",
-        "UT1 publicite"
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "godaddy.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "google.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "googleapis.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1193,6 +1726,13 @@
       ]
     },
     {
+      "domain": "groupon.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "groups.google.com",
       "held_back_from": [
         "uBO badware risks"
@@ -1204,6 +1744,12 @@
         "Multi-party trackers",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "gstatic.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1222,10 +1768,29 @@
       ]
     },
     {
+      "domain": "heise.de",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "hgc-cf-cache-1.svonm.com",
       "held_back_from": [
         "1Hosts (Lite)",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "hilton.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "history.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1235,10 +1800,61 @@
       ]
     },
     {
+      "domain": "hollywoodlife.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "homedepot.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "hubspot.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "Ultimate Hosts Blacklist (domains2)"
+        "Ultimate Hosts Blacklist (domains2)",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "huffpost.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "huggingface.co",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "hulkshare.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "hulu.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "i.imgur.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "i.s-microsoft.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1264,8 +1880,8 @@
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "oisd small",
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
       ]
     },
     {
@@ -1275,6 +1891,19 @@
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "ibm.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "ibtimes.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1298,8 +1927,14 @@
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "Ultimate",
-        "AdGuard DNS filter",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "icons8.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1310,9 +1945,28 @@
       ]
     },
     {
+      "domain": "ign.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "ilcorsaronero.link",
       "held_back_from": [
+        "Anti-Piracy",
         "Streaming (custom)"
+      ]
+    },
+    {
+      "domain": "ilmeteo.it",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "ilsole24ore.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1338,7 +1992,8 @@
     {
       "domain": "imagebam.com",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "EasyList"
       ]
     },
     {
@@ -1357,7 +2012,6 @@
     {
       "domain": "img.connatix.com",
       "held_back_from": [
-        "hostsVN domains",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -1365,7 +2019,15 @@
     {
       "domain": "imgbox.com",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "imgur.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1385,6 +2047,25 @@
       ]
     },
     {
+      "domain": "indeed.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "indeed.fr",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "independent.co.uk",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "info.ammex.com",
       "held_back_from": [
         "ShadowWhisperer Tracking"
@@ -1401,14 +2082,26 @@
       "domain": "ink1001.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "Ultimate Hosts Blacklist (domains2)",
-        "UT1 publicite"
+        "Ultimate Hosts Blacklist (domains2)"
       ]
     },
     {
       "domain": "insomniagamingfestival.com",
       "held_back_from": [
         "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "instagram.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "intuit.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1451,6 +2144,12 @@
       ]
     },
     {
+      "domain": "issuu.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "it.gravatar.com",
       "held_back_from": [
         "Tracking aggressive extended"
@@ -1476,6 +2175,12 @@
       ]
     },
     {
+      "domain": "jquery.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "js.maxmind.com",
       "held_back_from": [
         "Tracking aggressive extended"
@@ -1491,7 +2196,8 @@
       "domain": "js.monitor.azure.com",
       "held_back_from": [
         "Ultimate Hosts Blacklist (domains2)",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1501,16 +2207,75 @@
       ]
     },
     {
+      "domain": "jsdelivr.net",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "kanlayanee.ac.th",
       "held_back_from": [
+        "blocklist-domains",
+        "Ultimate",
         "Threat Intelligence Feeds",
         "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "khanacademy.org",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "kickstarter.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "kohls.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "kroger.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "l.instagram.com",
       "held_back_from": [
         "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "la7.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "last.fm",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "law.cornell.edu",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "law360.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1523,15 +2288,47 @@
       ]
     },
     {
+      "domain": "leggo.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "lexology.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "libero.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "licenses.ashampoo.com",
       "held_back_from": [
         "1Hosts (Lite)"
       ]
     },
     {
+      "domain": "lifehacker.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "limetorrents.lol",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "linkedin.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1539,6 +2336,13 @@
       "held_back_from": [
         "blocklist-domains",
         "Ultimate Hosts Blacklist (domains2)"
+      ]
+    },
+    {
+      "domain": "lowes.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1564,6 +2368,25 @@
       ]
     },
     {
+      "domain": "macys.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "mail.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "mail.google.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "mailchimp.com",
       "held_back_from": [
         "NoTrack blocklist",
@@ -1581,7 +2404,14 @@
     {
       "domain": "majorgeeks.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "marketwatch.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1592,10 +2422,17 @@
       ]
     },
     {
+      "domain": "mashable.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "maxmind.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1605,10 +2442,28 @@
       ]
     },
     {
+      "domain": "mayoclinic.org",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "media-lab.ai",
       "held_back_from": [
-        "ShadowWhisperer Ads",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "mediaset.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "medium.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1621,6 +2476,19 @@
       "domain": "mega.nz",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "merriam-webster.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "messenger.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1637,6 +2505,12 @@
       ]
     },
     {
+      "domain": "microsoft.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "mobilecrashreporting.googleapis.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
@@ -1645,9 +2519,22 @@
       ]
     },
     {
+      "domain": "motorsport.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "mozilla.cloudflare-dns.com",
       "held_back_from": [
         "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "mozilla.org",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1659,7 +2546,8 @@
     {
       "domain": "mparticle.weather.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1669,8 +2557,15 @@
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
         "Ultimate",
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "msn.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1683,7 +2578,8 @@
     {
       "domain": "myabandonware.com",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "EasyList"
       ]
     },
     {
@@ -1709,9 +2605,53 @@
       ]
     },
     {
+      "domain": "namecheap.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nationalgeographic.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nbc.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "neowin.net",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "netflix.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "newegg.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "news.ebc.net.tw",
       "held_back_from": [
         "blocklist-domains"
+      ]
+    },
+    {
+      "domain": "news.google.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1725,9 +2665,59 @@
       ]
     },
     {
+      "domain": "newsday.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "newsmax.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "newsweek.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "newyorker.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nhl.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nickles.de",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "nike.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "nitroflare.com",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "npr.org",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1739,7 +2729,27 @@
     {
       "domain": "nutaku.net",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nymag.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nypost.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "nytimes.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1749,9 +2759,33 @@
       ]
     },
     {
-      "domain": "ouo.io",
+      "domain": "onet.pl",
       "held_back_from": [
-        "UT1 malware"
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "open.spotify.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "opensubtitles.org",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "oracle.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "outlook.live.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1770,16 +2804,54 @@
       ]
     },
     {
+      "domain": "p.jwpcdn.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "pastebin.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "pastie.org",
       "held_back_from": [
         "blocklist-domains"
       ]
     },
     {
+      "domain": "paypal.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "paypalobjects.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "pcapredict.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "people.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "pexels.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1789,7 +2861,19 @@
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "Ads and tracking extended",
-        "UT1 publicite"
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "pinterest.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "pixabay.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1815,7 +2899,8 @@
     {
       "domain": "play.google.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList"
       ]
     },
     {
@@ -1829,7 +2914,14 @@
       "domain": "player.avplayer.com",
       "held_back_from": [
         "1Hosts (Lite)",
-        "AdGuard DNS filter"
+        "AdGuard DNS filter",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "players.brightcove.net",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1848,8 +2940,8 @@
       "domain": "plugin.mediavoice.com",
       "held_back_from": [
         "1Hosts (Lite)",
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
       ]
     },
     {
@@ -1859,8 +2951,7 @@
         "uBO badware risks",
         "Ultimate",
         "Threat Intelligence Feeds",
-        "oisd small",
-        "UT1 malware"
+        "oisd small"
       ]
     },
     {
@@ -1875,6 +2966,12 @@
         "1Hosts (Lite)",
         "hostsVN domains",
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "prisjakt.nu",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -1914,7 +3011,15 @@
       "held_back_from": [
         "blocklist-domains",
         "ShadowWhisperer Tracking",
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "quora.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1934,15 +3039,16 @@
       ]
     },
     {
-      "domain": "rapidgator.net",
+      "domain": "rakuten.co.jp",
       "held_back_from": [
-        "Anti-Piracy"
+        "EasyPrivacy"
       ]
     },
     {
-      "domain": "rapidvideo.com",
+      "domain": "rapidgator.net",
       "held_back_from": [
-        "UT1 cryptojacking"
+        "Anti-Piracy",
+        "EasyList"
       ]
     },
     {
@@ -1952,21 +3058,42 @@
       ]
     },
     {
+      "domain": "raw.githubusercontent.com",
+      "held_back_from": [
+        "uBO badware risks",
+        "EasyList"
+      ]
+    },
+    {
       "domain": "real-debrid.com",
       "held_back_from": [
         "Anti-Piracy"
       ]
     },
     {
-      "domain": "realestate.nj.com",
+      "domain": "reddit.com",
       "held_back_from": [
-        "Ultimate"
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "redfin.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "report-uri.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "reuters.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -1976,9 +3103,28 @@
       ]
     },
     {
+      "domain": "rottentomatoes.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "rt.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "rutube.ru",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "s.pinimg.com",
       "held_back_from": [
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1991,6 +3137,13 @@
       "domain": "s.uicdn.com",
       "held_back_from": [
         "ShadowWhisperer Tracking"
+      ]
+    },
+    {
+      "domain": "s.yimg.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2032,7 +3185,9 @@
     {
       "domain": "s3.amazonaws.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2048,9 +3203,34 @@
       ]
     },
     {
+      "domain": "salesforce.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "samsung.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "save.tv",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "sciencedaily.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "scribd.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2090,8 +3270,8 @@
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
         "Ultimate",
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
       ]
     },
     {
@@ -2117,7 +3297,8 @@
     {
       "domain": "sendspace.com",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "EasyList"
       ]
     },
     {
@@ -2134,9 +3315,21 @@
       ]
     },
     {
-      "domain": "shalltry.com",
+      "domain": "share-online.biz",
       "held_back_from": [
-        "UT1 malware"
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "shutterstock.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "siemens.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -2146,9 +3339,23 @@
       ]
     },
     {
+      "domain": "slack.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "slashdot.org",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "slickdeals.net",
       "held_back_from": [
-        "UT1 publicite"
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2167,22 +3374,60 @@
       ]
     },
     {
+      "domain": "snapchat.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "socialize.eu1.gigya.com",
       "held_back_from": [
         "Tracking aggressive extended"
       ]
     },
     {
+      "domain": "soundcloud.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "spade.twitch.tv",
       "held_back_from": [
-        "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "ShadowWhisperer Tracking",
+        "Ads and tracking extended",
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "spaziogames.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "spiceworks.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "spiegel.de",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
       "domain": "sportsbet.com.au",
       "held_back_from": [
         "Gambling"
+      ]
+    },
+    {
+      "domain": "squarespace.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -2196,6 +3441,26 @@
       "domain": "sslgen-tidal.datadome.co",
       "held_back_from": [
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "stackoverflow.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "startpage.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "static.fastpic.org",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -2220,16 +3485,43 @@
       ]
     },
     {
+      "domain": "steamchina.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "storage.googleapis.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "stripe.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "stylitics.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "stytch.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "support.google.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -2241,15 +3533,17 @@
         "hostsVN domains",
         "Ultimate",
         "oisd small",
+        "Ads and tracking extended",
         "AdGuard DNS filter",
-        "EasyPrivacy",
-        "Ads and tracking extended"
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "surveymonkey.com",
       "held_back_from": [
-        "Scam Blocklist (wildcards)"
+        "Scam Blocklist (wildcards)",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2260,16 +3554,36 @@
       ]
     },
     {
+      "domain": "t-online.de",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "t.co",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "t.ly",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "t.paypal.com",
       "held_back_from": [
         "ShadowWhisperer Tracking",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "tag.aticdn.net",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2286,8 +3600,8 @@
         "hostsVN adservers",
         "hostsVN domains",
         "Ultimate",
-        "EasyPrivacy",
-        "Ads and tracking extended"
+        "Ads and tracking extended",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2298,10 +3612,22 @@
       ]
     },
     {
+      "domain": "tampermonkey.net",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "target.clickfunnels.com",
       "held_back_from": [
-        "Ads and tracking extended",
-        "UT1 publicite"
+        "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "target.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2309,12 +3635,15 @@
       "held_back_from": [
         "blocklist-domains",
         "NoTrack blocklist",
+        "First-party only trackers",
+        "First-party trackers",
+        "Multi-party only trackers",
+        "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
         "hostsVN adservers",
         "hostsVN domains",
-        "AdGuard DNS filter",
-        "UT1 publicite"
+        "AdGuard DNS filter"
       ]
     },
     {
@@ -2343,28 +3672,84 @@
       ]
     },
     {
+      "domain": "techrepublic.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "thechive.com",
       "held_back_from": [
         "blocklist-domains"
       ]
     },
     {
+      "domain": "theguardian.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "thehill.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "thenextweb.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "thepiratebay.org",
       "held_back_from": [
         "Anti-Piracy",
-        "UT1 cryptojacking"
+        "EasyList"
       ]
     },
     {
       "domain": "thetvdb.com",
       "held_back_from": [
-        "blocklist-domains"
+        "blocklist-domains",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "theverge.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "time.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "timesofindia.indiatimes.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
       "domain": "tinyurl.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "tiscali.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "tld-list.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -2374,9 +3759,28 @@
       ]
     },
     {
+      "domain": "tmz.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "tools.pingdom.com",
       "held_back_from": [
         "Tracking aggressive extended"
+      ]
+    },
+    {
+      "domain": "torrentfreak.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "tra.scds.pmdstatic.net",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2392,15 +3796,53 @@
       ]
     },
     {
+      "domain": "tripadvisor.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "tsatu.edu.ua",
       "held_back_from": [
         "Referrer spam list"
       ]
     },
     {
+      "domain": "tumblr.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "tunein.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "tuttomercatoweb.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "twitch.tv",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "twitchyhagg.is",
       "held_back_from": [
         "Scam Blocklist (wildcards)"
+      ]
+    },
+    {
+      "domain": "twitter.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2416,11 +3858,29 @@
       ]
     },
     {
+      "domain": "typeform.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "uber.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "ublock.org",
       "held_back_from": [
         "blocklist-domains",
         "KADhosts",
         "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "udemy.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -2500,13 +3960,16 @@
     {
       "domain": "unpkg.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "uploaded.net",
       "held_back_from": [
-        "Anti-Piracy"
+        "Anti-Piracy",
+        "EasyList"
       ]
     },
     {
@@ -2525,6 +3988,19 @@
       "domain": "uptobox.com",
       "held_back_from": [
         "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "uptodatefinishconferenceroom.com",
+      "held_back_from": [
+        "Anti-Piracy"
+      ]
+    },
+    {
+      "domain": "usatoday.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2551,9 +4027,20 @@
       ]
     },
     {
+      "domain": "variety.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "vice.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "vid.connatix.com",
       "held_back_from": [
-        "hostsVN domains",
         "Ads and tracking extended"
       ]
     },
@@ -2564,16 +4051,39 @@
       ]
     },
     {
+      "domain": "videopress.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "vimeo.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "virgilio.it",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "visualstudio.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "vk.com",
       "held_back_from": [
-        "Tracking aggressive extended"
+        "Tracking aggressive extended",
+        "EasyPrivacy"
       ]
     },
     {
       "domain": "vlscppe.microsoft.com",
       "held_back_from": [
-        "Multi-party only trackers",
-        "Multi-party trackers",
         "ShadowWhisperer Tracking"
       ]
     },
@@ -2596,9 +4106,34 @@
       ]
     },
     {
+      "domain": "vox.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "walgreens.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "wallet.advcash.com",
       "held_back_from": [
         "1Hosts (Lite)"
+      ]
+    },
+    {
+      "domain": "walmart.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "washingtonpost.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -2608,15 +4143,40 @@
       ]
     },
     {
+      "domain": "weather.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "web.facebook.com",
       "held_back_from": [
         "Ultimate"
       ]
     },
     {
+      "domain": "web.whatsapp.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "wetransfer.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "whatismyip.com",
       "held_back_from": [
-        "ShadowWhisperer Tracking"
+        "ShadowWhisperer Tracking",
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "who.is",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -2630,7 +4190,14 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "hostsVN adservers",
-        "hostsVN domains"
+        "hostsVN domains",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "wikipedia.org",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
@@ -2640,14 +4207,19 @@
       ]
     },
     {
+      "domain": "wired.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
       "domain": "wl.spotify.com",
       "held_back_from": [
         "blocklist-domains",
         "First-party only trackers",
         "First-party trackers",
         "Multi-party only trackers",
-        "Multi-party trackers",
-        "UT1 publicite"
+        "Multi-party trackers"
       ]
     },
     {
@@ -2657,11 +4229,31 @@
       ]
     },
     {
+      "domain": "wordpress.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "wp.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "ws.sharethis.com",
       "held_back_from": [
         "hostsVN domains",
+        "Ads and tracking extended",
         "AdGuard DNS filter",
-        "Ads and tracking extended"
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "wunderground.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
@@ -2705,9 +4297,42 @@
       ]
     },
     {
+      "domain": "wykop.pl",
+      "held_back_from": [
+        "AdGuard DNS filter"
+      ]
+    },
+    {
+      "domain": "xda-developers.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "xing.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "yacy.net",
       "held_back_from": [
         "ShadowWhisperer Malware"
+      ]
+    },
+    {
+      "domain": "yahoo.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "yandex.com",
+      "held_back_from": [
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2719,9 +4344,17 @@
       ]
     },
     {
+      "domain": "youtube-nocookie.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "youtube.com",
       "held_back_from": [
-        "uBO badware risks"
+        "uBO badware risks",
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2731,10 +4364,34 @@
       ]
     },
     {
+      "domain": "zdnet.com",
+      "held_back_from": [
+        "EasyList"
+      ]
+    },
+    {
+      "domain": "zendesk.com",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
       "domain": "zippyshare.com",
       "held_back_from": [
         "Anti-Piracy",
         "Ultimate"
+      ]
+    },
+    {
+      "domain": "zoom.us",
+      "held_back_from": [
+        "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "zoominfo.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     }
   ]
