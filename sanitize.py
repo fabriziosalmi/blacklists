@@ -106,6 +106,13 @@ def strip_adblock_syntax(line: str) -> Optional[str]:
     The modifier check runs before anything else is stripped: the separator
     preceding ``$`` is not always ``^`` (``||example.com.$all,to=~x`` ends the
     hostname with a dot), so splitting on ``^`` first would let those through.
+
+    The same holds for paths: ``||akamai.net^*/sitetracking/`` blocks one path
+    on akamai.net, and the path sits AFTER the ``^``. Keeping only what precedes
+    the separator turned it into a block on the whole CDN. EasyPrivacy put
+    akamai.net, cloudfront.net, azureedge.net and azurewebsites.net on the list
+    that way and held every release from 2026-09-18. Only an empty remainder,
+    or the ``|`` end anchor, leaves the rule about the host alone.
     """
     if not line.startswith("||"):
         return line
@@ -115,7 +122,9 @@ def strip_adblock_syntax(line: str) -> Optional[str]:
     if "$" in line:
         return None
 
-    line = line.split("^")[0]
+    line, _, remainder = line.partition("^")
+    if remainder not in ("", "|"):
+        return None
 
     if "/" in line:
         return None
