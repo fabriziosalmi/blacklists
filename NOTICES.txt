@@ -1,7 +1,7 @@
 NOTICES
 =======
 
-The blacklist distributed with this file is an aggregate of 43 domain
+The blacklist distributed with this file is an aggregate of 40 domain
 lists produced by other people. It is published under GPL-3.0-only; see
 LICENSING.md in the project repository for why.
 
@@ -12,7 +12,7 @@ a release asset never sees the repository.
 
 The authoritative licence text for each entry is at the URL given.
 
-Verbatim copyright notices are reproduced for 18 of the 43 entries,
+Verbatim copyright notices are reproduced for 18 of the 40 entries,
 which covers every source whose licence requires it - MIT, Apache-2.0, BSD and
 ISC all ask for the notice to accompany the work. The remaining entries are
 copyleft, share-alike or public-domain sources that state no copyright line to
@@ -283,24 +283,6 @@ URLhaus filter
     Licence     : MIT
     Licence text: https://gitlab.com/malware-filter/malware-filter/-/blob/main/LICENSE
     Copyright   : Copyright (c) 2023 Ming Di Leom
-UT1 cryptojacking
-    Project     : UT1 blacklists
-    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
-    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
-    Licence     : CC-BY-SA-4.0
-    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
-UT1 malware
-    Project     : UT1 blacklists
-    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
-    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
-    Licence     : CC-BY-SA-4.0
-    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
-UT1 publicite
-    Project     : UT1 blacklists
-    Attribution : Fabrice Prigent (Universite Toulouse 1 Capitole)
-    Homepage    : https://dsi.ut-capitole.fr/blacklists/index_en.php
-    Licence     : CC-BY-SA-4.0
-    Licence text: https://dsi.ut-capitole.fr/blacklists/index_en.php
 YouTube spam domains
     Project     : ThioJoe/YT-Spam-Lists
     Attribution : ThioJoe
