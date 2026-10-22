@@ -357,6 +357,13 @@ def main() -> int:
                         help='Rewrite acknowledged.txt from the current state '
                              'instead of failing. Establishes the baseline; not '
                              'for routine use.')
+    parser.add_argument('--accept-size-from', type=int, default=None,
+                        metavar='N',
+                        help='Let a size change beyond the limit through, but '
+                             'only when the baseline is exactly N domains. Set '
+                             'by hand after reviewing the numbers. Tied to one '
+                             'baseline, it stops applying as soon as a release '
+                             'publishes.')
     args = parser.parse_args()
 
     blacklist_path = Path(args.blacklist)
@@ -414,6 +421,22 @@ def main() -> int:
     size_ok, size_message = check_size_change(len(blacklist), baseline)
     log(f'{"✓" if size_ok else "✗"} Size: {size_message}')
     log(f'  compared against {baseline_source}')
+
+    # A maintainer can accept a change the gate refuses, after looking at it:
+    # a source that is gone for good leaves the list smaller every day, and the
+    # gate cannot tell that from one having a bad night. The acceptance names
+    # the baseline it was reviewed against, so it cannot outlive that review: a
+    # value left in place, or typed again tomorrow, no longer matches once a
+    # release has moved the baseline.
+    size_accepted_by_hand = False
+    if not size_ok and args.accept_size_from is not None:
+        if args.accept_size_from == baseline:
+            size_ok = True
+            size_accepted_by_hand = True
+            log(f'! Size: accepted by hand against the baseline of {baseline:,}')
+        else:
+            log(f'  --accept-size-from {args.accept_size_from:,} does not match '
+                f'the baseline of {baseline:,}, not applied')
 
     # The popularity checks need a ranking. If it cannot be fetched, they are
     # skipped loudly rather than failing the release: an unreachable third-party
@@ -497,6 +520,7 @@ def main() -> int:
             'previous_domains': baseline,
             'baseline_source': baseline_source,
             'accepted': size_ok,
+            'accepted_by_hand': size_accepted_by_hand,
             'detail': size_message,
         },
         'protected': {
