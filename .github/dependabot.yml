@@ -5,3 +5,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  # The Python locks (requirements*.txt) are pinned with hashes, so nothing
+  # moves unless a pull request moves it.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -1,0 +1,4 @@
+# Runtime dependencies of the release pipeline (generate.sh, scripts/).
+# Unpinned here; requirements.txt is the pinned, hashed lock. After editing:
+#   uv pip compile requirements.in --universal --python-version 3.11 --generate-hashes -o requirements.txt
+tldextract

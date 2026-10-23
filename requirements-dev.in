@@ -1,0 +1,7 @@
+# Test dependencies, plus the runtime ones the tests import. After editing:
+#   uv pip compile requirements-dev.in --universal --python-version 3.11 --generate-hashes -o requirements-dev.txt
+-r requirements.in
+pytest
+# Used only by scripts/check_whitelist.py, which probes whitelisted domains.
+requests
+rich

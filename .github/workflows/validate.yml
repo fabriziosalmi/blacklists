@@ -19,7 +19,8 @@ on:
       - 'sanitize.py'
       - 'whitelist.py'
       - 'whitelist.txt'
-      - 'requirements-dev.txt'
+      - 'generate.sh'
+      - 'requirements*.txt'
       - '.github/workflows/validate.yml'
   pull_request:
     paths:
@@ -34,7 +35,9 @@ on:
       - 'sanitize.py'
       - 'whitelist.py'
       - 'whitelist.txt'
-      - 'requirements-dev.txt'
+      - 'generate.sh'
+      - 'requirements*.txt'
+      - '.github/workflows/validate.yml'
   workflow_dispatch:
 
 permissions:
@@ -44,16 +47,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-python@v7
+      # The release runs on 3.12, so the tests do too.
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
       - name: Install test dependencies
-        run: python3 -m pip install -r requirements-dev.txt
+        run: python3 -m pip install --require-hashes -r requirements-dev.txt
 
       # Guards what the pipeline decides to block. Every case in the suite is a
       # bug that reached, or nearly reached, a published release.
@@ -63,9 +67,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.11'
 

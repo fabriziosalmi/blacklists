@@ -1,0 +1,4 @@
+# Dependencies of the daily statistics job (scripts/generate_stats.py). After editing:
+#   uv pip compile requirements-stats.in --universal --python-version 3.11 --generate-hashes -o requirements-stats.txt
+matplotlib
+pandas

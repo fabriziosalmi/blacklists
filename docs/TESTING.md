@@ -12,9 +12,13 @@ a published release, so it is the fastest way to understand what the pipeline
 guarantees.
 
 ```bash
-python3 -m pip install -r requirements-dev.txt
+python3 -m pip install --require-hashes -r requirements-dev.txt
 python3 -m pytest tests/ -v
 ```
+
+The `requirements*.txt` files are locks, pinned with hashes and compiled from
+the matching `requirements*.in`; Dependabot moves them weekly. The command that
+regenerates each one is at the top of its `.in` file.
 
 It runs on every push and pull request via the `Validate` workflow, alongside
 these checks:
