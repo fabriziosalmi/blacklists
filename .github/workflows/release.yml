@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
           ref: main
@@ -39,7 +39,7 @@ jobs:
       # PyPI offers tonight. 3.12 is what the system Python of ubuntu-latest
       # was when this was pinned, so nothing changed version on the way.
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
 
@@ -63,7 +63,7 @@ jobs:
       # because cache entries are immutable; restore-keys picks the newest.
       # A miss only means no fallback tonight.
       - name: Restore last-known-good sources
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: sources_lkg
           key: sources-lkg-${{ github.run_id }}
@@ -105,7 +105,7 @@ jobs:
       # published release is the one baseline tonight.
       - name: Restore the last scheduled build
         if: github.event_name == 'schedule'
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: size_baseline.json
           key: size-baseline-${{ github.run_id }}
@@ -142,7 +142,7 @@ jobs:
       # that breaks a protected name.
       - name: Save this build for the next scheduled run
         if: always() && github.event_name == 'schedule' && hashFiles('size_baseline.json') != ''
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: size_baseline.json
           key: size-baseline-${{ github.run_id }}-${{ github.run_attempt }}
@@ -422,7 +422,7 @@ jobs:
             --jq '.assets[] | "  published: \(.name) (\(.size) bytes)"'
 
       - name: Save last-known-good sources
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: sources_lkg
           key: sources-lkg-${{ github.run_id }}-${{ github.run_attempt }}
