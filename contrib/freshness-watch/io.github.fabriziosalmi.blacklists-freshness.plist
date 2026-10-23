@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template. Replace __SCRIPT__ and __HOME__ with absolute paths; see README.md. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>io.github.fabriziosalmi.blacklists-freshness</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>__SCRIPT__</string>
+  </array>
+  <!-- launchd starts jobs with a minimal PATH; jq comes from Homebrew. -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <!-- Every 6 hours, and once at load so a fresh install proves itself. -->
+  <key>StartInterval</key>
+  <integer>21600</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__HOME__/Library/Logs/blacklists-freshness.log</string>
+  <key>StandardErrorPath</key>
+  <string>__HOME__/Library/Logs/blacklists-freshness.log</string>
+</dict>
+</plist>
