@@ -1,26 +1,27 @@
 {
-  "generated_at": "2026-10-23T00:39:39.787107+00:00",
+  "generated_at": "2026-10-23T12:47:25.494519+00:00",
   "ranking_source": "Tranco top 1M (tranco-list.eu), fetched at build time",
   "ranking_available": true,
-  "published_domains": 5542754,
+  "published_domains": 5545894,
   "size": {
-    "published_domains": 5542754,
-    "previous_domains": 5542635,
+    "published_domains": 5545894,
+    "previous_domains": 5542754,
     "baseline_source": "the previously published release",
     "accepted": true,
     "accepted_by_hand": false,
-    "detail": "+119 against the previous 5,542,635 (+0.0%), below the 50,000 domain floor for treating a percentage as meaningful"
+    "detail": "+3,140 against the previous 5,542,754 (+0.1%), below the 50,000 domain floor for treating a percentage as meaningful"
   },
   "protected": {
     "checked": 62,
-    "violations": []
+    "violations": [],
+    "stripped": []
   },
   "popularity": {
     "blocked_in_band": {
       "top_1000": 150,
       "top_10000": 1939,
-      "top_100000": 11928,
-      "top_1000000": 56627
+      "top_100000": 11930,
+      "top_1000000": 56639
     },
     "review_rank": 1000,
     "enforced": true,
