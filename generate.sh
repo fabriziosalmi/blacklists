@@ -3,55 +3,23 @@
 LOGFILE="setup_script.log"
 echo "Setup script 🛠️" | tee -a "$LOGFILE"
 
-# Detect package manager and configure commands for package operations
-detect_package_manager() {
-    if command -v apt-get &>/dev/null; then
-        PACKAGE_MANAGER="apt-get"
-        UPDATE_CMD="sudo apt-get update"
-        INSTALL_CMD="sudo apt-get install -y"
-    elif command -v apk &>/dev/null; then
-        PACKAGE_MANAGER="apk"
-        UPDATE_CMD="sudo apk update"
-        INSTALL_CMD="sudo apk add --no-cache"
-    elif [[ "$(uname -s)" == "Darwin" ]]; then  # macOS check
-        PACKAGE_MANAGER="brew"
-        UPDATE_CMD="brew update"
-        INSTALL_CMD="brew install"
-    else
-        echo "Unsupported package manager. Exiting ❌." | tee -a "$LOGFILE"
+# This script used to install its own dependencies: a sudo apt-get update and
+# install of python3 on every run, a symlink of /usr/bin/python, ensurepip
+# (which Debian disables, so it printed an error every night) and an unpinned
+# pip install --upgrade of tldextract. A build that upgrades its own toolchain
+# while it runs cannot be reproduced, and a sudo package install has no place
+# in a script a user runs on their own machine. The dependencies are now
+# installed once, pinned, from requirements.txt; this only checks for them.
+check_python() {
+    if ! command -v python3 &>/dev/null; then
+        echo "python3 not found. Exiting ❌." | tee -a "$LOGFILE"
         exit 1
     fi
-}
-
-# Update and install prerequisites
-update_and_install() {
-    echo "Updating system and installing Python 3..." | tee -a "$LOGFILE"
-    $UPDATE_CMD | tee -a "$LOGFILE"
-
-    if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
-       $INSTALL_CMD python3  | tee -a "$LOGFILE"
-    else
-        $INSTALL_CMD python3 | tee -a "$LOGFILE"
-        if [ "$PACKAGE_MANAGER" == "apt-get" ]; then
-            sudo ln -sf /usr/bin/python3 /usr/bin/python
-        fi
+    if ! python3 -c 'import tldextract' 2>/dev/null; then
+        echo "tldextract is not installed: python3 -m pip install -r requirements.txt. Exiting ❌." | tee -a "$LOGFILE"
+        exit 1
     fi
-
-    # Check if python3-pip is installed; install if necessary.
-    if ! command -v pip3 &>/dev/null; then
-        echo "pip3 not found, installing..." | tee -a "$LOGFILE"
-        if [[ "$PACKAGE_MANAGER" == "apt-get" ]]; then
-            $INSTALL_CMD python3-pip | tee -a "$LOGFILE"
-        else
-           echo "No pip package found for your package manager. Please install pip manually. Exiting ❌." | tee -a "$LOGFILE"
-           exit 1
-        fi
-    fi
-
-    # Ensure pip and setuptools are up to date
-    echo "Ensuring pip and setuptools are up to date..." | tee -a "$LOGFILE"
-    python3 -m ensurepip --upgrade | tee -a "$LOGFILE"
-    pip3 install --no-cache-dir --upgrade pip setuptools tldextract tqdm | tee -a "$LOGFILE"
+    echo "Python: $(python3 --version 2>&1), tldextract $(python3 -c 'import tldextract; print(tldextract.__version__)')." | tee -a "$LOGFILE"
 }
 
 # Check that the tools this script actually uses are present.
@@ -292,8 +260,16 @@ manage_downloads() {
 sanitize_and_whitelist() {
     echo "Sanitizing blacklists..." | tee -a "$LOGFILE"
     mv all.fqdn.blacklist input.txt || exit 1
+    # The exit status is checked, not only the output file. A pipe into tee
+    # reports tee's status, so a sanitize.py that died while writing left a
+    # truncated output.txt that the mv below accepted as the list.
+    rm -f output.txt filtered_blacklist.txt
     if [ -f sanitize.py ]; then
-        python sanitize.py | tee -a "$LOGFILE"
+        python3 sanitize.py 2>&1 | tee -a "$LOGFILE"
+        if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+            echo "sanitize.py failed. Exiting ❌." | tee -a "$LOGFILE"
+            exit 1
+        fi
         mv output.txt all.fqdn.blacklist || exit 1
     else
         echo "sanitize.py not found. Skipping sanitation." | tee -a "$LOGFILE"
@@ -301,7 +277,11 @@ sanitize_and_whitelist() {
     echo "Removing whitelisted domains..." | tee -a "$LOGFILE"
     mv all.fqdn.blacklist blacklist.txt || exit 1
     if [ -f whitelist.py ]; then
-        python whitelist.py | tee -a "$LOGFILE"
+        python3 whitelist.py 2>&1 | tee -a "$LOGFILE"
+        if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+            echo "whitelist.py failed. Exiting ❌." | tee -a "$LOGFILE"
+            exit 1
+        fi
         mv filtered_blacklist.txt all.fqdn.blacklist || exit 1
     else
         echo "whitelist.py not found. Skipping whitelist filtering." | tee -a "$LOGFILE"
@@ -359,8 +339,7 @@ prepend_attribution_header() {
 
 # Main routine
 main() {
-    detect_package_manager
-    update_and_install
+    check_python
     check_required_tools
     manage_downloads
     sanitize_and_whitelist

@@ -413,6 +413,10 @@ Generate your own blacklist:
 git clone https://github.com/fabriziosalmi/blacklists.git
 cd blacklists
 
+# Dependencies, pinned with hashes. generate.sh checks for them and installs
+# nothing itself.
+python3 -m pip install --require-hashes -r requirements.txt
+
 # Edit sources
 nano blacklists.fqdn.urls
 
