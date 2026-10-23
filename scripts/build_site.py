@@ -216,6 +216,23 @@ def load_sources(repo: Path, stats_dir: Path) -> Dict:
     }
 
 
+def freshness_badge(published_at: Optional[str], now: datetime) -> Dict:
+    """The 'updated' badge: when the list was published, red once it is stale.
+
+    It used to show the time the site was built, which is every day whether or
+    not a release published, so it said 'today' through a 35-day freeze.
+    """
+    if not published_at:
+        return {'label': 'updated', 'message': 'unknown', 'color': 'lightgrey'}
+    published = datetime.fromisoformat(published_at.replace('Z', '+00:00'))
+    hours = (now - published).total_seconds() / 3600
+    if hours <= STALE_AFTER_HOURS:
+        return {'label': 'updated', 'message': f'{published:%Y-%m-%d}', 'color': '2563eb'}
+    return {'label': 'updated',
+            'message': f'{published:%Y-%m-%d}, {int(hours // 24)} days old',
+            'color': 'cc0000'}
+
+
 def write_badges(badge_dir: Path, stats: Dict) -> None:
     """Write shields.io endpoint payloads so README badges track the real data."""
     badge_dir.mkdir(parents=True, exist_ok=True)
@@ -243,11 +260,8 @@ def write_badges(badge_dir: Path, stats: Dict) -> None:
             'message': f"{stats['whitelisted_domains']:,}",
             'color': '00cc00',
         },
-        'updated': {
-            'label': 'updated',
-            'message': (stats.get('generated_at') or '')[:10] or 'unknown',
-            'color': '2563eb',
-        },
+        'updated': freshness_badge((stats.get('release') or {}).get('published_at'),
+                                   datetime.fromisoformat(stats['generated_at'])),
     }
 
     for name, payload in badges.items():
@@ -257,6 +271,31 @@ def write_badges(badge_dir: Path, stats: Dict) -> None:
         )
 
     log(f'✓ Wrote {len(badges)} badge endpoints')
+
+
+# Beyond this age the list counts as stale. The release runs every 24 hours, so
+# 36 is one missed night plus slack for a slow run, and two missed nights are
+# always past it.
+STALE_AFTER_HOURS = 36
+
+
+def list_published_at(release_json: Optional[str]) -> Optional[str]:
+    """When blacklist.txt was last uploaded, from the release metadata.
+
+    Not the release's own publishedAt: the release is edited in place every
+    night, so publishedAt is the night it was first created and never moves.
+    The site said the list was 45 days old on the day it was rebuilt.
+    """
+    if not release_json or not Path(release_json).is_file():
+        return None
+    try:
+        payload = json.loads(Path(release_json).read_text(encoding='utf-8'))
+    except json.JSONDecodeError:
+        return None
+    for asset in payload.get('assets', []):
+        if asset.get('name') == 'blacklist.txt' and asset.get('updatedAt'):
+            return asset['updatedAt']
+    return None
 
 
 def release_assets(release_json: Optional[str]) -> List[Dict]:
@@ -343,8 +382,6 @@ def main() -> int:
                         help='Path to the downloaded blacklist.txt release asset')
     parser.add_argument('--out', default='_site', help='Output directory')
     parser.add_argument('--release-tag', default=os.environ.get('RELEASE_TAG', ''))
-    parser.add_argument('--release-published-at',
-                        default=os.environ.get('RELEASE_PUBLISHED_AT', ''))
     parser.add_argument('--run-url', default=os.environ.get('RUN_URL', ''))
     parser.add_argument('--release-json', default=None,
                         help='gh release view output, used to publish the size '
@@ -415,7 +452,7 @@ def main() -> int:
         'stats_generated_at': daily_stats.get('generated_at'),
         'release': {
             'tag': args.release_tag or None,
-            'published_at': args.release_published_at or None,
+            'published_at': list_published_at(args.release_json),
             'blacklist_sha256': blacklist_sha256,
             'blacklist_bytes': blacklist_bytes,
             # Every published asset with its size. docs/PERFORMANCE.md used to

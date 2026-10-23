@@ -15,6 +15,12 @@ on:
       - 'scripts/build_site.py'
       - 'blacklists.fqdn.urls'
       - '.github/workflows/pages.yml'
+  # Rebuild once a day whatever else happened. The "updated" badge is a static
+  # file written at build time, so it can only turn red if something rebuilds
+  # it after the release stopped; the two triggers above both depend on other
+  # workflows succeeding.
+  schedule:
+    - cron: '30 6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -57,10 +63,9 @@ jobs:
           # downloading ~400 MB to measure them.
           gh release view latest \
             --repo "${{ github.repository }}" \
-            --json tagName,publishedAt,assets \
+            --json tagName,assets \
             > release.json
           echo "tag=$(jq -r .tagName release.json)" >> "$GITHUB_OUTPUT"
-          echo "published_at=$(jq -r .publishedAt release.json)" >> "$GITHUB_OUTPUT"
 
       - name: Download blacklist release asset
         env:
@@ -75,7 +80,6 @@ jobs:
       - name: Build site
         env:
           RELEASE_TAG: ${{ steps.release.outputs.tag }}
-          RELEASE_PUBLISHED_AT: ${{ steps.release.outputs.published_at }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           python3 scripts/build_site.py --blacklist blacklist.txt --out _site \
