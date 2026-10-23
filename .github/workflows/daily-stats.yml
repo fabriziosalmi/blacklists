@@ -32,8 +32,7 @@ jobs:
 
       - name: Install Python Dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install matplotlib pandas
+          python3 -m pip install --require-hashes -r requirements-stats.txt
 
       - name: Generate Statistics
         env:

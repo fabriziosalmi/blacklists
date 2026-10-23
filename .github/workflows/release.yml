@@ -35,10 +35,16 @@ jobs:
           fetch-depth: 1
           ref: main
 
+      # Python and its packages are fixed, not whatever the runner image or
+      # PyPI offers tonight. 3.12 is what the system Python of ubuntu-latest
+      # was when this was pinned, so nothing changed version on the way.
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
       - name: Install Python Dependencies
-        run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install tldextract tqdm
+        run: python3 -m pip install --require-hashes -r requirements.txt
 
       # Fail before doing any work if the published attribution no longer
       # matches the sources actually being fetched.
