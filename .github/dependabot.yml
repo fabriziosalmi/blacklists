@@ -10,11 +10,12 @@ updates:
   # moves unless a pull request moves it.
   - package-ecosystem: "pip"
     directory: "/"
-    # Dependabot reads every .txt file in the root as a requirements file.
-    # These are lists of domains and notices, not dependencies.
+    # Dependabot reads .txt files as requirements files, in the root and in
+    # sources/. These are lists of domains and notices, not dependencies.
     exclude-paths:
       - "whitelist.txt"
       - "dns_servers.txt"
       - "NOTICES.txt"
+      - "sources/*.txt"
     schedule:
       interval: "weekly"
