@@ -681,3 +681,180 @@ def test_acceptance_does_not_excuse_a_protected_domain(tmp_path, monkeypatch):
     assert code == 1
     assert report['size']['accepted_by_hand'] is True
     assert report['protected']['violations']
+
+
+# --------------------------------------------------------------------------
+# A refusal holds the list for one night
+#
+# From 2026-09-18 the published list stopped moving and the size gate kept
+# comparing every new build against it. Ordinary churn piled up until no build
+# could pass, and the gate refused a list that had long since stopped changing.
+# The scheduled run now also accepts a build within the limits of the one the
+# previous scheduled run recorded.
+# --------------------------------------------------------------------------
+
+from datetime import datetime, timedelta, timezone  # noqa: E402
+
+PUBLISHED_AT = datetime(2026, 10, 1, 0, 40, tzinfo=timezone.utc)
+
+
+def held_gate(tmp_path, monkeypatch, last_build=None, recorded_hours_ago=24,
+              published_at=PUBLISHED_AT, blacklist_size=50, protected=(),
+              last_build_raw=None, record=True):
+    """Tonight's list against a 100-domain release published on 2026-10-01.
+
+    ``last_build`` is the size the previous scheduled run recorded, that many
+    hours before now.
+    """
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    record_in = tmp_path / 'last_build.json'
+    if last_build_raw is not None:
+        record_in.write_text(last_build_raw, encoding='utf-8')
+    elif last_build is not None:
+        recorded_at = datetime.now(timezone.utc) - timedelta(hours=recorded_hours_ago)
+        record_in.write_text(json.dumps({'domains': last_build,
+                                         'recorded_at': recorded_at.isoformat()}),
+                             encoding='utf-8')
+    argv = ['--last-build', str(record_in)]
+    if published_at is not None:
+        argv += ['--previous-published-at', published_at.isoformat().replace('+00:00', 'Z')]
+    if record:
+        argv += ['--record-build', str(tmp_path / 'this_build.json')]
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=list(protected) + [f'd{i}.example' for i in range(blacklist_size)],
+        protected=[f'{p}  # protected' for p in protected],
+        acknowledged=[],
+        ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        extra_argv=argv,
+    )
+    recorded = tmp_path / 'this_build.json'
+    return code, report, json.loads(recorded.read_text()) if recorded.exists() else None
+
+
+def test_a_change_still_there_the_next_night_ships(tmp_path, monkeypatch):
+    """Refused against the release, accepted against last night's build of the
+    same size. This is the deadlock that froze the list for 35 days."""
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build=52)
+    assert code == 0
+    assert report['size']['accepted'] is True
+    assert report['size']['previous_domains'] == 52
+    assert 'last scheduled build' in report['size']['baseline_source']
+
+
+def test_the_first_night_of_a_change_is_still_refused(tmp_path, monkeypatch):
+    """Last night's build was the old size: tonight is the first night."""
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build=100)
+    assert code == 1
+    assert report['size']['previous_domains'] == 100
+
+
+def test_a_rerun_minutes_later_does_not_pass_against_its_own_refusal(tmp_path, monkeypatch):
+    """Re-running a refused scheduled run keeps event_name 'schedule'.
+    Break-test: set MIN_HOLD_HOURS to 0 and this fails."""
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build=50, recorded_hours_ago=0.2)
+    assert code == 1
+    assert 'previously published release' in report['size']['baseline_source']
+
+
+def test_a_build_older_than_the_published_release_is_ignored(tmp_path, monkeypatch):
+    """A later publish, by hand or otherwise, already replaced that list.
+    Break-test: drop the published_at comparison and this fails."""
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build=50,
+                                published_at=datetime.now(timezone.utc) - timedelta(hours=2))
+    assert code == 1
+
+
+def test_the_list_recovering_passes_against_the_release(tmp_path, monkeypatch):
+    """A source back after a bad night is compared with the release first."""
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build=50, blacklist_size=100)
+    assert code == 0
+    assert report['size']['previous_domains'] == 100
+
+
+def test_a_corrupt_record_means_one_baseline_not_a_crash(tmp_path, monkeypatch):
+    code, report, _ = held_gate(tmp_path, monkeypatch, last_build_raw='{not json')
+    assert code == 1
+    assert report['size']['previous_domains'] == 100
+
+
+def test_a_record_without_a_timezone_is_ignored(tmp_path, monkeypatch):
+    raw = json.dumps({'domains': 50, 'recorded_at': '2026-10-01T00:00:00'})
+    code, _, _ = held_gate(tmp_path, monkeypatch, last_build_raw=raw)
+    assert code == 1
+
+
+def test_a_refused_build_is_recorded_for_the_next_night(tmp_path, monkeypatch):
+    code, _, recorded = held_gate(tmp_path, monkeypatch, last_build=100)
+    assert code == 1
+    assert recorded['domains'] == 50
+    assert recorded['size_accepted'] is False
+
+
+def test_a_build_that_breaks_a_protected_name_is_never_recorded(tmp_path, monkeypatch):
+    """Otherwise a broken list would be accepted as tomorrow's baseline.
+    Break-test: drop 'not violations' from the record condition and this fails."""
+    code, _, recorded = held_gate(tmp_path, monkeypatch, last_build=100,
+                                  protected=['cloudfront.net'])
+    assert code == 1
+    assert recorded is None
+
+
+def test_without_the_last_build_the_gate_is_unchanged(tmp_path, monkeypatch):
+    """A manual run passes neither flag and compares against the release only."""
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    (tmp_path / 'last_build.json').write_text(json.dumps(
+        {'domains': 50, 'recorded_at': '2026-10-10T00:00:00+00:00'}), encoding='utf-8')
+    code, report = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(50)],
+        protected=[], acknowledged=[], ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+    )
+    assert code == 1
+
+
+def test_a_rerun_keeps_the_time_the_size_was_first_seen(tmp_path, monkeypatch):
+    """Rewriting the time on every run would let an afternoon re-run restart
+    the twelve hours and hold the list a second night. Break-test: always
+    record now and this fails."""
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    record = tmp_path / 'size_baseline.json'
+    first_seen = datetime.now(timezone.utc) - timedelta(hours=3)
+    record.write_text(json.dumps({'domains': 51, 'recorded_at': first_seen.isoformat()}),
+                      encoding='utf-8')
+    code, _ = run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(50)],
+        protected=[], acknowledged=[], ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        extra_argv=['--previous-published-at', PUBLISHED_AT.isoformat(),
+                    '--last-build', str(record), '--record-build', str(record)],
+    )
+    assert code == 1
+    kept = json.loads(record.read_text())
+    assert kept['domains'] == 50
+    assert datetime.fromisoformat(kept['recorded_at']) == first_seen
+
+
+def test_a_new_size_starts_a_new_clock(tmp_path, monkeypatch):
+    """A record the build is not within the limits of is a different change."""
+    import check_quality
+    monkeypatch.setattr(check_quality, 'MIN_SIGNIFICANT_DELTA', 0)
+    record = tmp_path / 'size_baseline.json'
+    first_seen = datetime.now(timezone.utc) - timedelta(hours=3)
+    record.write_text(json.dumps({'domains': 100, 'recorded_at': first_seen.isoformat()}),
+                      encoding='utf-8')
+    run_gate(
+        tmp_path, monkeypatch,
+        blacklist=[f'd{i}.example' for i in range(50)],
+        protected=[], acknowledged=[], ranks={},
+        previous=[f'd{i}.example' for i in range(100)],
+        extra_argv=['--previous-published-at', PUBLISHED_AT.isoformat(),
+                    '--last-build', str(record), '--record-build', str(record)],
+    )
+    assert datetime.fromisoformat(json.loads(record.read_text())['recorded_at']) > first_seen

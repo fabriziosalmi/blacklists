@@ -23,6 +23,14 @@ Four separate mechanisms, because one gate cannot serve four purposes:
      the day before - so a stale or failed statistics job silently degraded the
      guard. history.csv is now only the fallback.
 
+     A refusal holds the list for one night, not until someone intervenes. The
+     scheduled run records the size of every build that breaks no protected
+     name, refused or not, and the next scheduled run also accepts a build
+     within the limits of that record. Comparing only against the published
+     release locked the gate shut: from 2026-09-18 the published list stopped
+     moving, ordinary churn piled up against it night after night, and the gate
+     went on refusing a list that had long since stopped changing.
+
   1. sources/protected.txt - a small curated set of domains whose blocking
      breaks the machine rather than the page: DNS resolvers, OS update and
      certificate-validation endpoints, CDN and shared-hosting apexes. Any hit
@@ -118,6 +126,12 @@ MAX_GROWTH_PERCENT = 10.0
 # around 20,000 on a normal day) and far below every anomaly worth catching: the
 # events this gate exists for moved 434,921, 681,064 and 2,000,322 domains.
 MIN_SIGNIFICANT_DELTA = 50_000
+
+# How long a refused build must have stood before it counts as a baseline.
+# Re-running a refused scheduled run keeps the event name 'schedule', and
+# without this the re-run, minutes later, would pass against the very build it
+# just refused. Twelve hours sits well inside the 24 between scheduled runs.
+MIN_HOLD_HOURS = 12
 
 # A domain entering this band without review fails the release.
 REVIEW_RANK = 1000
@@ -268,6 +282,44 @@ def check_size_change(current: int, previous: Optional[int]) -> Tuple[bool, str]
     return True, f'{delta:+,} against the previous {previous:,} ({percent:+.1f}%)'
 
 
+def read_last_build(path: Path) -> Optional[Dict]:
+    """The size recorded by the previous scheduled build, or None.
+
+    Unreadable means absent: a missing or corrupt record only costs the second
+    baseline, never the release.
+    """
+    if not path.is_file():
+        return None
+    try:
+        record = json.loads(path.read_text(encoding='utf-8'))
+        recorded_at = datetime.fromisoformat(record['recorded_at'])
+        if recorded_at.tzinfo is None:
+            raise ValueError('recorded_at carries no timezone')
+        return {'domains': int(record['domains']), 'recorded_at': recorded_at}
+    except (OSError, ValueError, KeyError, TypeError):
+        log(f'Warning: unreadable {path}, ignoring the last build')
+        return None
+
+
+def last_build_usable(last_build: Optional[Dict], published_at: Optional[datetime],
+                      now: datetime) -> Tuple[bool, str]:
+    """Whether the last recorded build may stand as a second size baseline.
+
+    It must be newer than the published release, or it describes a list that
+    a later publish already replaced, and it must have stood for
+    MIN_HOLD_HOURS, or a re-run would accept the build it had just refused.
+    """
+    if last_build is None:
+        return False, 'no build recorded'
+    recorded = last_build['recorded_at']
+    if published_at is not None and recorded <= published_at:
+        return False, 'recorded before the published release'
+    held = (now - recorded).total_seconds() / 3600
+    if held < MIN_HOLD_HOURS:
+        return False, f'recorded {held:.1f} hours ago, under {MIN_HOLD_HOURS}'
+    return True, f'recorded {recorded:%Y-%m-%d %H:%M} UTC'
+
+
 def load_blacklist(path: Path) -> Set[str]:
     domains = set()
     with path.open(encoding='utf-8', errors='ignore') as handle:
@@ -366,6 +418,15 @@ def main() -> int:
                              'by hand after reviewing the numbers. Tied to one '
                              'baseline, it stops applying as soon as a release '
                              'publishes.')
+    parser.add_argument('--previous-published-at', default=None, metavar='ISO',
+                        help='When the published blacklist.txt was uploaded. A '
+                             'recorded build older than this is ignored.')
+    parser.add_argument('--last-build', default=None, type=Path,
+                        help='Size recorded by the previous scheduled build, '
+                             'accepted as a second baseline. Scheduled runs only.')
+    parser.add_argument('--record-build', default=None, type=Path,
+                        help='Record the size of this build here when it breaks '
+                             'no protected name. Scheduled runs only.')
     args = parser.parse_args()
 
     blacklist_path = Path(args.blacklist)
@@ -423,6 +484,27 @@ def main() -> int:
     size_ok, size_message = check_size_change(len(blacklist), baseline)
     log(f'{"✓" if size_ok else "✗"} Size: {size_message}')
     log(f'  compared against {baseline_source}')
+
+    # The second baseline: the build the previous scheduled run recorded. A
+    # change that was refused last night and is still there tonight is not a
+    # bad night any more, it is the list. Accepting it here is what keeps one
+    # refusal from freezing the release for good. The first night still stops,
+    # and the failed run files an issue, so a maintainer gets a day to look.
+    published_at = (datetime.fromisoformat(args.previous_published_at.replace('Z', '+00:00'))
+                    if args.previous_published_at else None)
+    last_build = read_last_build(args.last_build) if args.last_build is not None else None
+    if not size_ok and args.last_build is not None:
+        usable, why = last_build_usable(last_build, published_at, datetime.now(timezone.utc))
+        if usable:
+            held_ok, held_message = check_size_change(len(blacklist), last_build['domains'])
+            log(f'{"✓" if held_ok else "✗"} Size: {held_message}')
+            log(f'  compared against the last scheduled build ({why})')
+            if held_ok:
+                size_ok, size_message = True, held_message
+                baseline = last_build['domains']
+                baseline_source = f'the last scheduled build ({why})'
+        else:
+            log(f'  last scheduled build not used: {why}')
 
     # A maintainer can accept a change the gate refuses, after looking at it:
     # a source that is gone for good leaves the list smaller every day, and the
@@ -569,6 +651,27 @@ def main() -> int:
     OUTPUT.parent.mkdir(exist_ok=True)
     OUTPUT.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
     log(f'✓ Wrote {OUTPUT}')
+
+    # Recorded whatever the size check said: a refused build is exactly the one
+    # the next night needs to compare against. A build that breaks a protected
+    # name is never recorded, so a broken list cannot become anybody's baseline.
+    #
+    # A build within the limits of a record not yet replaced by a publish keeps
+    # that record's time, so the age measures how long this size has stood. A
+    # re-run in the afternoon must not restart the clock and cost another night.
+    if args.record_build is not None and not violations:
+        recorded_at = datetime.now(timezone.utc)
+        if (last_build is not None
+                and (published_at is None or last_build['recorded_at'] > published_at)
+                and check_size_change(len(blacklist), last_build['domains'])[0]):
+            recorded_at = last_build['recorded_at']
+        args.record_build.write_text(json.dumps({
+            'domains': len(blacklist),
+            'recorded_at': recorded_at.isoformat(),
+            'size_accepted': size_ok,
+        }, indent=2) + '\n', encoding='utf-8')
+        log(f'✓ Recorded this build ({len(blacklist):,} domains, standing since '
+            f'{recorded_at:%Y-%m-%d %H:%M} UTC) in {args.record_build}')
 
     log('')
     for band, count in bands.items():

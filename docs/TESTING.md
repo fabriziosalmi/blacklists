@@ -46,6 +46,13 @@ being blocked; gaining several hundred thousand overnight means they start being
 blocked with nobody looking, and over-blocking is the failure a user cannot
 diagnose from the symptom.
 
+A size refusal holds the list for one night. The scheduled run records the size
+of every build that blocks no protected domain, and the next scheduled run also
+accepts a build within 10% of that record, once it has stood for at least 12
+hours. A change still there the next night is the list, not a bad night, and
+comparing only against the published release let ordinary churn pile up until
+no build could pass. Manual runs compare against the published release only.
+
 Fastest way to convince yourself the suite is load-bearing: break a rule in
 `sanitize.py` on purpose and watch it go red.
 

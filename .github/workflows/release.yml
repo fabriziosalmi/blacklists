@@ -87,6 +87,23 @@ jobs:
             --pattern blacklist.txt \
             --output previous_blacklist.txt
           wc -l previous_blacklist.txt
+          gh release view latest --repo "${{ github.repository }}" --json assets \
+            --jq '.assets[] | select(.name == "blacklist.txt") | .updatedAt' \
+            > previous_published_at.txt
+          echo "published at $(cat previous_published_at.txt)"
+
+      # The size of the build the previous scheduled run recorded, refused or
+      # not. The gate accepts a build within its limits as well as one within
+      # the limits of the published release, so a refusal holds the list for
+      # one night instead of until someone intervenes. A miss only means the
+      # published release is the one baseline tonight.
+      - name: Restore the last scheduled build
+        if: github.event_name == 'schedule'
+        uses: actions/cache/restore@v6
+        with:
+          path: size_baseline.json
+          key: size-baseline-${{ github.run_id }}
+          restore-keys: size-baseline-
 
       # Runs BEFORE anything is published. A release that blocks a DNS
       # resolver, an OS update endpoint or a CDN apex must not leave the runner,
@@ -94,14 +111,35 @@ jobs:
       # accept_size_from is only ever set by hand on a manual run; a scheduled
       # run has no inputs and gets the gate unchanged. Passed through env, never
       # interpolated into the script.
+      #
+      # Only a scheduled run reads and records the last build. A manual run is
+      # someone looking, and it compares against the published release alone,
+      # as it always did.
       - name: Quality gate
         env:
           ACCEPT_SIZE_FROM: ${{ inputs.accept_size_from }}
+          SCHEDULED: ${{ github.event_name == 'schedule' }}
         run: |
+          HELD=()
+          if [ "$SCHEDULED" = "true" ]; then
+            HELD=(--last-build size_baseline.json --record-build size_baseline.json)
+          fi
           python3 scripts/check_quality.py \
             --blacklist all.fqdn.blacklist \
             --previous previous_blacklist.txt \
+            --previous-published-at "$(cat previous_published_at.txt 2>/dev/null)" \
+            "${HELD[@]}" \
             ${ACCEPT_SIZE_FROM:+--accept-size-from "$ACCEPT_SIZE_FROM"}
+
+      # Saved on a refusal too: a build refused on size tonight is the one the
+      # next scheduled run compares against. The gate never records a build
+      # that breaks a protected name.
+      - name: Save this build for the next scheduled run
+        if: always() && github.event_name == 'schedule' && hashFiles('size_baseline.json') != ''
+        uses: actions/cache/save@v6
+        with:
+          path: size_baseline.json
+          key: size-baseline-${{ github.run_id }}-${{ github.run_attempt }}
 
       # The review queue. Runs on a SUCCESSFUL release, because the popularity
       # check no longer blocks: without its own channel a new popular block
@@ -251,7 +289,7 @@ jobs:
 
       - name: Remove downloaded source files
         if: always()
-        run: rm -rf sources_raw previous_blacklist.txt
+        run: rm -rf sources_raw previous_blacklist.txt previous_published_at.txt
 
       - name: Prepare Blacklist Directory
         run: |
@@ -396,6 +434,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SCHEDULED: ${{ github.event_name == 'schedule' }}
         run: |
           TITLE="Daily release is failing"
           gh label create release-failure --repo "${{ github.repository }}" \
@@ -410,6 +449,14 @@ jobs:
           Run: $RUN_URL
 
           Check the 'Quality gate' step first: it prints exactly which check failed and, for a source problem, which source stopped answering."
+
+          # A size refusal on a scheduled run lasts one night. Say so, because
+          # the reader's deadline is the next scheduled run, not never.
+          if [ "$SCHEDULED" = "true" ] && [ "$(jq -r '.size.accepted' stats/quality.json 2>/dev/null)" = "false" ]; then
+            BODY="${BODY}
+
+          The size check refused this build. That holds the list for one night: the next scheduled run also compares against this build, so if the change is still there tomorrow it ships. If it should not ship, fix the source or the parser before the next scheduled run at 00:00 UTC."
+          fi
 
           if [ -n "$EXISTING" ]; then
             gh issue comment "$EXISTING" --repo "${{ github.repository }}" --body "$BODY"
