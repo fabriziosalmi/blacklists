@@ -51,6 +51,18 @@ jobs:
       - name: Attribution documents match the registry
         run: python3 scripts/generate_licensing.py --check
 
+      # The copy of every source kept from the last night that published.
+      # generate.sh stands it in for a source that fails or collapses, for at
+      # most seven days (scripts/source_lkg.py). The key is unique per run
+      # because cache entries are immutable; restore-keys picks the newest.
+      # A miss only means no fallback tonight.
+      - name: Restore last-known-good sources
+        uses: actions/cache/restore@v6
+        with:
+          path: sources_lkg
+          key: sources-lkg-${{ github.run_id }}
+          restore-keys: sources-lkg-
+
       - name: Generate blacklist
         run: /bin/bash generate.sh  # Removed sudo
 
@@ -105,7 +117,9 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           PENDING=$(jq -r '.popularity.unacknowledged | length' stats/quality.json)
-          if [ "$PENDING" = "0" ] || [ -z "$PENDING" ]; then
+          STRIPPED=$(jq -r '.protected.stripped // [] | length' stats/quality.json)
+          FALLBACK=$(jq -r '[.sources[] | select(.fallback)] | length' stats/sources.json 2>/dev/null || echo 0)
+          if [ "${PENDING:-0}" = "0" ] && [ "${STRIPPED:-0}" = "0" ] && [ "${FALLBACK:-0}" = "0" ]; then
             echo "Nothing to review"
             exit 0
           fi
@@ -119,7 +133,9 @@ jobs:
                else "source unrecorded" end)' \
             stats/quality.json)
 
-          BODY="$PENDING domain(s) in the global top 1000 were newly added to the list and have not been reviewed.
+          BODY=""
+          if [ "${PENDING:-0}" != "0" ]; then
+            BODY="$PENDING domain(s) in the global top 1000 were newly added to the list and have not been reviewed.
 
           $LIST
 
@@ -127,7 +143,41 @@ jobs:
 
           For each one, either add it to \`whitelist.txt\` if it should not be blocked, or to \`sources/acknowledged.txt\` if it should. Acknowledged entries stop appearing here.
 
-          Run: $RUN_URL"
+          "
+          fi
+
+          # Removed by the pipeline for breaking a protected name. The list is
+          # safe; the source that shipped the rule is what needs a look.
+          if [ "${STRIPPED:-0}" != "0" ]; then
+            SLIST=$(jq -r '.protected.stripped[]
+              | "- **\(.removed)** (protects \(.protects | join(", "))) - supplied by " +
+                (if (.sources | length) > 0 then (.sources | join(", "))
+                 else "source unrecorded" end)' stats/quality.json)
+            BODY="${BODY}$STRIPPED entr(y/ies) were removed from tonight's list because they would break a protected name:
+
+          $SLIST
+
+          The release shipped without them. If the rule is a parser problem, fix it in \`sanitize.py\`; if the source is wrong, nothing to do but watch it.
+
+          "
+          fi
+
+          # Served from the copy kept on an earlier night. Fine for a few
+          # days; a source still here after seven is dropped from the list.
+          if [ "${FALLBACK:-0}" != "0" ]; then
+            FLIST=$(jq -r '.sources[] | select(.fallback)
+              | "- \(.name // .url): \(.fallback.reason), copy \(.fallback.kept_age_days) days old"' \
+              stats/sources.json)
+            BODY="${BODY}$FALLBACK source(s) were served from the last-known-good copy:
+
+          $FLIST
+
+          A copy is used for at most 7 days. A source still failing after that drops out of the list, and the size gate will say so.
+
+          "
+          fi
+
+          BODY="${BODY}Run: $RUN_URL"
 
           # The label is how the existing issue is found again. Without it every
           # occurrence opens a new issue, which is the pile this design avoids.
@@ -192,6 +242,12 @@ jobs:
           echo "::warning::Could not push the per-source statistics after 3 attempts."
           echo "::warning::The release itself is unaffected; today's stats/*.json are not committed."
           exit 1
+
+      # Refresh the kept copies from tonight's downloads. Only reached when the
+      # gate passed, so a copy is never taken from a build that was refused.
+      # The cache itself is saved after the release publishes.
+      - name: Refresh last-known-good sources
+        run: python3 scripts/source_lkg.py save
 
       - name: Remove downloaded source files
         if: always()
@@ -320,6 +376,12 @@ jobs:
 
           gh release view latest --repo "${{ github.repository }}" --json assets \
             --jq '.assets[] | "  published: \(.name) (\(.size) bytes)"'
+
+      - name: Save last-known-good sources
+        uses: actions/cache/save@v6
+        with:
+          path: sources_lkg
+          key: sources-lkg-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Clean up
         run: rm -rf blacklist_output rpz_blacklist.txt unbound_blacklist.txt

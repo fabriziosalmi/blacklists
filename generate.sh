@@ -215,9 +215,23 @@ manage_downloads() {
     done < "$LISTS"
     wait
 
+    # Stand in for a source that failed or collapsed with the copy kept from
+    # its last good night, before anything is counted or aggregated. A no-op
+    # when no copies are available, which is the case for any local run.
+    # See scripts/source_lkg.py.
+    python3 scripts/source_lkg.py apply --sources-dir "$SOURCES_DIR" 2>&1 | tee -a "$LOGFILE"
+    if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+        echo "Last-known-good step failed. Exiting ❌." | tee -a "$LOGFILE"
+        exit 1
+    fi
+
     local downloaded
+    # Counts sources standing in on their kept copy as present: what matters
+    # below is whether there is enough to build a list from.
     downloaded=$(find "$SOURCES_DIR" -name '*.fqdn.list' | wc -l | tr -d ' ')
-    echo "Downloaded ${downloaded}/${index} sources successfully." | tee -a "$LOGFILE"
+    local on_fallback
+    on_fallback=$(find "$SOURCES_DIR" -name '*.fallback' | wc -l | tr -d ' ')
+    echo "Downloaded ${downloaded}/${index} sources successfully (${on_fallback} from the last-known-good copy)." | tee -a "$LOGFILE"
 
     if [ "$downloaded" -eq 0 ]; then
         echo "No sources downloaded. Check network access and URLs. Exiting ❌." | tee -a "$LOGFILE"
@@ -291,6 +305,17 @@ sanitize_and_whitelist() {
         mv filtered_blacklist.txt all.fqdn.blacklist || exit 1
     else
         echo "whitelist.py not found. Skipping whitelist filtering." | tee -a "$LOGFILE"
+    fi
+
+    # Remove whatever would break a protected name, so a bad upstream rule
+    # costs the list a few entries instead of costing the whole release. The
+    # quality gate still refuses any violation that gets past this step.
+    # Before the header, so the count written there is the count that ships.
+    echo "Removing entries that break a protected name..." | tee -a "$LOGFILE"
+    python3 scripts/strip_protected.py --blacklist all.fqdn.blacklist --sources-dir "$SOURCES_DIR" 2>&1 | tee -a "$LOGFILE"
+    if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+        echo "Protected-name step failed. Exiting ❌." | tee -a "$LOGFILE"
+        exit 1
     fi
     rm -f blacklist.txt input.txt
 }

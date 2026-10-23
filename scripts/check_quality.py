@@ -26,7 +26,9 @@ Four separate mechanisms, because one gate cannot serve four purposes:
   1. sources/protected.txt - a small curated set of domains whose blocking
      breaks the machine rather than the page: DNS resolvers, OS update and
      certificate-validation endpoints, CDN and shared-hosting apexes. Any hit
-     fails the release.
+     fails the release. scripts/strip_protected.py removes such entries while
+     the list is built, so this check is the second line: it fires only when
+     that step did not run or missed one.
 
      A protected name counts as hit when it, or ANY ANCESTOR of it, is on the
      list. The formats disagree about scope - an Unbound local-zone covers the
@@ -509,6 +511,17 @@ def main() -> int:
         log(f'✓ Wrote baseline: {ACKNOWLEDGED} ({len(in_band)} entries)')
         unacknowledged = []
 
+    # What the pipeline already removed for breaking a protected name. Not a
+    # failure - the list is safe - but a source shipping such a rule is worth
+    # a look, so it is carried into the report and the review queue.
+    stripped_path = Path(args.sources_dir) / 'protected_stripped.json'
+    stripped: List[Dict] = []
+    if stripped_path.is_file():
+        stripped = json.loads(stripped_path.read_text(encoding='utf-8')).get('stripped', [])
+    for entry in stripped:
+        log(f'! Stripped by the pipeline: {entry["removed"]} (protects '
+            f'{", ".join(entry["protects"])})')
+
     # --- report --------------------------------------------------------------
     report = {
         'generated_at': datetime.now(timezone.utc).isoformat(),
@@ -532,6 +545,7 @@ def main() -> int:
                 {'domain': d, 'reason': protected[d], 'blocked_by': blocker}
                 for d, blocker in violations
             ],
+            'stripped': stripped,
         },
         'popularity': {
             'blocked_in_band': bands,

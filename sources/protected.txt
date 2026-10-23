@@ -1,9 +1,17 @@
 # Domains that must never appear in the published blacklist.
 #
-# Checked by scripts/check_quality.py on every release. A single hit FAILS the
-# release rather than shipping it, because these are not domains whose blocking
-# annoys a user - they are domains whose blocking stops the machine from
-# updating itself, validating a certificate, resolving a name or keeping time.
+# Enforced twice on every release. scripts/strip_protected.py removes from the
+# list any entry that is one of these names or an ancestor of one, and records
+# which source supplied it in the review queue. scripts/check_quality.py then
+# refuses the release if anything still breaks one. These are not domains whose
+# blocking annoys a user - they are domains whose blocking stops the machine
+# from updating itself, validating a certificate, resolving a name or keeping
+# time.
+#
+# The pipeline strips rather than refusing because refusing did not protect
+# anyone: from 2026-09-18 to 2026-10-22 four CDN apexes reached the list through
+# Adblock rules with a path, the release was refused on 27 nights, and the
+# published list froze for 35 days.
 #
 # The bar for adding an entry: blocking it breaks the system or a large share of
 # the web, and the breakage is not obviously attributable to a blocklist, so the
@@ -89,8 +97,8 @@ unpkg.com                   # unpkg
 # rule ("load the site, hide this element") anchored to a bare domain walked
 # past the parser and was read as a block - see drop_cosmetic_rules in
 # sanitize.py. The parser no longer does that; these are here so that a
-# regression fails the release instead of shipping, which is the protection
-# that was missing when it happened.
+# regression is removed from the list and reported instead of shipping, which
+# is the protection that was missing when it happened.
 pages.dev                   # Cloudflare Pages
 workers.dev                 # Cloudflare Workers
 web.core.windows.net        # Azure Storage static websites
