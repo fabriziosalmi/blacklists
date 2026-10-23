@@ -281,6 +281,15 @@ def main() -> int:
         record = dict(meta)
         indices: List[int] = []
 
+        # Written by source_lkg.py when today's download failed or collapsed
+        # and the copy kept from a previous night stands in for it. The
+        # numbers below then describe that copy, and the record has to say so.
+        fallback_path = meta_path.with_suffix('.fallback')
+        record['fallback'] = (
+            json.loads(fallback_path.read_text(encoding='utf-8'))
+            if fallback_path.is_file() else None
+        )
+
         if not list_path.exists():
             # Download failed; the record still describes what happened.
             record.update({
@@ -366,6 +375,7 @@ def main() -> int:
         'sources_ok': sum(1 for r in results if r['ok']),
         'sources_failed': sum(1 for r in results if not r['ok']),
         'sources_unreadable': sum(1 for r in results if r.get('unreadable_by_pipeline')),
+        'sources_on_fallback': sum(1 for r in results if r.get('fallback')),
         'categories': categories,
         'sources': results,
     }
@@ -381,6 +391,14 @@ def main() -> int:
         for record in results:
             if not record['ok']:
                 print(f'    - {record["error"]}: {record["url"]}')
+
+    on_fallback = [r for r in results if r.get('fallback')]
+    if on_fallback:
+        print(f'  on fallback     : {len(on_fallback)} source(s) served from the '
+              f'last-known-good copy:')
+        for record in on_fallback:
+            print(f'    - {record["fallback"]["reason"]}, copy '
+                  f'{record["fallback"]["kept_age_days"]:.1f} days old: {record["url"]}')
 
     unreadable = [r for r in results if r.get('unreadable_by_pipeline')]
     if unreadable:

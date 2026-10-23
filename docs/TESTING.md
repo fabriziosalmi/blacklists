@@ -25,11 +25,20 @@ these checks:
 | `scripts/generate_sources_md.py --check` | SOURCES.md and the README credits still match the registry |
 | `scripts/format_whitelist.py --check` | whitelist.txt is normalised and no entry was dropped |
 
-The release pipeline additionally runs two gates before anything is published:
+The release pipeline additionally runs two safeguards while it builds the list,
+and two gates before anything is published:
+
+| Safeguard | What it does |
+|---|---|
+| `scripts/source_lkg.py` | Serves a source that failed to download, or lost more than 30% of its entries overnight, from the copy kept on its last good night, for at most 7 days. Measured on 93 days of release logs, no source lost more than 25% in a day in normal operation |
+| `scripts/strip_protected.py` | Removes every entry that is, or is an ancestor of, a domain in `sources/protected.txt` - a DNS resolver, an OS update endpoint, a certificate responder, a CDN or shared-hosting apex - and reports which source supplied it |
+
+Both report into the review-queue issue, so a fallback or a stripped entry is
+seen without stopping the release.
 
 | Gate | What it protects |
 |---|---|
-| `scripts/check_quality.py` | Refuses a list that blocks a domain in `sources/protected.txt` - a DNS resolver, an OS update endpoint, a certificate responder, a CDN or shared-hosting apex. Also refuses one whose size moved more than 10% overnight **in either direction**, measured against the previously published release |
+| `scripts/check_quality.py` | Refuses a list that still blocks a protected domain, which can only happen if the strip above did not run or missed one. Also refuses one whose size moved more than 10% overnight **in either direction**, measured against the previously published release |
 | `named-checkzone` | Refuses an `rpz_blacklist.txt` that BIND would not load. The artifact previously shipped with no SOA or NS record, so it was not a loadable zone at all |
 
 The size gate is deliberately symmetric. Losing coverage means some domains stop
