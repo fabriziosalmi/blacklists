@@ -228,3 +228,61 @@ def test_the_whitelist_count_comes_from_the_current_run(tmp_path, monkeypatch):
 def test_the_source_count_comes_from_the_registry(tmp_path, monkeypatch):
     stats = build_minimal_site(tmp_path, monkeypatch)
     assert stats['blacklist_sources'] == 1
+
+
+# --------------------------------------------------------------------------
+# Freshness: the date shown is when the list was published, not the site
+# --------------------------------------------------------------------------
+
+from datetime import datetime, timezone  # noqa: E402
+
+from build_site import freshness_badge, list_published_at  # noqa: E402
+
+NOW = datetime(2026, 10, 23, 6, 0, tzinfo=timezone.utc)
+
+
+def release_json(tmp_path, assets, published_at='2026-09-09T00:41:11Z'):
+    path = tmp_path / 'release.json'
+    path.write_text(json.dumps({'tagName': 'latest', 'publishedAt': published_at,
+                                'assets': assets}), encoding='utf-8')
+    return str(path)
+
+
+def test_the_list_date_is_the_upload_of_blacklist_txt_not_the_release(tmp_path):
+    """The release is edited in place, so its publishedAt never moves.
+    Break-test: return payload['publishedAt'] and this fails."""
+    path = release_json(tmp_path, [
+        {'name': 'NOTICES.txt', 'updatedAt': '2026-10-23T00:40:54Z'},
+        {'name': 'blacklist.txt', 'updatedAt': '2026-10-23T00:40:58Z'},
+    ])
+    assert list_published_at(path) == '2026-10-23T00:40:58Z'
+
+
+def test_no_blacklist_asset_means_unknown_not_another_date(tmp_path):
+    path = release_json(tmp_path, [{'name': 'NOTICES.txt', 'updatedAt': '2026-10-23T00:40:54Z'}])
+    assert list_published_at(path) is None
+    assert list_published_at(None) is None
+    assert freshness_badge(None, NOW)['message'] == 'unknown'
+
+
+def test_a_list_published_last_night_is_fresh():
+    badge = freshness_badge('2026-10-23T00:40:58Z', NOW)
+    assert badge['message'] == '2026-10-23'
+    assert badge['color'] == '2563eb'
+
+
+def test_one_missed_night_is_still_within_36_hours():
+    """Published 2026-10-22 00:40, last night's run failed: 29 hours."""
+    assert freshness_badge('2026-10-22T00:40:58Z', NOW)['color'] == '2563eb'
+
+
+def test_two_missed_nights_turn_the_badge_red_and_say_how_old():
+    """Break-test: raise STALE_AFTER_HOURS to 72 and this fails."""
+    badge = freshness_badge('2026-10-21T00:40:58Z', NOW)
+    assert badge['color'] == 'cc0000'
+    assert badge['message'] == '2026-10-21, 2 days old'
+
+
+def test_the_35_day_freeze_would_have_shown():
+    badge = freshness_badge('2026-09-17T00:41:00Z', NOW)
+    assert badge['message'] == '2026-09-17, 36 days old'
