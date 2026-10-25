@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:38:07.209058+00:00",
+  "generated_at": "2026-10-25T00:41:52.319036+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -45,7 +45,8 @@
     {
       "domain": "aax-eu.amazon.es",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
@@ -236,6 +237,8 @@
         "blocklist-domains",
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
+        "hostsVN adservers",
+        "hostsVN domains",
         "Ultimate",
         "Ads and tracking extended",
         "EasyPrivacy"
