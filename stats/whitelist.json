@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T00:41:52.319036+00:00",
+  "generated_at": "2026-10-26T00:41:02.359474+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -1983,10 +1983,6 @@
       "domain": "image.ard.de",
       "held_back_from": [
         "blocklist-domains",
-        "First-party only trackers",
-        "First-party trackers",
-        "Multi-party only trackers",
-        "Multi-party trackers",
         "Ultimate",
         "AdGuard DNS filter",
         "EasyPrivacy"
@@ -4087,6 +4083,8 @@
     {
       "domain": "vlscppe.microsoft.com",
       "held_back_from": [
+        "Multi-party only trackers",
+        "Multi-party trackers",
         "ShadowWhisperer Tracking"
       ]
     },
