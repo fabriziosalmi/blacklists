@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-29T00:30:23.057366+00:00",
+  "generated_at": "2026-10-30T00:30:54.882655+00:00",
   "ranking_source": "Tranco top 1M (tranco-list.eu), fetched at build time",
   "ranking_available": true,
-  "published_domains": 5628552,
+  "published_domains": 5632917,
   "size": {
-    "published_domains": 5628552,
-    "previous_domains": 5652240,
+    "published_domains": 5632917,
+    "previous_domains": 5628552,
     "baseline_source": "the previously published release",
     "accepted": true,
     "accepted_by_hand": false,
-    "detail": "-23,688 against the previous 5,652,240 (-0.4%), below the 50,000 domain floor for treating a percentage as meaningful"
+    "detail": "+4,365 against the previous 5,628,552 (+0.1%), below the 50,000 domain floor for treating a percentage as meaningful"
   },
   "protected": {
     "checked": 62,
@@ -19,24 +19,14 @@
   "popularity": {
     "blocked_in_band": {
       "top_1000": 149,
-      "top_10000": 1959,
-      "top_100000": 11966,
-      "top_1000000": 56532
+      "top_10000": 1954,
+      "top_100000": 11967,
+      "top_1000000": 56407
     },
     "review_rank": 1000,
     "enforced": true,
-    "newly_blocked_in_band": [
-      "amp-endpoint2.com"
-    ],
-    "unacknowledged": [
-      {
-        "domain": "amp-endpoint2.com",
-        "rank": 932,
-        "sources": [
-          "Ultimate"
-        ]
-      }
-    ],
+    "newly_blocked_in_band": [],
+    "unacknowledged": [],
     "most_popular_blocked": [
       {
         "domain": "googletagmanager.com",
@@ -55,7 +45,7 @@
       },
       {
         "domain": "appsflyersdk.com",
-        "rank": 28,
+        "rank": 29,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
@@ -67,7 +57,7 @@
       },
       {
         "domain": "doubleclick.net",
-        "rank": 49,
+        "rank": 50,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -101,7 +91,7 @@
       },
       {
         "domain": "b-cdn.net",
-        "rank": 89,
+        "rank": 86,
         "sources": [
           "blocklist-domains",
           "uBO badware risks",
@@ -110,7 +100,7 @@
       },
       {
         "domain": "sentry.io",
-        "rank": 103,
+        "rank": 102,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ultimate",
@@ -146,7 +136,7 @@
       },
       {
         "domain": "ipify.org",
-        "rank": 115,
+        "rank": 116,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ultimate"
@@ -166,7 +156,7 @@
       },
       {
         "domain": "duckdns.org",
-        "rank": 161,
+        "rank": 159,
         "sources": [
           "uBO badware risks",
           "Tracking aggressive extended",
@@ -175,7 +165,7 @@
       },
       {
         "domain": "amazon-adsystem.com",
-        "rank": 168,
+        "rank": 167,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -189,7 +179,7 @@
       },
       {
         "domain": "google-analytics.com",
-        "rank": 172,
+        "rank": 174,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -207,7 +197,7 @@
       },
       {
         "domain": "scorecardresearch.com",
-        "rank": 177,
+        "rank": 179,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -223,7 +213,7 @@
       },
       {
         "domain": "mtgglobals.com",
-        "rank": 204,
+        "rank": 205,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -236,7 +226,7 @@
       },
       {
         "domain": "app-measurement.com",
-        "rank": 206,
+        "rank": 207,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -248,6 +238,22 @@
           "Ultimate",
           "Ads and tracking extended",
           "AdGuard DNS filter"
+        ]
+      },
+      {
+        "domain": "forter.com",
+        "rank": 214,
+        "sources": [
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "Ultimate Hosts Blacklist (domains2)",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyPrivacy"
         ]
       },
       {
@@ -269,24 +275,8 @@
         ]
       },
       {
-        "domain": "forter.com",
-        "rank": 218,
-        "sources": [
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "Ultimate Hosts Blacklist (domains2)",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "omtrdc.net",
-        "rank": 225,
+        "rank": 222,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -300,7 +290,7 @@
       },
       {
         "domain": "applovin.com",
-        "rank": 229,
+        "rank": 230,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -348,7 +338,7 @@
       },
       {
         "domain": "googleadservices.com",
-        "rank": 260,
+        "rank": 263,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -374,33 +364,8 @@
         ]
       },
       {
-        "domain": "app-analytics-services.com",
-        "rank": 292,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "AdGuard DNS filter"
-        ]
-      },
-      {
-        "domain": "telecid.ru",
-        "rank": 297,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "oisd small",
-          "AdGuard DNS filter"
-        ]
-      },
-      {
         "domain": "demdex.net",
-        "rank": 300,
+        "rank": 296,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -414,8 +379,33 @@
         ]
       },
       {
+        "domain": "app-analytics-services.com",
+        "rank": 298,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "AdGuard DNS filter"
+        ]
+      },
+      {
+        "domain": "telecid.ru",
+        "rank": 303,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "oisd small",
+          "AdGuard DNS filter"
+        ]
+      },
+      {
         "domain": "vungle.com",
-        "rank": 314,
+        "rank": 315,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -432,7 +422,7 @@
       },
       {
         "domain": "pubmatic.com",
-        "rank": 318,
+        "rank": 319,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -448,8 +438,17 @@
         ]
       },
       {
+        "domain": "mybluehost.me",
+        "rank": 323,
+        "sources": [
+          "uBO badware risks",
+          "Ultimate",
+          "Threat Intelligence Feeds"
+        ]
+      },
+      {
         "domain": "rubiconproject.com",
-        "rank": 326,
+        "rank": 328,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -464,7 +463,7 @@
       },
       {
         "domain": "browser-intake-datadoghq.com",
-        "rank": 327,
+        "rank": 329,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
@@ -480,17 +479,8 @@
         ]
       },
       {
-        "domain": "mybluehost.me",
-        "rank": 329,
-        "sources": [
-          "uBO badware risks",
-          "Ultimate",
-          "Threat Intelligence Feeds"
-        ]
-      },
-      {
         "domain": "clarity.ms",
-        "rank": 332,
+        "rank": 334,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -505,8 +495,35 @@
         ]
       },
       {
+        "domain": "online-metrix.net",
+        "rank": 335,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "Ads and tracking extended",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "cloudflareinsights.com",
+        "rank": 337,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "Ads and tracking extended",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "smartadserver.com",
-        "rank": 336,
+        "rank": 339,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -522,35 +539,25 @@
         ]
       },
       {
-        "domain": "online-metrix.net",
-        "rank": 338,
+        "domain": "casalemedia.com",
+        "rank": 349,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "Ads and tracking extended",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "cloudflareinsights.com",
-        "rank": 339,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Tracking",
+          "ShadowWhisperer Ads",
           "1Hosts (Lite)",
           "hostsVN adservers",
           "hostsVN domains",
           "Ultimate",
+          "oisd small",
           "Ads and tracking extended",
-          "EasyPrivacy"
+          "AdGuard DNS filter",
+          "EasyList"
         ]
       },
       {
         "domain": "branch.io",
-        "rank": 348,
+        "rank": 350,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -565,7 +572,7 @@
       },
       {
         "domain": "adnxs.com",
-        "rank": 352,
+        "rank": 358,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -574,23 +581,6 @@
           "hostsVN adservers",
           "hostsVN domains",
           "Ultimate",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList"
-        ]
-      },
-      {
-        "domain": "casalemedia.com",
-        "rank": 353,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "oisd small",
           "Ads and tracking extended",
           "AdGuard DNS filter",
           "EasyList"
@@ -598,14 +588,14 @@
       },
       {
         "domain": "cm.com",
-        "rank": 368,
+        "rank": 365,
         "sources": [
           "Ultimate"
         ]
       },
       {
         "domain": "nr-data.net",
-        "rank": 373,
+        "rank": 381,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -620,8 +610,21 @@
         ]
       },
       {
+        "domain": "dotomi.com",
+        "rank": 400,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyList"
+        ]
+      },
+      {
         "domain": "inmobi.com",
-        "rank": 406,
+        "rank": 414,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -635,21 +638,8 @@
         ]
       },
       {
-        "domain": "dotomi.com",
-        "rank": 408,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList"
-        ]
-      },
-      {
         "domain": "163.com",
-        "rank": 419,
+        "rank": 420,
         "sources": [
           "blocklist-domains",
           "EasyPrivacy"
@@ -657,7 +647,7 @@
       },
       {
         "domain": "dynatrace.com",
-        "rank": 437,
+        "rank": 430,
         "sources": [
           "ShadowWhisperer Tracking",
           "hostsVN adservers",
@@ -667,8 +657,17 @@
         ]
       },
       {
+        "domain": "pushy.io",
+        "rank": 447,
+        "sources": [
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "Ultimate"
+        ]
+      },
+      {
         "domain": "taboola.com",
-        "rank": 439,
+        "rank": 450,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -684,7 +683,7 @@
       },
       {
         "domain": "tiktokpangle.us",
-        "rank": 450,
+        "rank": 451,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -697,22 +696,13 @@
       },
       {
         "domain": "statsigapi.net",
-        "rank": 452,
+        "rank": 454,
         "sources": [
           "ShadowWhisperer Tracking",
           "1Hosts (Lite)",
           "Ultimate",
           "oisd small",
           "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "pushy.io",
-        "rank": 454,
-        "sources": [
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "Ultimate"
         ]
       },
       {
@@ -725,7 +715,7 @@
       },
       {
         "domain": "adobedc.net",
-        "rank": 485,
+        "rank": 483,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ultimate",
@@ -733,20 +723,8 @@
         ]
       },
       {
-        "domain": "appsflyer.com",
-        "rank": 497,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "Ads and tracking extended"
-        ]
-      },
-      {
         "domain": "lijit.com",
-        "rank": 501,
+        "rank": 491,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -773,30 +751,20 @@
         ]
       },
       {
-        "domain": "amzn.to",
-        "rank": 518,
-        "sources": [
-          "Tracking aggressive extended"
-        ]
-      },
-      {
-        "domain": "adriver.ru",
-        "rank": 524,
+        "domain": "appsflyer.com",
+        "rank": 510,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
-          "ShadowWhisperer Ads",
+          "ShadowWhisperer Tracking",
           "1Hosts (Lite)",
           "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "oisd small",
           "Ads and tracking extended"
         ]
       },
       {
         "domain": "featureassets.org",
-        "rank": 526,
+        "rank": 515,
         "sources": [
           "ShadowWhisperer Tracking",
           "hostsVN adservers",
@@ -804,8 +772,15 @@
         ]
       },
       {
+        "domain": "amzn.to",
+        "rank": 518,
+        "sources": [
+          "Tracking aggressive extended"
+        ]
+      },
+      {
         "domain": "braze.com",
-        "rank": 527,
+        "rank": 525,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Ads",
@@ -816,7 +791,7 @@
       },
       {
         "domain": "adsafeprotected.com",
-        "rank": 532,
+        "rank": 531,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -831,15 +806,23 @@
         ]
       },
       {
-        "domain": "nease.net",
-        "rank": 541,
+        "domain": "adriver.ru",
+        "rank": 534,
         "sources": [
-          "Ultimate"
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "oisd small",
+          "Ads and tracking extended"
         ]
       },
       {
         "domain": "openx.net",
-        "rank": 544,
+        "rank": 539,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -855,26 +838,22 @@
         ]
       },
       {
-        "domain": "newrelic.com",
-        "rank": 550,
+        "domain": "nease.net",
+        "rank": 543,
         "sources": [
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "Ultimate",
-          "Ads and tracking extended",
-          "EasyPrivacy"
+          "Ultimate"
         ]
       },
       {
         "domain": "0xrpc.io",
-        "rank": 553,
+        "rank": 552,
         "sources": [
           "Threat Intelligence Feeds"
         ]
       },
       {
         "domain": "adobedtm.com",
-        "rank": 554,
+        "rank": 555,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
@@ -883,28 +862,35 @@
         ]
       },
       {
-        "domain": "doubleverify.com",
-        "rank": 567,
+        "domain": "newrelic.com",
+        "rank": 557,
         "sources": [
-          "blocklist-domains",
           "NoTrack blocklist",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
+          "ShadowWhisperer Tracking",
           "Ultimate",
           "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList"
+          "EasyPrivacy"
         ]
       },
       {
         "domain": "klaviyo.com",
-        "rank": 571,
+        "rank": 565,
         "sources": [
           "NoTrack blocklist",
           "Ultimate Hosts Blacklist (domains2)",
           "Ads and tracking extended",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "nmrodam.com",
+        "rank": 567,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "AdGuard DNS filter",
           "EasyPrivacy"
         ]
       },
@@ -924,20 +910,24 @@
         ]
       },
       {
-        "domain": "nmrodam.com",
-        "rank": 586,
+        "domain": "doubleverify.com",
+        "rank": 587,
         "sources": [
           "blocklist-domains",
-          "ShadowWhisperer Tracking",
+          "NoTrack blocklist",
+          "ShadowWhisperer Ads",
           "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
           "Ultimate",
+          "Ads and tracking extended",
           "AdGuard DNS filter",
-          "EasyPrivacy"
+          "EasyList"
         ]
       },
       {
         "domain": "360yield.com",
-        "rank": 599,
+        "rank": 597,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -954,7 +944,7 @@
       },
       {
         "domain": "media.net",
-        "rank": 603,
+        "rank": 602,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -972,7 +962,7 @@
       },
       {
         "domain": "3lift.com",
-        "rank": 606,
+        "rank": 605,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -989,7 +979,7 @@
       },
       {
         "domain": "adsrvr.org",
-        "rank": 607,
+        "rank": 606,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1006,7 +996,7 @@
       },
       {
         "domain": "aboutads.info",
-        "rank": 614,
+        "rank": 616,
         "sources": [
           "ShadowWhisperer Ads",
           "Ultimate"
@@ -1031,7 +1021,7 @@
       },
       {
         "domain": "hotjar.com",
-        "rank": 630,
+        "rank": 629,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -1048,7 +1038,7 @@
       },
       {
         "domain": "onetrust.com",
-        "rank": 641,
+        "rank": 639,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Ads",
@@ -1057,7 +1047,7 @@
       },
       {
         "domain": "intercom.io",
-        "rank": 651,
+        "rank": 649,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ultimate Hosts Blacklist (domains2)",
@@ -1065,22 +1055,8 @@
         ]
       },
       {
-        "domain": "samsungacr.com",
-        "rank": 652,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "AdGuard DNS filter",
-          "EasyList"
-        ]
-      },
-      {
         "domain": "stackadapt.com",
-        "rank": 658,
+        "rank": 656,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1096,26 +1072,28 @@
         ]
       },
       {
+        "domain": "samsungacr.com",
+        "rank": 660,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "AdGuard DNS filter",
+          "EasyList"
+        ]
+      },
+      {
         "domain": "optimizely.com",
-        "rank": 669,
+        "rank": 668,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
           "Ads and tracking extended",
           "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "ad-tech.ru",
-        "rank": 670,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "AdGuard DNS filter",
-          "EasyList"
         ]
       },
       {
@@ -1136,8 +1114,20 @@
         ]
       },
       {
+        "domain": "ad-tech.ru",
+        "rank": 678,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "AdGuard DNS filter",
+          "EasyList"
+        ]
+      },
+      {
         "domain": "bidswitch.net",
-        "rank": 675,
+        "rank": 679,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1154,7 +1144,7 @@
       },
       {
         "domain": "sharethrough.com",
-        "rank": 679,
+        "rank": 683,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1171,7 +1161,7 @@
       },
       {
         "domain": "inner-active.mobi",
-        "rank": 683,
+        "rank": 684,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1188,7 +1178,7 @@
       },
       {
         "domain": "xhamster.com",
-        "rank": 693,
+        "rank": 692,
         "sources": [
           "blocklist-domains",
           "EasyList",
@@ -1213,15 +1203,26 @@
       },
       {
         "domain": "360.cn",
-        "rank": 713,
+        "rank": 714,
         "sources": [
           "Tracking aggressive extended",
           "EasyPrivacy"
         ]
       },
       {
+        "domain": "stripchat.com",
+        "rank": 715,
+        "sources": [
+          "blocklist-domains",
+          "StevenBlack hosts (base)",
+          "Ultimate",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "outbrain.com",
-        "rank": 719,
+        "rank": 716,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1236,19 +1237,8 @@
         ]
       },
       {
-        "domain": "stripchat.com",
-        "rank": 720,
-        "sources": [
-          "blocklist-domains",
-          "StevenBlack hosts (base)",
-          "Ultimate",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "bugsnag.com",
-        "rank": 724,
+        "rank": 721,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
@@ -1259,7 +1249,7 @@
       },
       {
         "domain": "quantserve.com",
-        "rank": 734,
+        "rank": 733,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1276,7 +1266,7 @@
       },
       {
         "domain": "mediafire.com",
-        "rank": 738,
+        "rank": 739,
         "sources": [
           "uBO badware risks",
           "Anti-Piracy",
@@ -1302,7 +1292,7 @@
       },
       {
         "domain": "bidr.io",
-        "rank": 743,
+        "rank": 744,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1318,7 +1308,7 @@
       },
       {
         "domain": "creativecdn.com",
-        "rank": 744,
+        "rank": 745,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1335,7 +1325,7 @@
       },
       {
         "domain": "yieldmo.com",
-        "rank": 752,
+        "rank": 753,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1352,7 +1342,7 @@
       },
       {
         "domain": "agkn.com",
-        "rank": 761,
+        "rank": 762,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1368,14 +1358,14 @@
       },
       {
         "domain": "safebrowsing.apple",
-        "rank": 766,
+        "rank": 769,
         "sources": [
           "ShadowWhisperer Tracking"
         ]
       },
       {
         "domain": "1rx.io",
-        "rank": 767,
+        "rank": 770,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1390,42 +1380,8 @@
         ]
       },
       {
-        "domain": "criteo.net",
-        "rank": 778,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "crwdcntrl.net",
-        "rank": 786,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "flurry.com",
-        "rank": 791,
+        "rank": 772,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -1442,8 +1398,25 @@
         ]
       },
       {
+        "domain": "criteo.net",
+        "rank": 782,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "conviva.com",
-        "rank": 797,
+        "rank": 783,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1456,8 +1429,25 @@
         ]
       },
       {
+        "domain": "crwdcntrl.net",
+        "rank": 787,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "moloco.com",
-        "rank": 800,
+        "rank": 799,
         "sources": [
           "ShadowWhisperer Ads",
           "1Hosts (Lite)",
@@ -1468,7 +1458,7 @@
       },
       {
         "domain": "adjust.com",
-        "rank": 812,
+        "rank": 813,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1481,7 +1471,7 @@
       },
       {
         "domain": "parklogic.com",
-        "rank": 818,
+        "rank": 817,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -1495,7 +1485,7 @@
       },
       {
         "domain": "liadm.com",
-        "rank": 819,
+        "rank": 818,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1512,7 +1502,7 @@
       },
       {
         "domain": "33across.com",
-        "rank": 821,
+        "rank": 820,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1529,14 +1519,14 @@
       },
       {
         "domain": "erome.com",
-        "rank": 826,
+        "rank": 825,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "mixpanel.com",
-        "rank": 827,
+        "rank": 826,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1550,7 +1540,7 @@
       },
       {
         "domain": "dv.tech",
-        "rank": 829,
+        "rank": 827,
         "sources": [
           "ShadowWhisperer Ads",
           "1Hosts (Lite)",
@@ -1559,7 +1549,7 @@
       },
       {
         "domain": "a-mo.net",
-        "rank": 830,
+        "rank": 829,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1576,14 +1566,14 @@
       },
       {
         "domain": "onlyfans.com",
-        "rank": 832,
+        "rank": 830,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "teads.tv",
-        "rank": 834,
+        "rank": 835,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1600,7 +1590,7 @@
       },
       {
         "domain": "liftoff.io",
-        "rank": 840,
+        "rank": 837,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Tracking",
@@ -1616,7 +1606,7 @@
       },
       {
         "domain": "adform.net",
-        "rank": 843,
+        "rank": 840,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1631,17 +1621,8 @@
         ]
       },
       {
-        "domain": "xvideos.com",
-        "rank": 851,
-        "sources": [
-          "blocklist-domains",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "turn.com",
-        "rank": 852,
+        "rank": 851,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1657,22 +1638,24 @@
         ]
       },
       {
-        "domain": "gotinder.com",
-        "rank": 860,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
         "domain": "agora.io",
-        "rank": 868,
+        "rank": 857,
         "sources": [
           "ShadowWhisperer Tracking"
         ]
       },
       {
+        "domain": "xvideos.com",
+        "rank": 858,
+        "sources": [
+          "blocklist-domains",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "px-cloud.net",
-        "rank": 873,
+        "rank": 864,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ultimate",
@@ -1682,7 +1665,7 @@
       },
       {
         "domain": "pendo.io",
-        "rank": 874,
+        "rank": 865,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ads and tracking extended",
@@ -1707,7 +1690,7 @@
       },
       {
         "domain": "adgrx.com",
-        "rank": 886,
+        "rank": 887,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1723,7 +1706,7 @@
       },
       {
         "domain": "yellowblue.io",
-        "rank": 890,
+        "rank": 889,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1739,7 +1722,7 @@
       },
       {
         "domain": "unrulymedia.com",
-        "rank": 895,
+        "rank": 893,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1755,8 +1738,15 @@
         ]
       },
       {
+        "domain": "gotinder.com",
+        "rank": 895,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
         "domain": "pornhub.com",
-        "rank": 901,
+        "rank": 902,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -1764,7 +1754,7 @@
       },
       {
         "domain": "fwmrm.net",
-        "rank": 908,
+        "rank": 909,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1779,7 +1769,7 @@
       },
       {
         "domain": "networkadvertising.org",
-        "rank": 920,
+        "rank": 921,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Ads",
@@ -1789,7 +1779,7 @@
       },
       {
         "domain": "smilewanted.com",
-        "rank": 925,
+        "rank": 924,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1802,16 +1792,6 @@
           "Ads and tracking extended",
           "AdGuard DNS filter",
           "EasyList"
-        ]
-      },
-      {
-        "domain": "singular.net",
-        "rank": 927,
-        "sources": [
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "Ads and tracking extended",
-          "EasyPrivacy"
         ]
       },
       {
@@ -1854,7 +1834,7 @@
       },
       {
         "domain": "flashtalking.com",
-        "rank": 938,
+        "rank": 937,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1867,6 +1847,24 @@
           "Ads and tracking extended",
           "AdGuard DNS filter",
           "EasyList"
+        ]
+      },
+      {
+        "domain": "singular.net",
+        "rank": 941,
+        "sources": [
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "Ads and tracking extended",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "xiaohongshu.com",
+        "rank": 944,
+        "sources": [
+          "blocklist-domains",
+          "EasyPrivacy"
         ]
       },
       {
@@ -1885,16 +1883,8 @@
         ]
       },
       {
-        "domain": "xiaohongshu.com",
-        "rank": 947,
-        "sources": [
-          "blocklist-domains",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "character.ai",
-        "rank": 957,
+        "rank": 958,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -1902,14 +1892,14 @@
       },
       {
         "domain": "mercadolibre.com.ar",
-        "rank": 962,
+        "rank": 963,
         "sources": [
           "Ultimate Hosts Blacklist (domains2)"
         ]
       },
       {
         "domain": "chaturbate.com",
-        "rank": 963,
+        "rank": 965,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -1917,7 +1907,7 @@
       },
       {
         "domain": "go-mpulse.net",
-        "rank": 966,
+        "rank": 967,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -1935,7 +1925,7 @@
       },
       {
         "domain": "eporner.com",
-        "rank": 976,
+        "rank": 974,
         "sources": [
           "blocklist-domains",
           "EasyList",
@@ -1943,21 +1933,8 @@
         ]
       },
       {
-        "domain": "pangle.io",
-        "rank": 977,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "AdGuard DNS filter"
-        ]
-      },
-      {
         "domain": "app-ads-services.com",
-        "rank": 986,
+        "rank": 984,
         "sources": [
           "blocklist-domains",
           "1Hosts (Lite)",
@@ -1969,8 +1946,23 @@
         ]
       },
       {
+        "domain": "contentsquare.net",
+        "rank": 992,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "AdGuard DNS filter",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "xnxx.com",
-        "rank": 991,
+        "rank": 994,
         "sources": [
           "blocklist-domains",
           "EasyList",
@@ -1979,7 +1971,7 @@
       },
       {
         "domain": "4dex.io",
-        "rank": 995,
+        "rank": 996,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -1994,8 +1986,24 @@
         ]
       },
       {
+        "domain": "everesttech.net",
+        "rank": 997,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "btloader.com",
-        "rank": 998,
+        "rank": 999,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2006,21 +2014,6 @@
           "Ultimate",
           "oisd small",
           "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "contentsquare.net",
-        "rank": 999,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
           "AdGuard DNS filter",
           "EasyPrivacy"
         ]
@@ -2034,30 +2027,14 @@
       },
       {
         "domain": "thenai.org",
-        "rank": 1003,
+        "rank": 1006,
         "sources": [
           "ShadowWhisperer Ads"
         ]
       },
       {
-        "domain": "everesttech.net",
-        "rank": 1007,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "presage.io",
-        "rank": 1012,
+        "rank": 1011,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2067,6 +2044,22 @@
           "hostsVN domains",
           "Ultimate",
           "oisd small",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "company-target.com",
+        "rank": 1017,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
           "Ads and tracking extended",
           "AdGuard DNS filter",
           "EasyPrivacy"
@@ -2081,7 +2074,7 @@
       },
       {
         "domain": "vtwenty.com",
-        "rank": 1021,
+        "rank": 1026,
         "sources": [
           "ShadowWhisperer Tracking",
           "1Hosts (Lite)",
@@ -2090,7 +2083,7 @@
       },
       {
         "domain": "moe.video",
-        "rank": 1026,
+        "rank": 1033,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -2100,24 +2093,8 @@
         ]
       },
       {
-        "domain": "company-target.com",
-        "rank": 1029,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "onesignal.com",
-        "rank": 1039,
+        "rank": 1036,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Ads",
@@ -2127,7 +2104,7 @@
       },
       {
         "domain": "kueezrtb.com",
-        "rank": 1041,
+        "rank": 1038,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2139,6 +2116,19 @@
           "oisd small",
           "AdGuard DNS filter",
           "EasyList"
+        ]
+      },
+      {
+        "domain": "pangle.io",
+        "rank": 1043,
+        "sources": [
+          "blocklist-domains",
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "AdGuard DNS filter"
         ]
       },
       {
@@ -2177,7 +2167,7 @@
       },
       {
         "domain": "statcounter.com",
-        "rank": 1060,
+        "rank": 1061,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2190,8 +2180,15 @@
         ]
       },
       {
+        "domain": "ahacdn.me",
+        "rank": 1069,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
         "domain": "360safe.com",
-        "rank": 1065,
+        "rank": 1071,
         "sources": [
           "Ads and tracking extended"
         ]
@@ -2208,8 +2205,49 @@
         ]
       },
       {
+        "domain": "attn.tv",
+        "rank": 1091,
+        "sources": [
+          "NoTrack blocklist",
+          "ShadowWhisperer Tracking",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "oisd small",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "usercentrics.eu",
+        "rank": 1095,
+        "sources": [
+          "ShadowWhisperer Tracking",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "tnaflix.com",
+        "rank": 1096,
+        "sources": [
+          "blocklist-domains",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
+        "domain": "i18n-pglstatp.com",
+        "rank": 1100,
+        "sources": [
+          "NoTrack blocklist",
+          "1Hosts (Lite)",
+          "Ultimate",
+          "oisd small"
+        ]
+      },
+      {
         "domain": "id5-sync.com",
-        "rank": 1080,
+        "rank": 1103,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2226,15 +2264,8 @@
         ]
       },
       {
-        "domain": "ahacdn.me",
-        "rank": 1089,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
         "domain": "tsyndicate.com",
-        "rank": 1095,
+        "rank": 1111,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2252,58 +2283,8 @@
         ]
       },
       {
-        "domain": "usercentrics.eu",
-        "rank": 1097,
-        "sources": [
-          "ShadowWhisperer Tracking",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "tnaflix.com",
-        "rank": 1100,
-        "sources": [
-          "blocklist-domains",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "i18n-pglstatp.com",
-        "rank": 1102,
-        "sources": [
-          "NoTrack blocklist",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "oisd small"
-        ]
-      },
-      {
-        "domain": "attn.tv",
-        "rank": 1107,
-        "sources": [
-          "NoTrack blocklist",
-          "ShadowWhisperer Tracking",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "oisd small",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyPrivacy"
-        ]
-      },
-      {
-        "domain": "faphouse.com",
-        "rank": 1120,
-        "sources": [
-          "blocklist-domains",
-          "EasyList",
-          "EasyPrivacy"
-        ]
-      },
-      {
         "domain": "cpmstar.com",
-        "rank": 1132,
+        "rank": 1120,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2320,8 +2301,17 @@
         ]
       },
       {
+        "domain": "faphouse.com",
+        "rank": 1126,
+        "sources": [
+          "blocklist-domains",
+          "EasyList",
+          "EasyPrivacy"
+        ]
+      },
+      {
         "domain": "mythad.com",
-        "rank": 1162,
+        "rank": 1164,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -2332,23 +2322,8 @@
         ]
       },
       {
-        "domain": "pimpbunny.com",
-        "rank": 1180,
-        "sources": [
-          "blocklist-domains",
-          "EasyList"
-        ]
-      },
-      {
-        "domain": "xhamster.desi",
-        "rank": 1182,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
         "domain": "datadome.co",
-        "rank": 1187,
+        "rank": 1171,
         "sources": [
           "ShadowWhisperer Tracking",
           "Ads and tracking extended",
@@ -2356,8 +2331,23 @@
         ]
       },
       {
+        "domain": "pimpbunny.com",
+        "rank": 1178,
+        "sources": [
+          "blocklist-domains",
+          "EasyList"
+        ]
+      },
+      {
+        "domain": "xhamster.desi",
+        "rank": 1181,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
         "domain": "dmm.co.jp",
-        "rank": 1196,
+        "rank": 1194,
         "sources": [
           "blocklist-domains",
           "EasyPrivacy"
@@ -2365,7 +2355,7 @@
       },
       {
         "domain": "xhaccess.com",
-        "rank": 1206,
+        "rank": 1204,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2373,10 +2363,19 @@
       },
       {
         "domain": "rule34.xxx",
-        "rank": 1213,
+        "rank": 1210,
         "sources": [
           "blocklist-domains",
           "EasyList"
+        ]
+      },
+      {
+        "domain": "technorail.com",
+        "rank": 1212,
+        "sources": [
+          "NoTrack blocklist",
+          "1Hosts (Lite)",
+          "Ultimate"
         ]
       },
       {
@@ -2388,31 +2387,22 @@
       },
       {
         "domain": "pornpics.com",
-        "rank": 1224,
+        "rank": 1220,
         "sources": [
           "blocklist-domains",
           "EasyList"
         ]
       },
       {
-        "domain": "technorail.com",
-        "rank": 1225,
-        "sources": [
-          "NoTrack blocklist",
-          "1Hosts (Lite)",
-          "Ultimate"
-        ]
-      },
-      {
         "domain": "dlsite.com",
-        "rank": 1226,
+        "rank": 1223,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "luugy.com",
-        "rank": 1228,
+        "rank": 1226,
         "sources": [
           "ShadowWhisperer Ads",
           "1Hosts (Lite)",
@@ -2422,8 +2412,16 @@
         ]
       },
       {
+        "domain": "split.io",
+        "rank": 1227,
+        "sources": [
+          "ShadowWhisperer Tracking",
+          "Ads and tracking extended"
+        ]
+      },
+      {
         "domain": "ay267.com",
-        "rank": 1230,
+        "rank": 1234,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -2437,7 +2435,7 @@
       },
       {
         "domain": "spankbang.com",
-        "rank": 1235,
+        "rank": 1237,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2445,7 +2443,7 @@
       },
       {
         "domain": "furaffinity.net",
-        "rank": 1242,
+        "rank": 1245,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2453,7 +2451,7 @@
       },
       {
         "domain": "tradplusad.com",
-        "rank": 1244,
+        "rank": 1247,
         "sources": [
           "NoTrack blocklist",
           "ShadowWhisperer Ads",
@@ -2467,37 +2465,37 @@
         ]
       },
       {
+        "domain": "fetlife.com",
+        "rank": 1250,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
         "domain": "amap.com",
-        "rank": 1245,
+        "rank": 1251,
         "sources": [
           "ShadowWhisperer Tracking"
         ]
       },
       {
-        "domain": "fetlife.com",
-        "rank": 1249,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
-        "domain": "split.io",
-        "rank": 1252,
-        "sources": [
-          "ShadowWhisperer Tracking",
-          "Ads and tracking extended"
-        ]
-      },
-      {
         "domain": "phncdn.com",
-        "rank": 1253,
+        "rank": 1254,
         "sources": [
           "blocklist-domains"
+        ]
+      },
+      {
+        "domain": "intercom.com",
+        "rank": 1260,
+        "sources": [
+          "NoTrack blocklist",
+          "Ultimate Hosts Blacklist (domains2)"
         ]
       },
       {
         "domain": "xhamster2.com",
-        "rank": 1266,
+        "rank": 1264,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2505,14 +2503,14 @@
       },
       {
         "domain": "beboo.ru",
-        "rank": 1272,
+        "rank": 1274,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "rayjump.com",
-        "rank": 1276,
+        "rank": 1280,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -2528,23 +2526,23 @@
         ]
       },
       {
-        "domain": "intercom.com",
-        "rank": 1277,
-        "sources": [
-          "NoTrack blocklist",
-          "Ultimate Hosts Blacklist (domains2)"
-        ]
-      },
-      {
         "domain": "mundodeportivo.com",
-        "rank": 1282,
+        "rank": 1286,
         "sources": [
           "Gambling"
         ]
       },
       {
+        "domain": "youporn.com",
+        "rank": 1288,
+        "sources": [
+          "blocklist-domains",
+          "EasyList"
+        ]
+      },
+      {
         "domain": "adaether.com",
-        "rank": 1285,
+        "rank": 1289,
         "sources": [
           "blocklist-domains",
           "Ad-Block HOSTS",
@@ -2554,16 +2552,8 @@
         ]
       },
       {
-        "domain": "youporn.com",
-        "rank": 1286,
-        "sources": [
-          "blocklist-domains",
-          "EasyList"
-        ]
-      },
-      {
         "domain": "netkeiba.com",
-        "rank": 1299,
+        "rank": 1297,
         "sources": [
           "Gambling",
           "EasyPrivacy"
@@ -2571,7 +2561,7 @@
       },
       {
         "domain": "noodlemagazine.com",
-        "rank": 1304,
+        "rank": 1302,
         "sources": [
           "blocklist-domains",
           "EasyPrivacy"
@@ -2579,7 +2569,7 @@
       },
       {
         "domain": "boyfriendtv.com",
-        "rank": 1305,
+        "rank": 1303,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2587,35 +2577,35 @@
       },
       {
         "domain": "xham.live",
-        "rank": 1308,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
-        "domain": "xvideos-cdn.com",
-        "rank": 1310,
+        "rank": 1306,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "lookmovie2.to",
-        "rank": 1311,
+        "rank": 1307,
         "sources": [
           "Anti-Piracy"
         ]
       },
       {
+        "domain": "xvideos-cdn.com",
+        "rank": 1308,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
         "domain": "donmai.us",
-        "rank": 1312,
+        "rank": 1310,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "xhspot.com",
-        "rank": 1315,
+        "rank": 1311,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2623,7 +2613,7 @@
       },
       {
         "domain": "playhop.com",
-        "rank": 1316,
+        "rank": 1312,
         "sources": [
           "Ultimate",
           "EasyPrivacy"
@@ -2631,14 +2621,14 @@
       },
       {
         "domain": "xhamster19.com",
-        "rank": 1317,
+        "rank": 1313,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "pornone.com",
-        "rank": 1321,
+        "rank": 1315,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2646,45 +2636,21 @@
       },
       {
         "domain": "xhamster1.desi",
-        "rank": 1322,
+        "rank": 1316,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "xhopen.com",
-        "rank": 1326,
+        "rank": 1322,
         "sources": [
           "blocklist-domains"
-        ]
-      },
-      {
-        "domain": "faphouse2.com",
-        "rank": 1328,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
-        "domain": "admanmedia.com",
-        "rank": 1335,
-        "sources": [
-          "blocklist-domains",
-          "NoTrack blocklist",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "hostsVN adservers",
-          "hostsVN domains",
-          "Ultimate",
-          "oisd small",
-          "Ads and tracking extended",
-          "AdGuard DNS filter",
-          "EasyList"
         ]
       },
       {
         "domain": "tremorhub.com",
-        "rank": 1337,
+        "rank": 1327,
         "sources": [
           "blocklist-domains",
           "NoTrack blocklist",
@@ -2697,6 +2663,30 @@
           "Ads and tracking extended",
           "AdGuard DNS filter",
           "EasyList"
+        ]
+      },
+      {
+        "domain": "admanmedia.com",
+        "rank": 1328,
+        "sources": [
+          "blocklist-domains",
+          "NoTrack blocklist",
+          "ShadowWhisperer Ads",
+          "1Hosts (Lite)",
+          "hostsVN adservers",
+          "hostsVN domains",
+          "Ultimate",
+          "oisd small",
+          "Ads and tracking extended",
+          "AdGuard DNS filter",
+          "EasyList"
+        ]
+      },
+      {
+        "domain": "faphouse2.com",
+        "rank": 1329,
+        "sources": [
+          "blocklist-domains"
         ]
       },
       {
@@ -2708,8 +2698,23 @@
         ]
       },
       {
-        "domain": "hai8g.com",
+        "domain": "e621.net",
         "rank": 1340,
+        "sources": [
+          "blocklist-domains"
+        ]
+      },
+      {
+        "domain": "thisvid.com",
+        "rank": 1341,
+        "sources": [
+          "blocklist-domains",
+          "EasyList"
+        ]
+      },
+      {
+        "domain": "hai8g.com",
+        "rank": 1342,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Ads",
@@ -2719,21 +2724,6 @@
           "Ultimate",
           "oisd small",
           "AdGuard DNS filter",
-          "EasyList"
-        ]
-      },
-      {
-        "domain": "e621.net",
-        "rank": 1341,
-        "sources": [
-          "blocklist-domains"
-        ]
-      },
-      {
-        "domain": "thisvid.com",
-        "rank": 1343,
-        "sources": [
-          "blocklist-domains",
           "EasyList"
         ]
       },
@@ -2746,14 +2736,14 @@
       },
       {
         "domain": "aznude.com",
-        "rank": 1354,
+        "rank": 1353,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "redtube.com",
-        "rank": 1357,
+        "rank": 1359,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2761,7 +2751,7 @@
       },
       {
         "domain": "navitime.co.jp",
-        "rank": 1362,
+        "rank": 1360,
         "sources": [
           "Big List of Hacked Malware Web Sites"
         ]
@@ -2775,47 +2765,47 @@
       },
       {
         "domain": "fdown.net",
-        "rank": 1372,
+        "rank": 1374,
         "sources": [
           "Anti-Piracy"
         ]
       },
       {
         "domain": "videoxx.com",
-        "rank": 1373,
+        "rank": 1376,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "xnxxvideos.me",
-        "rank": 1375,
+        "rank": 1378,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
-        "domain": "xhname.com",
+        "domain": "fapello.com",
         "rank": 1379,
+        "sources": [
+          "blocklist-domains",
+          "Streaming (custom)",
+          "EasyList"
+        ]
+      },
+      {
+        "domain": "xhname.com",
+        "rank": 1380,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "e-hentai.org",
-        "rank": 1380,
+        "rank": 1381,
         "sources": [
           "blocklist-domains",
           "Anti-Piracy",
-          "EasyList"
-        ]
-      },
-      {
-        "domain": "fapello.com",
-        "rank": 1382,
-        "sources": [
-          "blocklist-domains",
-          "Streaming (custom)",
           "EasyList"
         ]
       },
@@ -2841,22 +2831,29 @@
         ]
       },
       {
-        "domain": "bookmark.xxx",
-        "rank": 1387,
+        "domain": "sendgrid.net",
+        "rank": 1389,
+        "sources": [
+          "Ads and tracking extended"
+        ]
+      },
+      {
+        "domain": "sex-studentki.team",
+        "rank": 1390,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
-        "domain": "sex-studentki.team",
-        "rank": 1389,
+        "domain": "bookmark.xxx",
+        "rank": 1392,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "beeg.porn",
-        "rank": 1394,
+        "rank": 1396,
         "sources": [
           "blocklist-domains",
           "EasyList"
@@ -2864,7 +2861,7 @@
       },
       {
         "domain": "beyondwickedmapping.org",
-        "rank": 1396,
+        "rank": 1398,
         "sources": [
           "blocklist-domains",
           "ShadowWhisperer Tracking",
@@ -2876,48 +2873,36 @@
       },
       {
         "domain": "hollywoodbets.net",
-        "rank": 1398,
+        "rank": 1401,
         "sources": [
           "Gambling"
         ]
       },
       {
-        "domain": "stbid.ru",
-        "rank": 1401,
-        "sources": [
-          "blocklist-domains",
-          "ShadowWhisperer Ads",
-          "1Hosts (Lite)",
-          "Ultimate",
-          "oisd small",
-          "AdGuard DNS filter"
-        ]
-      },
-      {
-        "domain": "sendgrid.net",
-        "rank": 1402,
-        "sources": [
-          "Ads and tracking extended"
-        ]
-      },
-      {
         "domain": "rule34video.com",
-        "rank": 1405,
+        "rank": 1404,
         "sources": [
           "blocklist-domains",
           "EasyList"
         ]
       },
       {
+        "domain": "firebaseio.com",
+        "rank": 1406,
+        "sources": [
+          "Ultimate Hosts Blacklist (domains2)"
+        ]
+      },
+      {
         "domain": "nesine.com",
-        "rank": 1420,
+        "rank": 1423,
         "sources": [
           "Gambling"
         ]
       },
       {
         "domain": "bing-pe.com",
-        "rank": 1425,
+        "rank": 1429,
         "sources": [
           "blocklist-domains",
           "1Hosts (Lite)",
@@ -2926,39 +2911,39 @@
       },
       {
         "domain": "ukdevilz.com",
-        "rank": 1439,
+        "rank": 1441,
         "sources": [
           "blocklist-domains",
           "EasyPrivacy"
         ]
       },
       {
-        "domain": "firebaseio.com",
-        "rank": 1440,
-        "sources": [
-          "Ultimate Hosts Blacklist (domains2)"
-        ]
-      },
-      {
         "domain": "xxxbp.tv",
-        "rank": 1447,
+        "rank": 1449,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "fpo.xxx",
-        "rank": 1450,
+        "rank": 1451,
         "sources": [
           "blocklist-domains"
         ]
       },
       {
         "domain": "sexvid.xxx",
-        "rank": 1451,
+        "rank": 1454,
         "sources": [
           "blocklist-domains",
           "EasyList"
+        ]
+      },
+      {
+        "domain": "evo-games.com",
+        "rank": 1455,
+        "sources": [
+          "Gambling"
         ]
       }
     ]
