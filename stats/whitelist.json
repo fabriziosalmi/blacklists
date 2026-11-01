@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-31T00:25:47.411970+00:00",
+  "generated_at": "2026-11-01T00:31:39.817292+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 646,
-  "dormant": 1416,
+  "active": 647,
+  "dormant": 1415,
   "duplicates": [],
   "active_entries": [
     {
@@ -2238,6 +2238,12 @@
       "held_back_from": [
         "EasyList",
         "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "kotaku.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
