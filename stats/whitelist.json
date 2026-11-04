@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-03T00:25:39.378513+00:00",
+  "generated_at": "2026-11-04T00:25:28.257979+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 646,
-  "dormant": 1416,
+  "active": 647,
+  "dormant": 1415,
   "duplicates": [],
   "active_entries": [
     {
@@ -3134,6 +3134,12 @@
       "held_back_from": [
         "Tracking aggressive extended",
         "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "s.shopify.com",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-03T00:25:27.704402+00:00",
-  "published_domains": 5508280,
+  "generated_at": "2026-11-04T00:25:20.990207+00:00",
+  "published_domains": 5445445,
   "reference": {
     "name": "Universite Toulouse 1 Capitole blacklists",
     "url": "https://dsi.ut-capitole.fr/blacklists/index_en.php",
@@ -10,8 +10,8 @@
   "categories": [
     {
       "category": "adult",
-      "domains": 623543,
-      "percent": 11.32,
+      "domains": 623351,
+      "percent": 11.45,
       "reference_size": 4599279
     }
   ]
