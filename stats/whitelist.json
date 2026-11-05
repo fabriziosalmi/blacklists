@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T00:25:28.257979+00:00",
+  "generated_at": "2026-11-05T00:26:28.038111+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -144,9 +144,7 @@
     {
       "domain": "afs.googleusercontent.com",
       "held_back_from": [
-        "blocklist-domains",
-        "1Hosts (Lite)",
-        "Ultimate"
+        "1Hosts (Lite)"
       ]
     },
     {
@@ -1987,7 +1985,6 @@
         "First-party trackers",
         "Multi-party only trackers",
         "Multi-party trackers",
-        "Ultimate",
         "AdGuard DNS filter",
         "EasyPrivacy"
       ]
