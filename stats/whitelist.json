@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:26:28.038111+00:00",
+  "generated_at": "2026-11-06T00:26:58.711275+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -144,7 +144,8 @@
     {
       "domain": "afs.googleusercontent.com",
       "held_back_from": [
-        "1Hosts (Lite)"
+        "1Hosts (Lite)",
+        "Ultimate"
       ]
     },
     {
@@ -1973,6 +1974,7 @@
     {
       "domain": "image-ard-de-cddc.at-o.net",
       "held_back_from": [
+        "blocklist-domains",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -1980,7 +1982,6 @@
     {
       "domain": "image.ard.de",
       "held_back_from": [
-        "blocklist-domains",
         "First-party only trackers",
         "First-party trackers",
         "Multi-party only trackers",
