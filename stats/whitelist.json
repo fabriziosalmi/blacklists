@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:26:58.711275+00:00",
+  "generated_at": "2026-11-07T00:24:37.841263+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -45,15 +45,13 @@
     {
       "domain": "aax-eu.amazon.es",
       "held_back_from": [
-        "ShadowWhisperer Ads",
-        "Ultimate"
+        "ShadowWhisperer Ads"
       ]
     },
     {
       "domain": "aax-eu.amazon.it",
       "held_back_from": [
-        "ShadowWhisperer Ads",
-        "Ultimate"
+        "ShadowWhisperer Ads"
       ]
     },
     {
@@ -144,6 +142,7 @@
     {
       "domain": "afs.googleusercontent.com",
       "held_back_from": [
+        "blocklist-domains",
         "1Hosts (Lite)",
         "Ultimate"
       ]
@@ -1928,7 +1927,6 @@
       "held_back_from": [
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
-        "Ultimate",
         "Tracking aggressive extended",
         "AdGuard DNS filter"
       ]
@@ -2356,6 +2354,7 @@
       "domain": "m1.fwmrm.net",
       "held_back_from": [
         "1Hosts (Lite)",
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -2363,6 +2362,7 @@
     {
       "domain": "m2.fwmrm.net",
       "held_back_from": [
+        "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
       ]
@@ -3164,7 +3164,8 @@
     {
       "domain": "s0-2mdn-net.l.google.com",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
