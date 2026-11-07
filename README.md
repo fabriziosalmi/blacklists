@@ -35,16 +35,16 @@ https://github.com/fabriziosalmi/blacklists/releases/download/latest/blacklist.t
 <!-- STATS_START -->
 ## Daily Statistics
 
-**Last Updated**: 2026-11-06 01:11 UTC
+**Last Updated**: 2026-11-07 01:11 UTC
 
 | Metric | Value |
 |--------|-------|
-| **Total Domains** | **5,307,733** |
+| **Total Domains** | **5,285,439** |
 | **Whitelisted** | 2,062 |
 | **Sources** | 39 |
-| **Daily Change** | -163,034 (-2.98%) |
-| **Weekly Change** | -325,184 (-5.77%) |
-| **Monthly Change** | -970,669 (-15.46%) |
+| **Daily Change** | -22,294 (-0.42%) |
+| **Weekly Change** | -189,807 (-3.47%) |
+| **Monthly Change** | -992,963 (-15.82%) |
 
 ![Trend Chart](stats/trend.png)
 
