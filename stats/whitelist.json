@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-07T00:24:37.841263+00:00",
+  "generated_at": "2026-11-08T00:28:29.520909+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 647,
-  "dormant": 1415,
+  "active": 648,
+  "dormant": 1414,
   "duplicates": [],
   "active_entries": [
     {
@@ -45,13 +45,15 @@
     {
       "domain": "aax-eu.amazon.es",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
       "domain": "aax-eu.amazon.it",
       "held_back_from": [
-        "ShadowWhisperer Ads"
+        "ShadowWhisperer Ads",
+        "Ultimate"
       ]
     },
     {
@@ -674,7 +676,6 @@
     {
       "domain": "cf.iadsdk.apple.com",
       "held_back_from": [
-        "blocklist-domains",
         "NoTrack blocklist",
         "1Hosts (Lite)",
         "hostsVN domains",
@@ -898,7 +899,6 @@
     {
       "domain": "cws.conviva.com",
       "held_back_from": [
-        "blocklist-domains",
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
         "hostsVN adservers",
@@ -1007,7 +1007,6 @@
     {
       "domain": "device-metrics-us-2.amazon.com",
       "held_back_from": [
-        "blocklist-domains",
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
         "StevenBlack hosts (base)",
@@ -1312,7 +1311,6 @@
     {
       "domain": "feedbackws.icloud.com",
       "held_back_from": [
-        "blocklist-domains",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
         "Ultimate",
@@ -1888,7 +1886,6 @@
     {
       "domain": "iadsdk.apple.com.akadns.net",
       "held_back_from": [
-        "blocklist-domains",
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
@@ -1927,6 +1924,7 @@
       "held_back_from": [
         "Multi-party trackers",
         "ShadowWhisperer Tracking",
+        "Ultimate",
         "Tracking aggressive extended",
         "AdGuard DNS filter"
       ]
@@ -1954,6 +1952,7 @@
       "domain": "ilcorsaronero.link",
       "held_back_from": [
         "Anti-Piracy",
+        "Threat Intelligence Feeds",
         "Streaming (custom)"
       ]
     },
@@ -1980,6 +1979,7 @@
     {
       "domain": "image.ard.de",
       "held_back_from": [
+        "blocklist-domains",
         "First-party only trackers",
         "First-party trackers",
         "Multi-party only trackers",
@@ -2325,7 +2325,6 @@
     {
       "domain": "limetorrents.lol",
       "held_back_from": [
-        "blocklist-domains",
         "Anti-Piracy"
       ]
     },
@@ -2664,7 +2663,6 @@
     {
       "domain": "news.iadsdk.apple.com",
       "held_back_from": [
-        "blocklist-domains",
         "NoTrack blocklist",
         "1Hosts (Lite)",
         "hostsVN domains",
@@ -3056,6 +3054,12 @@
       "held_back_from": [
         "Anti-Piracy",
         "EasyList"
+      ]
+    },
+    {
+      "domain": "rapidvideo.com",
+      "held_back_from": [
+        "Threat Intelligence Feeds"
       ]
     },
     {
