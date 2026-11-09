@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T00:28:29.520909+00:00",
+  "generated_at": "2026-11-09T00:27:30.770548+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -676,6 +676,7 @@
     {
       "domain": "cf.iadsdk.apple.com",
       "held_back_from": [
+        "blocklist-domains",
         "NoTrack blocklist",
         "1Hosts (Lite)",
         "hostsVN domains",
@@ -899,6 +900,7 @@
     {
       "domain": "cws.conviva.com",
       "held_back_from": [
+        "blocklist-domains",
         "StevenBlack hosts (base)",
         "1Hosts (Lite)",
         "hostsVN adservers",
@@ -1007,6 +1009,7 @@
     {
       "domain": "device-metrics-us-2.amazon.com",
       "held_back_from": [
+        "blocklist-domains",
         "NoTrack blocklist",
         "ShadowWhisperer Tracking",
         "StevenBlack hosts (base)",
@@ -1311,6 +1314,7 @@
     {
       "domain": "feedbackws.icloud.com",
       "held_back_from": [
+        "blocklist-domains",
         "ShadowWhisperer Tracking",
         "1Hosts (Lite)",
         "Ultimate",
@@ -1886,6 +1890,7 @@
     {
       "domain": "iadsdk.apple.com.akadns.net",
       "held_back_from": [
+        "blocklist-domains",
         "Ultimate",
         "Ultimate Hosts Blacklist (domains2)",
         "Ads and tracking extended"
@@ -1979,7 +1984,6 @@
     {
       "domain": "image.ard.de",
       "held_back_from": [
-        "blocklist-domains",
         "First-party only trackers",
         "First-party trackers",
         "Multi-party only trackers",
@@ -2325,6 +2329,7 @@
     {
       "domain": "limetorrents.lol",
       "held_back_from": [
+        "blocklist-domains",
         "Anti-Piracy"
       ]
     },
@@ -2663,6 +2668,7 @@
     {
       "domain": "news.iadsdk.apple.com",
       "held_back_from": [
+        "blocklist-domains",
         "NoTrack blocklist",
         "1Hosts (Lite)",
         "hostsVN domains",
