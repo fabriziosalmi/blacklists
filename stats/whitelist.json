@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-10T00:24:00.388748+00:00",
+  "generated_at": "2026-11-11T00:26:27.138417+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 648,
-  "dormant": 1414,
+  "active": 647,
+  "dormant": 1415,
   "duplicates": [],
   "active_entries": [
     {
@@ -584,13 +584,6 @@
       "domain": "cdn.discordapp.com",
       "held_back_from": [
         "uBO badware risks"
-      ]
-    },
-    {
-      "domain": "cdn.fluidplayer.com",
-      "held_back_from": [
-        "ShadowWhisperer Ads",
-        "Ultimate"
       ]
     },
     {
