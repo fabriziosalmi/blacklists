@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T00:26:27.138417+00:00",
+  "generated_at": "2026-11-12T00:26:49.027607+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -1071,8 +1071,7 @@
       "domain": "disneyholidays.fr",
       "held_back_from": [
         "blocklist-domains",
-        "Ultimate",
-        "Threat Intelligence Feeds"
+        "Ultimate"
       ]
     },
     {
@@ -1707,7 +1706,6 @@
     {
       "domain": "gowc.us",
       "held_back_from": [
-        "Threat Intelligence Feeds",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
