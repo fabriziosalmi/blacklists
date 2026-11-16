@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-15T00:28:38.200703+00:00",
+  "generated_at": "2026-11-16T00:30:33.133943+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 647,
-  "dormant": 1415,
+  "active": 648,
+  "dormant": 1414,
   "duplicates": [],
   "active_entries": [
     {
@@ -3374,8 +3374,7 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "hostsVN adservers",
-        "hostsVN domains",
-        "AdGuard DNS filter"
+        "hostsVN domains"
       ]
     },
     {
@@ -3974,6 +3973,12 @@
         "uBO badware risks",
         "EasyList",
         "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "upgrade.scdn.com",
+      "held_back_from": [
+        "Ultimate"
       ]
     },
     {
