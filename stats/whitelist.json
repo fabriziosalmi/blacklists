@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17T00:25:54.978353+00:00",
+  "generated_at": "2026-11-18T00:26:57.627654+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -1546,7 +1546,8 @@
     {
       "domain": "foxnews.com",
       "held_back_from": [
-        "EasyList"
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1706,6 +1707,7 @@
     {
       "domain": "gowc.us",
       "held_back_from": [
+        "Threat Intelligence Feeds",
         "Ultimate Hosts Blacklist (domains2)"
       ]
     },
