@@ -1,18 +1,12 @@
 {
-  "generated_at": "2026-11-18T00:26:57.627654+00:00",
+  "generated_at": "2026-11-19T00:26:49.430305+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 648,
-  "dormant": 1414,
+  "active": 642,
+  "dormant": 1420,
   "duplicates": [],
   "active_entries": [
-    {
-      "domain": "1fichier.com",
-      "held_back_from": [
-        "Anti-Piracy"
-      ]
-    },
     {
       "domain": "4shared.com",
       "held_back_from": [
@@ -292,7 +286,8 @@
       "domain": "arc.msn.com",
       "held_back_from": [
         "ShadowWhisperer Ads",
-        "Ultimate"
+        "Ultimate",
+        "EasyPrivacy"
       ]
     },
     {
@@ -1071,7 +1066,8 @@
       "domain": "disneyholidays.fr",
       "held_back_from": [
         "blocklist-domains",
-        "Ultimate"
+        "Ultimate",
+        "Threat Intelligence Feeds"
       ]
     },
     {
@@ -1085,12 +1081,6 @@
       "held_back_from": [
         "EasyList",
         "EasyPrivacy"
-      ]
-    },
-    {
-      "domain": "dl.free.fr",
-      "held_back_from": [
-        "Anti-Piracy"
       ]
     },
     {
@@ -1335,14 +1325,14 @@
       "held_back_from": [
         "blocklist-domains",
         "Ultimate",
+        "Threat Intelligence Feeds",
         "oisd small"
       ]
     },
     {
       "domain": "filefactory.com",
       "held_back_from": [
-        "blocklist-domains",
-        "Anti-Piracy"
+        "blocklist-domains"
       ]
     },
     {
@@ -1792,12 +1782,6 @@
       ]
     },
     {
-      "domain": "hitfile.net",
-      "held_back_from": [
-        "Anti-Piracy"
-      ]
-    },
-    {
       "domain": "hollywoodlife.com",
       "held_back_from": [
         "EasyList"
@@ -2123,12 +2107,6 @@
     },
     {
       "domain": "iphone-ld.apple.com",
-      "held_back_from": [
-        "ShadowWhisperer Tracking"
-      ]
-    },
-    {
-      "domain": "iphone-ld.origin-apple.com.akadns.net",
       "held_back_from": [
         "ShadowWhisperer Tracking"
       ]
@@ -2473,12 +2451,6 @@
       ]
     },
     {
-      "domain": "mega.co.nz",
-      "held_back_from": [
-        "Anti-Piracy"
-      ]
-    },
-    {
       "domain": "mega.nz",
       "held_back_from": [
         "Anti-Piracy"
@@ -2636,6 +2608,12 @@
       ]
     },
     {
+      "domain": "netco.edu.np",
+      "held_back_from": [
+        "Threat Intelligence Feeds"
+      ]
+    },
+    {
       "domain": "netflix.com",
       "held_back_from": [
         "EasyPrivacy"
@@ -2716,7 +2694,6 @@
     {
       "domain": "nitroflare.com",
       "held_back_from": [
-        "Anti-Piracy",
         "EasyList"
       ]
     },
@@ -2756,12 +2733,6 @@
       "held_back_from": [
         "EasyList",
         "EasyPrivacy"
-      ]
-    },
-    {
-      "domain": "onecollector.cloudapp.aria.akadns.net",
-      "held_back_from": [
-        "ShadowWhisperer Tracking"
       ]
     },
     {
@@ -3123,6 +3094,7 @@
     {
       "domain": "rt.com",
       "held_back_from": [
+        "Threat Intelligence Feeds",
         "EasyList"
       ]
     },
@@ -3991,12 +3963,6 @@
       ]
     },
     {
-      "domain": "uploaded.to",
-      "held_back_from": [
-        "Anti-Piracy"
-      ]
-    },
-    {
       "domain": "uptimerobot.com",
       "held_back_from": [
         "ShadowWhisperer Tracking"
@@ -4026,12 +3992,6 @@
       "held_back_from": [
         "ShadowWhisperer Tracking",
         "Ultimate"
-      ]
-    },
-    {
-      "domain": "userscloud.com",
-      "held_back_from": [
-        "Anti-Piracy"
       ]
     },
     {
@@ -4291,6 +4251,12 @@
       "held_back_from": [
         "StevenBlack hosts (base)",
         "hostsVN domains"
+      ]
+    },
+    {
+      "domain": "www.bing.com",
+      "held_back_from": [
+        "EasyPrivacy"
       ]
     },
     {
