@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-20T00:24:39.536478+00:00",
+  "generated_at": "2026-11-21T00:25:58.554274+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 642,
-  "dormant": 1420,
+  "active": 643,
+  "dormant": 1419,
   "duplicates": [],
   "active_entries": [
     {
@@ -3425,6 +3425,12 @@
       "domain": "sslgen-tidal.datadome.co",
       "held_back_from": [
         "Ads and tracking extended"
+      ]
+    },
+    {
+      "domain": "stackexchange.com",
+      "held_back_from": [
+        "EasyList"
       ]
     },
     {
