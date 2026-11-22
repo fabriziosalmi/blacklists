@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T00:25:58.554274+00:00",
+  "generated_at": "2026-11-22T00:27:57.797623+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -1325,7 +1325,6 @@
       "held_back_from": [
         "blocklist-domains",
         "Ultimate",
-        "Threat Intelligence Feeds",
         "oisd small"
       ]
     },
@@ -4371,7 +4370,8 @@
       "domain": "zippyshare.com",
       "held_back_from": [
         "Anti-Piracy",
-        "Ultimate"
+        "Ultimate",
+        "Threat Intelligence Feeds"
       ]
     },
     {
