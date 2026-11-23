@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-22T00:27:57.797623+00:00",
+  "generated_at": "2026-11-23T00:28:06.487071+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
-  "active": 643,
-  "dormant": 1419,
+  "active": 642,
+  "dormant": 1420,
   "duplicates": [],
   "active_entries": [
     {
@@ -1905,7 +1905,6 @@
     {
       "domain": "ichnaea.netflix.com",
       "held_back_from": [
-        "Multi-party trackers",
         "ShadowWhisperer Tracking",
         "Ultimate",
         "Tracking aggressive extended",
@@ -2607,12 +2606,6 @@
       ]
     },
     {
-      "domain": "netco.edu.np",
-      "held_back_from": [
-        "Threat Intelligence Feeds"
-      ]
-    },
-    {
       "domain": "netflix.com",
       "held_back_from": [
         "EasyPrivacy"
@@ -3093,7 +3086,6 @@
     {
       "domain": "rt.com",
       "held_back_from": [
-        "Threat Intelligence Feeds",
         "EasyList"
       ]
     },
