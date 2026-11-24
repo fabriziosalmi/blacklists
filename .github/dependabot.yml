@@ -2,6 +2,8 @@ version: 2
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
+    cooldown:
+      default-days: 7
     directory: "/"
     schedule:
       interval: "daily"
@@ -9,6 +11,8 @@ updates:
   # The Python locks (requirements*.txt) are pinned with hashes, so nothing
   # moves unless a pull request moves it.
   - package-ecosystem: "pip"
+    cooldown:
+      default-days: 7
     directory: "/"
     # Dependabot reads .txt files as requirements files, in the root and in
     # sources/. These are lists of domains and notices, not dependencies.
