@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T00:28:06.487071+00:00",
+  "generated_at": "2026-11-24T00:24:44.281894+00:00",
   "state": "measured",
   "entries": 2062,
   "unique": 2062,
@@ -3699,7 +3699,8 @@
     {
       "domain": "theverge.com",
       "held_back_from": [
-        "EasyList"
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
