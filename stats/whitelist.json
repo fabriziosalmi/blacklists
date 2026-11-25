@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-24T00:24:44.281894+00:00",
+  "generated_at": "2026-11-25T00:25:57.448280+00:00",
   "state": "measured",
-  "entries": 2062,
-  "unique": 2062,
-  "active": 642,
-  "dormant": 1420,
+  "entries": 2065,
+  "unique": 2065,
+  "active": 643,
+  "dormant": 1422,
   "duplicates": [],
   "active_entries": [
     {
@@ -2725,6 +2725,12 @@
       "held_back_from": [
         "EasyList",
         "EasyPrivacy"
+      ]
+    },
+    {
+      "domain": "ogaudit.com",
+      "held_back_from": [
+        "1Hosts (Lite)"
       ]
     },
     {
