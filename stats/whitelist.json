@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T00:25:25.331658+00:00",
+  "generated_at": "2026-11-27T00:26:29.801458+00:00",
   "state": "measured",
   "entries": 2065,
   "unique": 2065,
@@ -119,7 +119,8 @@
     {
       "domain": "adobe.com",
       "held_back_from": [
-        "EasyList"
+        "EasyList",
+        "EasyPrivacy"
       ]
     },
     {
@@ -2372,7 +2373,8 @@
       "domain": "mailchimp.com",
       "held_back_from": [
         "NoTrack blocklist",
-        "Ultimate Hosts Blacklist (domains2)"
+        "Ultimate Hosts Blacklist (domains2)",
+        "EasyPrivacy"
       ]
     },
     {
